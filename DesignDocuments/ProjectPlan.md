@@ -1,7 +1,11 @@
-# Project Plan
+# Income Experiences Project Plan
+
+<p>This is an original, individual project being completed for Enterprise Java at Madison Area Technical College. 
+The project plan is adapted from instructor Paula Waite's sample plan.</p>
 
 ## complete
 #### Coursework: IntelliJ, Maven, Tomcat, jUnit, Log4J, Git
+#### Project: 
 <ul>
 <li>X--Repository created on GitHub</li>
 <li>X--Project listed in student repo</li>
@@ -12,6 +16,7 @@
 
 ## by 2/18/19 (week 4, checkpoint 1)
 #### Coursework: Custom Tags
+#### Project: 
 <ul>
 <li>X--Complete problem statement</li>
 <li>X--Complete user stories</li>
@@ -29,6 +34,7 @@ repository linked on the class-wide list</li>
 
 ## by 2/25/19 (week 5)
 #### Coursework: Data Access Objects (DAO) and Hibernate
+#### Project: 
 <ul>
 <li>Incorporate feedback from checkpoint 1</li>
 <li>Complete database design</li>
@@ -47,6 +53,7 @@ repository linked on the class-wide list</li>
 
 ## by 3/4/19 (week 6)
 #### Coursework: Hibernate
+#### Project: 
 <ul>
 <li>Create template for JSPs using Bootstrap 4</li>
 <li>Add the role table</li>
@@ -62,6 +69,7 @@ repository linked on the class-wide list</li>
 
 ## by 3/11/19 (week 7, checkpoint 2 and project reviews)
 #### Coursework: Deploy to AWS
+#### Project: 
 <ul>
 <li>Create database on AWS</li>
 <li>Deploy to AWS for the first time</li>
@@ -81,6 +89,7 @@ class design and any other diagrams are created</li>
 
 ## by 3/25/19 (week 8)
 #### Coursework: Security Authentication
+#### Project: 
 <ul>
 <li>Incorporate feedback from project reviews/checkpoint 2</li>
 <li>Set up authentication locally</li>
@@ -96,8 +105,8 @@ class design and any other diagrams are created</li>
 
 ## by 4/1/19 (week 9, checkpoint 3)
 #### Coursework: Web Services - SOAP Services
+#### Project: 
 <ul>
-
 <li>Integration with BLS API</li>
 <li><b>Update by 2/25: </b>Create ______ table(s)</li>
 <li><b>Update by 2/25: </b>Add the ______ entity(/ies) (test, dev, and prod dbs) </li>
@@ -111,6 +120,7 @@ authentication implemented (log in capability)</li>
 
 ## by 4/8/19 (week 10)
 #### Coursework: RESTful Web Services
+#### Project: 
 <ul>
 <li>Integration with inflation data if possible</li>
 <li>Make forum and/or financial stories searchable</li>
@@ -120,6 +130,7 @@ authentication implemented (log in capability)</li>
 
 ## by 4/15/19 (week 11)
 #### Coursework: no new topics?
+#### Project: 
 <ul>
 <li>Unit test API integrations</li>
 <li>Update time log</li>
@@ -128,6 +139,7 @@ authentication implemented (log in capability)</li>
 
 ## by 4/22/19 (week 12 -- team project presentations)
 #### Coursework: Multithreading
+#### Project: 
 <ul>
 <li>Review project status and rubric and plan remainder</li>
 <li>Update time log</li>
@@ -136,6 +148,7 @@ authentication implemented (log in capability)</li>
 
 ## by 4/29/19 (week 13)
 #### Coursework: no new topics?
+#### Project: 
 <ul>
 <li><b>Update by 4/22:</b></li>
 <li></li>
@@ -148,6 +161,7 @@ authentication implemented (log in capability)</li>
 
 ## by 5/6/19 (week 14, code review)
 #### Coursework: Asynchronous messaging
+#### Project: 
 <ul>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
@@ -155,6 +169,7 @@ authentication implemented (log in capability)</li>
 </ul>
 
 ## by 5/13/19 (week 15, presentation)
+#### Project: 
 <ul>
 <li>Incorporate feedback from code review</li>
 <li>Code quality check</li>
