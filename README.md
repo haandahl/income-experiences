@@ -1,6 +1,6 @@
-#Income Experiences
+# Income Experiences
 
-##Problem Statement
+## Problem Statement
 
 What kinds of financial experiences do individuals and families have at different income levels? There are many decisions 
 in life that could be better-informed if one had a good sense of that: which career to pursue, how to manage starting 
