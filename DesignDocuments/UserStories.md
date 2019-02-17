@@ -38,6 +38,11 @@ situations of interest.
 As a registered user or minor, I want to be able to explore financial situations that would be representative of different
 careers, in order to help make decisions about which career to pursue.
 
+### Search Unique Topics
+
+As a registered user or minor, I want to be able to search stories and forum threads for mentions of topics related to financial 
+experiences in order to find perspectives of interest or decide to post the forum.
+
 ### Ask Questions of Individual Users
 
 As an advanced user, I want to be able to ask questions directed at specific users with stories of interest to me.

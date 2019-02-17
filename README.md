@@ -12,9 +12,19 @@ surrounding people's personal financial situations, more could be done to help p
 incomes.
 
 This website is intended as a safe place for people to share and explore what different incomes feel like for different 
-households. New registered users will be required 
-to complete a short survey about their financial situation the past year before they can see survey results of other 
-members.  At a higher level of engagement, members will be able to provide and search for more detailed information about
-what it has been like to handle routine needs and wants, emergencies, and financial goals at their income level. 
-Finally, users will be able to interact with other users by responding to their personal stories about income.
+households. Some users may be motivated to tell their story and help others, especially younger people, make decisions. 
+Others may visit the site primarily to gather perspectives. In order to build robust information to draw from,
+new users will be required to complete a short survey about their financial situation the past year before they can see 
+survey results of other members. However, to accommodate young people without access to their family's finances, 
+students will be able to search the site using an access code provided at their school, instead of signing up as 
+members.
+
+At a higher level of engagement, members will be provide their financial story -- an narrative that 
+can include their financial history, changes they've experienced, and the biggest factors influencing their 
+feelings about their incomes.  Members who include a personal story will have access to others' stories and
+will be able to participate in a forum to help move the conversation in a direction that is helpful to them.
+
+Since many people are likely to explore careers and incomes concurrently, this site will allow people to search
+for income experiences based on career, using information from the Bureau of Labor Statistics to direct them to the 
+appropriate income survey results.
 
