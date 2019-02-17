@@ -16,7 +16,7 @@
 <li>X--Complete problem statement</li>
 <li>X--Complete user stories</li>
 <li>Complete screen design</li>
-<li>Complete project plan</li>
+<li>X--Complete initial project plan</li>
 <li>List technologies, versions, and uses</li>
 <li>Document application flow</li>
 <li>Include relevant links on README file</li>
@@ -32,10 +32,11 @@ repository linked on the class-wide list</li>
 <ul>
 <li>Incorporate feedback from checkpoint 1</li>
 <li>Complete database design</li>
+<li>Update project plan to reflect specific tables and entities that will be needed</li>
 <li>Create the database</li>
 <li>Create the user table</li>
 <li>Create the user entity class and annotate for hibernate</li>
-<li>Create the user DAO</li>
+<li>Create the user DAO or a generic DAO (if that makes sense)</li>
 <li>Create the test database</li>
 <li>Create user DAO unit tests</li>
 <li>Set up Log4J logging</li>
@@ -54,19 +55,20 @@ repository linked on the class-wide list</li>
 <li>Create the role DAO unit tests</li>
 <li>Add a JSP to display a user profile</li>
 <li>Add a JSP to sign up</li>
+<li>Add a JSP to do the intake survey</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 </ul>
 
-<!-- TODO - CONTINUE HERE -->
-
 ## by 3/11/19 (week 7, checkpoint 2 and project reviews)
 #### Coursework: Deploy to AWS
 <ul>
-
-<li></li>
-<li></li>
-<li></li>
+<li>Create database on AWS</li>
+<li>Deploy to AWS for the first time</li>
+<li><b>Update by 2/25: </b>Create ______ table(s)</li>
+<li><b>Update by 2/25: </b>Add the ______ entity(/ies) (test, dev, and prod dbs) </li>
+<li>Add a JSP to search for income experiences</li>
+<li>Add a JSP to display search results</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 <li>Confirm readiness for checkpoint 2:
@@ -80,11 +82,13 @@ class design and any other diagrams are created</li>
 ## by 3/25/19 (week 8)
 #### Coursework: Security Authentication
 <ul>
-
-<li>Incorporate feedback from project reviews</li>
-<li></li>
-<li></li>
-<li></li>
+<li>Incorporate feedback from project reviews/checkpoint 2</li>
+<li>Set up authentication locally</li>
+<li>Set up authentication on AWS</li>
+<li><b>Update by 2/25: </b>Create ______ table(s)</li>
+<li><b>Update by 2/25: </b>Add the ______ entity(/ies) (test, dev, and prod dbs) </li>
+<li>Add a JSP for the forum page</li>
+<li>Add a JSP for a thread page</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 </ul>
@@ -94,9 +98,10 @@ class design and any other diagrams are created</li>
 #### Coursework: Web Services - SOAP Services
 <ul>
 
-<li></li>
-<li></li>
-<li></li>
+<li>Integration with BLS API</li>
+<li><b>Update by 2/25: </b>Create ______ table(s)</li>
+<li><b>Update by 2/25: </b>Add the ______ entity(/ies) (test, dev, and prod dbs) </li>
+<li>Make sure search JSP works with the BLS API</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 <li>Confirm readiness for checkpoint 3:
@@ -107,11 +112,8 @@ authentication implemented (log in capability)</li>
 ## by 4/8/19 (week 10)
 #### Coursework: RESTful Web Services
 <ul>
-
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>Integration with inflation data if possible</li>
+<li>Make forum and/or financial stories searchable</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 </ul>
@@ -119,11 +121,7 @@ authentication implemented (log in capability)</li>
 ## by 4/15/19 (week 11)
 #### Coursework: no new topics?
 <ul>
-
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>Unit test API integrations</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 </ul>
@@ -131,10 +129,7 @@ authentication implemented (log in capability)</li>
 ## by 4/22/19 (week 12 -- team project presentations)
 #### Coursework: Multithreading
 <ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>Review project status and rubric and plan remainder</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 </ul>
@@ -142,11 +137,11 @@ authentication implemented (log in capability)</li>
 ## by 4/29/19 (week 13)
 #### Coursework: no new topics?
 <ul>
-
+<li><b>Update by 4/22:</b></li>
 <li></li>
 <li></li>
 <li></li>
-<li></li>
+<li>Code quality check</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 </ul>
@@ -154,9 +149,6 @@ authentication implemented (log in capability)</li>
 ## by 5/6/19 (week 14, code review)
 #### Coursework: Asynchronous messaging
 <ul>
-<li></li>
-<li></li>
-<li></li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 <li>Confirm readiness for code review</li>
@@ -164,11 +156,12 @@ authentication implemented (log in capability)</li>
 
 ## by 5/13/19 (week 15, presentation)
 <ul>
-<li></li>
-<li></li>
-<li></li>
 <li>Incorporate feedback from code review</li>
+<li>Code quality check</li>
+<li>Create video</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
+<li>Last check for documentation visible on GitHub</li>
+<li>Last check of functionality of application</li>
 <li>Confirm readiness for presentation</li>
 </ul>
