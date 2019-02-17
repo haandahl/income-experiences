@@ -1,6 +1,6 @@
-#Project Plan
+# Project Plan
 
-##complete
+## complete
 <ul>
 <li>Repository created on GitHub</li>
 <li>Project listed in student repo</li>
@@ -8,7 +8,7 @@
 <li>Initial work pushed to GitHub</li>
 </ul>
 
-##by 2/18/19 (checkpoint 1)
+## by 2/18/19 (checkpoint 1)
 <ul>
 <li>Complete problem statement</li>
 <li>Complete user stories</li>
@@ -22,7 +22,7 @@ problem statement, screen design, and time log pushed to GitHub;
 repository linked on the class-wide list</li>
 </ul>
 
-##by 2/25/19
+## by 2/25/19
 <ul>
 <li></li>
 <li></li>
@@ -33,7 +33,7 @@ repository linked on the class-wide list</li>
 <li>Push work to GitHub</li>
 </ul>
 
-##by (checkpoint 2) due before week 7 class
+## by (checkpoint 2) due before week 7 class
 <ul>
 <li></li>
 <li></li>
@@ -51,7 +51,7 @@ class design and any other diagrams are created</li>
 
 
 
-##by (checkpoint 3) due before week 9 class
+## by (checkpoint 3) due before week 9 class
 <ul>
 <li></li>
 <li></li>
@@ -64,7 +64,7 @@ deployed to AWS, at least one JSP that displays data from the database is implem
 authentication implemented (log in capability)</li>
 </ul>
 
-##by 5/6/19 (code review)
+## by 5/6/19 (code review)
 <ul>
 <li></li>
 <li></li>
@@ -75,7 +75,7 @@ authentication implemented (log in capability)</li>
 <li>Confirm readiness for code review</li>
 </ul>
 
-##by 5/13/19 (presentation)
+## by 5/13/19 (presentation)
 <ul>
 <li></li>
 <li></li>
