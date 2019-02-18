@@ -28,3 +28,23 @@ Since many people are likely to explore careers and incomes concurrently, this s
 for income experiences based on career, using information from the Bureau of Labor Statistics to direct them to the 
 appropriate income survey results.
 
+## Technologies
+
+<p>to be added</p>
+
+## Design
+
+<ul>
+<li>[User Stories](DesignDocuments/UserStories.md)</li>
+<li>[Screen Design](DesignDocuments/ScreenDesigns.md)</li>
+<li>Application Flow to be added</li>
+<li>Database Design to be added</li>
+</ul>
+
+## [Project Plan](DesignDocuments/ProjectPlan.md)
+
+## [Time Log](EnterPriseJavaTimeLog.xlsx)
+
+
+
+
