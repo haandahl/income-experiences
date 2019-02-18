@@ -30,8 +30,6 @@ appropriate income survey results.
 
 ## [Technologies](DesignDocuments/ProjectTechnology.md)
 
-<p>to be added</p>
-
 ## Design
 
 * [User Stories](DesignDocuments/UserStories.md)
