@@ -71,6 +71,16 @@ feeling safe for sensitive discussions.
 As a site administrator, I want to remove users who repeatedly post content that requires removal in order to reduce
 site maintenance time and keep the site friendly and on-topic.
 
+### Flag Content
+
+As a signed in user, I want to flag inappropriate content added by other users so that the 
+site administrator can consider removing it.
+
+### Review Flagged Content
+
+As a site administrator, I want to view a list of flagged stories, forum topics, and replies of 
+any kind in order to quickly identify items to edit or remove.
+
 
 
 
