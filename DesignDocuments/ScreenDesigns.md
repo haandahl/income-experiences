@@ -1,4 +1,4 @@
 # Income Experiences Screen Designs
 
 ### About
-![About](Page Designs/About.png)
+![About](PageDesigns/About.png)
