@@ -22,12 +22,12 @@ The project plan is adapted from instructor Paula Waite's sample plan.</p>
 <li>X--Complete user stories</li>
 <li>X--Complete screen design</li>
 <li>X--Complete initial project plan</li>
-<li>List technologies, versions, and uses</li>
-<li>Document application flow</li>
+<li>X--List technologies, versions, and uses</li>
+<li>X--Document application flow</li>
 <li>X--Include relevant links on README file</li>
 <li>X--Update time log</li>
 <li>X--Push work to GitHub</li>
-<li>Confirm readiness for checkpoint 1: 
+<li>X--Confirm readiness for checkpoint 1: 
 problem statement, screen design, and time log pushed to GitHub; 
 repository linked on the class-wide list</li>
 </ul>
@@ -37,8 +37,10 @@ repository linked on the class-wide list</li>
 #### Project: 
 <ul>
 <li>Incorporate feedback from checkpoint 1</li>
+<li>Resolve inconsistencies regarding access at different levels, especially users with no story yet.</li>
 <li>Complete database design</li>
-<li>Update project plan to reflect specific tables and entities that will be needed</li>
+<li>Update project plan and flow to reflect specific tables and entities that will be needed</li>
+<li>Look into validation and graphing technologies and add to technologies list.</li>
 <li>Create the database</li>
 <li>Create the user table</li>
 <li>Create the user entity class and annotate for hibernate</li>
@@ -87,11 +89,12 @@ class design and any other diagrams are created</li>
 
 ## (3/18/19 is spring break)
 
-## by 3/25/19 (week 8)
+## by 3/25/19 (week 8, presentation on Hibernate Search)
 #### Coursework: Security Authentication
 #### Project: 
 <ul>
 <li>Incorporate feedback from project reviews/checkpoint 2</li>
+<li>Consider how hibernate search could be incorporated to improve users' or admin's search. Update subsequent project plan with related goals.</li>
 <li>Set up authentication locally</li>
 <li>Set up authentication on AWS</li>
 <li><b>Update by 2/25: </b>Create ______ table(s)</li>
@@ -108,9 +111,10 @@ class design and any other diagrams are created</li>
 #### Project: 
 <ul>
 <li>Integration with BLS API</li>
+<li>Add search-by-career functionality to search JSP</li>
 <li><b>Update by 2/25: </b>Create ______ table(s)</li>
 <li><b>Update by 2/25: </b>Add the ______ entity(/ies) (test, dev, and prod dbs) </li>
-<li>Make sure search JSP works with the BLS API</li>
+<li>Add a JSP for Admin page</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 <li>Confirm readiness for checkpoint 3:

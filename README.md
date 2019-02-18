@@ -28,7 +28,7 @@ Since many people are likely to explore careers and incomes concurrently, this s
 for income experiences based on career, using information from the Bureau of Labor Statistics to direct them to the 
 appropriate income survey results.
 
-## Technologies
+## [Technologies](DesignDocuments/ProjectTechnology.md)
 
 <p>to be added</p>
 
@@ -36,7 +36,7 @@ appropriate income survey results.
 
 * [User Stories](DesignDocuments/UserStories.md)
 * [Screen Design](DesignDocuments/ScreenDesigns.md)
-* Application Flow to be added
+* [Application Flow](DesignDocuments/ApplicationFlow.md)
 * Database Design to be added
 
 ## [Project Plan](DesignDocuments/ProjectPlan.md)
