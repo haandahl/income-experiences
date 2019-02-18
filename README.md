@@ -34,12 +34,10 @@ appropriate income survey results.
 
 ## Design
 
-<ul>
-<li>[User Stories](DesignDocuments/UserStories.md)</li>
-<li>[Screen Design](DesignDocuments/ScreenDesigns.md)</li>
-<li>Application Flow to be added</li>
-<li>Database Design to be added</li>
-</ul>
+* [User Stories](DesignDocuments/UserStories.md)
+* [Screen Design](DesignDocuments/ScreenDesigns.md)
+* Application Flow to be added
+* Database Design to be added
 
 ## [Project Plan](DesignDocuments/ProjectPlan.md)
 

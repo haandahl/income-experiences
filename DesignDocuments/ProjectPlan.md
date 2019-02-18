@@ -20,13 +20,13 @@ The project plan is adapted from instructor Paula Waite's sample plan.</p>
 <ul>
 <li>X--Complete problem statement</li>
 <li>X--Complete user stories</li>
-<li>Complete screen design</li>
+<li>X--Complete screen design</li>
 <li>X--Complete initial project plan</li>
 <li>List technologies, versions, and uses</li>
 <li>Document application flow</li>
-<li>Include relevant links on README file</li>
-<li>Update time log</li>
-<li>Push work to GitHub</li>
+<li>X--Include relevant links on README file</li>
+<li>X--Update time log</li>
+<li>X--Push work to GitHub</li>
 <li>Confirm readiness for checkpoint 1: 
 problem statement, screen design, and time log pushed to GitHub; 
 repository linked on the class-wide list</li>
