@@ -41,7 +41,7 @@ appropriate income survey results.
 
 ## [Project Plan](DesignDocuments/ProjectPlan.md)
 
-## [Time Log](EnterPriseJavaTimeLog.xlsx)
+## [Time Log](EnterpriseJavaTimeLog.xlsx)
 
 
 
