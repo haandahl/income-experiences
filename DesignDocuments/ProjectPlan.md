@@ -36,7 +36,7 @@ repository linked on the class-wide list</li>
 #### Coursework: Data Access Objects (DAO) and Hibernate
 #### Project: 
 <ul>
-<li>Incorporate feedback from checkpoint 1</li>
+<li>X--Incorporate feedback from checkpoint 1</li>
 <li>Resolve inconsistencies regarding access at different levels, especially users with no story yet.</li>
 <li>Complete database design</li>
 <li>Update project plan and flow to reflect specific tables and entities that will be needed</li>
@@ -79,6 +79,7 @@ repository linked on the class-wide list</li>
 <li><b>Update by 2/25: </b>Add the ______ entity(/ies) (test, dev, and prod dbs) </li>
 <li>Add a JSP to search for income experiences</li>
 <li>Add a JSP to display search results</li>
+<li>Research Chart.js or c3.js to display charts</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 <li>Confirm readiness for checkpoint 2:

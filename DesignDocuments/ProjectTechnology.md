@@ -31,7 +31,7 @@ The technologies list is adapted from instructor Paula Waite's sample list.</p>
   * AWS
 * Independent Research Topic/s
   * Hibernate Search
-  * Try to add another - consider tools for creating graphs?
+  * Explore these for making graphs: Chart.js or c3.js
 * Unit Testing
   * JUnit tests to achieve 80%+ code coverage (Paula's goal)
 * IDE: IntelliJ IDEA
