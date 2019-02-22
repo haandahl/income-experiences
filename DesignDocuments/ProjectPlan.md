@@ -38,7 +38,7 @@ repository linked on the class-wide list</li>
 <ul>
 <li>X--Incorporate feedback from checkpoint 1</li>
 <li>Resolve inconsistencies regarding access at different levels, especially users with no story yet.</li>
-<li>Complete database design</li>
+<li>X--(Complete for MVP)--Complete database design</li>
 <li>Update project plan and flow to reflect specific tables and entities that will be needed</li>
 <li>Look into validation and graphing technologies and add to technologies list.</li>
 <li>Create the database</li>
@@ -128,6 +128,7 @@ authentication implemented (log in capability)</li>
 #### Project: 
 <ul>
 <li>Integration with inflation data if possible</li>
+<li>Assess viability of stretch goals and add tasks to plan as applicable.</li>
 <li>Make forum and/or financial stories searchable</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>

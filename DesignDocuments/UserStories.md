@@ -92,6 +92,11 @@ site administrator can consider removing it.
 As a site administrator, I want to view a list of flagged stories, forum topics, and replies of 
 any kind in order to quickly identify items to edit or remove.
 
+### Annual Survey
+
+As a registered user, I want to be presented with a financial survey annually in order to continue to contribute 
+meaningful data to the site and keep my membership active.
+
 
 
 

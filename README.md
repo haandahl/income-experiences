@@ -35,7 +35,7 @@ appropriate income survey results.
 * [User Stories](DesignDocuments/UserStories.md)
 * [Screen Design](DesignDocuments/ScreenDesigns.md)
 * [Application Flow](DesignDocuments/ApplicationFlow.md)
-* Database Design to be added
+* [Database Design](DesignDocuments/IncomeExperiencesERD.png)
 
 ## [Project Plan](DesignDocuments/ProjectPlan.md)
 
