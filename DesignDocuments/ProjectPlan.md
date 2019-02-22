@@ -43,7 +43,7 @@ repository linked on the class-wide list</li>
 <li>Look into validation and graphing technologies and add to technologies list.</li>
 <li>X--Create the database</li>
 <li>X--Create the user table</li>
-<li>Create the user entity class and annotate for hibernate</li>
+<li>X--Create the user entity class and annotate for hibernate</li>
 <li>Create the user DAO or a generic DAO (if that makes sense)</li>
 <li>Create the test database</li>
 <li>Create user DAO unit tests</li>
