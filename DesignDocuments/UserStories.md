@@ -58,6 +58,8 @@ experiences in order to find perspectives of interest or decide to post the foru
 
 ## "Stretch Goals" to Improve the Site
 
+***
+
 ### Opt Out of Survey
 
 As a minor user who may not have access to the family's financial information, I want to be able to search the site without
