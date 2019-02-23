@@ -34,4 +34,18 @@ public class UserDaoTest {
     }
 
     */
+
+    @Test
+    void updateSuccess() {
+        int newRole = 3;  //cleandb sets original role to 4
+
+        User userToUpdate = dao.getById(8);
+        userToUpdate.setRole(newRole);
+
+        dao.saveOrUpdate(userToUpdate);
+        User retrievedUser = dao.getById(8);
+
+        assertEquals(newRole, retrievedUser.getRole());
+    }
+
 }
