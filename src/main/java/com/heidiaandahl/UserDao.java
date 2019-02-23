@@ -1,4 +1,4 @@
-package com.heidiaandahl.persistence;
+package com.heidiaandahl;
 
 import com.heidiaandahl.entity.User;
 import org.apache.logging.log4j.LogManager;
@@ -71,6 +71,7 @@ public class UserDao {
         transaction.commit();
         session.close();
     }
+
 
     // TODO get all users by number of removals or admin edits associated with their account
     // Finish Week 5 and Lookup Hibernate Search before digging in

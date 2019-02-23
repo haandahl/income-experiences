@@ -1,4 +1,4 @@
-package com.heidiaandahl.persistence;
+package com.heidiaandahl;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
