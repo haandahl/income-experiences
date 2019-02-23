@@ -1,6 +1,7 @@
-package com.heidiaandahl;
+package com.heidiaandahl.persistence;
 
 import com.heidiaandahl.entity.User;
+import com.heidiaandahl.persistence.SessionFactoryProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;

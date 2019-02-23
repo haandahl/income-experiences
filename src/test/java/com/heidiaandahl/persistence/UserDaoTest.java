@@ -1,8 +1,8 @@
 package com.heidiaandahl.persistence;
 
-import com.heidiaandahl.UserDao;
 import com.heidiaandahl.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class UserDaoTest {
 
@@ -14,5 +14,10 @@ public class UserDaoTest {
 
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
+    }
+
+    @Test
+    void updateSuccess() {
+        int newRole =
     }
 }
