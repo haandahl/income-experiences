@@ -32,14 +32,14 @@ public class UserDao {
         return id;
     }
 
-    // TODO refactor ideas??
-        // doTransaction
-        // doQuery
-            // but what could I pass into those?  I can't just make a where-clause and pass it in can I? or pass some other function in?
-            // all the parts seem so interdependent...
+    public User getById(int id) {
+        Session session = sessionFactory.openSession();
+        User user = session.get(User.class, id);
+        session.close();
+        return user;
+    }
 
-    public List<User> getByPropertyName(String propertyName, String value) {
-        // TODO refactor
+   public List<User> getByPropertyName(String propertyName, String value) {
         Session session = sessionFactory.openSession();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -72,6 +72,15 @@ public class UserDao {
         transaction.commit();
         session.close();
     }
+
+
+    // TODO refactor ideas??
+    // doTransaction
+    // doQuery
+    // but what could I pass into those?  I can't just make a where-clause and pass it in can I? or pass some other function in?
+    // all the parts seem so interdependent...
+
+
 
 
     // TODO get all users by number of removals or admin edits associated with their account
