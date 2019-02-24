@@ -48,4 +48,12 @@ public class UserDaoTest {
         // TODO review .equals recommendations http://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#mapping-model-pojo-equalshashcode
     }
 
+    @Test
+    void getByIdSuccess() {
+        User retrievedUser = dao.getById(2);
+        assertEquals("jean", retrievedUser.getUsername());
+        assertEquals("password1", retrievedUser.getPassword());
+        assertEquals(2, retrievedUser.getRole());
+    }
+
 }
