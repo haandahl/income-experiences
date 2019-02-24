@@ -21,6 +21,7 @@ src/main/resources/hibernate.cfg.xml
 src/test/resources/database.properties
 src/test/resources/hibernate.cfg.xml
 income-experiences.git/
+logs/hibernate.log
 
 # Gradle:
 .idea/gradle.xml
@@ -53,3 +54,5 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+
