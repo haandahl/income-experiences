@@ -39,6 +39,8 @@ public class UserDao {
         return user;
     }
 
+    // TODO decide - Would I even use this one?  Probably need to get user by username which may start w/list even though there should be just one...
+
    public List<User> getByPropertyName(String propertyName, String value) {
         Session session = sessionFactory.openSession();
 
@@ -73,17 +75,8 @@ public class UserDao {
         session.close();
     }
 
-
-    // TODO refactor ideas??
-    // doTransaction
-    // doQuery
-    // but what could I pass into those?  I can't just make a where-clause and pass it in can I? or pass some other function in?
-    // all the parts seem so interdependent...
-
-
-
-
     // TODO get all users by number of removals or admin edits associated with their account
+    // TODO get all users with income near the search criteria and the same family size
     // Finish Week 5 and Lookup Hibernate Search before digging in
 
 }

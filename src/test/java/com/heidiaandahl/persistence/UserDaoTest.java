@@ -5,6 +5,8 @@ import com.heidiaandahl.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDaoTest {
@@ -53,6 +55,15 @@ public class UserDaoTest {
         assertEquals("jean", retrievedUser.getUsername());
         assertEquals("password1", retrievedUser.getPassword());
         assertEquals(2, retrievedUser.getRole());
+    }
+
+    @Test
+    void getByPropertyNameSuccess() {
+        List<User> testList = dao.getByPropertyName("username", "chris");
+        assertEquals(1, testList.size());
+        assertEquals(3, testList.get(0).getId());
+        assertEquals("password2", testList.get(0).getPassword());
+        assertEquals(3, testList.get(0).getId());
     }
 
     @Test
