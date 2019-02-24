@@ -5,8 +5,7 @@ import com.heidiaandahl.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDaoTest {
 
@@ -54,6 +53,12 @@ public class UserDaoTest {
         assertEquals("jean", retrievedUser.getUsername());
         assertEquals("password1", retrievedUser.getPassword());
         assertEquals(2, retrievedUser.getRole());
+    }
+
+    @Test
+    void deleteSuccess() {
+        dao.delete(dao.getById(4));
+        assertNull(dao.getById(4));
     }
 
 }
