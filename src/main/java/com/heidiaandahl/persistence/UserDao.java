@@ -13,12 +13,23 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+/**
+ * The data access object (DAO) for the <code style="color: gray; font-size: 0.8em;">User</code>.
+ *
+ * @author Heidi Aandahl
+ */
 public class UserDao {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
 
+    /**
+     * Inserts a new <code style="color: gray; font-size: 0.8em;">User</code> to the database.
+     *
+     * @param user the new user
+     * @return the Id assigned by the database //TODO verify conceptually (already verified 1x in debugging)
+     */
     public int insert(User user) {
         int id = 0;
         Session session = sessionFactory.openSession();
@@ -32,6 +43,12 @@ public class UserDao {
         return id;
     }
 
+    /**
+     * Retrieves a user by Id.
+     *
+     * @param id the Id of the user in the database
+     * @return the user with the Id requested
+     */
     public User getById(int id) {
         Session session = sessionFactory.openSession();
         User user = session.get(User.class, id);
@@ -39,9 +56,14 @@ public class UserDao {
         return user;
     }
 
-    // TODO decide - Would I even use this one?  Probably need to get user by username which may start w/list even though there should be just one...
-
-   public List<User> getByPropertyName(String propertyName, String value) {
+    /**
+     * Retrieves a user by property name and value.
+     *
+     * @param propertyName the property name
+     * @param value        the value of that property
+     * @return the list of users with the property name and value queried
+     */
+    public List<User> getByPropertyName(String propertyName, String value) {
         Session session = sessionFactory.openSession();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -55,6 +77,11 @@ public class UserDao {
         return users;
     }
 
+    /**
+     * Saves a user with a new Id or updates a user with an existing Id.
+     *
+     * @param user the user to be saved or updated
+     */
     public void saveOrUpdate(User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -65,6 +92,11 @@ public class UserDao {
         session.close();
     }
 
+    /**
+     * Deletes a user.
+     *
+     * @param user the user to be deleted.
+     */
     public void delete(User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

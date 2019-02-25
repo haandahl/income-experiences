@@ -9,10 +9,19 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for <code style="color: gray; font-size: 0.8em;">UserDao</code>
+ *
+ * @author Heidi Aandahl
+ */
 public class UserDaoTest {
 
     UserDao dao;
 
+    /**
+     * Sets up a new <code style="color: gray; font-size: 0.8em;">UserDao</code> and
+     * refreshes the test database before each unit test.
+     */
     @BeforeEach
     void setUp() {
         dao = new UserDao();
@@ -21,6 +30,9 @@ public class UserDaoTest {
         database.runSQL("cleandb.sql");
     }
 
+    /**
+     * Verifies that a user can be updated with a new role.
+     */
     @Test
     void updateSuccess() {
         int newRole = 3;  //cleandb sets original role to 4
@@ -34,6 +46,9 @@ public class UserDaoTest {
         assertEquals(newRole, retrievedUser.getRole());
     }
 
+    /**
+     * Verifies that a new user can be added.
+     */
     @Test
     void addSuccess() {
         User newUser = new User("anne", "password9", 2);
@@ -44,11 +59,11 @@ public class UserDaoTest {
         assertEquals("password9", insertedUser.getPassword());
         assertEquals(2, insertedUser.getRole());
         assertEquals(9, insertedUser.getId());
-        // Instead of comparing all values
-        // it may make sense to use .equals()
-        // TODO review .equals recommendations http://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#mapping-model-pojo-equalshashcode
-    }
+     }
 
+    /**
+     * Verifies that a user can be retrieved by Id.
+     */
     @Test
     void getByIdSuccess() {
         User retrievedUser = dao.getById(2);
@@ -57,6 +72,9 @@ public class UserDaoTest {
         assertEquals(2, retrievedUser.getRole());
     }
 
+    /**
+     * Verifies that a user can be retrieved by username.
+     */
     @Test
     void getByPropertyNameSuccess() {
         List<User> testList = dao.getByPropertyName("username", "chris");
@@ -66,6 +84,9 @@ public class UserDaoTest {
         assertEquals(3, testList.get(0).getId());
     }
 
+    /**
+     * Verfies that a user can be deleted.
+     */
     @Test
     void deleteSuccess() {
         dao.delete(dao.getById(4));

@@ -100,7 +100,7 @@ public class User {
     }
 
     /**
-     * Gets role.
+     * Gets role (a numeric reference).
      *
      * @return the role
      */
@@ -109,7 +109,7 @@ public class User {
     }
 
     /**
-     * Sets role.
+     * Sets role (a numeric reference).
      *
      * @param role the role
      */
