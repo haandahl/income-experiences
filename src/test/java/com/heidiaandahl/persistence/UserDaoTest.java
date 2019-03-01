@@ -1,10 +1,11 @@
 package com.heidiaandahl.persistence;
 
-import com.heidiaandahl.entity.User;
+import com.heidiaandahl.entity.*;
 import com.heidiaandahl.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -59,6 +60,35 @@ public class UserDaoTest {
         assertEquals("password9", insertedUser.getPassword());
         assertEquals(2, insertedUser.getRole());
         assertEquals(9, insertedUser.getId());
+     }
+
+    /**
+     * Verifies that a user can be added with a financial story version that they authored or edited.
+     */
+    @Test
+    void addWithProfileStory() {
+
+        User newUser = new User("mack", "password10", 4);
+
+        String storyContent = "I won the lottery.";
+        LocalDate editDate = LocalDate.now();
+        boolean isVisible = true;
+
+        Story story = new Story(storyContent, editDate, isVisible, newUser, newUser);
+
+        newUser.addStoryForProfile(story);
+        newUser.addStoryToEditList(story);
+
+        int id = dao.insert(newUser);
+
+        assertNotEquals(0,id);
+        User insertedUser = dao.getById(id);
+        assertEquals("mack", insertedUser.getUsername());
+        assertEquals("password10", insertedUser.getPassword());
+        assertEquals(4, insertedUser.getRole());
+        assertEquals(9, insertedUser.getId());
+        assertEquals(1, insertedUser.getStoryVersionsForUserProfile().size());
+        assertEquals(1, insertedUser.getStoryVersionsWithUserEdit().size());
      }
 
     /**

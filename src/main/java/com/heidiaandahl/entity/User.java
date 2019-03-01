@@ -37,10 +37,6 @@ public class User {
     @OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Story> storyVersionsWithUserEdit = new HashSet<>();
 
-    // TODO add and remove methods for stories.... does this make sense?? Consider user stories for this.
-    // I suppose it makes up the complete profile of a user, and we'd need to add stories for sure for retrieval
-    // I don't plan to remove stories unless removing a user.  so yess.  remove.
-
     /**
      * Instantiates a new User.
      */
@@ -130,6 +126,42 @@ public class User {
      */
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public Set<Story> getStoryVersionsForUserProfile() {
+        return storyVersionsForUserProfile;
+    }
+
+    public void setStoryVersionsForUserProfile(Set<Story> storyVersionsForUserProfile) {
+        this.storyVersionsForUserProfile = storyVersionsForUserProfile;
+    }
+
+    public Set<Story> getStoryVersionsWithUserEdit() {
+        return storyVersionsWithUserEdit;
+    }
+
+    public void setStoryVersionsWithUserEdit(Set<Story> storyVersionsWithUserEdit) {
+        this.storyVersionsWithUserEdit = storyVersionsWithUserEdit;
+    }
+
+    public void addStoryForProfile(Story story) {
+        storyVersionsForUserProfile.add(story);
+        story.setProfileUser(this);
+    }
+
+    public void removeStoryForProfile(Story story) {
+        storyVersionsForUserProfile.remove(story);
+        story.setProfileUser(null);
+    }
+
+    public void addStoryToEditList(Story story) {
+        storyVersionsWithUserEdit.add(story);
+        story.setProfileUser(this);
+    }
+
+    public void removeStoryToEditList(Story story) {
+        storyVersionsWithUserEdit.remove(story);
+        story.setProfileUser(null);
     }
 
     /*  TODO  decide which to string makes sense... do I want to include the sets??

@@ -49,3 +49,5 @@ INSERT into USER values  (5, 'sam', 'password4', 3);
 INSERT into USER values  (6, 'kj', 'password5', 3);
 INSERT into USER values  (7, 'ryan', 'password6', 4);
 INSERT into USER values  (8, 'mary', 'password7', 4);
+-- ------------------------------------------------------------------------------------------------
+INSERT into financial_story values (1, 'We made it work in our 4-generation home.', '2018-01-01', 4, 4);
