@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @Table(name = "financial_story")
 public class Story {
 
-    // non FK fields
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -26,17 +25,9 @@ public class Story {
     private boolean isVisible;
 
     /*
-    From PW in Slack: As you work on week 5 and your indie project.
-    Hibernate assumes that id columns (in the database) are simply named "id",
-    and that a join column would then be named <table name>_id (user_id, for example).
-    This is how I demonstrate this in the week 5 demos.
-    However, if you are using another naming scheme, for example userID, \
-    you will need to specify the join column when annotating your relationships.
-
-    See also https://www.baeldung.com/hibernate-one-to-many
+        Resource for ManyToOne JoinColumn: https://www.baeldung.com/hibernate-one-to-many
      */
 
-    // @Column(s) not allowed on a @ManyToOne property: com.heidiaandahl.entity.Story.editor
     @ManyToOne
     @JoinColumn(name="profile_user")
     private User profileUser;
@@ -46,7 +37,74 @@ public class Story {
     private User editor;
 
 
+    public Story() {
+    }
 
+    public Story(String storyContent, LocalDate editDate, boolean isVisible, User profileUser, User editor) {
+        this.storyContent = storyContent;
+        this.editDate = editDate;
+        this.isVisible = isVisible;
+        this.profileUser = profileUser;
+        this.editor = editor;
+    }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getStoryContent() {
+        return storyContent;
+    }
+
+    public void setStoryContent(String storyContent) {
+        this.storyContent = storyContent;
+    }
+
+    public LocalDate getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(LocalDate editDate) {
+        this.editDate = editDate;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
+    public User getProfileUser() {
+        return profileUser;
+    }
+
+    public void setProfileUser(User profileUser) {
+        this.profileUser = profileUser;
+    }
+
+    public User getEditor() {
+        return editor;
+    }
+
+    public void setEditor(User editor) {
+        this.editor = editor;
+    }
+
+    @Override
+    public String toString() {
+        return "Story{" +
+                "id=" + id +
+                ", storyContent='" + storyContent + '\'' +
+                ", editDate=" + editDate +
+                ", isVisible=" + isVisible +
+                ", profileUser=" + profileUser +
+                ", editor=" + editor +
+                '}';
+    }
 }

@@ -25,6 +25,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    // TODO - set this up as ManyToOne once Role Entity is established
     @Column(name = "role_id")
     private int role;
 
@@ -37,7 +38,8 @@ public class User {
     private Set<Story> storyVersionsWithUserEdit = new HashSet<>();
 
     // TODO add and remove methods for stories.... does this make sense?? Consider user stories for this.
-
+    // I suppose it makes up the complete profile of a user, and we'd need to add stories for sure for retrieval
+    // I don't plan to remove stories unless removing a user.  so yess.  remove.
 
     /**
      * Instantiates a new User.
@@ -130,6 +132,7 @@ public class User {
         this.role = role;
     }
 
+    /*  TODO  decide which to string makes sense... do I want to include the sets??
     @Override
     public String toString() {
         return "User{" +
@@ -137,6 +140,19 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                '}';
+    }
+    */
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", storyVersionsForUserProfile=" + storyVersionsForUserProfile +
+                ", storyVersionsWithUserEdit=" + storyVersionsWithUserEdit +
                 '}';
     }
 }

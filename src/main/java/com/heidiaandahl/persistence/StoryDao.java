@@ -1,7 +1,6 @@
 package com.heidiaandahl.persistence;
 
-import com.heidiaandahl.entity.User;
-import com.heidiaandahl.persistence.SessionFactoryProvider;
+import com.heidiaandahl.entity.Story;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -14,28 +13,28 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
- * The data access object (DAO) for the <code style="color: gray; font-size: 0.8em;">User</code>.
+ * The data access object (DAO) for the <code style="color: gray; font-size: 0.8em;">Story</code>.
  *
  * @author Heidi Aandahl
  */
-public class UserDao {
+public class StoryDao {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
 
     /**
-     * Inserts a new <code style="color: gray; font-size: 0.8em;">User</code> to the database.
+     * Inserts a new <code style="color: gray; font-size: 0.8em;">Story</code> to the database.
      *
-     * @param user the new user
+     * @param story the new story
      * @return the Id assigned by the database
      */
-    public int insert(User user) {
+    public int insert(Story story) {
         int id = 0;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        id = (int)session.save(user);
+        id = (int)session.save(story);
 
         transaction.commit();
         session.close();
@@ -44,63 +43,63 @@ public class UserDao {
     }
 
     /**
-     * Retrieves a user by Id.
+     * Retrieves a story by Id.
      *
-     * @param id the Id of the user in the database
-     * @return the user with the Id requested
+     * @param id the Id of the story in the database
+     * @return the story with the Id requested
      */
-    public User getById(int id) {
+    public Story getById(int id) {
         Session session = sessionFactory.openSession();
-        User user = session.get(User.class, id);
+        Story story = session.get(Story.class, id); // Now I'm getting org.hibernate.exception.SQLGrammarException: could not extract ResultSet
         session.close();
-        return user;
+        return story;
     }
 
     /**
-     * Retrieves a user by property name and value.
+     * Retrieves a story by property name and value.
      *
      * @param propertyName the property name
      * @param value        the value of that property
-     * @return the list of users with the property name and value queried
+     * @return the list of storys with the property name and value queried
      */
-    public List<User> getByPropertyName(String propertyName, String value) {
+    public List<Story> getByPropertyName(String propertyName, String value) {
         Session session = sessionFactory.openSession();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<User> query = builder.createQuery(User.class);
-        Root<User> root = query.from(User.class);
+        CriteriaQuery<Story> query = builder.createQuery(Story.class);
+        Root<Story> root = query.from(Story.class);
 
         query.select(root).where(builder.equal(root.get(propertyName), value));
-        List<User> users = session.createQuery(query).getResultList();
+        List<Story> storys = session.createQuery(query).getResultList();
         session.close();
-        return users;
+        return storys;
     }
 
     /**
-     * Saves a user with a new Id or updates a user with an existing Id.
+     * Saves a story with a new Id or updates a story with an existing Id.
      *
-     * @param user the user to be saved or updated
+     * @param story the story to be saved or updated
      */
-    public void saveOrUpdate(User user) {
+    public void saveOrUpdate(Story story) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        session.saveOrUpdate(user);
+        session.saveOrUpdate(story);
 
         transaction.commit();
         session.close();
     }
 
     /**
-     * Deletes a user.
+     * Deletes a story.
      *
-     * @param user the user to be deleted.
+     * @param story the story to be deleted.
      */
-    public void delete(User user) {
+    public void delete(Story story) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        session.delete(user);
+        session.delete(story);
 
         transaction.commit();
         session.close();
