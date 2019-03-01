@@ -51,7 +51,7 @@ public class UserDao {
      */
     public User getById(int id) {
         Session session = sessionFactory.openSession();
-        User user = session.get(User.class, id);
+        User user = session.get(User.class, id); // Now I'm getting org.hibernate.exception.SQLGrammarException: could not extract ResultSet
         session.close();
         return user;
     }
@@ -71,8 +71,8 @@ public class UserDao {
         Root<User> root = query.from(User.class);
 
         query.select(root).where(builder.equal(root.get(propertyName), value));
-        List<User> users = session.createQuery(query).getResultList();
-
+        List<User> users = session.createQuery(query).getResultList();  //javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+        // Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 'storyversi0_.financial_story_editor' in 'field list'
         session.close();
         return users;
     }

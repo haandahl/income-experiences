@@ -3,6 +3,8 @@ package com.heidiaandahl.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * User of the web application.
@@ -25,6 +27,17 @@ public class User {
 
     @Column(name = "role_id")
     private int role;
+
+    // TODO - consider cascading and fetching, keep or change?  Also hash set or tree??
+
+    @OneToMany(mappedBy = "profileUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Story> storyVersionsForUserProfile = new HashSet<>();
+
+    @OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Story> storyVersionsWithUserEdit = new HashSet<>();
+
+    // TODO add and remove methods for stories.... does this make sense?? Consider user stories for this.
+
 
     /**
      * Instantiates a new User.

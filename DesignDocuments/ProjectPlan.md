@@ -37,20 +37,20 @@ repository linked on the class-wide list</li>
 #### Project: 
 <ul>
 <li>X--Incorporate feedback from checkpoint 1</li>
-<li>Resolve inconsistencies regarding access at different levels, especially users with no story yet.</li>
+<li>ALLOW TO EVOLVE--DOCUMENT LATER--Resolve inconsistencies regarding access at different levels, especially users with no story yet.</li>
 <li>X--(Complete for MVP)--Complete database design</li>
-<li>Update project plan and flow to reflect specific tables and entities that will be needed</li>
-<li>Look into validation and graphing technologies and add to technologies list.</li>
+<li>DELAY--Update project plan and flow to reflect specific tables and entities that will be needed</li>
+<li>DELAY--Look into validation and graphing technologies and add to technologies list.</li>
 <li>X--Create the database</li>
 <li>X--Create the user table</li>
 <li>X--Create the user entity class and annotate for hibernate</li>
-<li>Create the user DAO or a generic DAO (if that makes sense)</li>
-<li>Create the test database</li>
-<li>Create user DAO unit tests</li>
-<li>Set up Log4J logging</li>
-<li>Create class uml diagram</li>
-<li>Update time log</li>
-<li>Push work to GitHub</li>
+<li>X--Create the user DAO or a generic DAO (if that makes sense)</li>
+<li>X--Create the test database</li>
+<li>X--Create user DAO unit tests</li>
+<li>X--PENDING ISSUES--Set up Log4J logging</li>
+<li>DELAY--Create class uml diagram</li>
+<li>X--Update time log</li>
+<li>X--Push work to GitHub</li>
 </ul>
 
 ## by 3/4/19 (week 6)
@@ -58,10 +58,13 @@ repository linked on the class-wide list</li>
 #### Project: 
 <ul>
 <li>Create template for JSPs using Bootstrap 4</li>
-<li>Add the role table</li>
-<li>Add the role entity</li>
-<li>Create the role DAO</li>
-<li>Create the role DAO unit tests</li>
+<li>ADD--Add financial_story entity and DAO (or if time, generic DAO)</li>
+<li>ADD--Annotate financial_story and user</li>
+<li>ADD--Unit test financial_story (and user relationship)</li>
+<li>DELAY TO AUTHENTICATION WEEK--Add the role table</li>
+<li>DELAY TO AUTHENTICATION WEEK--Add the role entity</li>
+<li>DELAY TO AUTHENTICATION WEEK--Create the role DAO</li>
+<li>DELAY TO AUTHENTICATION WEEK--Create the role DAO unit tests</li>
 <li>Add a JSP to display a user profile</li>
 <li>Add a JSP to sign up</li>
 <li>Add a JSP to do the intake survey</li>
