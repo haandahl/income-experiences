@@ -101,30 +101,29 @@ public class StoryDaoTest {
     }
 
     /**
-     * Verifies that a story version can be retrieved by editor.  Not needed - this is now a getter in the User.
+     * Verifies that a story version can be retrieved by search term.
      */
     @Test
-    void getByPropertyNameSuccess() {
+    void getByPropertyLikeSuccess() {
 
         UserDao userDao = new UserDao();
-        User testEditor = userDao.getById(1);
-        LocalDate testDate = LocalDate.parse("2018-03-05");
+        String testSearchTerm = "generation";
 
-        List<Story> testList = (List<Story>) dao.getByPropertyName("editor", testEditor);
-        //Error:(111, 78) java: incompatible types: com.heidiaandahl.entity.User cannot be converted to java.lang.String
-        // TODO resolve above
-        // getByPPropertyName takes a string as a second parameter... which isn't what I want in this case
-        // I notice that PW's generic dao doesn't even include the getByProperty function
+        List<Story> testList = dao.getByPropertyLike("storyContent", testSearchTerm);
 
         assertEquals(1, testList.size());
-        assertEquals(3, testList.get(0).getId());
+        assertEquals(1, testList.get(0).getId());
+
+        /*
+
         assertEquals("It was a great year.", testList.get(0).getStoryContent());
         assertEquals(testDate, testList.get(0).getEditDate());
         assertEquals(true, testList.get(0).isVisible());
         assertEquals(8, testList.get(0).getProfileUser().getId());
         assertEquals(1, testList.get(0).getEditor().getId());
+        */
     }
-    */
+
 
     /**
      * Verfies that a story can be deleted.
