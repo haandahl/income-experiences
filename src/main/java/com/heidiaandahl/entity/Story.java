@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 @Entity(name = "Story")
@@ -108,39 +109,19 @@ public class Story {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Story story = (Story) o;
+        return id == story.id &&
+                isVisible == story.isVisible &&
+                Objects.equals(storyContent, story.storyContent) &&
+                Objects.equals(editDate, story.editDate);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, storyContent, editDate, isVisible);
+    }
 }
-
-//TODO - review / delete notes
-
-   /*
-        Date from db doesn't convert to LocalDate.  Can the servlet make a now() date and convert it to the kind of date
-        that goes into the db instead?  Is Java Date fine for this?  I am depending on date for a general idea
-        of how long ago the admin made edits (to see if they are ramping up or tailing off I guess), but I am
-        depending on Id for sustaining more precise order.  So date format and precision may not matter much.
-
-        PW uses datetime and timestamp in her db
-
-        Also interesting is that she does not seem to be mapping all her instance variables to columns...
-
-        And she has all kinds of interesting annotations.... oh, they are making reference to utilities?:
-        She followed this model: https://thoughts-on-java.org/persist-localdate-localdatetime-jpa/
-
-        @Convert(converter = LocalDateAttributeConverter.class)
-        private LocalDate rideDate;
-
-        @CreationTimestamp
-        @Convert(converter = TimestampAttributeConverter.class)
-        @EqualsAndHashCode.Exclude
-        private LocalDateTime createDate;
-
-        @UpdateTimestamp
-        @Convert(converter = TimestampAttributeConverter.class)
-        @EqualsAndHashCode.Exclude
-        private LocalDateTime updateDate;
-     */
-    /*
-        Welcome to use PW method but she though Hibernate 5 could do better...
-     */
-
-
