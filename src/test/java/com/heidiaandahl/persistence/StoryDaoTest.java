@@ -136,7 +136,7 @@ public class StoryDaoTest {
     }
 
     /**
-     * Verfies that a story can be deleted.
+     * Verfies that a story can be deleted.  TODO verify that users are not deleted.
      */
     @Test
     void deleteSuccess() {

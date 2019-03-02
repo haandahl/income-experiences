@@ -121,27 +121,49 @@ public class UserDaoTest {
     }
 
     /**
-     * Verifies that when a user is deleted, their profile stories are deleted, but their edited stories are not deleted.
+     * Verifies that a user can be deleted.
      */
     @Test
     void deleteSuccess() {
-        // Identify user to delete
-        int idOfUserWithStories = 8;
-        User userToDelete = dao.getById(idOfUserWithStories);
 
+        dao.delete(dao.getById(4));
+        assertNull(dao.getById(4));
+   }
 
-        // TODO get story versions edited by the user
-
-
-
-        dao.delete(userToDelete);
-        assertNull(dao.getById(idOfUserWithStories));
-
-        //Verify profile story versions are deleted
+    /**
+     * Verifies that a user can be deleted, and their profile story versions will be deleted, too.
+     */
+    @Test
+    void deleteCascadeProfileStoriesSuccess() {
         StoryDao storyDao = new StoryDao();
 
+        // Identify user with both a profile story and an edit on somebody else's story
+        int idOfUserToDelete = 1;
 
+        // Identify story version that should delete (User's profile story)
+        int idOfProfileStory = 4;
 
+        dao.delete(dao.getById(idOfUserToDelete));
+        assertNull(dao.getById(idOfUserToDelete));
+        assertNull(storyDao.getById(idOfProfileStory));
+    }
+
+    /**
+     * Verifies that a user can be deleted, but stories they have only edited will not be deleted.
+     */
+    @Test
+    void deleteNoCascadeEditStoriesSuccess() {
+        StoryDao storyDao = new StoryDao();
+
+        // Identify user with both a profile story and an edit on somebody else's story
+        int idOfUserToDelete = 1;
+
+        // Identify story version that should not delete, because the user only edited it
+        int idOfEditedStory = 3;
+
+        dao.delete(dao.getById(idOfUserToDelete));
+        assertNull(dao.getById(idOfUserToDelete));
+        assertNotNull(storyDao.getById(idOfEditedStory));
 
     }
 
