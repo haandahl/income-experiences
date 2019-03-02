@@ -115,6 +115,22 @@ public class StoryDaoTest {
         assertEquals(expectedStory, testList.get(0));
     }
 
+    /**
+     * Verifies that story versions can be retrieved by visibility.
+     */
+    @Test
+    void getByBooleanPropertySuccess() {
+
+        boolean testVisibility = true;
+        Story firstExpectedStory = dao.getById(1);
+        Story secondExpectedStory = dao.getById(3);
+
+        List<Story> testList = dao.getByBooleanProperty("isVisible", testVisibility);
+
+        assertEquals(2, testList.size());
+        assertEquals(firstExpectedStory, testList.get(0));
+        assertEquals(secondExpectedStory, testList.get(1));
+    }
 
     /**
      * Verfies that a story can be deleted.

@@ -57,27 +57,6 @@ public class StoryDao {
     }
 
     /**
-     * Retrieves a story by property name and value.
-     *
-     * @param propertyName the property name
-     * @param value        the value of that property
-     * @return the list of storys with the property name and value queried
-     *
-    public List<Story> getByPropertyNameLike(String propertyName, String value) {
-        Session session = sessionFactory.openSession();
-
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Story> query = builder.createQuery(Story.class);
-        Root<Story> root = query.from(Story.class);
-
-        query.select(root).where(builder.equal(root.get(propertyName), value));
-        List<Story> storys = session.createQuery(query).getResultList();
-        session.close();
-        return storys;
-    }
-    */
-
-    /**
      * Get story by property (like).
      * Sample usage: getByPropertyLike("content", "lottery")
      *
@@ -102,6 +81,27 @@ public class StoryDao {
         return stories;
     }
 
+    /**
+     * Get story by boolean property.
+     *
+     * @param propertyName entity property to search by
+     * @param value value of the property to search for
+     * @return list of stories meeting the criteria search
+     */
+    public List<Story> getByBooleanProperty(String propertyName, boolean value) {
+        Session session = sessionFactory.openSession();
+
+        logger.debug("Searching for story with " +  propertyName + " = ", value);
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Story> query = builder.createQuery(Story.class);
+        Root<Story> root = query.from(Story.class);
+        query.select(root).where(builder.equal(root.get(propertyName), value));
+
+        List<Story> stories = session.createQuery(query).getResultList();
+        session.close();
+        return stories;
+    }
 
 
     /**
