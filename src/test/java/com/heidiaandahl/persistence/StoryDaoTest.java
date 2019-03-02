@@ -74,7 +74,7 @@ public class StoryDaoTest {
         assertNotEquals(0,id);
         Story insertedStory = dao.getById(id);
 
-        assertEquals(4, insertedStory.getId());
+        assertEquals(5, insertedStory.getId());
         assertEquals(testStoryContent, insertedStory.getStoryContent());
         assertEquals(testEditDate, insertedStory.getEditDate());
         assertEquals(testVisibility, insertedStory.isVisible());
@@ -124,12 +124,15 @@ public class StoryDaoTest {
         boolean testVisibility = true;
         Story firstExpectedStory = dao.getById(1);
         Story secondExpectedStory = dao.getById(3);
+        Story thirdExpectedStory = dao.getById(4);
+
 
         List<Story> testList = dao.getByBooleanProperty("isVisible", testVisibility);
 
-        assertEquals(2, testList.size());
+        assertEquals(3, testList.size());
         assertEquals(firstExpectedStory, testList.get(0));
         assertEquals(secondExpectedStory, testList.get(1));
+        assertEquals(thirdExpectedStory, testList.get(2));
     }
 
     /**
