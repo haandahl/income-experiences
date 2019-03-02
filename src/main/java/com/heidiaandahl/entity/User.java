@@ -35,7 +35,7 @@ public class User {
     @OneToMany(mappedBy = "profileUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Story> storyVersionsForUserProfile = new HashSet<>();
 
-    @OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
     private Set<Story> storyVersionsWithUserEdit = new HashSet<>();
 
     /**

@@ -165,6 +165,10 @@ public class UserDaoTest {
         assertNull(dao.getById(idOfUserToDelete));
         assertNotNull(storyDao.getById(idOfEditedStory));
 
+        //org.opentest4j.AssertionFailedError: expected: not <null>
+        //TODO figure out why this is failing.
+        //Tried to make editor nullable in DB.  What else is needed?
+
     }
 
 }
