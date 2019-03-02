@@ -64,32 +64,36 @@ public class UserDaoTest {
 
     /**
      * Verifies that a user can be added with a financial story version that they authored or edited.
-     * //TODO change name to reflect both roles of user - profile assoc and editor
+     * TODO - I don't think this will be used b/c story only added after user is already added
+     * TODO  - delete and apply same concept to role later (more applicable)
      */
     @Test
     void addWithProfileStory() {
 
+        // Create new user with a profile story, self-authored
         User newUser = new User("mack", "password10", 4);
 
         String storyContent = "I won the lottery.";
-        LocalDate editDate = LocalDate.now();
+        LocalDate editDate = LocalDate.parse("2017-05-20");
         boolean isVisible = true;
 
-        Story story = new Story(storyContent, editDate, isVisible, newUser, newUser);
+        Story newStory = new Story(storyContent, editDate, isVisible, newUser, newUser);
 
-        newUser.addStoryForProfile(story);
-        newUser.addStoryToEditList(story);
+        newUser.addStoryForProfile(newStory);
+        newUser.addStoryToEditList(newStory);
 
+        // Add new user with profile story
         int id = dao.insert(newUser);
 
+        // Test results
         assertNotEquals(0,id);
         User insertedUser = dao.getById(id);
-        assertEquals("mack", insertedUser.getUsername());
-        assertEquals("password10", insertedUser.getPassword());
-        assertEquals(4, insertedUser.getRole());
-        assertEquals(9, insertedUser.getId());
+        assertEquals(newUser, insertedUser);
         assertEquals(1, insertedUser.getStoryVersionsForUserProfile().size());
         assertEquals(1, insertedUser.getStoryVersionsWithUserEdit().size());
+        assertTrue(insertedUser.getStoryVersionsForUserProfile().contains(newStory));
+        assertTrue(insertedUser.getStoryVersionsWithUserEdit().contains(newStory));
+
      }
 
     /**
