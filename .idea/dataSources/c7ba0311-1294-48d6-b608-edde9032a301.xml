@@ -997,6 +997,7 @@
       <RefSchemaName>income_experiences</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnDelete>set-null</OnDelete>
     </foreign-key>
     <column id="255" parent="235" name="id">
       <Position>1</Position>

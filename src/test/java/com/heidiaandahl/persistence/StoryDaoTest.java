@@ -33,7 +33,6 @@ public class StoryDaoTest {
 
     /**
      * Verifies that a story can be updated with a new visibility setting.
-     * TODO ERASE PASS
      */
     @Test
     void updateSuccess() {
@@ -50,7 +49,6 @@ public class StoryDaoTest {
 
     /**
      * Verifies that a new story can be added.
-     * TODO ERASE PASS
      */
     @Test
     void addSuccess() {
@@ -85,7 +83,6 @@ public class StoryDaoTest {
 
      /**
      * Verifies that a story can be retrieved by Id.
-      * TODO ERASE PASS
      */
     @Test
     void getByIdSuccess() {
@@ -126,7 +123,6 @@ public class StoryDaoTest {
         Story secondExpectedStory = dao.getById(3);
         Story thirdExpectedStory = dao.getById(4);
 
-
         List<Story> testList = dao.getByBooleanProperty("isVisible", testVisibility);
 
         assertEquals(3, testList.size());
@@ -136,7 +132,7 @@ public class StoryDaoTest {
     }
 
     /**
-     * Verfies that a story can be deleted.  TODO verify that users are not deleted.
+     * Verfies that a story can be deleted.
      */
     @Test
     void deleteSuccess() {

@@ -35,7 +35,9 @@ public class User {
     @OneToMany(mappedBy = "profileUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Story> storyVersionsForUserProfile = new HashSet<>();
 
-    @OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
+    // @OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
+    // haha no, NONe is not a thing...@OneToMany(mappedBy = "editor", cascade = CascadeType.NONE, orphanRemoval = false, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "editor", orphanRemoval = false, fetch = FetchType.EAGER)
     private Set<Story> storyVersionsWithUserEdit = new HashSet<>();
 
     /**

@@ -66,7 +66,7 @@ public class UserDaoTest {
     /**
      * Verifies that a user can be added with a financial story version that they authored or edited.
      * TODO - I don't think this will be used b/c story only added after user is already added
-     * TODO  - delete and apply same concept to role later (more applicable)
+     * TODO  - delete and apply same concept to role later (more applicable), AFTER Exercise 5 is graded
      */
     @Test
     void addWithProfileStorySuccess() {
@@ -94,7 +94,6 @@ public class UserDaoTest {
         assertEquals(1, insertedUser.getStoryVersionsWithUserEdit().size());
         assertTrue(insertedUser.getStoryVersionsForUserProfile().contains(newStory));
         assertTrue(insertedUser.getStoryVersionsWithUserEdit().contains(newStory));
-
      }
 
     /**
@@ -134,7 +133,7 @@ public class UserDaoTest {
      * Verifies that a user can be deleted, and their profile story versions will be deleted, too.
      */
     @Test
-    void deleteCascadeProfileStoriesSuccess() {
+    void deleteWithProfileStoriesSuccess() {
         StoryDao storyDao = new StoryDao();
 
         // Identify user with both a profile story and an edit on somebody else's story
@@ -152,7 +151,7 @@ public class UserDaoTest {
      * Verifies that a user can be deleted, but stories they have only edited will not be deleted.
      */
     @Test
-    void deleteNoCascadeEditStoriesSuccess() {
+    void deleteKeepEditsSuccess() {
         StoryDao storyDao = new StoryDao();
 
         // Identify user with both a profile story and an edit on somebody else's story
@@ -164,11 +163,6 @@ public class UserDaoTest {
         dao.delete(dao.getById(idOfUserToDelete));
         assertNull(dao.getById(idOfUserToDelete));
         assertNotNull(storyDao.getById(idOfEditedStory));
-
-        //org.opentest4j.AssertionFailedError: expected: not <null>
-        //TODO figure out why this is failing.
-        //Tried to make editor nullable in DB.  What else is needed?
-
     }
 
 }
