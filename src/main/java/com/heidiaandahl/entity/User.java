@@ -35,8 +35,6 @@ public class User {
     @OneToMany(mappedBy = "profileUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Story> storyVersionsForUserProfile = new HashSet<>();
 
-    // @OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
-    // haha no, NONe is not a thing...@OneToMany(mappedBy = "editor", cascade = CascadeType.NONE, orphanRemoval = false, fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "editor", orphanRemoval = false, fetch = FetchType.EAGER)
     private Set<Story> storyVersionsWithUserEdit = new HashSet<>();
 
@@ -131,38 +129,78 @@ public class User {
         this.role = role;
     }
 
+    /**
+     * Gets story versions for user profile.
+     *
+     * @return the story versions for user profile
+     */
     public Set<Story> getStoryVersionsForUserProfile() {
         return storyVersionsForUserProfile;
     }
 
+    /**
+     * Sets story versions for user profile.
+     *
+     * @param storyVersionsForUserProfile the story versions for user profile
+     */
     public void setStoryVersionsForUserProfile(Set<Story> storyVersionsForUserProfile) {
         this.storyVersionsForUserProfile = storyVersionsForUserProfile;
     }
 
+    /**
+     * Gets story versions with user edit.
+     *
+     * @return the story versions with user edit
+     */
     public Set<Story> getStoryVersionsWithUserEdit() {
         return storyVersionsWithUserEdit;
     }
 
+    /**
+     * Sets story versions with user edit.
+     *
+     * @param storyVersionsWithUserEdit the story versions with user edit
+     */
     public void setStoryVersionsWithUserEdit(Set<Story> storyVersionsWithUserEdit) {
         this.storyVersionsWithUserEdit = storyVersionsWithUserEdit;
     }
 
+    /**
+     * Add story for profile.
+     *
+     * @param story the story
+     */
     public void addStoryForProfile(Story story) {
         storyVersionsForUserProfile.add(story);
         story.setProfileUser(this);
     }
 
+    /**
+     * Remove story for profile.
+     *
+     * @param story the story
+     */
     public void removeStoryForProfile(Story story) {
         storyVersionsForUserProfile.remove(story);
         story.setProfileUser(null);
     }
 
+    /**
+     * Add story to edit list.
+     *
+     * @param story the story
+     */
     public void addStoryToEditList(Story story) {
         storyVersionsWithUserEdit.add(story);
         story.setProfileUser(this);
     }
 
-    public void removeStoryToEditList(Story story) {
+    /**
+     * Remove story to edit list.
+     *
+     * @param story the story
+     */
+    public void removeStoryFromEditList(Story story) {
         storyVersionsWithUserEdit.remove(story);
         story.setProfileUser(null);
     }
