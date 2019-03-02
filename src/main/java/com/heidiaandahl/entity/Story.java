@@ -7,6 +7,12 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 
+/**
+ * The financial story of a site user. Each story is a "version" that may represent the original
+ * content, a version edited by the original author, or a version edited by an administrator.
+ *
+ * @author Heidi Aandahl
+ */
 @Entity(name = "Story")
 @Table(name = "financial_story")
 public class Story {
@@ -38,9 +44,21 @@ public class Story {
     private User editor;
 
 
+    /**
+     * Instantiates a new Story.
+     */
     public Story() {
     }
 
+    /**
+     * Instantiates a new Story.
+     *
+     * @param storyContent the story content
+     * @param editDate     the edit date
+     * @param isVisible    whether the version may be displayed to site users
+     * @param profileUser  the profile user
+     * @param editor       the editor
+     */
     public Story(String storyContent, LocalDate editDate, boolean isVisible, User profileUser, User editor) {
         this.storyContent = storyContent;
         this.editDate = editDate;
@@ -49,50 +67,110 @@ public class Story {
         this.editor = editor;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets story content.
+     *
+     * @return the story content
+     */
     public String getStoryContent() {
         return storyContent;
     }
 
+    /**
+     * Sets story content.
+     *
+     * @param storyContent the story content
+     */
     public void setStoryContent(String storyContent) {
         this.storyContent = storyContent;
     }
 
+    /**
+     * Gets edit date.
+     *
+     * @return the edit date
+     */
     public LocalDate getEditDate() {
         return editDate;
     }
 
+    /**
+     * Sets edit date.
+     *
+     * @param editDate the edit date
+     */
     public void setEditDate(LocalDate editDate) {
         this.editDate = editDate;
     }
 
+    /**
+     * Gets the status of whether the version may be displayed to site visitors.
+     *
+     * @return whether the version may be displayed to site visitors
+     */
     public boolean isVisible() {
         return isVisible;
     }
 
+    /**
+     * Sets the status of whether the version may be displayed to site visitors.
+     *
+     * @param visible whether the version may be displayed to site visitors
+     */
     public void setVisible(boolean visible) {
         isVisible = visible;
     }
 
+    /**
+     * Gets profile user.
+     *
+     * @return the profile user
+     */
     public User getProfileUser() {
         return profileUser;
     }
 
+    /**
+     * Sets profile user.
+     *
+     * @param profileUser the profile user
+     */
     public void setProfileUser(User profileUser) {
         this.profileUser = profileUser;
     }
 
+    /**
+     * Gets editor.
+     *
+     * @return the editor
+     */
     public User getEditor() {
         return editor;
     }
 
+    /**
+     * Sets editor.
+     *
+     * @param editor the editor
+     */
     public void setEditor(User editor) {
         this.editor = editor;
     }
