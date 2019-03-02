@@ -106,22 +106,13 @@ public class StoryDaoTest {
     @Test
     void getByPropertyLikeSuccess() {
 
-        UserDao userDao = new UserDao();
         String testSearchTerm = "generation";
+        Story expectedStory = dao.getById(1);
 
         List<Story> testList = dao.getByPropertyLike("storyContent", testSearchTerm);
 
         assertEquals(1, testList.size());
-        assertEquals(1, testList.get(0).getId());
-
-        /*
-
-        assertEquals("It was a great year.", testList.get(0).getStoryContent());
-        assertEquals(testDate, testList.get(0).getEditDate());
-        assertEquals(true, testList.get(0).isVisible());
-        assertEquals(8, testList.get(0).getProfileUser().getId());
-        assertEquals(1, testList.get(0).getEditor().getId());
-        */
+        assertEquals(expectedStory, testList.get(0));
     }
 
 
