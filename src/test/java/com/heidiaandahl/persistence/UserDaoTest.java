@@ -64,6 +64,7 @@ public class UserDaoTest {
 
     /**
      * Verifies that a user can be added with a financial story version that they authored or edited.
+     * //TODO change name to reflect both roles of user - profile assoc and editor
      */
     @Test
     void addWithProfileStory() {

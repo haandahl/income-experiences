@@ -101,6 +101,17 @@
       <version>5.2.12.Final</version>
     </dependency>
 
+    <!-- hibernate dependencies for working with Java 8 classes like LocalDate -->
+    <!-- Source: https://thoughts-on-java.org/hibernate-5-date-and-time/ -->
+    <!-- ------------------DID I really need it?????????????????????????????????
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-java8</artifactId>
+      <version>5.1.0.Final</version>
+    </dependency>
+
+    -->
+
     <!-- c3p0 - used to handle connection pooling with hibernate -->
     <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-c3p0 -->
     <dependency>
