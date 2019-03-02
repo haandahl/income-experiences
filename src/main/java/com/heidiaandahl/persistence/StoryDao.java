@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -61,8 +62,8 @@ public class StoryDao {
      * @param propertyName the property name
      * @param value        the value of that property
      * @return the list of storys with the property name and value queried
-     */
-    public List<Story> getByPropertyName(String propertyName, String value) {
+     *
+    public List<Story> getByPropertyNameLike(String propertyName, String value) {
         Session session = sessionFactory.openSession();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -73,6 +74,32 @@ public class StoryDao {
         List<Story> storys = session.createQuery(query).getResultList();
         session.close();
         return storys;
+    }
+    */
+
+    /**
+     * Get story by property (like).
+     * Sample usage: getByPropertyLike("content", "lottery")
+     *
+     * @param propertyName entity property to search by
+     * @param value value of the property to search for
+     * @return list of stories meeting the criteria search
+     */
+    public List<Story> getByPropertyLike(String propertyName, String value) {
+        Session session = sessionFactory.openSession();
+
+        logger.debug("Searching for story with {} = {}",  propertyName, value);
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Story> query = builder.createQuery(Story.class);
+        Root<Story> root = query.from(Story.class);
+        Expression<String> propertyPath = root.get(propertyName);
+
+        query.where(builder.like(propertyPath, "%" + value + "%"));
+
+        List<Story> stories = session.createQuery(query).getResultList();
+        session.close();
+        return stories;
     }
 
     /**

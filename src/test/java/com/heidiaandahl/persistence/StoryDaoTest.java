@@ -101,8 +101,8 @@ public class StoryDaoTest {
     }
 
     /**
-     * Verifies that a story version can be retrieved by editor.
-     *
+     * Verifies that a story version can be retrieved by editor.  Not needed - this is now a getter in the User.
+     */
     @Test
     void getByPropertyNameSuccess() {
 
@@ -113,6 +113,8 @@ public class StoryDaoTest {
         List<Story> testList = (List<Story>) dao.getByPropertyName("editor", testEditor);
         //Error:(111, 78) java: incompatible types: com.heidiaandahl.entity.User cannot be converted to java.lang.String
         // TODO resolve above
+        // getByPPropertyName takes a string as a second parameter... which isn't what I want in this case
+        // I notice that PW's generic dao doesn't even include the getByProperty function
 
         assertEquals(1, testList.size());
         assertEquals(3, testList.get(0).getId());
