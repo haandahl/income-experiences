@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,7 +69,7 @@ public class UserDaoTest {
      * TODO  - delete and apply same concept to role later (more applicable)
      */
     @Test
-    void addWithProfileStory() {
+    void addWithProfileStorySuccess() {
 
         // Create new user with a profile story, self-authored
         User newUser = new User("mack", "password10", 4);
@@ -120,12 +121,28 @@ public class UserDaoTest {
     }
 
     /**
-     * Verfies that a user can be deleted.
+     * Verifies that when a user is deleted, their profile stories are deleted, but their edited stories are not deleted.
      */
     @Test
     void deleteSuccess() {
-        dao.delete(dao.getById(4));
-        assertNull(dao.getById(4));
+        // Identify user to delete
+        int idOfUserWithStories = 8;
+        User userToDelete = dao.getById(idOfUserWithStories);
+
+
+        // TODO get story versions edited by the user
+
+
+
+        dao.delete(userToDelete);
+        assertNull(dao.getById(idOfUserWithStories));
+
+        //Verify profile story versions are deleted
+        StoryDao storyDao = new StoryDao();
+
+
+
+
     }
 
 }
