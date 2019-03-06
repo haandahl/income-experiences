@@ -1,0 +1,219 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: StoryDao</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.heidiaandahl.persistence</a> ]
+</div>
+
+<h1>Coverage Summary for Class: StoryDao (com.heidiaandahl.persistence)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StoryDao</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (45/ 45)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.heidiaandahl.persistence;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.heidiaandahl.entity.Story;
+<i>4</i>&nbsp;import org.apache.logging.log4j.LogManager;
+<i>5</i>&nbsp;import org.apache.logging.log4j.Logger;
+<i>6</i>&nbsp;import org.hibernate.Session;
+<i>7</i>&nbsp;import org.hibernate.SessionFactory;
+<i>8</i>&nbsp;import org.hibernate.Transaction;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import javax.persistence.criteria.CriteriaBuilder;
+<i>11</i>&nbsp;import javax.persistence.criteria.CriteriaQuery;
+<i>12</i>&nbsp;import javax.persistence.criteria.Expression;
+<i>13</i>&nbsp;import javax.persistence.criteria.Root;
+<i>14</i>&nbsp;import java.util.List;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;/**
+<i>17</i>&nbsp; * The data access object (DAO) for the &lt;code style=&quot;color: gray; font-size: 0.8em;&quot;&gt;Story&lt;/code&gt;.
+<i>18</i>&nbsp; *
+<i>19</i>&nbsp; * @author Heidi Aandahl
+<i>20</i>&nbsp; */
+<b class="fc"><i>21</i>&nbsp;public class StoryDao {</b>
+<i>22</i>&nbsp;
+<b class="fc"><i>23</i>&nbsp;    private final Logger logger = LogManager.getLogger(this.getClass());</b>
+<b class="fc"><i>24</i>&nbsp;    SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Inserts a new &lt;code style=&quot;color: gray; font-size: 0.8em;&quot;&gt;Story&lt;/code&gt; to the database.
+<i>29</i>&nbsp;     *
+<i>30</i>&nbsp;     * @param story the new story
+<i>31</i>&nbsp;     * @return the Id assigned by the database
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    public int insert(Story story) {
+<b class="fc"><i>34</i>&nbsp;        int id = 0;</b>
+<b class="fc"><i>35</i>&nbsp;        Session session = sessionFactory.openSession();</b>
+<b class="fc"><i>36</i>&nbsp;        Transaction transaction = session.beginTransaction();</b>
+<i>37</i>&nbsp;
+<b class="fc"><i>38</i>&nbsp;        id = (int)session.save(story);</b>
+<i>39</i>&nbsp;
+<b class="fc"><i>40</i>&nbsp;        transaction.commit();</b>
+<b class="fc"><i>41</i>&nbsp;        session.close();</b>
+<i>42</i>&nbsp;
+<b class="fc"><i>43</i>&nbsp;        return id;</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * Retrieves a story by Id.
+<i>48</i>&nbsp;     *
+<i>49</i>&nbsp;     * @param id the Id of the story in the database
+<i>50</i>&nbsp;     * @return the story with the Id requested
+<i>51</i>&nbsp;     */
+<i>52</i>&nbsp;    public Story getById(int id) {
+<b class="fc"><i>53</i>&nbsp;        Session session = sessionFactory.openSession();</b>
+<b class="fc"><i>54</i>&nbsp;        Story story = session.get(Story.class, id); // Now I&#39;m getting org.hibernate.exception.SQLGrammarException: could not extract ResultSet</b>
+<b class="fc"><i>55</i>&nbsp;        session.close();</b>
+<b class="fc"><i>56</i>&nbsp;        return story;</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    /**
+<i>60</i>&nbsp;     * Get story by property (like).
+<i>61</i>&nbsp;     * Sample usage: getByPropertyLike(&quot;content&quot;, &quot;lottery&quot;)
+<i>62</i>&nbsp;     *
+<i>63</i>&nbsp;     * @param propertyName entity property to search by
+<i>64</i>&nbsp;     * @param value value of the property to search for
+<i>65</i>&nbsp;     * @return list of stories meeting the criteria search
+<i>66</i>&nbsp;     */
+<i>67</i>&nbsp;    public List&lt;Story&gt; getByPropertyLike(String propertyName, String value) {
+<b class="fc"><i>68</i>&nbsp;        Session session = sessionFactory.openSession();</b>
+<i>69</i>&nbsp;
+<b class="fc"><i>70</i>&nbsp;        logger.debug(&quot;Searching for story with {} = {}&quot;,  propertyName, value);</b>
+<i>71</i>&nbsp;
+<b class="fc"><i>72</i>&nbsp;        CriteriaBuilder builder = session.getCriteriaBuilder();</b>
+<b class="fc"><i>73</i>&nbsp;        CriteriaQuery&lt;Story&gt; query = builder.createQuery(Story.class);</b>
+<b class="fc"><i>74</i>&nbsp;        Root&lt;Story&gt; root = query.from(Story.class);</b>
+<b class="fc"><i>75</i>&nbsp;        Expression&lt;String&gt; propertyPath = root.get(propertyName);</b>
+<i>76</i>&nbsp;
+<b class="fc"><i>77</i>&nbsp;        query.where(builder.like(propertyPath, &quot;%&quot; + value + &quot;%&quot;));</b>
+<i>78</i>&nbsp;
+<b class="fc"><i>79</i>&nbsp;        List&lt;Story&gt; stories = session.createQuery(query).getResultList();</b>
+<b class="fc"><i>80</i>&nbsp;        session.close();</b>
+<b class="fc"><i>81</i>&nbsp;        return stories;</b>
+<i>82</i>&nbsp;    }
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    /**
+<i>85</i>&nbsp;     * Get story by boolean property.
+<i>86</i>&nbsp;     *
+<i>87</i>&nbsp;     * @param propertyName entity property to search by
+<i>88</i>&nbsp;     * @param value value of the property to search for
+<i>89</i>&nbsp;     * @return list of stories meeting the criteria search
+<i>90</i>&nbsp;     */
+<i>91</i>&nbsp;    public List&lt;Story&gt; getByBooleanProperty(String propertyName, boolean value) {
+<b class="fc"><i>92</i>&nbsp;        Session session = sessionFactory.openSession();</b>
+<i>93</i>&nbsp;
+<b class="fc"><i>94</i>&nbsp;        logger.debug(&quot;Searching for story with &quot; +  propertyName + &quot; = &quot;, value);</b>
+<i>95</i>&nbsp;
+<b class="fc"><i>96</i>&nbsp;        CriteriaBuilder builder = session.getCriteriaBuilder();</b>
+<b class="fc"><i>97</i>&nbsp;        CriteriaQuery&lt;Story&gt; query = builder.createQuery(Story.class);</b>
+<b class="fc"><i>98</i>&nbsp;        Root&lt;Story&gt; root = query.from(Story.class);</b>
+<b class="fc"><i>99</i>&nbsp;        query.select(root).where(builder.equal(root.get(propertyName), value));</b>
+<i>100</i>&nbsp;
+<b class="fc"><i>101</i>&nbsp;        List&lt;Story&gt; stories = session.createQuery(query).getResultList();</b>
+<b class="fc"><i>102</i>&nbsp;        session.close();</b>
+<b class="fc"><i>103</i>&nbsp;        return stories;</b>
+<i>104</i>&nbsp;    }
+<i>105</i>&nbsp;
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;    /**
+<i>108</i>&nbsp;     * Saves a story with a new Id or updates a story with an existing Id.
+<i>109</i>&nbsp;     *
+<i>110</i>&nbsp;     * @param story the story to be saved or updated
+<i>111</i>&nbsp;     */
+<i>112</i>&nbsp;    public void saveOrUpdate(Story story) {
+<b class="fc"><i>113</i>&nbsp;        Session session = sessionFactory.openSession();</b>
+<b class="fc"><i>114</i>&nbsp;        Transaction transaction = session.beginTransaction();</b>
+<i>115</i>&nbsp;
+<b class="fc"><i>116</i>&nbsp;        session.saveOrUpdate(story);</b>
+<i>117</i>&nbsp;
+<b class="fc"><i>118</i>&nbsp;        transaction.commit();</b>
+<b class="fc"><i>119</i>&nbsp;        session.close();</b>
+<b class="fc"><i>120</i>&nbsp;    }</b>
+<i>121</i>&nbsp;
+<i>122</i>&nbsp;    /**
+<i>123</i>&nbsp;     * Deletes a story.
+<i>124</i>&nbsp;     *
+<i>125</i>&nbsp;     * @param story the story to be deleted.
+<i>126</i>&nbsp;     */
+<i>127</i>&nbsp;    public void delete(Story story) {
+<b class="fc"><i>128</i>&nbsp;        Session session = sessionFactory.openSession();</b>
+<b class="fc"><i>129</i>&nbsp;        Transaction transaction = session.beginTransaction();</b>
+<i>130</i>&nbsp;
+<b class="fc"><i>131</i>&nbsp;        session.delete(story);</b>
+<i>132</i>&nbsp;
+<b class="fc"><i>133</i>&nbsp;        transaction.commit();</b>
+<b class="fc"><i>134</i>&nbsp;        session.close();</b>
+<b class="fc"><i>135</i>&nbsp;    }</b>
+<i>136</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-03-02 16:06</div>
+</div>
+</body>
+</html>
