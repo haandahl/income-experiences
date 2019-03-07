@@ -7,7 +7,6 @@
 -- ------------------------------------------------------------------------------------------------
 SET foreign_key_checks = 0;
 truncate table financial_story;
-truncate table story_removals;
 truncate table survey;
 truncate table goals_description;
 truncate table goals_unmet;
@@ -50,7 +49,7 @@ INSERT into USER values  (6, 'kj', 'password5', 3);
 INSERT into USER values  (7, 'ryan', 'password6', 4);
 INSERT into USER values  (8, 'mary', 'password7', 4);
 -- ------------------------------------------------------------------------------------------------
-INSERT into financial_story values (1, 'We made it work in our 4-generation home.', '2018-01-01', true, 4, 4);
-INSERT into financial_story values (2, 'It was a great year. Please check out my pyramid scheme.', '2018-03-04', false, 8, 8);
-INSERT into financial_story values (3, 'It was a great year.', '2018-03-05', true, 8, 1);
-INSERT into financial_story values (4, 'We had a job loss and a foreclosure on our home.', '2019-02-03', true, 1, 1);
+INSERT into financial_story values (1, 'We made it work in our 4-generation home.', '2018-01-01', true, 4, 4, false);
+INSERT into financial_story values (2, 'It was a great year. Please check out my pyramid scheme.', '2018-03-04', false, 8, 8, true);
+INSERT into financial_story values (3, 'It was a great year.', '2018-03-05', true, 8, 1, false);
+INSERT into financial_story values (4, 'We had a job loss and a foreclosure on our home.', '2019-02-03', true, 1, 1, false);
