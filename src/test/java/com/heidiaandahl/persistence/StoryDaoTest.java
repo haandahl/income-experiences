@@ -11,21 +11,22 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for <code style="color: gray; font-size: 0.8em;">StoryDao</code>
+ * Unit tests for <code style="color: gray; font-size: 0.8em;">GenericDao</code> used with the
+ * <code style="color: gray; font-size: 0.8em;">Story</code> class.
  *
  * @author Heidi Aandahl
  */
 public class StoryDaoTest {
 
-    StoryDao dao;
+    GenericDao genericStoryDao;
 
     /**
-     * Sets up a new <code style="color: gray; font-size: 0.8em;">StoryDao</code> and
+     * Sets up a new <code style="color: gray; font-size: 0.8em;">GenericDao</code> and
      * refreshes the test database before each unit test.
      */
     @BeforeEach
     void setUp() {
-        dao = new StoryDao();
+        genericStoryDao = new GenericDao(Story.class);
 
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
@@ -38,11 +39,11 @@ public class StoryDaoTest {
     void updateSuccess() {
         boolean isVisible = false;
 
-        Story storyToUpdate = dao.getById(1);
+        Story storyToUpdate = (Story)genericStoryDao.getById(1);
         storyToUpdate.setVisible(isVisible);
 
-        dao.saveOrUpdate(storyToUpdate);
-        Story retrievedStory = dao.getById(1);
+        genericStoryDao.saveOrUpdate(storyToUpdate);
+        Story retrievedStory = (Story)genericStoryDao.getById(1);
 
         assertEquals(isVisible, retrievedStory.isVisible());
     }
@@ -66,11 +67,11 @@ public class StoryDaoTest {
         Story newStory = new Story(testStoryContent, testEditDate, testVisibility, testProfileUser, testEditor, false);
 
         // Insert new story to database
-        int id = dao.insert(newStory);
+        int id = genericStoryDao.insert(newStory);
 
         // Test results
         assertNotEquals(0,id);
-        Story insertedStory = dao.getById(id);
+        Story insertedStory = (Story)genericStoryDao.getById(id);
 
         assertEquals(5, insertedStory.getId());
         assertEquals(testStoryContent, insertedStory.getStoryContent());
@@ -89,7 +90,7 @@ public class StoryDaoTest {
 
         LocalDate expectedDate = LocalDate.parse("2018-01-01");
 
-        Story retrievedStory = dao.getById(1);
+        Story retrievedStory = (Story)genericStoryDao.getById(1);
         assertEquals("We made it work in our 4-generation home.", retrievedStory.getStoryContent());
         assertEquals(expectedDate, retrievedStory.getEditDate());
         assertEquals(true, retrievedStory.isVisible());
@@ -104,9 +105,9 @@ public class StoryDaoTest {
     void getByPropertyLikeSuccess() {
 
         String testSearchTerm = "generation";
-        Story expectedStory = dao.getById(1);
+        Story expectedStory = (Story)genericStoryDao.getById(1);
 
-        List<Story> testList = dao.getByPropertyLike("storyContent", testSearchTerm);
+        List<Story> testList = genericStoryDao.getByPropertyLike("storyContent", testSearchTerm);
 
         assertEquals(1, testList.size());
         assertEquals(expectedStory, testList.get(0));
@@ -119,11 +120,11 @@ public class StoryDaoTest {
     void getByBooleanPropertySuccess() {
 
         boolean testVisibility = true;
-        Story firstExpectedStory = dao.getById(1);
-        Story secondExpectedStory = dao.getById(3);
-        Story thirdExpectedStory = dao.getById(4);
+        Story firstExpectedStory = (Story)genericStoryDao.getById(1);
+        Story secondExpectedStory = (Story)genericStoryDao.getById(3);
+        Story thirdExpectedStory = (Story)genericStoryDao.getById(4);
 
-        List<Story> testList = dao.getByBooleanProperty("isVisible", testVisibility);
+        List<Story> testList = genericStoryDao.getByPropertyName("isVisible", testVisibility);
 
         assertEquals(3, testList.size());
         assertEquals(firstExpectedStory, testList.get(0));
@@ -136,8 +137,8 @@ public class StoryDaoTest {
      */
     @Test
     void deleteSuccess() {
-        dao.delete(dao.getById(2));
-        assertNull(dao.getById(2));
+        genericStoryDao.delete(genericStoryDao.getById(2));
+        assertNull(genericStoryDao.getById(2));
     }
 
 }

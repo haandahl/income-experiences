@@ -12,7 +12,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for <code style="color: gray; font-size: 0.8em;">UserDao</code>
+ * Unit tests for <code style="color: gray; font-size: 0.8em;">GenericDao</code> used with the
+ * <code style="color: gray; font-size: 0.8em;">User</code> class.
  *
  * @author Heidi Aandahl
  */
