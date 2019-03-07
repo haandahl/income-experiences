@@ -31,6 +31,9 @@ public class Story {
     @Column(name = "visible")
     private boolean isVisible;
 
+    @Column(name = "unsuitable")
+    private boolean isUnsuitable;
+
     /*
         Resource for ManyToOne JoinColumn: https://www.baeldung.com/hibernate-one-to-many
      */
@@ -58,13 +61,15 @@ public class Story {
      * @param isVisible    whether the version may be displayed to site users
      * @param profileUser  the profile user
      * @param editor       the editor
+     * @param isUnsuitable the is unsuitable
      */
-    public Story(String storyContent, LocalDate editDate, boolean isVisible, User profileUser, User editor) {
+    public Story(String storyContent, LocalDate editDate, boolean isVisible, User profileUser, User editor, boolean isUnsuitable) {
         this.storyContent = storyContent;
         this.editDate = editDate;
         this.isVisible = isVisible;
         this.profileUser = profileUser;
         this.editor = editor;
+        this.isUnsuitable = isUnsuitable;
     }
 
     /**
@@ -175,16 +180,22 @@ public class Story {
         this.editor = editor;
     }
 
-    @Override
-    public String toString() {
-        return "Story{" +
-                "id=" + id +
-                ", storyContent='" + storyContent + '\'' +
-                ", editDate=" + editDate +
-                ", isVisible=" + isVisible +
-                ", profileUser=" + profileUser +
-                ", editor=" + editor +
-                '}';
+    /**
+     * Gets the status indicating whether an administrator has flagged the content unsuitable.
+     *
+     * @return the status indicating whether an administrator has flagged the content unsuitable
+     */
+    public boolean isUnsuitable() {
+        return isUnsuitable;
+    }
+
+    /**
+     * Sets the status indicating whether an administrator has flagged the content unsuitable.
+     *
+     * @param unsuitable the status indicating whether an administrator has flagged the content unsuitable
+     */
+    public void setUnsuitable(boolean unsuitable) {
+        isUnsuitable = unsuitable;
     }
 
     @Override
@@ -194,12 +205,28 @@ public class Story {
         Story story = (Story) o;
         return id == story.id &&
                 isVisible == story.isVisible &&
+                isUnsuitable == story.isUnsuitable &&
                 Objects.equals(storyContent, story.storyContent) &&
                 Objects.equals(editDate, story.editDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, storyContent, editDate, isVisible);
+        return Objects.hash(id, storyContent, editDate, isVisible, isUnsuitable);
     }
+
+    @Override
+    public String toString() {
+        return "Story{" +
+                "id=" + id +
+                ", storyContent='" + storyContent + '\'' +
+                ", editDate=" + editDate +
+                ", isVisible=" + isVisible +
+                ", isUnsuitable=" + isUnsuitable +
+                ", profileUser=" + profileUser +
+                ", editor=" + editor +
+                '}';
+    }
+
+
 }
