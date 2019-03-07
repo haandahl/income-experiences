@@ -21,6 +21,7 @@ INSERT INTO role (id, name) VALUES (1, 'admin');
 INSERT INTO role (id, name) VALUES (4, 'advanced user');
 INSERT INTO role (id, name) VALUES (3, 'data user');
 INSERT INTO role (id, name) VALUES (2, 'new user');
+INSERT INTO role (id, name) VALUES (5, 'blocked user');
 -- ------------------------------------------------------------------------------------------------
 INSERT INTO goals_description (id, description) VALUES (5, 'Income allowed for new or expanding financial goals.');
 INSERT INTO goals_description (id, description) VALUES (3, 'Many goals were met.');
