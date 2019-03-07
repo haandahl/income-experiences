@@ -16,12 +16,18 @@ import java.util.List;
  * A generic data access object (DAO) following the model from Paula Waite's Enterprise Java Course,
  * originally inspired in part by http://rodrigouchoa.wordpress.com.
  *
+ * @param <T> the type parameter
  * @author Heidi Aandahl
  */
 public class GenericDao<T> {
     private Class<T> type;
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Instantiates a new Generic dao.
+     *
+     * @param type the type
+     */
     public GenericDao(Class<T> type) {
         this.type = type;
     }
@@ -34,6 +40,12 @@ public class GenericDao<T> {
     }
 
 
+    /**
+     * Inserts an entity
+     *
+     * @param entity the entity
+     * @return the entity id
+     */
     public int insert(T entity) {
         int id = 0;
         Session session = getSession();
@@ -65,13 +77,27 @@ public class GenericDao<T> {
 
     }
 
+    /**
+     * Gets an entity by id.
+     *
+     * @param <T> the type of entity
+     * @param id  the id of the entity
+     * @return the id of the entity
+     */
     public <T> T getById(int id) {
         Session session = getSession();
-        T entity = session.get(type, id);
+        T entity = (T)session.get(type, id);
         session.close();
         return entity;
     }
 
+     /**
+     * Gets entities by property name and value when the value is a String.
+     *
+     * @param propertyName the property name
+     * @param value        the property value
+     * @return the entities matching the query
+     */
     public List<T> getByPropertyName(String propertyName, String value) {
         Session session = getSession();
 
@@ -85,6 +111,13 @@ public class GenericDao<T> {
         return entities;
     }
 
+    /**
+     * Gets entities by property name and value when the value is a boolean.
+     *
+     * @param propertyName the property name
+     * @param value        the property value
+     * @return the entities matching the query
+     */
     public List<T> getByPropertyName(String propertyName, boolean value) {
         Session session = getSession();
 
@@ -98,6 +131,13 @@ public class GenericDao<T> {
         return entities;
     }
 
+    /**
+     * Gets entities by property name and value when the value is an int.
+     *
+     * @param propertyName the property name
+     * @param value        the property value
+     * @return the entities matching the query
+     */
     public List<T> getByPropertyName(String propertyName, int value) {
         Session session = getSession();
 
@@ -111,7 +151,14 @@ public class GenericDao<T> {
         return entities;
     }
 
-    //TODO determine whether this is still needed with Hibernate Search
+    /**
+     * Gets by property where the search String is contained in the value.
+     *
+     * @param propertyName the property name
+     * @param value        the search String
+     * @return the entities matching the query
+     */
+//TODO determine whether this is still needed with Hibernate Search
     public List<T> getByPropertyLike(String propertyName, String value) {
         Session session = getSession();
 
@@ -129,6 +176,11 @@ public class GenericDao<T> {
         return entities;
     }
 
+    /**
+     * Save or update.
+     *
+     * @param entity the entity
+     */
     public void saveOrUpdate(T entity) {
         Session session = getSession();
         Transaction transaction = session.beginTransaction();

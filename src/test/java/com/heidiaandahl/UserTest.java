@@ -41,7 +41,7 @@ public class UserTest {
         testEditor = new User();
         setupStoryDate = LocalDate.parse("2018-12-27");
         setupStory = new Story("We saved up for a wonderful holiday season this year.",
-                setupStoryDate, true, testProfileUser, testEditor);
+                setupStoryDate, true, testProfileUser, testEditor, true);
         setupStorySet = new HashSet<>();
         setupStorySet.add(setupStory);
 
@@ -55,7 +55,7 @@ public class UserTest {
     @Test
     public void addStoryForProfileSuccess() {
         LocalDate testDate = LocalDate.parse("2016-05-20");
-        testStory = new Story("It was ok.", testDate, true, testProfileUser, testEditor);
+        testStory = new Story("It was ok.", testDate, true, testProfileUser, testEditor, true);
         testProfileUser.addStoryForProfile(testStory);
 
         assertTrue(testProfileUser.getStoryVersionsForUserProfile().contains(testStory));
@@ -67,7 +67,7 @@ public class UserTest {
     @Test
     public void addStoryToEditListSuccess() {
         LocalDate testDate = LocalDate.parse("2016-05-20");
-        testStory = new Story("It was ok.", testDate, true, testProfileUser, testEditor);
+        testStory = new Story("It was ok.", testDate, true, testProfileUser, testEditor, true);
         testEditor.addStoryToEditList(testStory);
 
         assertTrue(testEditor.getStoryVersionsWithUserEdit().contains(testStory));

@@ -63,7 +63,7 @@ public class StoryDaoTest {
         User testEditor = userDao.getById(7);
 
         // Instantiate new story
-        Story newStory = new Story(testStoryContent, testEditDate, testVisibility, testProfileUser, testEditor);
+        Story newStory = new Story(testStoryContent, testEditDate, testVisibility, testProfileUser, testEditor, false);
 
         // Insert new story to database
         int id = dao.insert(newStory);

@@ -77,8 +77,9 @@ public class UserDaoTest {
         String storyContent = "I won the lottery.";
         LocalDate editDate = LocalDate.parse("2017-05-20");
         boolean isVisible = true;
+        boolean isUnsuitable = false;
 
-        Story newStory = new Story(storyContent, editDate, isVisible, newUser, newUser);
+        Story newStory = new Story(storyContent, editDate, isVisible, newUser, newUser, isUnsuitable);
 
         newUser.addStoryForProfile(newStory);
         newUser.addStoryToEditList(newStory);

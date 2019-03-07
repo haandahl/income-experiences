@@ -205,18 +205,6 @@ public class User {
         story.setProfileUser(null);
     }
 
-    /*  TODO  decide which to string makes sense... do I want to include the sets??
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
-    }
-    */
-
     @Override
     public String toString() {
         return "User{" +
