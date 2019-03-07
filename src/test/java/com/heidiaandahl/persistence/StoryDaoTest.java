@@ -59,9 +59,9 @@ public class StoryDaoTest {
         LocalDate testEditDate = LocalDate.parse("2018-05-30");
         boolean testVisibility = true;
 
-        UserDao userDao = new UserDao();
-        User testProfileUser = userDao.getById(7);
-        User testEditor = userDao.getById(7);
+        GenericDao genericUserDao = new GenericDao(User.class);
+        User testProfileUser = (User)genericUserDao.getById(7);
+        User testEditor = (User)genericUserDao.getById(7);
 
         // Instantiate new story
         Story newStory = new Story(testStoryContent, testEditDate, testVisibility, testProfileUser, testEditor, false);

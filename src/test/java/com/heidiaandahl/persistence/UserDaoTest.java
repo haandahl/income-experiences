@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class UserDaoTest {
 
-    // UserDao dao;
     GenericDao genericDao;
 
     /**
