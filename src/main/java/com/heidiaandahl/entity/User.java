@@ -224,8 +224,6 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
-                ", storyVersionsForUserProfile=" + storyVersionsForUserProfile +
-                ", storyVersionsWithUserEdit=" + storyVersionsWithUserEdit +
                 '}';
     }
 

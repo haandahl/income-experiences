@@ -223,8 +223,6 @@ public class Story {
                 ", editDate=" + editDate +
                 ", isVisible=" + isVisible +
                 ", isUnsuitable=" + isUnsuitable +
-                ", profileUser=" + profileUser +
-                ", editor=" + editor +
                 '}';
     }
 
