@@ -18,15 +18,16 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class UserDaoTest {
 
-    UserDao dao;
+    // UserDao dao;
+    GenericDao genericDao;
 
     /**
-     * Sets up a new <code style="color: gray; font-size: 0.8em;">UserDao</code> and
+     * Sets up a new <code style="color: gray; font-size: 0.8em;">GenericDao</code> and
      * refreshes the test database before each unit test.
      */
     @BeforeEach
     void setUp() {
-        dao = new UserDao();
+        genericDao = new GenericDao(User.class);
 
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
@@ -39,11 +40,11 @@ public class UserDaoTest {
     void updateSuccess() {
         int newRole = 3;  //cleandb sets original role to 4
 
-        User userToUpdate = dao.getById(8);
+        User userToUpdate = (User)genericDao.getById(8);
         userToUpdate.setRole(newRole);
 
-        dao.saveOrUpdate(userToUpdate);
-        User retrievedUser = dao.getById(8);
+        genericDao.saveOrUpdate(userToUpdate);
+        User retrievedUser = (User)genericDao.getById(8);
 
         assertEquals(newRole, retrievedUser.getRole());
     }
@@ -54,9 +55,9 @@ public class UserDaoTest {
     @Test
     void addSuccess() {
         User newUser = new User("anne", "password9", 2);
-        int id = dao.insert(newUser);
+        int id = genericDao.insert(newUser);
         assertNotEquals(0,id);
-        User insertedUser = dao.getById(id);
+        User insertedUser = (User)genericDao.getById(id);
         assertEquals("anne", insertedUser.getUsername());
         assertEquals("password9", insertedUser.getPassword());
         assertEquals(2, insertedUser.getRole());
@@ -85,11 +86,11 @@ public class UserDaoTest {
         newUser.addStoryToEditList(newStory);
 
         // Add new user with profile story
-        int id = dao.insert(newUser);
+        int id = genericDao.insert(newUser);
 
         // Test results
         assertNotEquals(0,id);
-        User insertedUser = dao.getById(id);
+        User insertedUser = (User)genericDao.getById(id);
         assertEquals(newUser, insertedUser);
         assertEquals(1, insertedUser.getStoryVersionsForUserProfile().size());
         assertEquals(1, insertedUser.getStoryVersionsWithUserEdit().size());
@@ -102,7 +103,7 @@ public class UserDaoTest {
      */
     @Test
     void getByIdSuccess() {
-        User retrievedUser = dao.getById(2);
+        User retrievedUser = (User)genericDao.getById(2);
         assertEquals("jean", retrievedUser.getUsername());
         assertEquals("password1", retrievedUser.getPassword());
         assertEquals(2, retrievedUser.getRole());
@@ -113,7 +114,7 @@ public class UserDaoTest {
      */
     @Test
     void getByPropertyNameSuccess() {
-        List<User> testList = dao.getByPropertyName("username", "chris");
+        List<User> testList = genericDao.getByPropertyName("username", "chris");
         assertEquals(1, testList.size());
         assertEquals(3, testList.get(0).getId());
         assertEquals("password2", testList.get(0).getPassword());
@@ -126,8 +127,8 @@ public class UserDaoTest {
     @Test
     void deleteSuccess() {
 
-        dao.delete(dao.getById(4));
-        assertNull(dao.getById(4));
+        genericDao.delete(genericDao.getById(4));
+        assertNull(genericDao.getById(4));
    }
 
     /**
@@ -135,7 +136,7 @@ public class UserDaoTest {
      */
     @Test
     void deleteWithProfileStoriesSuccess() {
-        StoryDao storyDao = new StoryDao();
+        GenericDao storyDao = new GenericDao(Story.class);
 
         // Identify user with both a profile story and an edit on somebody else's story
         int idOfUserToDelete = 1;
@@ -143,8 +144,8 @@ public class UserDaoTest {
         // Identify story version that should delete (User's profile story)
         int idOfProfileStory = 4;
 
-        dao.delete(dao.getById(idOfUserToDelete));
-        assertNull(dao.getById(idOfUserToDelete));
+        genericDao.delete(genericDao.getById(idOfUserToDelete));
+        assertNull(genericDao.getById(idOfUserToDelete));
         assertNull(storyDao.getById(idOfProfileStory));
     }
 
@@ -153,7 +154,7 @@ public class UserDaoTest {
      */
     @Test
     void deleteKeepEditsSuccess() {
-        StoryDao storyDao = new StoryDao();
+         GenericDao storyDao = new GenericDao(Story.class);
 
         // Identify user with both a profile story and an edit on somebody else's story
         int idOfUserToDelete = 1;
@@ -161,8 +162,8 @@ public class UserDaoTest {
         // Identify story version that should not delete, because the user only edited it
         int idOfEditedStory = 3;
 
-        dao.delete(dao.getById(idOfUserToDelete));
-        assertNull(dao.getById(idOfUserToDelete));
+        genericDao.delete(genericDao.getById(idOfUserToDelete));
+        assertNull(genericDao.getById(idOfUserToDelete));
         assertNotNull(storyDao.getById(idOfEditedStory));
     }
 
