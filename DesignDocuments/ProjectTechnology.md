@@ -15,7 +15,7 @@ The technologies list is adapted from instructor Paula Waite's sample list.</p>
   * MySQL
   * Store users, roles, surveys, financial stories, forum topics, any user comments, etc.
 * ORM Framework
-  * Hibernate 5 (Confirm version?)
+  * Hibernate 5.2
 * Dependency Management
   * Maven
 * Web Services consumed using Java
