@@ -17,12 +17,14 @@ import java.io.IOException;
         urlPatterns = { "/profile"}
 )
 public class DisplayProfile extends HttpServlet {
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // changed doPost to doGet b/c it said this url does not support get... <--that worked.
         GenericDao userDao = new GenericDao(User.class);
         User exampleUser = (User)userDao.getById(1);
         request.setAttribute("user", exampleUser);
 
         GenericDao storyDao = new GenericDao(Story.class);
+
 
         //TODO
         // How do I get the story using a join?
