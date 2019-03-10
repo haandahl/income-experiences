@@ -32,6 +32,9 @@ public class User {
 
     // TODO - consider cascading and fetching, keep or change?  Also hash set or tree??
 
+    // TODO - take feedback: PW: . I think the decision here is around whether you want these sorted when they come back.
+    //  If you do, then you will need to implement the comparable interface in Story and decided what kind of ordering you want (by date, name, etc.).
+
     @OneToMany(mappedBy = "profileUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Story> storyVersionsForUserProfile = new HashSet<>();
 
