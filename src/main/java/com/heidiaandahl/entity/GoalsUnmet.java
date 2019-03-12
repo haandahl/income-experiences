@@ -1,23 +1,49 @@
 package com.heidiaandahl.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Objects;
 
 public class GoalsUnmet {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private int id;
+
+    @Column(name = "savings")
     private boolean savings;
+
+    @Column(name = "career_ed")
     private boolean careerEducation;
+
+    @Column(name = "needs_quality")
     private boolean needsQuality;
+
+    @Column(name = "donations")
     private boolean donations;
+
+    @Column(name = "recreation")
     private boolean recreation;
+
+    @Column(name = "travel")
     private boolean travel;
+
+    @Column(name = "services")
     private boolean services;
+
+    @Column(name = "other")
     private boolean other;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "survey_id")
+    private Survey survey;
 
     public GoalsUnmet() {
     }
 
     public GoalsUnmet(boolean savings, boolean careerEducation, boolean needsQuality, boolean donations,
-                      boolean recreation, boolean travel, boolean services, boolean other) {
+                      boolean recreation, boolean travel, boolean services, boolean other, Survey survey) {
         this.savings = savings;
         this.careerEducation = careerEducation;
         this.needsQuality = needsQuality;
@@ -26,6 +52,7 @@ public class GoalsUnmet {
         this.travel = travel;
         this.services = services;
         this.other = other;
+        this.survey = survey;
     }
 
     public int getId() {
@@ -98,6 +125,14 @@ public class GoalsUnmet {
 
     public void setOther(boolean other) {
         this.other = other;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 
     @Override

@@ -40,18 +40,16 @@ public class Survey {
     private IncomeSkew incomeSkew;
 
     @OneToOne(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "needs_unmet_id")
     private NeedsUnmet needsUnmet;
 
     @OneToOne(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "goals_unmet_id")
     private GoalsUnmet goalsUnmet;
 
     public Survey() {
     }
 
     public Survey(User participant, LocalDate surveyDate, int familySize, int income, NeedsDescription needsDescription,
-                  GoalsDescription goalsDescription, IncomeSkew incomeSkew, NeedsUnmet needsUnmet, GoalsUnmet goalsUnmet) {
+                  GoalsDescription goalsDescription, IncomeSkew incomeSkew) {
         this.participant = participant.
         this.surveyDate = surveyDate
         this.familySize = familySize;
@@ -59,8 +57,6 @@ public class Survey {
         this.needsDescription = needsDescription;
         this.goalsDescription = goalsDescription;
         this.incomeSkew = incomeSkew;
-        this.needsUnmet = needsUnmet;
-        this.goalsUnmet = goalsUnmet;
     }
 
     public int getId() {
@@ -117,22 +113,6 @@ public class Survey {
 
     public void setIncomeSkew(IncomeSkew incomeSkew) {
         this.incomeSkew = incomeSkew;
-    }
-
-    public NeedsUnmet getNeedsUnmet() {
-        return needsUnmet;
-    }
-
-    public void setNeedsUnmet(NeedsUnmet needsUnmet) {
-        this.needsUnmet = needsUnmet;
-    }
-
-    public GoalsUnmet getGoalsUnmet() {
-        return goalsUnmet;
-    }
-
-    public void setGoalsUnmet(GoalsUnmet goalsUnmet) {
-        this.goalsUnmet = goalsUnmet;
     }
 
     @Override

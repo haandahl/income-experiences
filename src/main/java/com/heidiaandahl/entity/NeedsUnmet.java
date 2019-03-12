@@ -1,22 +1,44 @@
 package com.heidiaandahl.entity;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity(name = "NeedsUnmet")
+@Table(name = "needs_unmet")
 public class NeedsUnmet {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private int id;
+
+    @Column(name = "food")
     private boolean food;
+
+    @Column(name = "housing")
     private boolean housing;
+
+    @Column(name = "utilities")
     private boolean utilities;
+
+    @Column(name = "health_care")
     private boolean healthcare;
+
+    @Column(name = "clothing")
     private boolean clothing;
+
+    @Column(name = "transportation")
     private boolean transportation;
+
+    @Column(name = "child_care")
     private boolean childcare;
+
+    @Column(name = "other")
     private boolean other;
 
     @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "survey_id")
     private Survey survey;
 
     public NeedsUnmet() {
@@ -105,6 +127,14 @@ public class NeedsUnmet {
 
     public void setOther(boolean other) {
         this.other = other;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 
     @Override
