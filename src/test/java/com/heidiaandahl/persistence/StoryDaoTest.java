@@ -6,7 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -127,9 +130,40 @@ public class StoryDaoTest {
         List<Story> testList = genericStoryDao.getByPropertyName("isVisible", testVisibility);
 
         assertEquals(3, testList.size());
+        // TODO - find out whether this test makes sense in terms of relying on a certain order within the list?
+        // TODO - consider that these 3 depend on getById passing too.
         assertEquals(firstExpectedStory, testList.get(0));
         assertEquals(secondExpectedStory, testList.get(1));
         assertEquals(thirdExpectedStory, testList.get(2));
+    }
+
+    /**
+     * Verifies that a story can be retrieved based user and visibility, when the user is identified by username.
+     */
+    @Test
+    void getProfileStorySuccess() {
+        GenericDao userDao = new GenericDao(User.class);
+
+        // Test user associated with 2 stories, 1 visible, 1 not
+        String userTestProperty = "username";
+        String userTestValue = "mary";
+        List<User> testUsers = (List<User>)userDao.getByPropertyName(userTestProperty, userTestValue);
+        User testUser = testUsers.get(0);
+
+         // Map the search criteria
+        Map<String, Object> testMap = new HashMap<>();
+        testMap.put("profileUser", testUser);
+        testMap.put("isVisible", true);
+
+        // Expected result
+        Story expectedStory = (Story)genericStoryDao.getById(3);
+
+        // Run test
+        List<Story> testStories = (ArrayList<Story>)genericStoryDao.getByPropertyNames(testMap);
+
+        // Expect list size to be 1 and id to be 3
+        assertEquals(1, testStories.size());
+        assertEquals(expectedStory, testStories.get(0));
     }
 
     /**

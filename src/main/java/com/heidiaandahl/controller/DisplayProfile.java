@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet(
         name = "displayProfile",
@@ -18,17 +21,19 @@ import java.io.IOException;
 )
 public class DisplayProfile extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // changed doPost to doGet b/c it said this url does not support get... <--that worked.
         GenericDao userDao = new GenericDao(User.class);
         User exampleUser = (User)userDao.getById(1);
         request.setAttribute("user", exampleUser);
 
         GenericDao storyDao = new GenericDao(Story.class);
 
+        Map<String, Object> storyDisplayProperties = new HashMap<>();
+        storyDisplayProperties.put("profileUser", exampleUser);
+        storyDisplayProperties.put("isVisible", true);
 
-        //TODO
-        // How do I get the story using a join?
-
+        List<Story> storiesList = (List<Story>)storyDao.getByPropertyNames(storyDisplayProperties);
+        Story profileStory = storiesList.get(0);
+        request.setAttribute("profileStory", profileStory);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
         dispatcher.forward(request, response);

@@ -6,11 +6,10 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A generic data access object (DAO) following the model from Paula Waite's Enterprise Java Course,
@@ -152,6 +151,30 @@ public class GenericDao<T> {
     }
 
     /**
+     * Finds entities by multiple properties.
+     * Written by Paula Waite (with slight modifications)
+     * Inspired by https://stackoverflow.com/questions/11138118/really-dynamic-jpa-criteriabuilder
+     * @param propertyMap property and value pairs
+     * @return entities with properties equal to those passed in the map
+     */
+    public List<T> getByPropertyNames(Map<String, Object> propertyMap) {
+        Session session = getSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(type);
+        Root<T> root = query.from(type);
+        List<Predicate> predicates = new ArrayList<Predicate>();
+        for (Map.Entry entry: propertyMap.entrySet()) {
+            predicates.add(builder.equal(root.get((String) entry.getKey()), entry.getValue()));
+        }
+        query.select(root).where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+
+        List<T> entities = session.createQuery(query).getResultList();
+        session.close();
+
+        return entities;
+    }
+
+     /**
      * Gets by property where the search String is contained in the value.
      *
      * @param propertyName the property name

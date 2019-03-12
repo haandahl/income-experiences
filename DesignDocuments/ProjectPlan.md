@@ -84,14 +84,14 @@ NB: All anticipated tables have been build, even though that work was broken out
 <li>Decide how text search of stories will look on interface</li>
 <li>Implement hibernate search on stories</li>
 <li>Build out and test survey entity.</li>
-<li>Complete JSP/Servlet for displaying a profile (username and story so far)</li>
+<li>IN PROGRESS -- Complete JSP/Servlet for displaying a profile (username and story so far)</li>
 </ul>
 
 ## by 3/25/19 (week 8, presentation on Hibernate Search)
 #### Coursework: Security Authentication
 #### Project: 
 <ul>
-<li>Incorporate feedback from project reviews/checkpoint 2</li>
+<li>X--Incorporate feedback from project reviews/checkpoint 2</li>
 <li>Create JSP elements for creating an account (including the survey), logging in, and logging out.</li>
 <li>Add and test the role entity.</li>
 <li>Set up authentication locally</li>
