@@ -1,10 +1,26 @@
 package com.heidiaandahl.entity;
 
-import java.util.Objects;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+@Entity(name = "NeedsDescription")
+@Table(name = "needs_description")
 public class NeedsDescription {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private int id;
+
+    @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "needsDescription")
+    private Set<Survey> surveysWithNeedsDescription = new HashSet<>();
+
 
     public NeedsDescription() {
     }
@@ -24,6 +40,17 @@ public class NeedsDescription {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Set<Survey> getSurveysWithNeedsDescription() {
+        return surveysWithNeedsDescription;
+    }
+
+    public void setSurveysWithNeedsDescription(Set<Survey> surveysWithNeedsDescription) {
+        this.surveysWithNeedsDescription = surveysWithNeedsDescription;
+    }
+
+    // TODO - if needed, create and test add/remove methods for surveysWithNeedsDescription.
+    //  However, I don't think I need to explicitly add/remove these...
 
     @Override
     public boolean equals(Object o) {

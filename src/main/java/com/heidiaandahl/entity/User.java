@@ -45,6 +45,9 @@ public class User {
     @OneToMany(mappedBy = "editor", orphanRemoval = false, fetch = FetchType.LAZY)
     private Set<Story> storyVersionsWithUserEdit = new HashSet<>();
 
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Survey> userSurveys = new HashSet<>();
+
     /**
      * Instantiates a new User.
      */
@@ -172,6 +175,14 @@ public class User {
         this.storyVersionsWithUserEdit = storyVersionsWithUserEdit;
     }
 
+    public Set<Survey> getUserSurveys() {
+        return userSurveys;
+    }
+
+    public void setUserSurveys(Set<Survey> userSurveys) {
+        this.userSurveys = userSurveys;
+    }
+
     /**
      * Add story for profile.
      *
@@ -211,6 +222,8 @@ public class User {
         storyVersionsWithUserEdit.remove(story);
         story.setProfileUser(null);
     }
+
+    //TODO add and remove methods for survey sets plus test
 
     @Override
     public String toString() {
