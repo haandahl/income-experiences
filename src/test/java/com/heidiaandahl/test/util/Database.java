@@ -18,6 +18,7 @@ import java.util.Properties;
  * Created on 8/31/16.
  *
  * @author pwaite
+ * @author Heidi Aandahl (logging only)
  */
 
 public class Database {
@@ -41,13 +42,10 @@ public class Database {
         try {
             properties.load (this.getClass().getResourceAsStream("/database.properties"));
         } catch (IOException ioe) {
-            System.out.println("Database.loadProperties()...Cannot load the properties file");
-            ioe.printStackTrace();
+             logger.error("Database.loadProperties()...Cannot load the properties file");
         } catch (Exception e) {
-            System.out.println("Database.loadProperties()..." + e);
-            e.printStackTrace();
+             logger.error("Database.loadProperties()..." + e);
         }
-
     }
 
     // get the only Database object available
@@ -78,7 +76,7 @@ public class Database {
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.out.println("Cannot close connection" + e);
+                logger.error("Cannot close connection + e");
             }
         }
 
