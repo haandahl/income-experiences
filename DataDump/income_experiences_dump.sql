@@ -35,7 +35,7 @@ CREATE TABLE `financial_story` (
   KEY `financial_story_editor` (`editor`),
   CONSTRAINT `financial_story_editor` FOREIGN KEY (`editor`) REFERENCES `user` (`id`) ON DELETE SET NULL,
   CONSTRAINT `financial_story_user` FOREIGN KEY (`profile_user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +44,7 @@ CREATE TABLE `financial_story` (
 
 LOCK TABLES `financial_story` WRITE;
 /*!40000 ALTER TABLE `financial_story` DISABLE KEYS */;
+INSERT INTO `financial_story` VALUES (1,'(NOT A REAL PERSON) This is the federal poverty level for 1 person, published by https://www.healthcare.com/blog/federal-poverty-levels/ on January 15, 2019. Any survey data, aside from the income, is speculation.','2019-01-15',1,1,1,0);
 /*!40000 ALTER TABLE `financial_story` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,7 +267,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   KEY `user_role` (`role_id`),
   CONSTRAINT `user_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -275,6 +276,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'fedpoverty1','pw1',4),(2,'fedpoverty2','pw2',4),(3,'fedpoverty3','pw3',4),(4,'fedpoverty4','pw4',4),(5,'fedpoverty5','pw5',4);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -287,4 +289,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-07 12:42:00
+-- Dump completed on 2019-03-10 16:13:53

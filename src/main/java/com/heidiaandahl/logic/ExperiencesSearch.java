@@ -5,6 +5,7 @@ import com.heidiaandahl.entity.User;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * The type Experiences search.
@@ -72,11 +73,15 @@ public class ExperiencesSearch {
      * @return the set
      */
     public Set<Survey> establishIncomeBand() {
+        Set<Survey> returnedSurveys = new TreeSet<>();
+
         // where family size matches query and income is within +- 10% of query
 
         // nice to do: make sure there are balanced results above & below income level, and enough of them
 
         // set incomeResultsFloor and incomeResults Ceiling
+
+        return returnedSurveys;
     }
 
     /**
@@ -88,6 +93,9 @@ public class ExperiencesSearch {
      */
     public int getNumberOfResponsesMatchingCriteria(String criteria, boolean value) {
         // this is needed to build charts, I assume
+
+        int numberOfResponses = 0;
+        return numberOfResponses;
     }
 
     /**
@@ -99,6 +107,9 @@ public class ExperiencesSearch {
      */
     public int getNumberOfResponsesMatchingCriteria(String criteria, String value) {
         // this is needed to build charts, I assume
+
+        int numberOfResponses = 0;
+        return numberOfResponses;
     }
 
     public int getTargetIncome() {

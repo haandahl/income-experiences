@@ -37,18 +37,14 @@ repository linked on the class-wide list</li>
 #### Project: 
 <ul>
 <li>X--Incorporate feedback from checkpoint 1</li>
-<li>ALLOW TO EVOLVE--DOCUMENT LATER--Resolve inconsistencies regarding access at different levels, especially users with no story yet.</li>
 <li>X--(Complete for MVP)--Complete database design</li>
-<li>DELAY--Update project plan and flow to reflect specific tables and entities that will be needed</li>
-<li>DELAY--Look into validation and graphing technologies and add to technologies list.</li>
 <li>X--Create the database</li>
 <li>X--Create the user table</li>
 <li>X--Create the user entity class and annotate for hibernate</li>
 <li>X--Create the user DAO or a generic DAO (if that makes sense)</li>
 <li>X--Create the test database</li>
 <li>X--Create user DAO unit tests</li>
-<li>X--PENDING ISSUES--Set up Log4J logging</li>
-<li>DELAY--Create class uml diagram</li>
+<li>X--Set up Log4J logging</li>
 <li>X--Update time log</li>
 <li>X--Push work to GitHub</li>
 </ul>
@@ -57,54 +53,49 @@ repository linked on the class-wide list</li>
 #### Coursework: Hibernate
 #### Project: 
 <ul>
-<li>Create template for JSPs using Bootstrap 4</li>
-<li>ADD--Add financial_story entity and DAO (or if time, generic DAO)</li>
-<li>ADD--Annotate financial_story and user</li>
-<li>ADD--Unit test financial_story (and user relationship)</li>
-<li>DELAY TO AUTHENTICATION WEEK--Add the role table</li>
-<li>DELAY TO AUTHENTICATION WEEK--Add the role entity</li>
-<li>DELAY TO AUTHENTICATION WEEK--Create the role DAO</li>
-<li>DELAY TO AUTHENTICATION WEEK--Create the role DAO unit tests</li>
-<li>Add a JSP to display a user profile</li>
-<li>Add a JSP to sign up</li>
-<li>Add a JSP to do the intake survey</li>
-<li>Update time log</li>
-<li>Push work to GitHub</li>
+<li>X--Add financial_story entity and DAO (or if time, generic DAO)</li>
+<li>X--Annotate financial_story and user</li>
+<li>X--Unit test financial_story (and user relationship)</li>
+<li>X--Update time log</li>
+<li>X--Push work to GitHub</li>
 </ul>
 
 ## by 3/11/19 (week 7, checkpoint 2 and project reviews)
 #### Coursework: Deploy to AWS
 #### Project: 
 <ul>
-<li>Create database on AWS</li>
-<li>Deploy to AWS for the first time</li>
-<li><b>Update by 2/25: </b>Create ______ table(s)</li>
-<li><b>Update by 2/25: </b>Add the ______ entity(/ies) (test, dev, and prod dbs) </li>
-<li>Add a JSP to search for income experiences</li>
-<li>Add a JSP to display search results</li>
-<li>Research Chart.js or c3.js to display charts</li>
-<li>Update time log</li>
-<li>Push work to GitHub</li>
-<li>Confirm readiness for checkpoint 2:
+<li>X--Create database on AWS</li>
+<li>X--Deploy to AWS for the first time</li>
+<li>X--ALLOW TO EVOLVE--Create class uml diagram</li>
+<li>X--Update time log</li>
+<li>X--Push work to GitHub</li>
+<li>MOSTLY--Confirm readiness for checkpoint 2:
 database designed and created, at least one DAO implemented with Hibernate, 
 DAO is unit tested, Log4J is implemented (no System.out.printlns), 
 class design and any other diagrams are created</li>
 </ul>
 
 ## (3/18/19 is spring break)
+NB: All anticipated tables have been build, even though that work was broken out differently in the original project plan.
+
+<ul>
+<li>Look up security issue with selected pre-made template.</li>
+<li>Create template for JSPs using Bootstrap 4</li>
+<li>Decide how text search of stories will look on interface</li>
+<li>Implement hibernate search on stories</li>
+<li>Build out and test survey entity.</li>
+<li>Complete JSP/Servlet for displaying a profile (username and story so far)</li>
+</ul>
 
 ## by 3/25/19 (week 8, presentation on Hibernate Search)
 #### Coursework: Security Authentication
 #### Project: 
 <ul>
 <li>Incorporate feedback from project reviews/checkpoint 2</li>
-<li>Consider how hibernate search could be incorporated to improve users' or admin's search. Update subsequent project plan with related goals.</li>
+<li>Create JSP elements for creating an account (including the survey), logging in, and logging out.</li>
+<li>Add and test the role entity.</li>
 <li>Set up authentication locally</li>
 <li>Set up authentication on AWS</li>
-<li><b>Update by 2/25: </b>Create ______ table(s)</li>
-<li><b>Update by 2/25: </b>Add the ______ entity(/ies) (test, dev, and prod dbs) </li>
-<li>Add a JSP for the forum page</li>
-<li>Add a JSP for a thread page</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 </ul>
@@ -115,10 +106,9 @@ class design and any other diagrams are created</li>
 #### Project: 
 <ul>
 <li>Integration with BLS API</li>
-<li>Add search-by-career functionality to search JSP</li>
-<li><b>Update by 2/25: </b>Create ______ table(s)</li>
-<li><b>Update by 2/25: </b>Add the ______ entity(/ies) (test, dev, and prod dbs) </li>
-<li>Add a JSP for Admin page</li>
+<li>Add a JSP and Servlet to search for income experiences by income and/or career</li>
+<li>Complete and test ExperiencesSearch Class.</li>
+<li>Consider Ellis's feedback on autocomplete options (see open issues)</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 <li>Confirm readiness for checkpoint 3:
@@ -130,9 +120,11 @@ authentication implemented (log in capability)</li>
 #### Coursework: RESTful Web Services
 #### Project: 
 <ul>
-<li>Integration with inflation data if possible</li>
-<li>Assess viability of stretch goals and add tasks to plan as applicable.</li>
-<li>Make forum and/or financial stories searchable</li>
+<li>Build JSPs and Servlets for Admin page.</li>
+<li>Research Chart.js or c3.js to display charts</li>
+<li>Add a JSP to display search results and complete the Servlet for the search.</li>
+<li>Consider where validation is needed and whether to use a new technology like hibernate validate.</li>
+<li>Take stock of loose ends and update project plan.</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 </ul>
@@ -142,6 +134,7 @@ authentication implemented (log in capability)</li>
 #### Project: 
 <ul>
 <li>Unit test API integrations</li>
+<li>Create "About" Page</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 </ul>
