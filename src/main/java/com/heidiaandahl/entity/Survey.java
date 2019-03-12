@@ -1,30 +1,59 @@
 package com.heidiaandahl.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity(name = "Survey")
+@Table(name = "survey")
 public class Survey {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private int id;
-    private LocalDate date;
+
+    @Column(name = "date")
+    private LocalDate surveyDate;
+
+    @Column(name = "family_size")
     private int familySize;
+
+    @Column (name = "income")
     private int income;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User participant;
+
+    @ManyToOne
+    @JoinColumn(name = "needs_description_id")
     private NeedsDescription needsDescription;
+
+    @ManyToOne
+    @JoinColumn(name = "goals_description_id")
     private GoalsDescription goalsDescription;
+
+    @ManyToOne
+    @JoinColumn(name = "income_skew_id")
     private IncomeSkew incomeSkew;
 
+    @OneToOne(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "needs_unmet_id")
     private NeedsUnmet needsUnmet;
+
+    @OneToOne(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "goals_unmet_id")
     private GoalsUnmet goalsUnmet;
-
-    // TODO read re: one-one relationships before doing relationships to 2 boolean chunks
-
 
     public Survey() {
     }
 
-    public Survey(LocalDate date, int familySize, int income, NeedsDescription needsDescription,
+    public Survey(User participant, LocalDate surveyDate, int familySize, int income, NeedsDescription needsDescription,
                   GoalsDescription goalsDescription, IncomeSkew incomeSkew, NeedsUnmet needsUnmet, GoalsUnmet goalsUnmet) {
-        this.date = date;
+        this.participant = participant.
+        this.surveyDate = surveyDate
         this.familySize = familySize;
         this.income = income;
         this.needsDescription = needsDescription;
@@ -42,12 +71,12 @@ public class Survey {
         this.id = id;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getSurveyDate() {
+        return surveyDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setSurveyDate(LocalDate surveyDate) {
+        this.surveyDate = surveyDate;
     }
 
     public int getFamilySize() {
@@ -106,8 +135,6 @@ public class Survey {
         this.goalsUnmet = goalsUnmet;
     }
 
-    // TODO - maybe FK things don't go in equals/hash code... review
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -116,31 +143,21 @@ public class Survey {
         return id == survey.id &&
                 familySize == survey.familySize &&
                 income == survey.income &&
-                Objects.equals(date, survey.date) &&
-                Objects.equals(needsDescription, survey.needsDescription) &&
-                Objects.equals(goalsDescription, survey.goalsDescription) &&
-                Objects.equals(incomeSkew, survey.incomeSkew) &&
-                Objects.equals(needsUnmet, survey.needsUnmet) &&
-                Objects.equals(goalsUnmet, survey.goalsUnmet);
+                Objects.equals(surveyDate, survey.surveyDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, date, familySize, income, needsDescription, goalsDescription, incomeSkew, needsUnmet, goalsUnmet);
+        return Objects.hash(id, surveyDate, familySize, income);
     }
 
     @Override
     public String toString() {
         return "Survey{" +
                 "id=" + id +
-                ", date=" + date +
+                ", surveyDate=" + surveyDate +
                 ", familySize=" + familySize +
                 ", income=" + income +
-                ", needsDescription=" + needsDescription +
-                ", goalsDescription=" + goalsDescription +
-                ", incomeSkew=" + incomeSkew +
-                ", needsUnmet=" + needsUnmet +
-                ", goalsUnmet=" + goalsUnmet +
                 '}';
     }
 }

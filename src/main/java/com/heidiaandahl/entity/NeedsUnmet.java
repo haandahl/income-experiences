@@ -1,5 +1,8 @@
 package com.heidiaandahl.entity;
 
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import java.util.Objects;
 
 public class NeedsUnmet {
@@ -13,11 +16,14 @@ public class NeedsUnmet {
     private boolean childcare;
     private boolean other;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private Survey survey;
+
     public NeedsUnmet() {
     }
 
     public NeedsUnmet(boolean food, boolean housing, boolean utilities, boolean healthcare, boolean clothing,
-                      boolean transportation, boolean childcare, boolean other) {
+                      boolean transportation, boolean childcare, boolean other, Survey survey) {
         this.food = food;
         this.housing = housing;
         this.utilities = utilities;
@@ -26,6 +32,7 @@ public class NeedsUnmet {
         this.transportation = transportation;
         this.childcare = childcare;
         this.other = other;
+        this.survey = survey;
     }
 
     public int getId() {

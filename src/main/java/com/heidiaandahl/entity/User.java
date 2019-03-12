@@ -32,13 +32,17 @@ public class User {
 
     // TODO - consider cascading and fetching, keep or change?  Also hash set or tree??
 
+    // TODO - try application with Lazy loading - defers load until needed.
+    // https://www.baeldung.com/hibernate-lazy-eager-loading
+    // Note from above resource "In some cases you need to handle lazily-initialized objects with a special care or you might end up with an exception"
+
     // TODO - take feedback: PW: . I think the decision here is around whether you want these sorted when they come back.
     //  If you do, then you will need to implement the comparable interface in Story and decided what kind of ordering you want (by date, name, etc.).
 
-    @OneToMany(mappedBy = "profileUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "profileUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Story> storyVersionsForUserProfile = new HashSet<>();
 
-    @OneToMany(mappedBy = "editor", orphanRemoval = false, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "editor", orphanRemoval = false, fetch = FetchType.LAZY)
     private Set<Story> storyVersionsWithUserEdit = new HashSet<>();
 
     /**

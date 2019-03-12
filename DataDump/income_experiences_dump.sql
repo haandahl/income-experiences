@@ -90,7 +90,10 @@ CREATE TABLE `goals_unmet` (
   `travel` tinyint(1) DEFAULT NULL,
   `services` tinyint(1) DEFAULT NULL,
   `other` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `survey_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `goals_unmet_survey` (`survey_id`),
+  CONSTRAINT `goals_unmet_survey` FOREIGN KEY (`survey_id`) REFERENCES `survey` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -170,7 +173,10 @@ CREATE TABLE `needs_unmet` (
   `transportation` tinyint(1) DEFAULT NULL,
   `child_care` tinyint(1) DEFAULT NULL,
   `other` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `survey_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `needs_unmet_survey` (`survey_id`),
+  CONSTRAINT `needs_unmet_survey` FOREIGN KEY (`survey_id`) REFERENCES `survey` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -234,10 +240,8 @@ CREATE TABLE `survey` (
   KEY `survey_needs_unmet` (`needs_unmet_id`),
   KEY `survey_user` (`user_id`),
   CONSTRAINT `survey_goals_description` FOREIGN KEY (`goals_description_id`) REFERENCES `goals_description` (`id`),
-  CONSTRAINT `survey_goals_unmet` FOREIGN KEY (`goals_unmet_id`) REFERENCES `goals_unmet` (`id`),
   CONSTRAINT `survey_income_skew` FOREIGN KEY (`income_skew_id`) REFERENCES `income_skew` (`id`),
   CONSTRAINT `survey_needs_description` FOREIGN KEY (`needs_description_id`) REFERENCES `needs_description` (`id`),
-  CONSTRAINT `survey_needs_unmet` FOREIGN KEY (`needs_unmet_id`) REFERENCES `needs_unmet` (`id`),
   CONSTRAINT `survey_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -289,4 +293,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-10 16:13:53
+-- Dump completed on 2019-03-12 11:28:11

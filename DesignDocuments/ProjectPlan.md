@@ -69,7 +69,7 @@ repository linked on the class-wide list</li>
 <li>X--ALLOW TO EVOLVE--Create class uml diagram</li>
 <li>X--Update time log</li>
 <li>X--Push work to GitHub</li>
-<li>MOSTLY--Confirm readiness for checkpoint 2:
+<li>X--Confirm readiness for checkpoint 2:
 database designed and created, at least one DAO implemented with Hibernate, 
 DAO is unit tested, Log4J is implemented (no System.out.printlns), 
 class design and any other diagrams are created</li>
