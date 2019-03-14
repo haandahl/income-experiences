@@ -118,7 +118,9 @@ public class SurveyDaoTest {
         assertNotNull(goalsDescritpionDao.getById(3));
         assertNotNull(incomeSkewDao.getById(1));
     }
-
+    /**
+     *  Verifies that a survey can be retrieved by Id.
+     */
     @Test
     void getByIdSuccess() {
          Survey retrievedSurvey = (Survey)surveyDao.getById(3);
@@ -151,134 +153,26 @@ public class SurveyDaoTest {
          // NOTE: TODO test retrieval of details in separate test class.
      }
 
+    /**
+     * Verifies that surveys can be retrieved by family size.
+     */
     @Test
-    void getByPropertyNameSuccess() {
+    void getSurveyByFamilySizeSuccess() {
+        List<Survey> testList = surveyDao.getByPropertyName("familySize", 6);
 
-    }
+        Survey expectedSurvey = (Survey)surveyDao.getById(1);
+
+        assertEquals(1, testList.size());
+        assertEquals(expectedSurvey, testList.get(0));
+     }
 
     //TODO note/erase after implementation -
     // I am skipping update for now because I think surveys will be permanent once entered.
     //User will have a chance to check survey before committing to database, but I think that will just
     // be using servlets without persistence.
+    //TODO - consider approach to limiting returned surveys by income range.  I could just get all the surveys
+    // of a particular family size and then filter in the logic class, or I could get fancier with the dao
+    // and add a method that can do that filtering for me - which I assume would perform better?  So If I do
+    // add such a method, test it here.  Or maybe the method that accepts maps will work somehow?
 
 }
-
-
-    // //////////////////////BELOW IS JUST COPY PASTE////////////////////////////////////////////////////////////
-
-    /**
-     * Verifies that a user can be added with a financial story version that they authored or edited.
-     * TODO - I don't think this will be used b/c story only added after user is already added
-     * TODO  - delete and apply same concept to role later (more applicable), AFTER Exercise 5 is graded
-     *
-    @Test
-    void addWithProfileStorySuccess() {
-
-        // Create new user with a profile story, self-authored
-        User newUser = new User("mack", "password10", 4);
-
-        String storyContent = "I won the lottery.";
-        LocalDate editDate = LocalDate.parse("2017-05-20");
-        boolean isVisible = true;
-        boolean isUnsuitable = false;
-
-        Story newStory = new Story(storyContent, editDate, isVisible, newUser, newUser, isUnsuitable);
-
-        newUser.addStoryForProfile(newStory);
-        newUser.addStoryToEditList(newStory);
-
-        // Add new user with profile story
-        int id = genericDao.insert(newUser);
-
-        // Test results
-        assertNotEquals(0,id);
-        User insertedUser = (User)genericDao.getById(id);
-        assertEquals(newUser, insertedUser);
-        assertEquals(1, insertedUser.getStoryVersionsForUserProfile().size());
-        assertEquals(1, insertedUser.getStoryVersionsWithUserEdit().size());
-        assertTrue(insertedUser.getStoryVersionsForUserProfile().contains(newStory));
-        assertTrue(insertedUser.getStoryVersionsWithUserEdit().contains(newStory));
-    }
-    */
-
-    /**
-     * Verifies that a user can be retrieved by Id.
-     *
-    @Test
-    void getByIdSuccess() {
-        User retrievedUser = (User)genericDao.getById(2);
-        assertEquals("jean", retrievedUser.getUsername());
-        assertEquals("password1", retrievedUser.getPassword());
-        assertEquals(2, retrievedUser.getRole());
-    }
-    */
-
-    /**
-     * Verifies that a user can be retrieved by username.
-     *
-    @Test
-    void getByPropertyNameSuccess() {
-        List<User> testList = genericDao.getByPropertyName("username", "chris");
-        assertEquals(1, testList.size());
-        assertEquals(3, testList.get(0).getId());
-        assertEquals("password2", testList.get(0).getPassword());
-        assertEquals(3, testList.get(0).getId());
-    }
-    */
-
-
-    /**
-     * Verifies that a user can be deleted, and their profile story versions will be deleted, too.
-     *
-    @Test
-    void deleteWithProfileStoriesSuccess() {
-        GenericDao storyDao = new GenericDao(Story.class);
-
-        // Identify user with both a profile story and an edit on somebody else's story
-        int idOfUserToDelete = 1;
-
-        // Identify story version that should delete (User's profile story)
-        int idOfProfileStory = 4;
-
-        genericDao.delete(genericDao.getById(idOfUserToDelete));
-        assertNull(genericDao.getById(idOfUserToDelete));
-        assertNull(storyDao.getById(idOfProfileStory));
-    }
-    */
-
-    /**
-     * Verifies that a user can be deleted, but stories they have only edited will not be deleted.
-     *
-    @Test
-    void deleteKeepEditsSuccess() {
-        GenericDao storyDao = new GenericDao(Story.class);
-
-        // Identify user with both a profile story and an edit on somebody else's story
-        int idOfUserToDelete = 1;
-
-        // Identify story version that should not delete, because the user only edited it
-        int idOfEditedStory = 3;
-
-        genericDao.delete(genericDao.getById(idOfUserToDelete));
-        assertNull(genericDao.getById(idOfUserToDelete));
-        assertNotNull(storyDao.getById(idOfEditedStory));
-    }
-    */
-    // TODO - test update?  If so revise copy/paste here:
-
-    /**
-     * Verifies that a user can be updated with a new role.
-     *
-     @Test
-     void updateSuccess() {
-     int newRole = 3;  //cleandb sets original role to 4
-
-     User userToUpdate = (User)genericDao.getById(8);
-     userToUpdate.setRole(newRole);
-
-     genericDao.saveOrUpdate(userToUpdate);
-     User retrievedUser = (User)genericDao.getById(8);
-
-     assertEquals(newRole, retrievedUser.getRole());
-     } */
-
