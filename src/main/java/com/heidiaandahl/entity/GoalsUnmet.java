@@ -5,6 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Objects;
 
+@Entity(name = "GoalsUnmet")
+@Table(name = "goals_unmet")
 public class GoalsUnmet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")

@@ -48,12 +48,12 @@ public class Survey {
     public Survey() {
     }
 
-    public Survey(User participant, LocalDate surveyDate, int familySize, int income, NeedsDescription needsDescription,
+    public Survey(LocalDate surveyDate, int familySize, int income, User participant, NeedsDescription needsDescription,
                   GoalsDescription goalsDescription, IncomeSkew incomeSkew) {
-        this.participant = participant.
-        this.surveyDate = surveyDate
+        this.surveyDate = surveyDate;
         this.familySize = familySize;
         this.income = income;
+        this.participant = participant;
         this.needsDescription = needsDescription;
         this.goalsDescription = goalsDescription;
         this.incomeSkew = incomeSkew;
@@ -113,6 +113,30 @@ public class Survey {
 
     public void setIncomeSkew(IncomeSkew incomeSkew) {
         this.incomeSkew = incomeSkew;
+    }
+
+    public User getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(User participant) {
+        this.participant = participant;
+    }
+
+    public NeedsUnmet getNeedsUnmet() {
+        return needsUnmet;
+    }
+
+    public void setNeedsUnmet(NeedsUnmet needsUnmet) {
+        this.needsUnmet = needsUnmet;
+    }
+
+    public GoalsUnmet getGoalsUnmet() {
+        return goalsUnmet;
+    }
+
+    public void setGoalsUnmet(GoalsUnmet goalsUnmet) {
+        this.goalsUnmet = goalsUnmet;
     }
 
     @Override
