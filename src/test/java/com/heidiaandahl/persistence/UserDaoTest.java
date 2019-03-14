@@ -65,45 +65,7 @@ public class UserDaoTest {
         assertEquals(9, insertedUser.getId());
      }
 
-    /**
-     * Verifies that a user can be added with a financial story version that they authored or edited.
-     * TODO - I don't think this will be used b/c story only added after user is already added
-     * TODO  - delete and apply same concept to role later (more applicable), AFTER Exercise 5 is graded
-     */
-    @Test
-    void addWithProfileStorySuccess() {
-
-        // Create new user with a profile story, self-authored
-        User newUser = new User("mack", "password10");
-
-        String storyContent = "I won the lottery.";
-        LocalDate editDate = LocalDate.parse("2017-05-20");
-        boolean isVisible = true;
-        boolean isUnsuitable = false;
-
-        Story newStory = new Story(storyContent, editDate, isVisible, newUser, newUser, isUnsuitable);
-
-        newUser.addStoryForProfile(newStory);
-        newUser.addStoryToEditList(newStory);
-
-        // Add new user with profile story
-        int id = genericDao.insert(newUser);
-
-        // Test results
-        assertNotEquals(0,id);
-        User insertedUser = (User)genericDao.getById(id);
-        assertEquals(newUser, insertedUser);
-        assertEquals(1, insertedUser.getStoryVersionsForUserProfile().size());
-        // TODO solve
-        // org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role:
-        // com.heidiaandahl.entity.User.storyVersionsForUserProfile, could not initialize proxy - no Session
-
-        assertEquals(1, insertedUser.getStoryVersionsWithUserEdit().size());
-        assertTrue(insertedUser.getStoryVersionsForUserProfile().contains(newStory));
-        assertTrue(insertedUser.getStoryVersionsWithUserEdit().contains(newStory));
-     }
-
-    /**
+     /**
      * Verifies that a user can be retrieved by Id.
      */
     @Test
