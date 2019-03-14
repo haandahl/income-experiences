@@ -34,8 +34,9 @@ public class UserDaoTest {
     }
 
     /**
+     * TODO - revise after role entity is created and tested; may not belong in this test set.
      * Verifies that a user can be updated with a new role.
-     */
+     *
     @Test
     void updateSuccess() {
         int newRole = 3;  //cleandb sets original role to 4
@@ -48,19 +49,19 @@ public class UserDaoTest {
 
         assertEquals(newRole, retrievedUser.getRole());
     }
+    */
 
     /**
      * Verifies that a new user can be added.
      */
     @Test
     void addSuccess() {
-        User newUser = new User("anne", "password9", 2);
+        User newUser = new User("anne", "password9");
         int id = genericDao.insert(newUser);
         assertNotEquals(0,id);
         User insertedUser = (User)genericDao.getById(id);
         assertEquals("anne", insertedUser.getUsername());
         assertEquals("password9", insertedUser.getPassword());
-        assertEquals(2, insertedUser.getRole());
         assertEquals(9, insertedUser.getId());
      }
 
@@ -73,7 +74,7 @@ public class UserDaoTest {
     void addWithProfileStorySuccess() {
 
         // Create new user with a profile story, self-authored
-        User newUser = new User("mack", "password10", 4);
+        User newUser = new User("mack", "password10");
 
         String storyContent = "I won the lottery.";
         LocalDate editDate = LocalDate.parse("2017-05-20");
@@ -93,6 +94,10 @@ public class UserDaoTest {
         User insertedUser = (User)genericDao.getById(id);
         assertEquals(newUser, insertedUser);
         assertEquals(1, insertedUser.getStoryVersionsForUserProfile().size());
+        // TODO solve
+        // org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role:
+        // com.heidiaandahl.entity.User.storyVersionsForUserProfile, could not initialize proxy - no Session
+
         assertEquals(1, insertedUser.getStoryVersionsWithUserEdit().size());
         assertTrue(insertedUser.getStoryVersionsForUserProfile().contains(newStory));
         assertTrue(insertedUser.getStoryVersionsWithUserEdit().contains(newStory));
@@ -106,7 +111,6 @@ public class UserDaoTest {
         User retrievedUser = (User)genericDao.getById(2);
         assertEquals("jean", retrievedUser.getUsername());
         assertEquals("password1", retrievedUser.getPassword());
-        assertEquals(2, retrievedUser.getRole());
     }
 
     /**

@@ -57,18 +57,18 @@ INSERT into USER values  (6, 'kj', 'password5');
 INSERT into USER values  (7, 'ryan', 'password6');
 INSERT into USER values  (8, 'mary', 'password7');
 -- ------------------------------------------------------------------------------------------------
--- role (id, name, username)
+-- role (id, name, username) <--name refers to role descriptor
 -- ------------------------------------------------------------------------------------------------
 -- TODO set up multiple roles for individuals?  Not sure if needed?
 -- ------------------------------------------------------------------------------------------------
 INSERT into ROLE values (1, 'admin', 'admin');
-INSERT into ROLE values (2, 'jean', '');
-INSERT into ROLE values (3, 'chris', 'new user');
-INSERT into ROLE values (4, 'jen', 'advanced user');
-INSERT into ROLE values (5, 'sam', 'new user');
-INSERT into ROLE values (6, 'kj', 'new user');
-INSERT into ROLE values (7, 'ryan', 'new user');
-INSERT into ROLE values (8, 'mary', 'advanced user');
+INSERT into ROLE values (2, 'data user', 'jean');
+INSERT into ROLE values (3, 'new user', 'chris');
+INSERT into ROLE values (4, 'advanced user', 'jen');
+INSERT into ROLE values (5, 'new user', 'sam');
+INSERT into ROLE values (6, 'new user', 'kj');
+INSERT into ROLE values (7, 'new user', 'ryan');
+INSERT into ROLE values (8, 'advanced user', 'mary');
 -- -----------------------------------------------------------------------------------------------
 -- financial_story (id, content, date, visible, profile_user, editor, unsuitable)
 -- -----------------------------------------------------------------------------------------------

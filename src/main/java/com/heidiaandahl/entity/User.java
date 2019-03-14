@@ -26,10 +26,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    // TODO - set this up as ManyToOne once Role Entity is established
-    @Column(name = "role_id")
-    private int role;
-
     // TODO - consider cascading and fetching, keep or change?  Also hash set or tree??
 
     // TODO - try application with Lazy loading - defers load until needed.
@@ -59,12 +55,10 @@ public class User {
      *
      * @param username the username
      * @param password the password
-     * @param role     the role
      */
-    public User(String username, String password, int role) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role = role;
     }
 
     /**
@@ -119,24 +113,6 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * Gets role (a numeric reference).
-     *
-     * @return the role
-     */
-    public int getRole() {
-        return role;
-    }
-
-    /**
-     * Sets role (a numeric reference).
-     *
-     * @param role the role
-     */
-    public void setRole(int role) {
-        this.role = role;
     }
 
     /**
@@ -231,7 +207,6 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
                 '}';
     }
 
@@ -241,13 +216,12 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id &&
-                role == user.role &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, role);
+        return Objects.hash(id, username, password);
     }
 }
