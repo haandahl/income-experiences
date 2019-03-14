@@ -199,9 +199,10 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
+  `username` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,7 +211,6 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'admin'),(4,'advanced user'),(5,'blocked user'),(3,'data user'),(2,'new user');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,23 +227,19 @@ CREATE TABLE `survey` (
   `family_size` int(11) NOT NULL,
   `income` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `needs_unmet_id` int(11) NOT NULL,
-  `goals_unmet_id` int(11) NOT NULL,
   `needs_description_id` int(11) NOT NULL,
   `goals_description_id` int(11) NOT NULL,
   `income_skew_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `survey_goals_description` (`goals_description_id`),
-  KEY `survey_goals_unmet` (`goals_unmet_id`),
   KEY `survey_income_skew` (`income_skew_id`),
   KEY `survey_needs_description` (`needs_description_id`),
-  KEY `survey_needs_unmet` (`needs_unmet_id`),
   KEY `survey_user` (`user_id`),
   CONSTRAINT `survey_goals_description` FOREIGN KEY (`goals_description_id`) REFERENCES `goals_description` (`id`),
   CONSTRAINT `survey_income_skew` FOREIGN KEY (`income_skew_id`) REFERENCES `income_skew` (`id`),
   CONSTRAINT `survey_needs_description` FOREIGN KEY (`needs_description_id`) REFERENCES `needs_description` (`id`),
   CONSTRAINT `survey_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -252,6 +248,7 @@ CREATE TABLE `survey` (
 
 LOCK TABLES `survey` WRITE;
 /*!40000 ALTER TABLE `survey` DISABLE KEYS */;
+INSERT INTO `survey` VALUES (1,'2018-01-01',6,65000,4,3,2,3),(2,'2018-03-04',1,150000,8,5,5,2),(3,'2019-01-15',3,50000,1,3,1,2),(4,'2017-12-12',2,90000,2,5,3,1);
 /*!40000 ALTER TABLE `survey` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,11 +263,8 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(150) NOT NULL,
-  `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  KEY `user_role` (`role_id`),
-  CONSTRAINT `user_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+  UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -280,7 +274,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','donthackme',1),(2,'jean','password1',2),(3,'chris','password2',3),(4,'jen','password3',4),(5,'sam','password4',3),(6,'kj','password5',3),(7,'ryan','password6',4),(8,'mary','password7',3);
+INSERT INTO `user` VALUES (1,'admin','donthackme'),(2,'jean','password1'),(3,'chris','password2'),(4,'jen','password3'),(5,'sam','password4'),(6,'kj','password5'),(7,'ryan','password6'),(8,'mary','password7');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -293,4 +287,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-12 11:37:25
+-- Dump completed on 2019-03-14 12:32:04

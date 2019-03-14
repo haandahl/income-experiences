@@ -1,5 +1,5 @@
 -- clear tables and repopulate lookup tables
--- updated 2/23/19 Heidi Aandahl
+-- last updated 3/14/19 Heidi Aandahl
 -- NOTE: This application currently reads this file one line at a time and stops at a blank line.
 -- ------------------------------------------------------------------------------------------------
 -- Resources for clearing foreign keys:
@@ -18,11 +18,13 @@ truncate table user;
 truncate table role;
 SET foreign_key_checks = 1;
 -- ------------------------------------------------------------------------------------------------
-INSERT INTO role (id, name) VALUES (1, 'admin');
-INSERT INTO role (id, name) VALUES (4, 'advanced user');
-INSERT INTO role (id, name) VALUES (3, 'data user');
-INSERT INTO role (id, name) VALUES (2, 'new user');
-INSERT INTO role (id, name) VALUES (5, 'blocked user');
+-- ----------- 3/14 structure change; role is no longer a lookup table -----------
+-- ------------------------------------------------------------------------------------------------
+-- INSERT INTO role (id, name) VALUES (1, 'admin');
+-- INSERT INTO role (id, name) VALUES (4, 'advanced user');
+-- INSERT INTO role (id, name) VALUES (3, 'data user');
+-- INSERT INTO role (id, name) VALUES (2, 'new user');
+-- INSERT INTO role (id, name) VALUES (5, 'blocked user');
 -- ------------------------------------------------------------------------------------------------
 INSERT INTO goals_description (id, description) VALUES (5, 'Income allowed for new or expanding financial goals.');
 INSERT INTO goals_description (id, description) VALUES (3, 'Many goals were met.');
@@ -44,14 +46,29 @@ INSERT INTO income_skew (id, description) VALUES (3, 'strong impact');
 -- Insert data for unit tests built to date (in progress)
 -- ------------------------------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
-INSERT into USER values (1, 'admin', 'donthackme', 1);
-INSERT into USER values  (2, 'jean', 'password1', 2);
-INSERT into USER values  (3, 'chris', 'password2', 3);
-INSERT into USER values  (4, 'jen', 'password3', 4);
-INSERT into USER values  (5, 'sam', 'password4', 3);
-INSERT into USER values  (6, 'kj', 'password5', 3);
-INSERT into USER values  (7, 'ryan', 'password6', 4);
-INSERT into USER values  (8, 'mary', 'password7', 4);
+-- user (id, username, password)
+-- ------------------------------------------------------------------------------------------------
+INSERT into USER values (1, 'admin', 'donthackme');
+INSERT into USER values  (2, 'jean', 'password1');
+INSERT into USER values  (3, 'chris', 'password2');
+INSERT into USER values  (4, 'jen', 'password3');
+INSERT into USER values  (5, 'sam', 'password4');
+INSERT into USER values  (6, 'kj', 'password5');
+INSERT into USER values  (7, 'ryan', 'password6');
+INSERT into USER values  (8, 'mary', 'password7');
+-- ------------------------------------------------------------------------------------------------
+-- role (id, name, username)
+-- ------------------------------------------------------------------------------------------------
+-- TODO set up multiple roles for individuals?  Not sure if needed?
+-- ------------------------------------------------------------------------------------------------
+INSERT into ROLE values (1, 'admin', 'admin');
+INSERT into ROLE values (2, 'jean', '');
+INSERT into ROLE values (3, 'chris', 'new user');
+INSERT into ROLE values (4, 'jen', 'advanced user');
+INSERT into ROLE values (5, 'sam', 'new user');
+INSERT into ROLE values (6, 'kj', 'new user');
+INSERT into ROLE values (7, 'ryan', 'new user');
+INSERT into ROLE values (8, 'mary', 'advanced user');
 -- -----------------------------------------------------------------------------------------------
 -- financial_story (id, content, date, visible, profile_user, editor, unsuitable)
 -- -----------------------------------------------------------------------------------------------
