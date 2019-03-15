@@ -1,4 +1,4 @@
-package com.heidiaandahl.controller;
+package com.heidiaandahl.controller.admin;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,22 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(
-    name = "blockUser",
-    urlPatterns = { "/block-user"}
+        name = "assembleAdminInfo",
+        urlPatterns = { "/admin"}
 )
-public class BlockUser extends HttpServlet {
+public class AssembleAdminInfo extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Create an object from request parameters
-
-        // Check whether the object is complete and ok
-
-        // Do something with the object or give feedback to the user
+        // Get all the users with edits/removals associated with their stories
 
         // Choose forward or redirect. Reminder: forward hides new location
 
         // TODO verify need for thrown exceptions
     }
 }
-
-
-

@@ -1,4 +1,4 @@
-package com.heidiaandahl.controller;
+package com.heidiaandahl.controller.admin;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

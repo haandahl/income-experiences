@@ -22,6 +22,7 @@ src/test/resources/database.properties
 src/test/resources/hibernate.cfg.xml
 income-experiences.git/
 logs/hibernate.log
+src/main/webapp/META-INF/context.xml
 
 # Gradle:
 .idea/gradle.xml

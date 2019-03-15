@@ -3,7 +3,5 @@
 <!DOCTYPE html>
 <html>
 <c:import url = "head.jsp" />
-<body>
-<h2><a href="profile">Temporary Link to the Profile</a></h2>
-</body>
+    <h2>Login Error</h2>
 </html>

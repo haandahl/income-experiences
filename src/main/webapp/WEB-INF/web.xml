@@ -4,4 +4,76 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <display-name>Income Experiences</display-name>
+    <!-- Tell the server to use form-based authentication. -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/loginError.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <!-- Protect everything within the "admin" directory (admin role only). -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>admin</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+            </auth-constraint>
+    </security-constraint>
+    <!-- Protect display profile -->
+    <!-- TODO - figure out how to display personal profile to any group but new user, vs any profile to advance user + admin -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>DisplayProfile</web-resource-name>
+            <url-pattern>/profile</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+            <role-name>admin</role-name>
+            <role-name>data user</role-name>
+            <role-name>advanced user</role-name>
+            <role-name>blocked user</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!-- Protect search servlet. -->
+    <!-- TODO - figure out how to differentiate search results for data vs. advanced users -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>search</web-resource-name>
+            <url-pattern>/SearchExperiences</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+            <role-name>data user</role-name>
+            <role-name>advanced user</role-name>
+            <role-name>blocked user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+
+
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>new user</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>data user</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>advanced user</role-name>
+    </security-role>
+
+    <!-- blocked user can search but not write text -->
+    <!-- TODO - maybe blocked user s/b more like data user, but w/o ability to write anything.  Decide -->
+    <security-role>
+        <role-name>blocked user</role-name>
+    </security-role>
+
 </web-app>
