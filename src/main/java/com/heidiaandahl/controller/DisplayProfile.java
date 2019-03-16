@@ -32,8 +32,14 @@ public class DisplayProfile extends HttpServlet {
         storyDisplayProperties.put("isVisible", true);
 
         List<Story> storiesList = (List<Story>)storyDao.getByPropertyNames(storyDisplayProperties);
-        Story profileStory = storiesList.get(0);
-        request.setAttribute("profileStory", profileStory);
+
+        if (storiesList.size() != 0) {
+            Story profileStory = storiesList.get(0);
+            request.setAttribute("profileStory", profileStory);
+        } else {
+            request.setAttribute("profileStory", null);
+        }
+
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
         dispatcher.forward(request, response);
