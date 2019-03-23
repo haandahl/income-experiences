@@ -5,5 +5,6 @@
 <c:import url = "head.jsp" />
 <body>
 <h2><a href="profile">Temporary Link to the Profile</a></h2>
+<h2><a href="admin">Temporary Link to Admin Page</a></h2>
 </body>
 </html>

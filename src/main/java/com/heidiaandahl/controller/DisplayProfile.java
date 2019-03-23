@@ -23,7 +23,6 @@ public class DisplayProfile extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GenericDao userDao = new GenericDao(User.class);
         User exampleUser = (User)userDao.getById(1);
-        // TODO - resolve Line 25 NPE -- this used to work!
         request.setAttribute("user", exampleUser);
 
         GenericDao storyDao = new GenericDao(Story.class);

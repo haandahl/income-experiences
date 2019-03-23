@@ -16,6 +16,7 @@
             <form-error-page>/loginError.jsp</form-error-page>
         </form-login-config>
     </login-config>
+
     <!-- Protect everything within the "admin" directory (admin role only). -->
     <security-constraint>
         <web-resource-collection>
@@ -78,32 +79,6 @@
         <role-name>blocked user</role-name>
     </security-role>
 
-    <!-- ****** ERROR HANDLING ****** -->
-    <!-- RESOURCES:
-            https://www.tutorialspoint.com/servlets/servlets-exception-handling.htm
-            https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-    -->
-    <!-- *************************************************** -->
-    <!-- we accomplish this stuff through annotations, right?? -->
-    <!-- anyway I think I might simply use jsp's -->
-    <!-- *************************************************** -->
-
-    <!-- servlet definition
-    <servlet>
-        <servlet-name>ErrorHandler</servlet-name>
-        <servlet-class>ErrorHandler</servlet-class>
-    </servlet>
-    -->
-
-   <!-- servlet mappings
-    <servlet-mapping>
-        <servlet-name>ErrorHandler</servlet-name>
-        <url-pattern>/ErrorHandler</url-pattern>
-    </servlet-mapping>
-    -->
-    <!-- *************************************************** -->
-    <!-- *************************************************** -->
-
     <!-- error-code related error pages -->
 
             <!-- TODO - test this one once more functionality is built in -->
@@ -135,5 +110,64 @@
     </error-page>
 
     -->
+
+
+    <!-- ****** ERROR HANDLING ****** -->
+    <!-- RESOURCES:
+            https://www.tutorialspoint.com/servlets/servlets-exception-handling.htm
+            https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+    -->
+    <!-- *************************************************** -->
+    <!-- we accomplish this stuff through annotations, right?? -->
+    <!-- anyway I think I might simply use jsp's -->
+    <!-- *************************************************** -->
+
+    <!-- servlet definition
+    <servlet>
+        <servlet-name>ErrorHandler</servlet-name>
+        <servlet-class>ErrorHandler</servlet-class>
+    </servlet>
+    -->
+
+    <!-- servlet mappings
+     <servlet-mapping>
+         <servlet-name>ErrorHandler</servlet-name>
+         <url-pattern>/ErrorHandler</url-pattern>
+     </servlet-mapping>
+     -->
+    <!-- *************************************************** -->
+    <!-- *************************************************** -->
+
+
+
+    <!-- ************************************************************* -->
+    <!-- ************************************************************* -->
+    <!-- Tried to re-map direct access of jsp's to index page, but that seemed to block servlets from
+         bringing up jsp's as well.  Getting rid of this for now.
+         TODO - reinvestigate blocking direct access of jsps?  -->
+
+    <!-- ************************************************************* -->
+
+    <!-- Redirect attempted direct access of jsp's to index page -->
+    <!--
+    <servlet>
+        <servlet-name>redirector</servlet-name>
+        <servlet-class>com.heidiaandahl.controller.Redirector</servlet-class>
+    </servlet>
+    -->
+    <!-- TRIED more general approach but got PROBLEM...caused by: java.lang.IllegalArgumentException: Invalid <url-pattern> /*.jsp in servlet mapping -->
+    <!--
+    <servlet-mapping>
+         <servlet-name>redirector</servlet-name>
+         <url-pattern>/admin.jsp</url-pattern>
+     </servlet-mapping>
+     <servlet-mapping>
+         <servlet-name>redirector</servlet-name>
+         <url-pattern>/profile.jsp</url-pattern>
+     </servlet-mapping>
+
+     -->
+    <!-- ************************************************************* -->
+    <!-- ************************************************************* -->
 
 </web-app>
