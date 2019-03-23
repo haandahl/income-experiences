@@ -23,6 +23,10 @@
             <web-resource-name>admin</web-resource-name>
             <url-pattern>/admin/*</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>admin jsp</web-resource-name>
+            <url-pattern>/admin.jsp</url-pattern>
+        </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
             </auth-constraint>
@@ -33,6 +37,10 @@
         <web-resource-collection>
             <web-resource-name>DisplayProfile</web-resource-name>
             <url-pattern>/profile</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>profile jsp</web-resource-name>
+            <url-pattern>/profile.jsp</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
