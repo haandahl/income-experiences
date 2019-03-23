@@ -86,14 +86,14 @@ INSERT into survey values (4, '2017-12-12', 2, 90000, 2, 5, 3, 1);
 -- ------------------------------------------------------------------------------------------------
 -- needs_unmet(id, food, housing, utilities, health_care, clothing, transportation, child_care, other, survey_id)
 -- ------------------------------------------------------------------------------------------------
-INSERT into needs_unmet (1, false, true, false, false, false, true, false, true, 1);
-INSERT into needs_unmet (2, false, false, false, false, false, false, false, false, 2);
-INSERT into needs_unmet (3, true, false, true, true, true, false, false, false, 3);
-INSERT into needs_unmet (4, false, false, false, false, false, false, false, false, 4);
+INSERT into needs_unmet values (1, false, true, false, false, false, true, false, true, 1);
+INSERT into needs_unmet values (2, false, false, false, false, false, false, false, false, 2);
+INSERT into needs_unmet values (3, true, false, true, true, true, false, false, false, 3);
+INSERT into needs_unmet values (4, false, false, false, false, false, false, false, false, 4);
 -- ------------------------------------------------------------------------------------------------
 -- goals_unmet(id, savings, career_ed, needs_quality, donations, recreation, travel, services, other, survey_id)
 -- ------------------------------------------------------------------------------------------------
-INSERT into goals_unmet (1, true, true, true, true, true, true, true, true, 1);
-INSERT into goals_unmet (2, false, false, false, false, false, false, false, false, 2);
-INSERT into goals_unmet (3, true, true, true, true, true, true, true, true, 3);
-INSERT into goals_unmet (4, false, true, false, false, false, false, true, false, 4);
+INSERT into goals_unmet values (1, true, true, true, true, true, true, true, true, 1);
+INSERT into goals_unmet values (2, false, false, false, false, false, false, false, false, 2);
+INSERT into goals_unmet values (3, true, true, true, true, true, true, true, true, 3);
+INSERT into goals_unmet values (4, false, true, false, false, false, false, true, false, 4);

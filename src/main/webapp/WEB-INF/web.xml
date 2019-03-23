@@ -35,7 +35,7 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
-            <role-name>admin</role-name>
+            <role-name>new user</role-name>
             <role-name>data user</role-name>
             <role-name>advanced user</role-name>
             <role-name>blocked user</role-name>
@@ -113,6 +113,8 @@
         <location>/forbiddenError.jsp</location>
     </error-page>
 
+    <!--  THESE MIGHT BE OK FOR USERS BUT ARE BAD FOR DEVELOPERS!  TODO - turn on later?
+
     <error-page>
         <error-code>404</error-code>
         <location>/otherError.jsp</location>
@@ -124,12 +126,14 @@
     </error-page>
 
 
-    <!-- exception-type related error pages -->
+   exception-type related error pages
     <error-page>
         <exception-type>
             java.lang.Throwable
         </exception-type >
         <location>/otherError.jsp</location>
     </error-page>
+
+    -->
 
 </web-app>

@@ -24,6 +24,9 @@ income-experiences.git/
 logs/hibernate.log
 src/main/webapp/META-INF/context.xml
 
+# Generated while attempting to implement Hibernate Search (investigate?):
+com.heidiaandahl.entity.User/
+
 # Gradle:
 .idea/gradle.xml
 .idea/libraries

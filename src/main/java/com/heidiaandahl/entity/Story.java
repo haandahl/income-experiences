@@ -1,6 +1,7 @@
 package com.heidiaandahl.entity;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class Story {
     @GenericGenerator(name = "native", strategy = "native")
     private int id;
 
+    @Field
     @Column(name = "content")
     private String storyContent;
 

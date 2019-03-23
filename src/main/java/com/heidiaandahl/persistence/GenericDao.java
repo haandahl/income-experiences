@@ -84,7 +84,7 @@ public class GenericDao<T> {
      * @return the id of the entity
      */
     public <T> T getById(int id) {
-        Session session = getSession();
+        Session session = getSession(); // Is this where the NPE is?
         T entity = (T)session.get(type, id);
         session.close();
         return entity;

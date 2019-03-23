@@ -1,6 +1,9 @@
 package com.heidiaandahl.entity;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -12,6 +15,7 @@ import java.util.Set;
  *
  * @author Heidi Aandahl
  */
+@Indexed
 @Entity(name = "User")
 @Table(name = "user")
 public class User {
@@ -20,6 +24,7 @@ public class User {
     @GenericGenerator(name = "native", strategy = "native")
     private int id;
 
+    @Field
     @Column(name = "username")
     private String username;
 
@@ -35,6 +40,7 @@ public class User {
     // TODO - take feedback: PW: . I think the decision here is around whether you want these sorted when they come back.
     //  If you do, then you will need to implement the comparable interface in Story and decided what kind of ordering you want (by date, name, etc.).
 
+    @IndexedEmbedded
     @OneToMany(mappedBy = "profileUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Story> storyVersionsForUserProfile = new HashSet<>();
 

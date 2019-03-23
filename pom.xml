@@ -97,8 +97,18 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>5.2.12.Final</version>
+      <version>5.2.13.Final</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-orm -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-search-orm</artifactId>
+      <version>5.9.3.Final</version>
+    </dependency>
+
+    <!-- TODO verify ok : CHANGED versions of hibernate core and c3p0 from .12 to .13.
+    no apparent effect, but I did this when my program was already not working -->
 
     <!-- hibernate dependencies for working with Java 8 classes like LocalDate -->
     <!-- Source: https://thoughts-on-java.org/hibernate-5-date-and-time/ -->
