@@ -37,48 +37,33 @@ public class SearchExperiences extends HttpServlet {
 
         backfillIndex();
 
-        // TODO move this search somewhere else probably
-        // MY FIRST HIBERNATE SEARCH
         // Adapted from: https://docs.jboss.org/hibernate/search/5.9/reference/en-US/pdf/hibernate_search_reference.pdf
-
 
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
 
         Transaction transaction = fullTextSession.beginTransaction();
-        // create native Lucene query using the query DSL
-        // alternatively you can write the Lucene query using the Lucene queryparser
-        // or the Lucene programmatic API. The Hibernate Search DSL is recommended though
+        // create native Lucene query using the query DSL (recommended)
         QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(User.class).get();
-        /* AS-IS returns no results.
-                maybe b/c exact search match or
-                maybe b/c indexes not set up for existing data
-                or maybe the second TermMatchingContent is set up wrong
+       /* NO RESULTS - must be exact term match only
+        org.apache.lucene.search.Query query = queryBuilder
+                .keyword()
+                .onFields("username")
+                .matching("poverty")
+                .createQuery();
+                */
+
         org.apache.lucene.search.Query query = queryBuilder
                 .keyword()
                 .onFields("username","storyVersionsForUserProfile.storyContent")
                 .matching("poverty")
-                .createQuery();*/
-        /* ALSO returns no results.
-                 maybe b/c indexes not set up for existing data
-        org.apache.lucene.search.Query query = queryBuilder
-                .keyword()
-                .onFields("username")
-                .matching("fedpoverty1")
-                .createQuery(); */
-
-        // TODO - does not work even after refreshing database.  Investigate!
-        // [WARN ] 2019-03-23 22:06:28.665 [http-nio-8080-exec-3]
-        // LuceneEmbeddedAnalyzerStrategy - HSEARCH000075: Configuration setting hibernate.search.lucene_version
-        // was not specified: using LUCENE_CURRENT.
-        // [DEBUG] 2019-03-23 22:06:29.165 [http-nio-8080-exec-3] fulltext_query - HSEARCH000274:
-        // Executing Lucene query 'username:fedpoverty1'
-
-        org.apache.lucene.search.Query query = queryBuilder
-                .keyword()
-                .onFields("username")
-                .matching("fedpoverty1")
                 .createQuery();
+/* WORKS
+        org.apache.lucene.search.Query query = queryBuilder
+                .keyword()
+                .onFields("username")
+                .matching("fedpoverty1")
+                .createQuery();*/
 
 
 
@@ -90,23 +75,14 @@ public class SearchExperiences extends HttpServlet {
         transaction.commit();
         session.close();
 
-        // figure out what's in the result:
-
-        if (result.size() !=0) {
+         if (result.size() !=0) {
             request.setAttribute("textResult", result);
         } else {
             request.setAttribute("textResult", null);
         }
 
-         // Choose forward or redirect. Reminder: forward hides new location
         RequestDispatcher dispatcher = request.getRequestDispatcher("/textResult.jsp");
         dispatcher.forward(request, response);
-        // TODO fix:
-        //com.heidiaandahl.controller.SearchExperiences.doGet(SearchExperiences.java:103)
-        //org.apache.jasper.JasperException: javax.el.ELException:
-        //Cannot convert [User{id=2, username='fedpoverty1', password='SunWet77BRANCHES999'}] of type class java.util.Collections$SingletonList
-        // to class java.lang.Boolean
-
     }
 
     private void backfillIndex() {

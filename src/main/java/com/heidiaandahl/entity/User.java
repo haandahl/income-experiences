@@ -41,13 +41,13 @@ public class User {
     //  If you do, then you will need to implement the comparable interface in Story and decided what kind of ordering you want (by date, name, etc.).
 
     @IndexedEmbedded
-    @OneToMany(mappedBy = "profileUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "profileUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Story> storyVersionsForUserProfile = new HashSet<>();
 
-    @OneToMany(mappedBy = "editor", orphanRemoval = false, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "editor", orphanRemoval = false, fetch = FetchType.EAGER)
     private Set<Story> storyVersionsWithUserEdit = new HashSet<>();
 
-    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Survey> userSurveys = new HashSet<>();
 
     /**
