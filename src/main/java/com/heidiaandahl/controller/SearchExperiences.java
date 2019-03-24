@@ -28,44 +28,20 @@ public class SearchExperiences extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // TODO investigate why href link to this page is a "get" needing doGet instead of doPost
-        // Create an object from request parameters
-
-        // Check whether the object is complete and ok
-
-        // Do something with the object or give feedback to the user
-
         backfillIndex();
 
         // Adapted from: https://docs.jboss.org/hibernate/search/5.9/reference/en-US/pdf/hibernate_search_reference.pdf
-
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
-
         Transaction transaction = fullTextSession.beginTransaction();
+
         // create native Lucene query using the query DSL (recommended)
         QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(User.class).get();
-       /* NO RESULTS - must be exact term match only
-        org.apache.lucene.search.Query query = queryBuilder
-                .keyword()
-                .onFields("username")
-                .matching("poverty")
-                .createQuery();
-                */
-
         org.apache.lucene.search.Query query = queryBuilder
                 .keyword()
                 .onFields("username","storyVersionsForUserProfile.storyContent")
                 .matching("poverty")
                 .createQuery();
-/* WORKS
-        org.apache.lucene.search.Query query = queryBuilder
-                .keyword()
-                .onFields("username")
-                .matching("fedpoverty1")
-                .createQuery();*/
-
-
 
         // wrap Lucene query in a org.hibernate.Query
         org.hibernate.Query fullTextQuery = fullTextSession.createFullTextQuery(query, User.class);
@@ -85,11 +61,33 @@ public class SearchExperiences extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+
+    /* WORKS
+        org.apache.lucene.search.Query query = queryBuilder
+                .keyword()
+                .onFields("username")
+                .matching("fedpoverty1")
+                .createQuery();*/
+
+       /* NO RESULTS - must be exact term match only
+        org.apache.lucene.search.Query query = queryBuilder
+                .keyword()
+                .onFields("username")
+                .matching("poverty")
+                .createQuery();
+                */
+
+
+
+
+    // Currently runs before every search.  TODO - change that
+    // Based on Reference Guide code:
+            // FullTextSession fullTextSession = Search.getFullTextSession(session);
+            // fullTextSession.createIndexer().startAndWait();
     private void backfillIndex() {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
 
-        // code to build index on existing db.  probably shouldn't run for every search but...
          try {
             fullTextSession.createIndexer().startAndWait();
         } catch (InterruptedException interrupted) {

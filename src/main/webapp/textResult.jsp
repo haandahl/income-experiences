@@ -22,13 +22,11 @@
                             </tr>
                         </c:forEach>
                     </c:forEach>
-
                 </table>
             </c:when>
             <c:otherwise>
                 <p>No results were found.</p>
             </c:otherwise>
-
         </c:choose>
 
     </body>
