@@ -55,7 +55,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>search</web-resource-name>
-            <url-pattern>/SearchExperiences</url-pattern>
+            <url-pattern>/search-experiences</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
@@ -157,14 +157,12 @@
     <!-- ************************************************************* -->
 
     <!-- Redirect attempted direct access of jsp's to index page -->
-    <!--
+<!--
     <servlet>
         <servlet-name>redirector</servlet-name>
         <servlet-class>com.heidiaandahl.controller.Redirector</servlet-class>
     </servlet>
-    -->
-    <!-- TRIED more general approach but got PROBLEM...caused by: java.lang.IllegalArgumentException: Invalid <url-pattern> /*.jsp in servlet mapping -->
-    <!--
+
     <servlet-mapping>
          <servlet-name>redirector</servlet-name>
          <url-pattern>/admin.jsp</url-pattern>
@@ -174,7 +172,8 @@
          <url-pattern>/profile.jsp</url-pattern>
      </servlet-mapping>
 
-     -->
+ -->
+
     <!-- ************************************************************* -->
     <!-- ************************************************************* -->
 

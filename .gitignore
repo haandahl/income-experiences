@@ -23,6 +23,7 @@ src/test/resources/hibernate.cfg.xml
 income-experiences.git/
 logs/hibernate.log
 src/main/webapp/META-INF/context.xml
+DataDump/*
 
 # Generated while attempting to implement Hibernate Search (investigate?):
 com.heidiaandahl.entity.User/

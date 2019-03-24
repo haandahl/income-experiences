@@ -6,5 +6,6 @@
 <body>
 <h2><a href="profile">Temporary Link to the Profile</a></h2>
 <h2><a href="admin">Temporary Link to Admin Page</a></h2>
+<h2><a href="search-experiences">Temporary Link to Search Results (search term hard coded)</a></h2>
 </body>
 </html>

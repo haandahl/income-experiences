@@ -1,7 +1,5 @@
 package com.heidiaandahl.controller;
 
-import com.heidiaandahl.entity.Story;
-import com.heidiaandahl.entity.User;
 import com.heidiaandahl.persistence.SessionFactoryProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +28,12 @@ public class ApplicationStartup {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     public void init() {
+        //TODO - it looks like this method is not running at all...
+        // And activity happens in com.heidiaandahl.entity.User even when loadOnStartup is commented out.
+        // Looks like this is still not running even with config file fixed...
+        logger.debug("in init of ApplicationStartup");
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        logger.debug("just opened a session in ApplicationStartup: " + session);
         FullTextSession fullTextSession = Search.getFullTextSession(session);
 
         MassIndexer newMassIndexer = fullTextSession.createIndexer();
@@ -45,6 +48,7 @@ public class ApplicationStartup {
             // TODO - consider that the finally block was added to see if it helped later in the app.  No effect. Should it be here anyway?
             session.close();
             fullTextSession.close();
+            logger.debug("just closed a session and full text session in ApplicationStartup");
         }
 
      }

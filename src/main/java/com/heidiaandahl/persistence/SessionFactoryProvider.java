@@ -1,5 +1,7 @@
 package com.heidiaandahl.persistence;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -41,7 +43,7 @@ public class SessionFactoryProvider {
      */
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
-            createSessionFactory();
+            createSessionFactory(); // This is where there's an error if the config file is set up for Hibernate Search
         }
         return sessionFactory;
 
