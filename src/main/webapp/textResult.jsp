@@ -8,7 +8,9 @@
 
 
         <c:choose>
-            <c:when test="${textResult}">
+            <%-- Resource for evaluating empty tag:
+            https://stackoverflow.com/questions/2811626/evaluate-empty-or-null-jstl-c-tags by BalusC--%>
+            <c:when test="${!empty textResult}">
                 <table>
                     <c:forEach var = "result" items="${textResult}">
                         <tr><td>${result}</td></tr>

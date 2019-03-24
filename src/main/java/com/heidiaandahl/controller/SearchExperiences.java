@@ -2,6 +2,8 @@ package com.heidiaandahl.controller;
 
 import com.heidiaandahl.entity.User;
 import com.heidiaandahl.persistence.SessionFactoryProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.search.*;
@@ -22,21 +24,27 @@ import java.util.List;
 )
 public class SearchExperiences extends HttpServlet {
 
+    private final Logger logger = LogManager.getLogger(this.getClass());
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // TODO investigate why href link to this page is a "get" needing doGet instead of doPost
-
         // Create an object from request parameters
 
         // Check whether the object is complete and ok
 
         // Do something with the object or give feedback to the user
+
+        backfillIndex();
+
         // TODO move this search somewhere else probably
         // MY FIRST HIBERNATE SEARCH
         // Adapted from: https://docs.jboss.org/hibernate/search/5.9/reference/en-US/pdf/hibernate_search_reference.pdf
+
+
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
+
         Transaction transaction = fullTextSession.beginTransaction();
         // create native Lucene query using the query DSL
         // alternatively you can write the Lucene query using the Lucene queryparser
@@ -93,8 +101,27 @@ public class SearchExperiences extends HttpServlet {
          // Choose forward or redirect. Reminder: forward hides new location
         RequestDispatcher dispatcher = request.getRequestDispatcher("/textResult.jsp");
         dispatcher.forward(request, response);
+        // TODO fix:
+        //com.heidiaandahl.controller.SearchExperiences.doGet(SearchExperiences.java:103)
+        //org.apache.jasper.JasperException: javax.el.ELException:
+        //Cannot convert [User{id=2, username='fedpoverty1', password='SunWet77BRANCHES999'}] of type class java.util.Collections$SingletonList
+        // to class java.lang.Boolean
 
+    }
 
-        // TODO verify need for thrown exceptions
+    private void backfillIndex() {
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+
+        // code to build index on existing db.  probably shouldn't run for every search but...
+         try {
+            fullTextSession.createIndexer().startAndWait();
+        } catch (InterruptedException interrupted) {
+            logger.error("There was an interruption while attempting to build an index on the existing db.");
+        } catch (Exception exeption) {
+            logger.error("There was an error while attempting to build an index on the existing db.");
+        } finally {
+            session.close();
+        }
     }
 }
