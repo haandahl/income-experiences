@@ -28,6 +28,11 @@ public class SearchExperiences extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // get search string
+
+        // change query to just search stories, not usernames
+
+        // TODO - move this method so it is not executed with every search
         backfillIndex();
 
         // Adapted from: https://docs.jboss.org/hibernate/search/5.9/reference/en-US/pdf/hibernate_search_reference.pdf
@@ -37,11 +42,21 @@ public class SearchExperiences extends HttpServlet {
 
         // create native Lucene query using the query DSL (recommended)
         QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(User.class).get();
+
+        // TODO - consider username/story search for admin page but remove username from search field for users exploring topics
+        // Fuzzy simpleQueryString search defaults to "or" and allows some misspelling
         org.apache.lucene.search.Query query = queryBuilder
-                .keyword()
+                .simpleQueryString()
                 .onFields("username","storyVersionsForUserProfile.storyContent")
-                .matching("poverty")
+                .matching("opvertey~2 Medicaid~2")
                 .createQuery();
+
+        /*
+        Notes: I'm not sure how loose the ~2 fuzzy search is.  When you do a keyword search instead, you can define that.
+        These return results:  povertley, opverty
+        Do not: uberpovertly, uberpoverty
+        Possible alternative would be combined keyword searches with fuzziness better defined
+         */
 
         // wrap Lucene query in a org.hibernate.Query
         org.hibernate.Query fullTextQuery = fullTextSession.createFullTextQuery(query, User.class);
@@ -61,29 +76,6 @@ public class SearchExperiences extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-
-    /* WORKS
-        org.apache.lucene.search.Query query = queryBuilder
-                .keyword()
-                .onFields("username")
-                .matching("fedpoverty1")
-                .createQuery();*/
-
-       /* NO RESULTS - must be exact term match only
-        org.apache.lucene.search.Query query = queryBuilder
-                .keyword()
-                .onFields("username")
-                .matching("poverty")
-                .createQuery();
-                */
-
-
-
-
-    // Currently runs before every search.  TODO - change that
-    // Based on Reference Guide code:
-            // FullTextSession fullTextSession = Search.getFullTextSession(session);
-            // fullTextSession.createIndexer().startAndWait();
     private void backfillIndex() {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
