@@ -27,7 +27,7 @@ public class SearchStats extends HttpServlet {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // TODO - get search info from user, etc
         int income = 0;

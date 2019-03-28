@@ -22,9 +22,6 @@
             </c:otherwise>
 
         </c:choose>
-
-        <h2><a href="profile">Temporary Link to the Profile to demonstrate authentication</a></h2>
-
     </div>
     </body>
 </html>

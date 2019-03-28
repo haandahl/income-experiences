@@ -16,7 +16,7 @@
             </p>
 
             <h3>Search by Income and Household Size</h3>
-            <form method="get" action="search-stats">
+            <form method="post" action="search-stats">
                 <div class="form-group">
                     <label for="income">Before-tax annual income:</label>
                     <input type="number" class="form-control" id="income" placeholder="######">
@@ -39,7 +39,7 @@
             </form>
 
             <h3>Search by Topic</h3>
-            <form method="get" action="search-experiences">
+            <form method="post" action="search-experiences">
                 <div class="form-group">
                     <label for="topic">Topic(s):</label>
                     <input type="text" class="form-control" id="topic" placeholder="example: frugal dumpster diving" >
