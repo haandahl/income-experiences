@@ -154,6 +154,34 @@ public class SurveyDaoTest {
      }
 
     /**
+     * Verifies that a survey can be retrieved by user.
+     */
+    @Test
+    void getByUserSuccess() {
+        /*
+            Test DB info
+            -- ------------------------------------------------------------------------------------------------
+            -- survey (id, date, family size, income, user_id, needs_description_id, goals_description_id, income_skew_id)
+            INSERT into survey values (3, '2019-01-15', 3, 50000, 1, 3, 1, 2);
+            -- ------------------------------------------------------------------------------------------------
+            -- needs_unmet(id, food, housing, utilities, health_care, clothing, transportation, child_care, other, survey_id)
+            INSERT into needs_unmet values (3, true, false, true, true, true, false, false, false, 3);
+            -- ------------------------------------------------------------------------------------------------
+            -- goals_unmet(id, savings, career_ed, needs_quality, donations, recreation, travel, services, other, survey_id)
+            INSERT into goals_unmet values (3, true, true, true, true, true, true, true, true, 3);
+         */
+        User testUser = (User)userDao.getById(1);
+
+        // TODO - make a method that gets the most recent survey and then test it. This one should work knowing there is currently only one survey per user.
+
+        // TODO - maybe Ineed this one:  public List<T> getByPropertyNames(Map<String, Object> propertyMap)
+        List<Survey> retrievedSurveys = (List<Survey>)surveyDao.getByPropertyName("participant", testUser);
+        Survey retrievedSurvey = retrievedSurveys.get(0);
+
+        assertEquals(retrievedSurvey, (Survey)surveyDao.getById(3));
+     }
+
+    /**
      * Verifies that surveys can be retrieved by family size.
      */
     @Test

@@ -1,6 +1,7 @@
 package com.heidiaandahl.controller;
 
 import com.heidiaandahl.entity.Story;
+import com.heidiaandahl.entity.Survey;
 import com.heidiaandahl.entity.User;
 import com.heidiaandahl.persistence.GenericDao;
 
@@ -25,7 +26,7 @@ public class DisplayProfile extends HttpServlet {
 
         // Access the username of the person logged in
         // Resource https://grokbase.com/t/tomcat/users/063snnw95r/get-jdbcrealms-current-user
-        String currentUsername = request.getRemoteUser();  //username??
+        String currentUsername = request.getRemoteUser();
         
         GenericDao userDao = new GenericDao(User.class);
 
@@ -33,6 +34,12 @@ public class DisplayProfile extends HttpServlet {
         
         User currentUser = currentUsers.get(0);
         request.setAttribute("user", currentUser);
+
+        // TODO - access the current user's other financial information here and build out the profile jsp to display it
+        // TODO - build something that sorts out booleans from survey
+        // TODO refactor the doGet
+
+        //Survey currentSurvey =
 
 
         // Access the current user's financial story, if there is one and it's meant to be visible
