@@ -2,6 +2,8 @@
 <html>
 <%@include file="head.jsp"%>
     <body>
+    <div class="container">
+        <c:import url = "header.jsp" />
         <h2> Results for the search</h2>
         <p>Search term is currently hard coded.</p>
 
@@ -28,6 +30,8 @@
                 <p>No results were found.</p>
             </c:otherwise>
         </c:choose>
+
+    </div>
 
     </body>
 

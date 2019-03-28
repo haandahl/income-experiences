@@ -2,6 +2,11 @@
 <html>
 <%@include file="head.jsp"%>
     <body>
+
+
+        <div class="container">
+            <c:import url = "header.jsp" />
+
         <h2>${user.username}</h2>
         <p>The username above does not reflect the logged in user.  Currently just demonstrating authentication.</p>
 
@@ -10,7 +15,6 @@
             <h2>${user.username}'s Story</h2>
             <p>${profileStory.storyContent}</p>
         </c:if>
+    </div>
     </body>
-
-<h2><a href="admin">Temporary Link to Admin Page to demonstrate authentication</a></h2>
 </html>

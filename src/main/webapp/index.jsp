@@ -2,10 +2,16 @@
 
 <!DOCTYPE html>
 <html>
-<c:import url = "head.jsp" />
-<body>
-<h2><a href="profile">Temporary Link to the Profile</a></h2>
-<h2><a href="admin">Temporary Link to Admin Page</a></h2>
-<h2><a href="search-experiences">Temporary Link to Search Results (search term hard coded)</a></h2>
-</body>
+    <c:import url = "head.jsp" />
+        <body>
+        <div class="container">
+        <c:import url = "header.jsp" />
+
+
+            <h2>About</h2>
+            <p>
+                It's gonna be so great...
+            </p>
+        </div>
+        </body>
 </html>

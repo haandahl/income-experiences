@@ -76,14 +76,14 @@ class design and any other diagrams are created</li>
 </ul>
 
 ## (3/18/19 is spring break)
-NB: All anticipated tables have been build, even though that work was broken out differently in the original project plan.
+NB: All anticipated tables have been built, even though that work was broken out differently in the original project plan.
 
 <ul>
-<li>Look up security issue with selected pre-made template.</li>
+<li>X--Look up security issue with selected pre-made template.</li>
 <li>Create template for JSPs using Bootstrap 4</li>
 <li>Decide how text search of stories will look on interface</li>
-<li>Implement hibernate search on stories</li>
-<li>Build out and test survey entity.</li>
+<li>GOOD PROGRESS -- Implement hibernate search on stories</li>
+<li>GOOD PROGRESS -- Build out and test survey entity.</li>
 <li>IN PROGRESS -- Complete JSP/Servlet for displaying a profile (username and story so far)</li>
 </ul>
 
@@ -93,11 +93,11 @@ NB: All anticipated tables have been build, even though that work was broken out
 <ul>
 <li>X--Incorporate feedback from project reviews/checkpoint 2</li>
 <li>Create JSP elements for creating an account (including the survey), logging in, and logging out.</li>
-<li>Add and test the role entity.</li>
-<li>Set up authentication locally</li>
+<li>X--Add and test the role entity.</li>
+<li>X--Set up authentication locally</li>
 <li>Set up authentication on AWS</li>
-<li>Update time log</li>
-<li>Push work to GitHub</li>
+<li>X--Update time log</li>
+<li>X--Push work to GitHub</li>
 </ul>
 
 
