@@ -6,7 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -172,10 +174,14 @@ public class SurveyDaoTest {
          */
         User testUser = (User)userDao.getById(1);
 
-        // TODO - make a method that gets the most recent survey and then test it. This one should work knowing there is currently only one survey per user.
+        // TODO - make a method that gets the most recent survey and then test it.
+        // This one should work knowing there is currently only one survey per user.
 
-        // TODO - maybe Ineed this one:  public List<T> getByPropertyNames(Map<String, Object> propertyMap)
-        List<Survey> retrievedSurveys = (List<Survey>)surveyDao.getByPropertyName("participant", testUser);
+        // Map the search criteria
+        Map<String, Object> testMap = new HashMap<>();
+        testMap.put("participant", testUser);
+        List<Survey> retrievedSurveys = (List<Survey>)surveyDao.getByPropertyNames(testMap);
+
         Survey retrievedSurvey = retrievedSurveys.get(0);
 
         assertEquals(retrievedSurvey, (Survey)surveyDao.getById(3));

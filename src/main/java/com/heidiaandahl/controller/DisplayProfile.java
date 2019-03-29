@@ -24,6 +24,8 @@ import java.util.Map;
 public class DisplayProfile extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // TODO refactor the doGet
+
         // Access the username of the person logged in
         // Resource https://grokbase.com/t/tomcat/users/063snnw95r/get-jdbcrealms-current-user
         String currentUsername = request.getRemoteUser();
@@ -35,12 +37,20 @@ public class DisplayProfile extends HttpServlet {
         User currentUser = currentUsers.get(0);
         request.setAttribute("user", currentUser);
 
-        // TODO - access the current user's other financial information here and build out the profile jsp to display it
-        // TODO - build something that sorts out booleans from survey
-        // TODO refactor the doGet
 
-        //Survey currentSurvey =
+        // Access the current user's financial survey
+            // TODO - this currently assumes there is only 1 survey (currently true); to improve/maintain, alter to retrieve most resent survey
+        GenericDao surveyDao = new GenericDao(Survey.class);
 
+        Map<String, Object> surveyCriteria = new HashMap<>();
+        surveyCriteria.put("participant", currentUser);
+        List<Survey> currentSurveys = (List<Survey>)surveyDao.getByPropertyNames(surveyCriteria);
+
+        Survey currentSurvey = currentSurveys.get(0);
+
+        request.setAttribute("survey", currentSurvey);
+
+        // TODO - build something that sorts out booleans from survey; integrate them for display in jsp
 
         // Access the current user's financial story, if there is one and it's meant to be visible
         GenericDao storyDao = new GenericDao(Story.class);
