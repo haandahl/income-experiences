@@ -29,8 +29,13 @@ public class SearchExperiences extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // get search string
+        String searchString = request.getParameter("topic");
 
-        // change query to just search stories, not usernames
+        String contextPath = request.getContextPath();
+        String requestURI = request.getRequestURI(); // THIS IS WHERE IT BREAKS DOWN
+        /*
+
+        // TODO modify search string to add ~2 at the end of each token
 
         // TODO - move this method so it is not executed with every search
         backfillIndex();
@@ -43,22 +48,14 @@ public class SearchExperiences extends HttpServlet {
         // create native Lucene query using the query DSL (recommended)
         QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(User.class).get();
 
-        // TODO - consider username/story search for admin page but remove username from search field for users exploring topics
-        // Fuzzy simpleQueryString search defaults to "or" and allows some misspelling
+        // Do an "or" search that will be fuzzy if incoming words end in ~2
         org.apache.lucene.search.Query query = queryBuilder
                 .simpleQueryString()
-                .onFields("username","storyVersionsForUserProfile.storyContent")
-                .matching("opvertey~2 Medicaid~2")
+                .onFields("storyVersionsForUserProfile.storyContent")
+                .matching(searchString)
                 .createQuery();
 
-        /*
-        Notes: I'm not sure how loose the ~2 fuzzy search is.  When you do a keyword search instead, you can define that.
-        These return results:  povertley, opverty
-        Do not: uberpovertly, uberpoverty
-        Possible alternative would be combined keyword searches with fuzziness better defined
-         */
-
-        // wrap Lucene query in a org.hibernate.Query
+         // wrap Lucene query in a org.hibernate.Query
         org.hibernate.Query fullTextQuery = fullTextSession.createFullTextQuery(query, User.class);
 
         // execute search
@@ -66,14 +63,24 @@ public class SearchExperiences extends HttpServlet {
         transaction.commit();
         session.close();
 
+
+
          if (result.size() !=0) {
             request.setAttribute("textResult", result);
         } else {
             request.setAttribute("textResult", null);
         }
+        */
+
+
+
+        request.setAttribute("topic", searchString);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/textResult.jsp");
         dispatcher.forward(request, response);
+        //java.lang.IllegalStateException: Unable to find match between the canonical context path [/incomeexperiences]
+        // and the URI presented by the user agent [c=povertyperiences/search-experiences]
+        //com.heidiaandahl.controller.SearchExperiences.doPost(SearchExperiences.java:69)
     }
 
     private void backfillIndex() {

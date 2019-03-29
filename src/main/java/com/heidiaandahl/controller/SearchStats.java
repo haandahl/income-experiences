@@ -1,6 +1,7 @@
 package com.heidiaandahl.controller;
 
 import com.heidiaandahl.entity.User;
+import com.heidiaandahl.logic.ExperiencesSearch;
 import com.heidiaandahl.persistence.SessionFactoryProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,15 +30,22 @@ public class SearchStats extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // TODO - get search info from user, etc
-        int income = 0;
-        int householdSize = 0;
+        // get search info from user
+        String incomeInput = request.getParameter("income");
+        String householdSizeInput = request.getParameter("householdSize");
+
+        int income = Integer.valueOf(incomeInput);
+        int householdSize = Integer.valueOf(householdSizeInput);
 
         // execute search
+        ExperiencesSearch experiencesSearch = new ExperiencesSearch(income, householdSize);
+        // TODO - build and use ExperiencesSearch.java to get more info
+
+
 
 
         // set request attribute
-        request.setAttribute("incomeSearch", income);
+        request.setAttribute("income", income);
         request.setAttribute("householdSize", householdSize);
 
 

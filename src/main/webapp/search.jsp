@@ -19,11 +19,11 @@
             <form method="post" action="search-stats">
                 <div class="form-group">
                     <label for="income">Before-tax annual income:</label>
-                    <input type="number" class="form-control" id="income" placeholder="######">
+                    <input type="number" class="form-control" id="income" name="income" placeholder="######">
                 </div>
                 <div class="form-group">
                     <label for="householdSize">Select list:</label>
-                    <select class="form-control" id="householdSize">
+                    <select class="form-control" id="householdSize" name="householdSize">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -42,7 +42,7 @@
             <form method="post" action="search-experiences">
                 <div class="form-group">
                     <label for="topic">Topic(s):</label>
-                    <input type="text" class="form-control" id="topic" placeholder="example: frugal dumpster diving" >
+                    <input type="text" class="form-control" id="topic" name="topic" placeholder="example: frugal dumpster diving" >
                 </div>
                 <button type="submit" class="btn btn-primary">Search by Topic</button>
             </form>

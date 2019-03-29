@@ -41,3 +41,38 @@ public class AssembleAdminInfo extends HttpServlet {
         dispatcher.forward(request, response);
     }
 }
+
+/*
+    TODO - maybe - add text search to capture inappropriate user names and stories
+
+    Draft:
+            // Adapted from: https://docs.jboss.org/hibernate/search/5.9/reference/en-US/pdf/hibernate_search_reference.pdf
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+        Transaction transaction = fullTextSession.beginTransaction();
+
+        // create native Lucene query using the query DSL (recommended)
+        QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(User.class).get();
+
+        // Fuzzy simpleQueryString search defaults to "or" and allows some misspelling
+        org.apache.lucene.search.Query query = queryBuilder
+                .simpleQueryString()
+                .onFields("username","storyVersionsForUserProfile.storyContent")
+                .matching("opvertey~2 Medicaid~2")
+                .createQuery();
+
+     // wrap Lucene query in a org.hibernate.Query
+    org.hibernate.Query fullTextQuery = fullTextSession.createFullTextQuery(query, User.class);
+
+    // execute search
+    List result = fullTextQuery.list();
+        transaction.commit();
+                session.close();
+
+                if (result.size() !=0) {
+                request.setAttribute("textResult", result);
+                } else {
+                request.setAttribute("textResult", null);
+                }
+
+*/
