@@ -120,6 +120,7 @@ public class SurveyDaoTest {
         assertNotNull(goalsDescritpionDao.getById(3));
         assertNotNull(incomeSkewDao.getById(1));
     }
+
     /**
      *  Verifies that a survey can be retrieved by Id.
      */
@@ -156,8 +157,40 @@ public class SurveyDaoTest {
      }
 
     /**
-     * Verifies that a survey can be retrieved by user.
+     *  Verifies that a survey can be retrieved by Id.
      */
+    @Test
+    void getByIdWithAssociatedDescriptionsSuccess() {
+        Survey retrievedSurvey = (Survey) surveyDao.getById(3);
+
+        NeedsDescription expectedNeedsDescription = (NeedsDescription) needsDescriptionDao.getById(3);
+        GoalsDescription expectedGoalsDescription = (GoalsDescription) goalsDescritpionDao.getById(1);
+        IncomeSkew expectedIncomeSkew = (IncomeSkew) incomeSkewDao.getById(2);
+
+         /*
+            Test DB info:
+            survey (id, date,   family size, income, user_id, needs_description_id, goals_description_id, income_skew_id)
+            INSERT into survey values
+                    (3, '2019-01-15', 3,    50000,      1,          3,                  1,                      2);
+         INSERT INTO needs_description (id, description) VALUES (3, 'Unmet needs caused discomfort.');
+         INSERT INTO goals_description (id, description) VALUES (1, 'Unmet goals caused insecurity or high stress.');
+         INSERT INTO income_skew (id, description) VALUES (2, 'some impact');
+         */
+
+        // Test for correct associations
+        // TODO - ideally these would move to new classes - I am really testing getById
+        // However, I think I would always access these via user or survey, not directly
+
+        assertEquals("Unmet needs caused discomfort.", retrievedSurvey.getNeedsDescription().getDescription());
+        assertEquals("Unmet goals caused insecurity or high stress.", retrievedSurvey.getGoalsDescription().getDescription());
+        assertEquals("some impact", retrievedSurvey.getIncomeSkew().getDescription());
+
+        // NOTE: TODO test retrieval of booleans in separate test class.
+    }
+
+        /**
+         * Verifies that a survey can be retrieved by user.
+         */
     @Test
     void getByUserSuccess() {
         /*

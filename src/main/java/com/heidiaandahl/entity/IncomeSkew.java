@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity(name = "GoalsDescription")
-@Table(name = "goals_description")
+@Entity(name = "IncomeSkew")
+@Table(name = "income_skew")
 public class IncomeSkew {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -18,7 +18,7 @@ public class IncomeSkew {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "goalsDescription")
+    @OneToMany(mappedBy = "incomeSkew")
     private Set<Survey> surveysWithIncomeSkew = new HashSet<>();
 
     public IncomeSkew() {
