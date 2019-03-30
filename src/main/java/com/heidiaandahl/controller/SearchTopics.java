@@ -20,13 +20,15 @@ import java.util.List;
 
 @WebServlet(
         name = "searchExperiences",
-        urlPatterns = { "/search-experiences"}
+        urlPatterns = { "/search-topics"}
 )
-public class SearchExperiences extends HttpServlet {
+public class SearchTopics extends HttpServlet {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO - I think the problem is that THIS servlet requires login and somehow that messes it up.
+        //  If I access it when already logged in somewhere else, it works fine.  So maybe I can require login before even getting to teh search page at all....
 
         // get search string
         String searchString = request.getParameter("topic");
@@ -80,7 +82,7 @@ public class SearchExperiences extends HttpServlet {
         dispatcher.forward(request, response);
         //java.lang.IllegalStateException: Unable to find match between the canonical context path [/incomeexperiences]
         // and the URI presented by the user agent [c=povertyperiences/search-experiences]
-        //com.heidiaandahl.controller.SearchExperiences.doPost(SearchExperiences.java:69)
+        //com.heidiaandahl.controller.SearchTopics.doPost(SearchTopics.java:69)
     }
 
     private void backfillIndex() {

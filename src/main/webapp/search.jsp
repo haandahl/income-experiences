@@ -39,7 +39,7 @@
             </form>
 
             <h3>Search by Topic</h3>
-            <form method="post" action="search-experiences">
+            <form method="post" action="search-topics">
                 <div class="form-group">
                     <label for="topic">Topic(s):</label>
                     <input type="text" class="form-control" id="topic" name="topic" placeholder="example: frugal dumpster diving" >

@@ -55,7 +55,15 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>search</web-resource-name>
-            <url-pattern>/search-experiences</url-pattern>
+            <url-pattern>/search.jsp</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>SearchStats</web-resource-name>
+            <url-pattern>/search-stats</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>search topics</web-resource-name>
+            <url-pattern>/search-topics</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
