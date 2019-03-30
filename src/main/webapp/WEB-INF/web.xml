@@ -17,6 +17,21 @@
         </form-login-config>
     </login-config>
 
+    <!-- Allow the user to log in from the nav by protecting a simple login servlet to trigger authentication -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>logIn</web-resource-name>
+            <url-pattern>/login</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+            <role-name>new user</role-name>
+            <role-name>data user</role-name>
+            <role-name>advanced user</role-name>
+            <role-name>blocked user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
     <!-- Protect everything within the "admin" directory (admin role only). -->
     <security-constraint>
         <web-resource-collection>
