@@ -3,6 +3,7 @@
 <html>
     <c:import url = "head.jsp" />
         <body>
+        <div class="container">
             <c:import url = "header.jsp" />
             <p>Sorry, you are not authorized to access this page. </p>
             <p><a href="index.jsp">home</a> </p>
@@ -17,5 +18,6 @@
             -->
 
             <!-- <p><a href="login.jsp">try different login</a> </p> -->
+        </div>
         </body>
 </html>

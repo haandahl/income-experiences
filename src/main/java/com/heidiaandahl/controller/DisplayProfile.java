@@ -46,9 +46,12 @@ public class DisplayProfile extends HttpServlet {
         surveyCriteria.put("participant", currentUser);
         List<Survey> currentSurveys = (List<Survey>)surveyDao.getByPropertyNames(surveyCriteria);
 
-        Survey currentSurvey = currentSurveys.get(0);
-
-        request.setAttribute("survey", currentSurvey);
+        if (currentSurveys.size() != 0) {
+            Survey currentSurvey = currentSurveys.get(0);
+            request.setAttribute("survey", currentSurvey);
+        } else {
+            request.setAttribute("survey", null);
+        }
 
         // TODO - build something that sorts out booleans from survey; integrate them for display in jsp
 

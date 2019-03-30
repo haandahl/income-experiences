@@ -5,7 +5,7 @@
     <div class="container">
         <c:import url = "header.jsp" />
         <h2> Results for the search</h2>
-        <p>You searched for ${topic}</p>
+        <p>You searched for "${topic}"</p>
 
         <%-- Resource for evaluating empty tag:
          https://stackoverflow.com/questions/2811626/evaluate-empty-or-null-jstl-c-tags by BalusC--%>
