@@ -27,15 +27,8 @@ public class SearchTopics extends HttpServlet {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO - I think the problem is that THIS servlet requires login and somehow that messes it up.
-        //  If I access it when already logged in somewhere else, it works fine.  So maybe I can require login before even getting to teh search page at all....
-
         // get search string
         String searchString = request.getParameter("topic");
-
-        String contextPath = request.getContextPath();
-        String requestURI = request.getRequestURI(); // THIS IS WHERE IT BREAKS DOWN
-        /*
 
         // TODO modify search string to add ~2 at the end of each token
 
@@ -65,24 +58,17 @@ public class SearchTopics extends HttpServlet {
         transaction.commit();
         session.close();
 
-
-
-         if (result.size() !=0) {
+        // send info to results page
+        if (result.size() !=0) {
             request.setAttribute("textResult", result);
         } else {
             request.setAttribute("textResult", null);
         }
-        */
-
-
 
         request.setAttribute("topic", searchString);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/textResult.jsp");
         dispatcher.forward(request, response);
-        //java.lang.IllegalStateException: Unable to find match between the canonical context path [/incomeexperiences]
-        // and the URI presented by the user agent [c=povertyperiences/search-experiences]
-        //com.heidiaandahl.controller.SearchTopics.doPost(SearchTopics.java:69)
     }
 
     private void backfillIndex() {
