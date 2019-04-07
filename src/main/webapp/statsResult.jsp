@@ -11,6 +11,12 @@
         You searched for experiences with an income of ${income} and household size of ${householdSize}.
         The statistics and stories below represent an income range of ... (feature under development)<%-- TODO get range --%>
     </p>
+
+    <!-- TODO incorporate requirement - Users of the public API should cite the date that data
+            were accessed or retrieved using the API. Users must clearly state that
+            “BLS.gov cannot vouch for the data or analyses derived from these data after the data have been
+            retrieved from BLS.gov.”  -->
+
     <h3>Stats</h3>
         <p>this feature is under development</p>
 

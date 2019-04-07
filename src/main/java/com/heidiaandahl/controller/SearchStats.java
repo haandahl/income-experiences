@@ -41,7 +41,32 @@ public class SearchStats extends HttpServlet {
         ExperiencesSearch experiencesSearch = new ExperiencesSearch(income, householdSize);
         // TODO - build and use ExperiencesSearch.java to get more info
 
+        // TODO something with API.  See project data folder for API key.
 
+        // TODO looks like I'm going to have to hard-code a selection of careers
+
+        // TODO NOT THIS ONE: example series NCU5500001722900  <-- This one does not return results
+                            // NCU5306633300003   <-- BLS-provided example
+                // NC = prefix for national compensation survey
+                // U = does NOT adjust data to eliminate the effect of intrayear variation (unajusted)
+                // 55 = State = Wisconsin
+                // 0000 = Area = Wisconsin (as opposed to specific metro areas)
+                // 17229 = code for computer programmers (I think??)
+                        // stuff for computer programmers
+                        // 17	229	+006.02	Computer programmers  Y	5
+                // 00 = overall occupation average
+
+        // TODO USE this one: https://www.bls.gov/oes/oes_emp.htm  -- iT WOOOOOOOORKS!!
+        // https://www.bls.gov/help/hlpforma.htm#OE
+                // Their example Series Id: OEUN000000011100011000001
+                // Mine: OEUN000000000000015113413
+                    // OE = prefix
+                    // U = does NOT adjust data to eliminate the effect of intrayear variation (unajusted)
+                    // N = area type = national
+                    // 0000000 = area code national
+                    // 000000 = Cross-industry, Private, Federal, State, and Local Government	0	T	0
+                    // 151134 = Web Developers	3	T	90
+                    // 13 = Annual median wage
 
 
         // set request attribute

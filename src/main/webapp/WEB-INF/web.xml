@@ -12,8 +12,7 @@
         <auth-method>FORM</auth-method>
         <form-login-config>
             <form-login-page>/login.jsp</form-login-page>
-            <!-- QUESTION - is this equivalent to an of the http codes? -->
-            <form-error-page>/loginError.jsp</form-error-page>
+             <form-error-page>/loginError.jsp</form-error-page>
         </form-login-config>
     </login-config>
 

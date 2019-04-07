@@ -95,7 +95,7 @@ NB: All anticipated tables have been built, even though that work was broken out
 <li>Create JSP elements for creating an account (including the survey), logging in, and logging out.</li>
 <li>X--Add and test the role entity.</li>
 <li>X--Set up authentication locally</li>
-<li>Set up authentication on AWS</li>
+<li>X--Set up authentication on AWS</li>
 <li>X--Update time log</li>
 <li>X--Push work to GitHub</li>
 </ul>
@@ -110,8 +110,8 @@ NB: All anticipated tables have been built, even though that work was broken out
 <li>Complete and test ExperiencesSearch Class.</li>
 <li>Consider Ellis's feedback on autocomplete options (see open issues)</li>
 <li>Update time log</li>
-<li>Push work to GitHub</li>
-<li>Confirm readiness for checkpoint 3:
+<li>X--Push work to GitHub</li>
+<li>X--Confirm readiness for checkpoint 3:
 deployed to AWS, at least one JSP that displays data from the database is implemented,
 authentication implemented (log in capability)</li>
 </ul>

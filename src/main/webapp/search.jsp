@@ -15,6 +15,13 @@
                 stories and be able to link to the profile of their authors.
             </p>
 
+
+            <!-- TODO incorporate requirement - Users of the public API should cite the date that data
+                    were accessed or retrieved using the API. Users must clearly state that
+                    “BLS.gov cannot vouch for the data or analyses derived from these data after the data have been
+                    retrieved from BLS.gov.”  -->
+
+
             <h3>Search by Income and Household Size</h3>
             <form method="post" action="search-stats">
                 <div class="form-group">
