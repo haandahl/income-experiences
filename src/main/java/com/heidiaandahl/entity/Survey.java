@@ -1,5 +1,6 @@
 package com.heidiaandahl.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Survey {
     @Column (name = "income")
     private int income;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User participant;

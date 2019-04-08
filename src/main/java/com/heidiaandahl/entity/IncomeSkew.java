@@ -1,5 +1,6 @@
 package com.heidiaandahl.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class IncomeSkew {
     @Column(name = "description")
     private String description;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "incomeSkew")
     private Set<Survey> surveysWithIncomeSkew = new HashSet<>();
 

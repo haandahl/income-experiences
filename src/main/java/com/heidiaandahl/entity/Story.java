@@ -1,5 +1,6 @@
 package com.heidiaandahl.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Field;
 
@@ -39,11 +40,12 @@ public class Story {
     /*
         Resource for ManyToOne JoinColumn: https://www.baeldung.com/hibernate-one-to-many
      */
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="profile_user")
     private User profileUser;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="editor")
     private User editor;

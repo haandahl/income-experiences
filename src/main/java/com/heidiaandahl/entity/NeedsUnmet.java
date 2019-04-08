@@ -1,5 +1,6 @@
 package com.heidiaandahl.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -37,6 +38,7 @@ public class NeedsUnmet {
     @Column(name = "other")
     private boolean other;
 
+    @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "survey_id")
     private Survey survey;
