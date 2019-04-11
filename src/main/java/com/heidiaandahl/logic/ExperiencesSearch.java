@@ -68,7 +68,12 @@ public class ExperiencesSearch {
     }
 
     public int getMedianWageFromBls(String career) {
+
+        int medianWage = 0;
+
         // TODo - start here!!!
+
+        return medianWage;
     }
 
     /**

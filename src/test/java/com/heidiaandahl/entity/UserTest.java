@@ -1,4 +1,4 @@
-package com.heidiaandahl;
+package com.heidiaandahl.entity;
 
 import com.heidiaandahl.entity.Story;
 import com.heidiaandahl.entity.User;

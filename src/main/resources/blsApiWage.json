@@ -1,0 +1,4 @@
+{"status":"REQUEST_SUCCEEDED","responseTime":266,"message":["No Data Available for Series OEUN000000000000015113413 Year: 2016","No Data Available for Series OEUN000000000000015113413 Year: 2017"],"Results":{
+  "series":
+  [{"seriesID":"OEUN000000000000015113413","data":[{"year":"2018","period":"A01","periodName":"Annual","latest":"true","value":"69430","footnotes":[{}]}]}]
+}}
