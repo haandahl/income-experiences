@@ -14,7 +14,7 @@ public class ExperiencesSearch {
     /**
      * The constant incomePercentTarget.
      */
-    public final static double incomePercentTarget = 0.1;  // TODO properties file
+    public final static double incomePercentTarget = 0.1;  // TODO obtain via properties file
     private int targetIncome;
     private int targetFamilySize;
     private String career;
@@ -65,6 +65,10 @@ public class ExperiencesSearch {
 
        // this might organize some of the methods?  not sure yet
 
+    }
+
+    public int getMedianWageFromBls(String career) {
+        // TODo - start here!!!
     }
 
     /**

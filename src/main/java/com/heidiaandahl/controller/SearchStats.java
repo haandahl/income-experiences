@@ -33,17 +33,19 @@ public class SearchStats extends HttpServlet {
         // get search info from user
         String incomeInput = request.getParameter("income");
         String householdSizeInput = request.getParameter("householdSize");
+        String careerInput = request.getParameter("careerInput");
 
-        int income = Integer.valueOf(incomeInput);
+        // TODO - put conditional formatting on income so it populates either according to career or according to input income
+        // int income = Integer.valueOf(incomeInput);
         int householdSize = Integer.valueOf(householdSizeInput);
 
-        // execute search
-        ExperiencesSearch experiencesSearch = new ExperiencesSearch(income, householdSize);
+        // execute search TODO - reinstate
+       //  ExperiencesSearch experiencesSearch = new ExperiencesSearch(income, householdSize);
         // TODO - build and use ExperiencesSearch.java to get more info
 
         // TODO something with API.  See project data folder for API key.
 
-        // TODO looks like I'm going to have to hard-code a selection of careers
+        // TODO looks like I'm going to have to hard-code a selection of careers or figure out how to search if all the results are returned
 
         // TODO NOT THIS ONE: example series NCU5500001722900  <-- This one does not return results
                             // NCU5306633300003   <-- BLS-provided example
@@ -68,10 +70,32 @@ public class SearchStats extends HttpServlet {
                     // 151134 = Web Developers	3	T	90
                     // 13 = Annual median wage
 
+        // TODO - where does the api key go?
+
+        /*  Am I an apache http commons client?  here is bls sample code for that case:
+
+
+                Apache HTTP Commons Client:
+
+                https://www.bls.gov/developers/api_java.htm#java2
+
+                The HttpPost\HttpGet class can be used to connect to the BLS Public Data API via Apache HTTP Commons Client,
+                as shown in the following example. Remember to include JSON as the ContentType
+                HttpPost httpPost = new HttpPost("https://api.bls.gov/publicAPI/v2/timeseries/data/");
+                StringEntity input = new StringEntity("{\"seriesid\":[\"LAUCN040010000000005\", \"LAUCN040010000000006\"]}");
+                input.setContentType("application/json");
+                postRequest.setEntity(input);
+                HttpResponse response = httpClient.execute(postRequest);
+                variableFoo = response.getEntity().getContent()
+         */
+
 
         // set request attribute
-        request.setAttribute("income", income);
+        // TODO reinstate income
+        // request.setAttribute("income", income);
         request.setAttribute("householdSize", householdSize);
+        // TODO grab nice looking text instead of input value.
+        request.setAttribute("careerInput", careerInput);
 
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/statsResult.jsp");

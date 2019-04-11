@@ -24,6 +24,7 @@ income-experiences.git/
 logs/hibernate.log
 src/main/webapp/META-INF/context.xml
 DataDump/*
+incomeexperiences.properties
 
 # Gradle:
 .idea/gradle.xml
