@@ -48,6 +48,11 @@
                             <option value="registeredNurse">Registered Nurse</option>
                             <option value="homeHealthAide">Home Health Aide</option>
                         </optgroup>
+                        <optgroup label="TEST TODO DELETE">
+                            <!-- TODO - this is not working with properties only loaded to context -->
+                            <option value="testJob1">${incomeExperiencesProperties[testJob1.display.name]}</option>
+                        </optgroup>
+
                     </select>
                 </div>
                 <div class="form-group">

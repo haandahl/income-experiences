@@ -32,8 +32,8 @@ public class SearchTopics extends HttpServlet {
 
         // TODO modify search string to add ~2 at the end of each token
 
-        // TODO - move this method so it is not executed with every search
-        backfillIndex();
+        // TODO - move this method so it is not executed with every search - I THINK THIS IS NOW HAPPENING IN APP STARTUP!
+        // backfillIndex();
 
         // Adapted from: https://docs.jboss.org/hibernate/search/5.9/reference/en-US/pdf/hibernate_search_reference.pdf
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -70,7 +70,7 @@ public class SearchTopics extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/textResult.jsp");
         dispatcher.forward(request, response);
     }
-
+/* TODO - delete, I think.  Or copy to startup servlet as called method
     private void backfillIndex() {
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
@@ -85,4 +85,5 @@ public class SearchTopics extends HttpServlet {
             session.close();
         }
     }
+    */
 }

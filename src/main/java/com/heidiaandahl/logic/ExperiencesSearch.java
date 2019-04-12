@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -19,10 +20,10 @@ import java.util.TreeSet;
  * The type Experiences search.
  */
 public class ExperiencesSearch {
-    /**
-     * The constant incomePercentTarget.
-     */
     public final static double incomePercentTarget = 0.1;  // TODO obtain via properties file
+
+    private Properties properties;
+
     private int targetIncome;
     private int targetFamilySize;
     private String career;
@@ -43,10 +44,12 @@ public class ExperiencesSearch {
     /**
      * Instantiates a new Experiences search.
      *
+     * @param properties       the application properties
      * @param targetIncome     the target income
      * @param targetFamilySize the target family size
      */
-    public ExperiencesSearch(int targetIncome, int targetFamilySize) {
+    public ExperiencesSearch(Properties properties, int targetIncome, int targetFamilySize) {
+        this.properties = properties;
         this.targetIncome = targetIncome;
         this.targetFamilySize = targetFamilySize;
         this.career = null;
@@ -55,29 +58,15 @@ public class ExperiencesSearch {
     /**
      * Instantiates a new Experiences search.
      *
+     * @param properties       the application properties
      * @param targetFamilySize the target family size
      * @param career           the career
      */
-    public ExperiencesSearch(String career, int targetFamilySize) {
+    public ExperiencesSearch(Properties properties, String career, int targetFamilySize) {
+        this.properties = properties;
         this.targetFamilySize = targetFamilySize;
         this.career = career;
     }
-
-
-    // TODO - I might not use this one actually... delete?
-    /**
-     * Instantiates a new Experiences search.
-     *
-     * @param targetIncome     the target income
-     * @param targetFamilySize the target family size
-     * @param career           the career
-     */
-    public ExperiencesSearch(int targetIncome, int targetFamilySize, String career) {
-        this.targetIncome = targetIncome;
-        this.targetFamilySize = targetFamilySize;
-        this.career = career;
-    }
-
 
     /**
      * Assemble chart information.

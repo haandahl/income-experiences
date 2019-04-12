@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 @WebServlet(
         name = "searchStats",
@@ -40,6 +41,8 @@ public class SearchStats extends HttpServlet {
 
         ExperiencesSearch experiencesSearch = null;
 
+        Properties properties = (Properties) getServletContext().getAttribute("incomeExperiencesProperties");
+
         // convert inputs to integers as needed
         if (householdSizeInput.equals("0")) {
             // TODO - do something to show error
@@ -49,12 +52,12 @@ public class SearchStats extends HttpServlet {
 
         // construct a search based on inputs present
         if (careerInput != null) {
-            experiencesSearch = new ExperiencesSearch(careerInput, householdSize);
+            experiencesSearch = new ExperiencesSearch(properties, careerInput, householdSize);
             // TODO soon- check this path through to display
             income = experiencesSearch.getMedianWageFromBls(careerInput);
         } else if (incomeInput != null) {
             income = Integer.valueOf(incomeInput);
-            experiencesSearch = new ExperiencesSearch(careerInput,income);
+            experiencesSearch = new ExperiencesSearch(properties, income, householdSize);
         } else {
             //TODO - do something ot show error
         }
