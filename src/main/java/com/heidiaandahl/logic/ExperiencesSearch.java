@@ -1,8 +1,16 @@
 package com.heidiaandahl.logic;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heidiaandahl.entity.Survey;
 import com.heidiaandahl.entity.User;
+import com.heidiaandahl.service.*;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -47,6 +55,19 @@ public class ExperiencesSearch {
     /**
      * Instantiates a new Experiences search.
      *
+     * @param targetFamilySize the target family size
+     * @param career           the career
+     */
+    public ExperiencesSearch(String career, int targetFamilySize) {
+        this.targetFamilySize = targetFamilySize;
+        this.career = career;
+    }
+
+
+    // TODO - I might not use this one actually... delete?
+    /**
+     * Instantiates a new Experiences search.
+     *
      * @param targetIncome     the target income
      * @param targetFamilySize the target family size
      * @param career           the career
@@ -56,6 +77,7 @@ public class ExperiencesSearch {
         this.targetFamilySize = targetFamilySize;
         this.career = career;
     }
+
 
     /**
      * Assemble chart information.
@@ -70,8 +92,51 @@ public class ExperiencesSearch {
     public int getMedianWageFromBls(String career) {
 
         int medianWage = 0;
+        Response webDevResponse = null;
 
-        // TODo - start here!!!
+        //TODO - turn career into code and make the following actually based on the search
+
+        Client client = ClientBuilder.newClient();
+        // TODO - obtain api key from properties and apply it here to allow more data calls
+        // ?registrationkey=
+
+        // api request for web developer wage
+        WebTarget target =
+                client.target("https://api.bls.gov/publicAPI/v2/timeseries/data/" +
+                        "OEUN000000000000015113413");
+
+        String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            webDevResponse = mapper.readValue(response, Response.class);
+
+        } catch (IOException ioException) {
+            // TODO - something to show problem
+        } catch (Exception exception) {
+            // TODO - something to show problem
+        }
+
+        // Get the first (only series) and its data items
+        List<DataItem> webDevDataItems = webDevResponse.getResults().getSeries().get(0).getData();
+
+        // Find average of wages for recent years
+        // Not totally sure this is necessary - maybe only one year is ever marked latest?
+
+        int wagesSum = 0;
+        int numberOfWages = 0;
+
+        for (DataItem item : webDevDataItems) {
+            if (item.getLatest().equals("true")) {
+                wagesSum += Integer.parseInt(item.getValue());
+                numberOfWages += 1;
+            }
+        }
+
+        if (numberOfWages > 0) {
+            medianWage = Math.round(wagesSum / numberOfWages);
+        }
 
         return medianWage;
     }

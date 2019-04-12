@@ -38,16 +38,17 @@ public class TestBlsApi {
         ObjectMapper mapper = new ObjectMapper();
         Response webDevResponse = mapper.readValue(response, Response.class);
 
-        // For teh results get the first series, tehn get the data, in particular value?
+        // Get the first (only series) and its data items
         List<DataItem> webDevDataItems = webDevResponse.getResults().getSeries().get(0).getData();
 
-        // List<Integer> webDevWages;
+        // Find average of wages for recent years
+        // Not totally sure this is necessary - maybe only one year is ever marked latest?
+
         int wagesSum = 0;
         int numberOfWages = 0;
 
         for (DataItem item : webDevDataItems) {
             if (item.getLatest().equals("true")) {
-                // webDevWages.add(item.getValue().valueOf());
                 wagesSum += Integer.parseInt(item.getValue());
                 numberOfWages += 1;
             }
@@ -60,6 +61,8 @@ public class TestBlsApi {
         }
 
         assertEquals(69430, averageRecentWage);
+
+        // TODO - redo test once logic is moved over to ExperiencesSearch
 
     }
 }

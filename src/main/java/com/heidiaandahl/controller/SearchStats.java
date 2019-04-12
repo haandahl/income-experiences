@@ -35,68 +35,35 @@ public class SearchStats extends HttpServlet {
         String householdSizeInput = request.getParameter("householdSize");
         String careerInput = request.getParameter("careerInput");
 
-        // TODO - put conditional formatting on income so it populates either according to career or according to input income
-        // int income = Integer.valueOf(incomeInput);
-        int householdSize = Integer.valueOf(householdSizeInput);
+        int income = 0;
+        int householdSize = 0;
 
-        // execute search TODO - reinstate
-       //  ExperiencesSearch experiencesSearch = new ExperiencesSearch(income, householdSize);
-        // TODO - build and use ExperiencesSearch.java to get more info
+        ExperiencesSearch experiencesSearch = null;
 
-        // TODO something with API.  See project data folder for API key.
+        // convert inputs to integers as needed
+        if (householdSizeInput.equals("0")) {
+            // TODO - do something to show error
+        } else {
+            householdSize = Integer.valueOf(householdSizeInput);
+        }
 
-        // TODO looks like I'm going to have to hard-code a selection of careers or figure out how to search if all the results are returned
-
-        // TODO NOT THIS ONE: example series NCU5500001722900  <-- This one does not return results
-                            // NCU5306633300003   <-- BLS-provided example
-                // NC = prefix for national compensation survey
-                // U = does NOT adjust data to eliminate the effect of intrayear variation (unajusted)
-                // 55 = State = Wisconsin
-                // 0000 = Area = Wisconsin (as opposed to specific metro areas)
-                // 17229 = code for computer programmers (I think??)
-                        // stuff for computer programmers
-                        // 17	229	+006.02	Computer programmers  Y	5
-                // 00 = overall occupation average
-
-        // TODO USE this one: https://www.bls.gov/oes/oes_emp.htm  -- iT WOOOOOOOORKS!!
-        // https://www.bls.gov/help/hlpforma.htm#OE
-                // Their example Series Id: OEUN000000011100011000001
-                // Mine: OEUN000000000000015113413
-                    // OE = prefix
-                    // U = does NOT adjust data to eliminate the effect of intrayear variation (unajusted)
-                    // N = area type = national
-                    // 0000000 = area code national
-                    // 000000 = Cross-industry, Private, Federal, State, and Local Government	0	T	0
-                    // 151134 = Web Developers	3	T	90
-                    // 13 = Annual median wage
-
-        // TODO - where does the api key go?
-
-        /*  Am I an apache http commons client?  here is bls sample code for that case:
-
-
-                Apache HTTP Commons Client:
-
-                https://www.bls.gov/developers/api_java.htm#java2
-
-                The HttpPost\HttpGet class can be used to connect to the BLS Public Data API via Apache HTTP Commons Client,
-                as shown in the following example. Remember to include JSON as the ContentType
-                HttpPost httpPost = new HttpPost("https://api.bls.gov/publicAPI/v2/timeseries/data/");
-                StringEntity input = new StringEntity("{\"seriesid\":[\"LAUCN040010000000005\", \"LAUCN040010000000006\"]}");
-                input.setContentType("application/json");
-                postRequest.setEntity(input);
-                HttpResponse response = httpClient.execute(postRequest);
-                variableFoo = response.getEntity().getContent()
-         */
-
+        // construct a search based on inputs present
+        if (careerInput != null) {
+            experiencesSearch = new ExperiencesSearch(careerInput, householdSize);
+            // TODO soon- check this path through to display
+            income = experiencesSearch.getMedianWageFromBls(careerInput);
+        } else if (incomeInput != null) {
+            income = Integer.valueOf(incomeInput);
+            experiencesSearch = new ExperiencesSearch(careerInput,income);
+        } else {
+            //TODO - do something ot show error
+        }
 
         // set request attribute
-        // TODO reinstate income
-        // request.setAttribute("income", income);
+        request.setAttribute("income", income);
         request.setAttribute("householdSize", householdSize);
         // TODO grab nice looking text instead of input value.
         request.setAttribute("careerInput", careerInput);
-
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/statsResult.jsp");
         dispatcher.forward(request, response);
