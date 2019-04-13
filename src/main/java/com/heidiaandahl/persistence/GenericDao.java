@@ -150,6 +150,20 @@ public class GenericDao<T> {
         return entities;
     }
 
+    // todo - doc & test
+    public List<T> getByPropertyRange(String propertyName, int floor, int ceiling) {
+        Session session = getSession();
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(type);
+        Root<T> root = query.from(type);
+        // Resource: https://docs.oracle.com/cd/E19226-01/820-7627/gjixa/index.html
+        query.select(root).where(builder.between(root.get(propertyName), floor, ceiling));
+        List<T> entities = session.createQuery(query).getResultList();
+        session.close();
+        return entities;
+    }
+
     /**
      * Finds entities by multiple properties.
      * Written by Paula Waite (with slight modifications)

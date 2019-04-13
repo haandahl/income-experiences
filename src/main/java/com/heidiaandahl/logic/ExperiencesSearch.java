@@ -3,6 +3,7 @@ package com.heidiaandahl.logic;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heidiaandahl.entity.Survey;
 import com.heidiaandahl.entity.User;
+import com.heidiaandahl.persistence.GenericDao;
 import com.heidiaandahl.service.*;
 
 import javax.ws.rs.client.Client;
@@ -11,10 +12,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * The type Experiences search.
@@ -22,16 +20,18 @@ import java.util.TreeSet;
 public class ExperiencesSearch {
     public final static double incomePercentTarget = 0.1;  // TODO obtain via properties file
 
+    // todo - don't delete anything yet, may refactor servlet
     private Properties properties;
 
-    private int targetIncome;
+    private int targetIncome;  // todo delete? - lives in controllerr
     private int targetFamilySize;
-    private String career;
+    private String career; // todo delete? - lives in controller
 
+    // todo - Maybe not stored?
     private int incomeResultsFloor;
     private int incomeResultsCeiling;
 
-    // Maybe not stored?
+    // todo - Maybe not stored?
     private Set<User> usersMatchingSearch;
     private Set<Survey> surveysMatchingSearch;
 
@@ -126,7 +126,7 @@ public class ExperiencesSearch {
 
         // Find average of wages for recent years
         // Not totally sure this is necessary - maybe only one year is ever marked latest?
-
+        // todo - play with this more in testing
         int wagesSum = 0;
         int numberOfWages = 0;
 
@@ -144,23 +144,30 @@ public class ExperiencesSearch {
         return medianWage;
     }
 
-    /**
-     * Establish income band set.
-     *
-     * @return the set
-     */
-    public Set<Survey> establishIncomeBand() {
-        Set<Survey> returnedSurveys = new TreeSet<>();
+    // todo docs
+    public List<Survey> getSurveysNearlyMatchingIncome(int targetIncome) {
+        List<Survey> returnedSurveys = new ArrayList<>();
+        GenericDao surveyDao = new GenericDao(Survey.class);
 
-        // where family size matches query and income is within +- 10% of query
+        // nice todo: make sure there are balanced results above & below income level, and enough of them
+        // todo - decide how to get both surveys and users
+            // I want surveys b/c in theory there could be more than one and I'd use them all
+            // I want users, separately, to get their current profile stories
+            // Ideally I'd only display the user profile if it's tied to the current survey
+            // for now assume users' current profile can go with survey - this would be a maintenance upgrade
+        String storedIncomePercentTarget = properties.getProperty("search.income.percent");
 
-        // nice to do: make sure there are balanced results above & below income level, and enough of them
+        double percentIncomeTarget = Double.valueOf(storedIncomePercentTarget);
+        int incomeFloor = (int) Math.round(targetIncome * (1 - percentIncomeTarget));
+        int incomeCeiling = (int) Math.round(targetIncome * (1 + percentIncomeTarget));
 
-        // set incomeResultsFloor and incomeResults Ceiling
+        returnedSurveys = surveyDao.getByPropertyRange("income", incomeFloor, incomeCeiling);
 
         return returnedSurveys;
     }
 
+
+    // todo why do i have 2 methods, same name, diff params??
     /**
      * Gets number of responses matching criteria.
      *
