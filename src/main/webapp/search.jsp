@@ -29,35 +29,34 @@
 
             <h3>Search by Career and Household Size</h3>
             <form method="post" action="search-stats">
+                <!-- Resource for blank defaults in select groups:
+                https://stackoverflow.com/questions/8605516/default-select-option-as-blank -->
                 <div class="form-group">
                     <label for="careerInput">Career:</label>
                     <!-- TODO have a default (select from options) input with no value -->
                     <select class="form-control" id="careerInput" name="careerInput">
+                        <option selected value="">(select a job) </option>
                         <optgroup label="Both Top Jobs and Most New Jobs">
-                            <option value="softwareDeveloperOrProgrammer">Software Developer</option>
+                            <option value="bestAndMost1">${incomeExperiencesProperties["bestAndMost1.display.name"]}</option>
                         </optgroup>
                         <optgroup label="Top Jobs">
-                            <option value="statistician">Statistician</option>
-                            <option value="physicianAssistant">Physician Assistant</option>
-                            <option value="dentist">Dentist</option>
-                            <option value="orthodontist">Orthodontist</option>
+                            <option value="best1">${incomeExperiencesProperties["best1.display.name"]}</option>
+                            <option value="best2">${incomeExperiencesProperties["best2.display.name"]}</option>
+                            <option value="best3">${incomeExperiencesProperties["best3.display.name"]}</option>
+                            <option value="best4">${incomeExperiencesProperties["best4.display.name"]}</option>
                         </optgroup>
                         <optgroup label="Most New Jobs">
-                            <option value="personalCareAndServiceOccupations">Personal Care Aide</option>
-                            <option value="foodPrepAndServing">Food Preparation or Serving Worker</option>
-                            <option value="registeredNurse">Registered Nurse</option>
-                            <option value="homeHealthAide">Home Health Aide</option>
+                            <option value="most1">${incomeExperiencesProperties["most1.display.name"]}</option>
+                            <option value="most2">${incomeExperiencesProperties["most2.display.name"]}</option>
+                            <option value="most3">${incomeExperiencesProperties["most3.display.name"]}</option>
+                            <option value="most4">${incomeExperiencesProperties["most4.display.name"]}</option>
                         </optgroup>
-                        <optgroup label="TEST TODO DELETE">
-                            <!-- TODO - this is not working with properties only loaded to context -->
-                            <option value="testJob1">${incomeExperiencesProperties[testJob1.display.name]}</option>
-                        </optgroup>
-
-                    </select>
+                     </select>
                 </div>
                 <div class="form-group">
                     <label for="householdSize">Household size:</label>
                     <select class="form-control" id="householdSize" name="householdSize">
+                        <option disabled selected value>(select a household size)</option>
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -82,6 +81,7 @@
                 <div class="form-group">
                     <label for="householdSize">Household size:</label>
                     <select class="form-control" id="householdSize" name="householdSize">
+                        <option disabled selected value>(select a household size)</option>
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>

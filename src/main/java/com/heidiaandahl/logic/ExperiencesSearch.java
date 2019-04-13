@@ -44,10 +44,23 @@ public class ExperiencesSearch {
     /**
      * Instantiates a new Experiences search.
      *
+     * @param properties       the properties
+     * @param targetFamilySize the target family size
+     */
+    public ExperiencesSearch(Properties properties, int targetFamilySize) {
+        this.properties = properties;
+        this.targetFamilySize = targetFamilySize;
+    }
+
+    // TODO - get rid of the other constructors?
+
+    /**
+     * Instantiates a new Experiences search.
+     *
      * @param properties       the application properties
      * @param targetIncome     the target income
      * @param targetFamilySize the target family size
-     */
+     *
     public ExperiencesSearch(Properties properties, int targetIncome, int targetFamilySize) {
         this.properties = properties;
         this.targetIncome = targetIncome;
@@ -61,12 +74,13 @@ public class ExperiencesSearch {
      * @param properties       the application properties
      * @param targetFamilySize the target family size
      * @param career           the career
-     */
+     *
     public ExperiencesSearch(Properties properties, String career, int targetFamilySize) {
         this.properties = properties;
         this.targetFamilySize = targetFamilySize;
         this.career = career;
     }
+    */
 
     /**
      * Assemble chart information.
@@ -78,28 +92,28 @@ public class ExperiencesSearch {
 
     }
 
-    public int getMedianWageFromBls(String career) {
+    public int getMedianWageFromBls(String careerInput) {
 
         int medianWage = 0;
-        Response webDevResponse = null;
 
-        //TODO - turn career into code and make the following actually based on the search
+        Response careerResponse = null;
+
+        String apiCareerCode = properties.getProperty(careerInput + ".bls.api.code");
+
+        String apiUri = properties.getProperty("api.bls.endpoint") + properties.getProperty("api.bls.resource") +
+                        properties.getProperty("api.bls.survey") + apiCareerCode +
+                        properties.getProperty("api.bls.data") + properties.getProperty("api.bls.key.parameter");
 
         Client client = ClientBuilder.newClient();
-        // TODO - obtain api key from properties and apply it here to allow more data calls
-        // ?registrationkey=
 
-        // api request for web developer wage
-        WebTarget target =
-                client.target("https://api.bls.gov/publicAPI/v2/timeseries/data/" +
-                        "OEUN000000000000015113413");
+        WebTarget target = client.target(apiUri);
 
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
 
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            webDevResponse = mapper.readValue(response, Response.class);
+            careerResponse = mapper.readValue(response, Response.class);
 
         } catch (IOException ioException) {
             // TODO - something to show problem
@@ -108,7 +122,7 @@ public class ExperiencesSearch {
         }
 
         // Get the first (only series) and its data items
-        List<DataItem> webDevDataItems = webDevResponse.getResults().getSeries().get(0).getData();
+        List<DataItem> webDevDataItems = careerResponse.getResults().getSeries().get(0).getData();
 
         // Find average of wages for recent years
         // Not totally sure this is necessary - maybe only one year is ever marked latest?

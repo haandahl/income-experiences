@@ -35,6 +35,7 @@ public class SearchStats extends HttpServlet {
         String incomeInput = request.getParameter("income");
         String householdSizeInput = request.getParameter("householdSize");
         String careerInput = request.getParameter("careerInput");
+        String careerName = "";
 
         int income = 0;
         int householdSize = 0;
@@ -43,30 +44,28 @@ public class SearchStats extends HttpServlet {
 
         Properties properties = (Properties) getServletContext().getAttribute("incomeExperiencesProperties");
 
-        // convert inputs to integers as needed
+
         if (householdSizeInput.equals("0")) {
             // TODO - do something to show error
         } else {
             householdSize = Integer.valueOf(householdSizeInput);
+            experiencesSearch = new ExperiencesSearch(properties, householdSize);
         }
 
-        // construct a search based on inputs present
         if (careerInput != null) {
-            experiencesSearch = new ExperiencesSearch(properties, careerInput, householdSize);
-            // TODO soon- check this path through to display
+             // TODO soon- check this path through to display
             income = experiencesSearch.getMedianWageFromBls(careerInput);
+            careerName = properties.getProperty(careerInput + ".display.name");
         } else if (incomeInput != null) {
             income = Integer.valueOf(incomeInput);
-            experiencesSearch = new ExperiencesSearch(properties, income, householdSize);
-        } else {
+         } else {
             //TODO - do something ot show error
         }
 
         // set request attribute
         request.setAttribute("income", income);
         request.setAttribute("householdSize", householdSize);
-        // TODO grab nice looking text instead of input value.
-        request.setAttribute("careerInput", careerInput);
+        request.setAttribute("careerName", careerName);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/statsResult.jsp");
         dispatcher.forward(request, response);

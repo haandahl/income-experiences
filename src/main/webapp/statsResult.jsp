@@ -8,7 +8,7 @@
     <c:import url = "header.jsp" />
     <h2>Search Results</h2>
     <p>
-        You searched for experiences with incomes similar to those earned by a ${careerInput}.
+        You searched for experiences with incomes similar to those earned by a ${careerName}.
         You searched for experiences with an income of ${income} and household size of ${householdSize}.
         The statistics and stories below represent an income range of ... (feature under development)<%-- TODO get range --%>
     </p>
