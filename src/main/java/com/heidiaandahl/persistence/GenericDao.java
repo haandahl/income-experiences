@@ -150,7 +150,7 @@ public class GenericDao<T> {
         return entities;
     }
 
-    // todo - doc & test
+    // todo - maybe discard? it is tested... add doc if continuing to use
     public List<T> getByPropertyRange(String propertyName, int floor, int ceiling) {
         Session session = getSession();
 
@@ -159,6 +159,30 @@ public class GenericDao<T> {
         Root<T> root = query.from(type);
         // Resource: https://docs.oracle.com/cd/E19226-01/820-7627/gjixa/index.html
         query.select(root).where(builder.between(root.get(propertyName), floor, ceiling));
+        List<T> entities = session.createQuery(query).getResultList();
+        session.close();
+        return entities;
+    }
+
+    // todo - test, doc, implement, maybe simplify code?
+    public List<T> getByPropertiesValueAndRange(String singlePropertyName, int value, String rangePropertyName, int floor, int ceiling) {
+        Session session = getSession();
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(type);
+        Root<T> root = query.from(type);
+        /*
+            // TODO - nice to do - this query tries to follow oracle and is simpler... however "and" displays red, unrecognized by IntelliJ.
+            // TODO - cont - figure out why?  oracle shows and between 2 conditions, Paula shows and as a method of the criteriabuilder
+            // Resource: https://docs.oracle.com/cd/E19226-01/820-7627/gjixa/index.html
+            // TRIES TO FOLLOW ORACLE:
+            // query.select(root).where(builder.equal(root.get(singlePropertyName), value).and(builder.between(root.get(rangePropertyName), floor, ceiling)));
+        */
+        List<Predicate> predicates = new ArrayList<Predicate>();
+        predicates.add(builder.equal(root.get(singlePropertyName), value));
+        predicates.add(builder.between(root.get(rangePropertyName), floor, ceiling));
+        query.select(root).where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+
         List<T> entities = session.createQuery(query).getResultList();
         session.close();
         return entities;

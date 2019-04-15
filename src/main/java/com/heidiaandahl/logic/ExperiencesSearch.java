@@ -162,6 +162,12 @@ public class ExperiencesSearch {
         int incomeCeiling = (int) Math.round(targetIncome * (1 + percentIncomeTarget));
 
         returnedSurveys = surveyDao.getByPropertyRange("income", incomeFloor, incomeCeiling);
+        // TODO filter for appropriate family size - try wehn fresher
+
+        if (returnedSurveys.isEmpty()) {
+            // TODO get survey with closest value - actually i really don't know how to do
+            // TODO another idea - use wider range, and if no results then return something that says so.
+        }
 
         return returnedSurveys;
     }

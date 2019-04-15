@@ -68,7 +68,7 @@ public class SearchStats extends HttpServlet {
         }
 
 
-        // TODO - move floor and ceiling stuff to here to display on results page
+        // TODO - move floor and ceiling stuff to here to display on results page probably want floor and ceiling of returned data, not target
         // TODO - conditional display of jsp text depending on which search was done
         // TODO - remove dump from jsp
        List<Survey> matchingSurveys = experiencesSearch.getSurveysNearlyMatchingIncome(income);
