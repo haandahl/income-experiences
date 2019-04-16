@@ -39,82 +39,95 @@ public class SearchStats extends HttpServlet {
         String householdSizeInput = request.getParameter("householdSize");
         String careerInput = request.getParameter("careerInput");
 
-        // set up variables for validation, search, and display
-        String careerName = "";
-        double incomeToCheck = 0.0;
-        long income = 0; // int causes conflict if user entered decimal
-        int householdSize = 0;
-        String incomeDisplay = ""; // todo lookup in intro java!
-        ExperiencesSearch experiencesSearch = null;
-        Properties properties = (Properties) getServletContext().getAttribute("incomeExperiencesProperties");
-        String storedPercentDifferenceFromTarget = "";
+        // set up variables with placeholder values
         String nextUrl = "";
+        String validationMessage = "";
+        String careerName = "";
+        String storedPercentDifferenceFromTarget = "";
+        String percentDifferenceToDisplay = "";
+        String incomeDisplay = ""; // todo lookup in intro java!
+
+        boolean usingThisIncome = false;
+        double incomeDouble = 0.0;
+        long percentDifference = 0;
+        RequestDispatcher dispatcher = null;
         List<Survey> matchingSurveys = null;
 
-        // todo maybe store the double here and pass directly to ExperiencesSearch
-        long percentDifference = 0; // int leads to possible lossy conversion later
-        String percentDifferenceToDisplay = "";
+        // set up search using properties for the application
+        Properties properties = (Properties) getServletContext().getAttribute("incomeExperiencesProperties");
+        ExperiencesSearch experiencesSearch = new ExperiencesSearch(properties);
 
-        // validate enough input then set household size as integer
-        if (householdSizeInput.equals("0") || (incomeInput == null && careerInput == null) || (incomeInput != null && careerInput != null)) {
-            nextUrl = "/search.jsp";
-             // TODO - do something to show error
-        } else {
-            householdSize = Integer.valueOf(householdSizeInput);
-            experiencesSearch = new ExperiencesSearch(properties, householdSize);
-            // I don't get ^^ for debugging.
-         }
+        // validate combination of fields entered by user
+        boolean hasCorrectFields = experiencesSearch.hasCorrectFields(incomeInput, householdSizeInput, careerInput);
 
-        // establish numeric income
-        if (careerInput != null) {
-            income = (long)experiencesSearch.getMedianWageFromBls(careerInput);
-           // java.lang.NullPointerException
-            //com.heidiaandahl.controller.SearchStats.doPost(SearchStats.java:69)
-            careerName = properties.getProperty(careerInput + ".display.name");
-            nextUrl = "/statsResult.jsp";
-        } else if (incomeInput != null) {
-             //Resource for getting number out of money string:
-            // https://stackoverflow.com/questions/11973383/how-to-parse-number-string-containing-commas-into-an-integer-in-java
-            try {
-                incomeToCheck = Double.parseDouble((incomeInput.replaceAll(",", "")).replaceAll("$", ""));
-                income = Math.round(incomeToCheck);
-
-                // Search for surveys matching household size and within a narrow range of the target income
-                storedPercentDifferenceFromTarget = properties.getProperty("search.income.percent");
-                matchingSurveys = experiencesSearch.getSurveysNearlyMatchingIncome(income, storedPercentDifferenceFromTarget);
-
-                // If no surveys matched, search again with a bigger income range
-                if (matchingSurveys.isEmpty()) {
-                    storedPercentDifferenceFromTarget = properties.getProperty("search.income.percent.alternate");
-                    matchingSurveys = experiencesSearch.getSurveysNearlyMatchingIncome(income, storedPercentDifferenceFromTarget);
-                }
-
-                // Manipulate income percent range searched to display back to user
-                percentDifference = Math.round(Double.parseDouble(storedPercentDifferenceFromTarget) * 100);
-                percentDifferenceToDisplay = String.valueOf(percentDifference) + "%";
-
-                nextUrl = "/statsResult.jsp";
-            } catch (NumberFormatException numberFormatException) {
-                nextUrl = "/search.jsp";
-                // TODO - do something to show error
-            } catch (Exception exception) {
-                nextUrl = "/search.jsp";
-                // TODO - do something to show error
+        // create validation message if fields are incorrect or ExperiencesSearch could not set income as entered.
+        if (!hasCorrectFields) {
+            validationMessage = "Oops! Please check your search. You need a career or an income (not both) " +
+                    "and must select a household size.";
+        } else if (hasCorrectFields && incomeInput != "") {
+            // if the user entered an income, set it now if possible
+            usingThisIncome = experiencesSearch.usingThisIncome(incomeInput);
+            if (!usingThisIncome) {
+                validationMessage = "Please re-enter the income you are interested in. It must be a number.";
             }
-         }
+        }
+
+        // if there is a user error, display validation message on search page; otherwise, set nextUrl to results page
+        if (validationMessage != "") {
+            nextUrl = "/search.jsp";
+
+            // set request attributes
+            request.setAttribute("validationMessage", validationMessage);
+            request.setAttribute("incomeInput", incomeInput);
+            request.setAttribute("householdSizeInput", householdSizeInput);
+            request.setAttribute("careerInput", careerInput);
+
+            // forward to jsp
+            dispatcher = request.getRequestDispatcher(nextUrl);
+            dispatcher.forward(request, response);
+            // todo - check to be sure flow can't pass beyond here?
+        } else {
+            nextUrl = "/statsResult.jsp";
+        }
+
+        // if proceeding with search, set family size
+        experiencesSearch.setTargetFamilySize(Integer.parseInt(householdSizeInput));
+
+        // if user is (correctly) searching by career, set income for search and career name for display
+        if (careerInput != "") {
+            incomeDouble = experiencesSearch.getMedianWageFromBls(careerInput);
+            experiencesSearch.setIncome(incomeDouble);
+            careerName = properties.getProperty(careerInput + ".display.name");
+        }
+
+        // try to get surveys matching family size and closely matching income
+        storedPercentDifferenceFromTarget = properties.getProperty("search.income.percent");
+        matchingSurveys = experiencesSearch.getSurveysNearlyMatchingIncome(storedPercentDifferenceFromTarget);
+
+
+        // If no surveys matched, search again with a bigger income range
+        if (matchingSurveys.isEmpty()) {
+            storedPercentDifferenceFromTarget = properties.getProperty("search.income.percent.alternate");
+            matchingSurveys = experiencesSearch.getSurveysNearlyMatchingIncome(storedPercentDifferenceFromTarget);
+        }
+
+        // prepare income and variation info to display to user
+        incomeDisplay = String.format("$%d", Math.round(experiencesSearch.getIncome()));
+        percentDifference = Math.round(Double.parseDouble(storedPercentDifferenceFromTarget) * 100);
+        percentDifferenceToDisplay = String.valueOf(percentDifference) + "%";
 
         // TODO - conditional display of jsp text depending on which search was done
         // TODO - remove dump from jsp
 
-        // set request attributes
-        request.setAttribute("income", income);
-        request.setAttribute("householdSize", householdSize);
+        // set request attributes for happy path
+        request.setAttribute("income", incomeDisplay);
+        request.setAttribute("householdSize", householdSizeInput);
         request.setAttribute("careerName", careerName);
         request.setAttribute("matchingSurveys", matchingSurveys);
         request.setAttribute("percentDifferenceSearched", percentDifferenceToDisplay);
 
         // forward to jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher(nextUrl);
+        dispatcher = request.getRequestDispatcher(nextUrl);
         dispatcher.forward(request, response);
     }
 }

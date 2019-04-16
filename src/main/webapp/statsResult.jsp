@@ -7,23 +7,35 @@
 <div class="container">
     <c:import url = "header.jsp" />
     <h2>Search Results</h2>
-    <p>
-        You searched for experiences with incomes similar to those earned by a ${careerName}.
-        You searched for experiences with a household size of ${householdSize}.
-        The statistics and stories below represent site contributors with incomes within ${percentDifferenceSearched}
-        of your search income (${income}).
-    </p>
+    <h3>Your Search</h3>
+    <ul>
+        <c:choose>
+            <c:when test="${!empty careerName}">
+                <li>Career: ${careerName}</li>
+                <li>Median income from BLS*: ${income}</li>
+            </c:when>
+            <c:otherwise>
+                <li>Income: ${income}</li>
 
-    <!-- TODO incorporate requirement - Users of the public API should cite the date that data
-            were accessed or retrieved using the API. Users must clearly state that
-            “BLS.gov cannot vouch for the data or analyses derived from these data after the data have been
-            retrieved from BLS.gov.”  -->
+            </c:otherwise>
+        </c:choose>
+        <li>Household size: ${householdSize}</li>
+    </ul>
+    <c:if test="${!empty careerName}">
+        <p>* While income information was obtained using the Bureau of Labor Statistics API,
+            BLS.gov cannot vouch for the data or analyses derived from these data after the data have been
+            retrieved from BLS.gov.</p>
+    </c:if>
+
+
     <c:choose>
             <c:when test="${empty matchingSurveys}">
                 <p>Our data does not include a household of ${householdSize}
                     with an income within ${percentDifferenceSearched} of ${income}. Please try another search.</p>
              </c:when>
             <c:otherwise>
+                <p>Results are for the household size that you searched and includes incomes within ${percentDifferenceSearched}
+                    of your search income.</p>
                 <h3>Survey Dump</h3>
                 <p>${matchingSurveys}</p>
 

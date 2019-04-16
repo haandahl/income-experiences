@@ -36,9 +36,11 @@
                 <p>You may select a career (and we'll find its median income) or you may skip the career and enter the income directly.</p>
                 <div class="form-group">
                     <label for="careerInput">Career:</label>
-                    <!-- TODO have a default (select from options) input with no value -->
+
+                    <!-- TODO keep selection from erroneous submittal -->
+
                     <select class="form-control" id="careerInput" name="careerInput">
-                        <option selected value="">(select a job) </option>
+                        <option selected value="">(select a job or skip this and enter income below) </option>
                         <optgroup label="Both Top Jobs and Most New Jobs">
                             <option value="bestAndMost1">${incomeExperiencesProperties["bestAndMost1.display.name"]}</option>
                         </optgroup>
@@ -58,10 +60,16 @@
                 </div>
                 <div class="form-group">
                     <label for="income">Before-tax annual income:</label>
+
+                    <!-- TODO keep selection from erroneous submittal -->
+
                     <input type="number" class="form-control" id="income" name="income" placeholder="(leave empty if searching by career)">
                 </div>
                 <div class="form-group">
                     <label for="householdSize">Household size:</label>
+
+                    <!-- TODO keep selection from erroneous submittal -->
+
                     <select class="form-control" id="householdSize" name="householdSize">
                         <option disabled selected value>(select a household size)</option>
                         <option>1</option>
@@ -75,33 +83,11 @@
                         <option>9</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Search by Career and Household Size</button>
+                <c:if test="${!empty validationMessage}">
+                    <p>${validationMessage}</p>
+                </c:if>
+                <button type="submit" class="btn btn-primary">Search for Stats and Stories</button>
             </form>
-
-
-           <!--<h3>Search by Income and Household Size</h3>
-            <form method="post" action="search-stats">
-                <div class="form-group">
-                    <label for="income">Before-tax annual income:</label>
-                    <input type="number" class="form-control" id="income" name="income" placeholder="######">
-                </div>
-                <div class="form-group">
-                    <label for="householdSize">Household size:</label>
-                    <select class="form-control" id="householdSize" name="householdSize">
-                        <option disabled selected value>(select a household size)</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Search by Income and Household Size</button>
-            </form>-->
 
             <h3>Search by Topic</h3>
             <form method="post" action="search-topics">
