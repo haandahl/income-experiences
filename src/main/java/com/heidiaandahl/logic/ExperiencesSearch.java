@@ -145,7 +145,8 @@ public class ExperiencesSearch {
     }
 
     // todo docs
-    public List<Survey> getSurveysNearlyMatchingIncome(int targetIncome) {
+    // TODO move a lot of stuff to servlet so servlet stores the ultimate % band searched and passes it to this method, also to dup less code
+    public List<Survey> getSurveysNearlyMatchingIncome(long targetIncome, String storedPercentDifferenceFromTarget) {
         List<Survey> returnedSurveys = new ArrayList<>();
         GenericDao surveyDao = new GenericDao(Survey.class);
 
@@ -155,19 +156,18 @@ public class ExperiencesSearch {
             // I want users, separately, to get their current profile stories
             // Ideally I'd only display the user profile if it's tied to the current survey
             // for now assume users' current profile can go with survey - this would be a maintenance upgrade
-        String storedIncomePercentTarget = properties.getProperty("search.income.percent");
+        //String storedIncomePercentTarget = properties.getProperty("search.income.percent");
 
-        double percentIncomeTarget = Double.valueOf(storedIncomePercentTarget);
+
+        // todo - double check this... make sure it is tested maybe it should be parseDouble?
+        double percentIncomeTarget = Double.parseDouble(storedPercentDifferenceFromTarget);
         int incomeFloor = (int) Math.round(targetIncome * (1 - percentIncomeTarget));
         int incomeCeiling = (int) Math.round(targetIncome * (1 + percentIncomeTarget));
 
-        returnedSurveys = surveyDao.getByPropertyRange("income", incomeFloor, incomeCeiling);
-        // TODO filter for appropriate family size - try wehn fresher
+        // returnedSurveys = surveyDao.getByPropertyRange("income", incomeFloor, incomeCeiling);
+        // TODO apply new method to get by family size and icome range
 
-        if (returnedSurveys.isEmpty()) {
-            // TODO get survey with closest value - actually i really don't know how to do
-            // TODO another idea - use wider range, and if no results then return something that says so.
-        }
+        returnedSurveys = surveyDao.getByPropertiesValueAndRange("familySize", this.targetFamilySize, "income", incomeFloor, incomeCeiling);
 
         return returnedSurveys;
     }

@@ -10,15 +10,17 @@
 
             <h2>Search Experiences</h2>
             <!-- TODO finesse -->
-            <p> There are three ways to search. You may search by career and household size.  The career options
-                are the top five careers according to US News and the top five careers with projected new jobs.
-                (These were selected according to 2019 data).
+            <p> There are a couple different options for you. You may search for stats and stories, which will show
+                you survey data and contributors' financial stories for the household size you choose and incomes near
+                either an income that you choose or the median income of a career of interest. The career options
+                are the top five careers, according to US News, and the top five careers with projected new jobs,
+                according to the Bureau of Labor Statitics. (These were selected according to 2019 data).
                 You may select the income and household size that interests you.
-                You'll see what our same-sized households with the closest incomes have experienced. Otherwise,
-                you may search the financial stories for a topic that interests you, and you'll see relevant
+            </p>
+            <p>
+                Another option is to search the financial stories for a topic that interests you, and you'll see relevant
                 stories and be able to link to the profile of their authors.
             </p>
-
 
             <!-- TODO incorporate requirement - Users of the public API should cite the date that data
                     were accessed or retrieved using the API. Users must clearly state that
@@ -27,10 +29,11 @@
 
             <!-- TODO revise so that career drop-down populates the income, and it's all one form. -->
 
-            <h3>Search by Career and Household Size</h3>
+            <h3>Search for Stats and Stories Matching a Household Size and Income</h3>
             <form method="post" action="search-stats">
                 <!-- Resource for blank defaults in select groups:
                 https://stackoverflow.com/questions/8605516/default-select-option-as-blank -->
+                <p>You may select a career (and we'll find its median income) or you may skip the career and enter the income directly.</p>
                 <div class="form-group">
                     <label for="careerInput">Career:</label>
                     <!-- TODO have a default (select from options) input with no value -->
@@ -54,6 +57,10 @@
                      </select>
                 </div>
                 <div class="form-group">
+                    <label for="income">Before-tax annual income:</label>
+                    <input type="number" class="form-control" id="income" name="income" placeholder="(leave empty if searching by career)">
+                </div>
+                <div class="form-group">
                     <label for="householdSize">Household size:</label>
                     <select class="form-control" id="householdSize" name="householdSize">
                         <option disabled selected value>(select a household size)</option>
@@ -72,7 +79,7 @@
             </form>
 
 
-           <h3>Search by Income and Household Size</h3>
+           <!--<h3>Search by Income and Household Size</h3>
             <form method="post" action="search-stats">
                 <div class="form-group">
                     <label for="income">Before-tax annual income:</label>
@@ -94,7 +101,7 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Search by Income and Household Size</button>
-            </form>
+            </form>-->
 
             <h3>Search by Topic</h3>
             <form method="post" action="search-topics">
