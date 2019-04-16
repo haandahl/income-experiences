@@ -16,7 +16,18 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <title>
+
+    <!-- Chart.js -->
+    <!-- Resource: https://www.jsdelivr.com/package/npm/chart.js?path=dist -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
+
+    <!-- Project specific -->
+    <link rel="stylesheet" href="<c:url value='/css/style.css' />" type="text/css" />
+    <script src="<c:url value='/js/incomeExperiences.js'/>" ></script>
+
+   <title>
         Income Experiences
     </title>
     <%-- todo erase if unused...Resources for getting CSS to all templated pages:

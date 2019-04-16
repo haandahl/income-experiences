@@ -45,7 +45,7 @@ public class SearchStats extends HttpServlet {
         String careerName = "";
         String storedPercentDifferenceFromTarget = "";
         String percentDifferenceToDisplay = "";
-        String incomeDisplay = ""; // todo lookup in intro java!
+        String incomeDisplay = "";
 
         boolean usingThisIncome = false;
         double incomeDouble = 0.0;

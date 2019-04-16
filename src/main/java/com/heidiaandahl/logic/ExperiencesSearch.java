@@ -109,11 +109,8 @@ public class ExperiencesSearch {
         }
 
         // Get the first (only series) and its data items
-        // todo - figure out how to handle orthodontist differently b/c data is different (other pre-set careers are fine - no npe)
+        // todo - figure out how to handle orthodontist differently b/c data is different & NPE happens below (other pre-set careers are fine - no npe)
         List<DataItem> webDevDataItems = careerResponse.getResults().getSeries().get(0).getData();
-        //java.lang.NullPointerException
-        //	com.heidiaandahl.logic.ExperiencesSearch.getMedianWageFromBls(ExperiencesSearch.java:112)
-        // happened during search for orthodontist
 
         // Find average of wages for recent years
         // Not totally sure this is necessary - maybe only one year is ever marked latest?
@@ -154,9 +151,6 @@ public class ExperiencesSearch {
 
         if (householdSizeInput == null || (incomeTarget == "" && careerInput == "")
                 || (incomeTarget != "" && careerInput != "")) {
-            //java.lang.NullPointerException
-            //	com.heidiaandahl.logic.ExperiencesSearch.hasCorrectFields(ExperiencesSearch.java:151)
-            // ^^^ happened when I picked a career but nothing else
             isValid = false;
         }
         return isValid;
