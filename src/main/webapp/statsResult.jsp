@@ -40,8 +40,10 @@
                 <p>${matchingSurveys}</p>
 
                 <h3>Stats</h3>
+                <p>${needsResponses}</p>
                 <p>this feature is under development</p>
                 <h4>How Well Needs Were Met</h4>
+                <span id="needsData" data-needsMap="${needsResponses}"></span>
                 <canvas id="needsChart" width="400" height="400"></canvas>
                 <h4>How Well Goals Were Met</h4>
                 <canvas id="goalsChart" width="400" height="400"></canvas>

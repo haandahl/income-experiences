@@ -18,7 +18,7 @@ public class NeedsDescription {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "needsDescription")
+    @OneToMany(mappedBy = "needsDescription", fetch = FetchType.EAGER)
     private Set<Survey> surveysWithNeedsDescription = new HashSet<>();
 
 

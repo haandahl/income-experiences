@@ -1,6 +1,7 @@
 package com.heidiaandahl.logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.heidiaandahl.entity.NeedsDescription;
 import com.heidiaandahl.entity.Survey;
 import com.heidiaandahl.entity.User;
 import com.heidiaandahl.persistence.GenericDao;
@@ -178,6 +179,58 @@ public class ExperiencesSearch {
 
         return usingThisIncome;
     }
+
+    /**
+     * Returns a map of the needs descriptions and how many relevant surveys included that response
+     * @param matchingSurveys surveys matching query
+     * @return map of needs descriptions and number of respondents picking that level
+     */
+    public Map<Integer, HashMap<String, Integer>> getNeedsResponses(List<Survey> matchingSurveys) {
+/*
+org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: com.heidiaandahl.entity.NeedsDescription.surveysWithNeedsDescription, could not initialize proxy - no Session
+	org.hibernate.collection.internal.AbstractPersistentCollection.throwLazyInitializationException(AbstractPersistentCollection.java:582)
+	org.hibernate.collection.internal.AbstractPersistentCollection.withTemporarySessionIfNeeded(AbstractPersistentCollection.java:201)
+	org.hibernate.collection.internal.AbstractPersistentCollection.readElementExistence(AbstractPersistentCollection.java:311)
+	org.hibernate.collection.internal.PersistentSet.contains(PersistentSet.java:154)
+	com.heidiaandahl.logic.ExperiencesSearch.getNeedsResponses(ExperiencesSearch.java:209)
+	com.heidiaandahl.controller.SearchStats.doPost(SearchStats.java:125)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:648)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
+	org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+ */
+        Map needsResponses = new TreeMap();
+
+        // get all the descriptions using the dao
+        GenericDao needsDescriptionDao = new GenericDao(NeedsDescription.class);
+        List<NeedsDescription> needsDescriptions = needsDescriptionDao.getAll();
+
+        // todo refactor nested mess
+
+        // todo maybe figure out how to make this more useful - it isn't really the
+        //  proper use of keys and values, and I am not yet figuring out how to make
+        //  it available to jsp and/or js to make chart
+
+        // loop through descriptions to map id to a hashmap of description and count
+        for (NeedsDescription needsDescription: needsDescriptions) {
+            Set<Survey> needSurveys = needsDescription.getSurveysWithNeedsDescription();
+            int counter = 0;
+
+            // increment the counter for each survey returne in the result that is associated
+            // with a specific needs description
+            for (Survey searchSurvey : matchingSurveys) {
+                if (needSurveys.contains(searchSurvey)) {
+                    counter += 1;
+                }
+            }
+
+            Map needsCount = new HashMap();
+            needsCount.put(needsDescription.getDescription(), counter);
+            needsResponses.put(needsDescription.getId(), needsCount);
+        }
+
+        return needsResponses;
+    }
+
 
 }
 

@@ -1,5 +1,6 @@
 package com.heidiaandahl.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heidiaandahl.entity.Survey;
 import com.heidiaandahl.entity.User;
 import com.heidiaandahl.logic.ExperiencesSearch;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -116,14 +118,32 @@ public class SearchStats extends HttpServlet {
         percentDifference = Math.round(Double.parseDouble(storedPercentDifferenceFromTarget) * 100);
         percentDifferenceToDisplay = String.valueOf(percentDifference) + "%";
 
-        // TODO - conditional display of jsp text depending on which search was done
         // TODO - remove dump from jsp
 
+        // TODO - declare elswhere for refactor
+        // issue - ultimately i do want these sorted by needs id...
+        ObjectMapper mapper = new ObjectMapper();
+        Map needsResponses = experiencesSearch.getNeedsResponses(matchingSurveys);
+
+        String needsResponsesJson = mapper.writeValueAsString(needsResponses);
+
+
+
+        // get a map of needs descriptions to number of responses
+
+        // get a map of goals descriptions to number of responses
+
+        // get a map of income skew descriptions to number of responses
+
+
+        // make the above data available to Chart.js
+
         // set request attributes for happy path
+        request.setAttribute("needsResponses", needsResponsesJson);
         request.setAttribute("income", incomeDisplay);
         request.setAttribute("householdSize", householdSizeInput);
         request.setAttribute("careerName", careerName);
-        request.setAttribute("matchingSurveys", matchingSurveys);
+        request.setAttribute("matchingSurveys", matchingSurveys); // todo delete if not used
         request.setAttribute("percentDifferenceSearched", percentDifferenceToDisplay);
 
         // forward to jsp

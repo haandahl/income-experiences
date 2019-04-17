@@ -18,7 +18,7 @@ public class GoalsDescription {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "goalsDescription")
+    @OneToMany(mappedBy = "goalsDescription", fetch = FetchType.EAGER)
     private Set<Survey> surveysWithGoalsDescription = new HashSet<>();
 
     public GoalsDescription() {

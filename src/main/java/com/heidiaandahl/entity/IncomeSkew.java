@@ -18,7 +18,7 @@ public class IncomeSkew {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "incomeSkew")
+    @OneToMany(mappedBy = "incomeSkew", fetch = FetchType.EAGER)
     private Set<Survey> surveysWithIncomeSkew = new HashSet<>();
 
     public IncomeSkew() {
