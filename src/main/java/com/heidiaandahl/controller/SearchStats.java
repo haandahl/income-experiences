@@ -14,6 +14,7 @@ import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,8 +56,10 @@ public class SearchStats extends HttpServlet {
         RequestDispatcher dispatcher = null;
         List<Survey> matchingSurveys = null;
 
+        ServletContext context = getServletContext();
+
         // set up search using properties for the application
-        Properties properties = (Properties) getServletContext().getAttribute("incomeExperiencesProperties");
+        Properties properties = (Properties) context.getAttribute("incomeExperiencesProperties");
         ExperiencesSearch experiencesSearch = new ExperiencesSearch(properties);
 
         // validate combination of fields entered by user
@@ -74,8 +77,8 @@ public class SearchStats extends HttpServlet {
             }
         }
 
-        // if there is a user error, display validation message on search page; otherwise, set nextUrl to results page
-        if (validationMessage != "") {
+        // if there is a user error, display validation message on search page;
+         if (validationMessage != "") {
             nextUrl = "/search.jsp";
 
             // set request attributes
@@ -89,7 +92,9 @@ public class SearchStats extends HttpServlet {
             dispatcher.forward(request, response);
             // todo - check to be sure flow can't pass beyond here?
         } else {
+            // if there is no user error, clear chartData of previous results and set up forward to results display
             nextUrl = "/statsResult.jsp";
+            context.removeAttribute("chartData");
         }
 
         // if proceeding with search, set family size
@@ -125,21 +130,27 @@ public class SearchStats extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         Map needsResponses = experiencesSearch.getNeedsResponses(matchingSurveys);
 
-        String needsResponsesJson = mapper.writeValueAsString(needsResponses);
-
-
-
-        // get a map of needs descriptions to number of responses
-
         // get a map of goals descriptions to number of responses
 
         // get a map of income skew descriptions to number of responses
 
 
-        // make the above data available to Chart.js
+        String needsResponsesJson = mapper.writeValueAsString(needsResponses);
+
+        // TODO - make a larger collection of the 3 collections and put it in the servletcontext
+
+        // TODO make a different servlet that can be called by ajax request that
+        //  accesses the big collection in the servlet context and sends it as a respones
+
+
+        // first just try this w/one collection
+
+        // Make data needed for charts available to the application
+
+        context.setAttribute("chartData", needsResponsesJson);
 
         // set request attributes for happy path
-        request.setAttribute("needsResponses", needsResponsesJson);
+        // request.setAttribute("needsResponses", needsResponsesJson);  // todo delete if not using in jsp
         request.setAttribute("income", incomeDisplay);
         request.setAttribute("householdSize", householdSizeInput);
         request.setAttribute("careerName", careerName);
