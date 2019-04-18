@@ -186,18 +186,7 @@ public class ExperiencesSearch {
      * @return map of needs descriptions and number of respondents picking that level
      */
     public Map<Integer, HashMap<String, Integer>> getNeedsResponses(List<Survey> matchingSurveys) {
-/*
-org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: com.heidiaandahl.entity.NeedsDescription.surveysWithNeedsDescription, could not initialize proxy - no Session
-	org.hibernate.collection.internal.AbstractPersistentCollection.throwLazyInitializationException(AbstractPersistentCollection.java:582)
-	org.hibernate.collection.internal.AbstractPersistentCollection.withTemporarySessionIfNeeded(AbstractPersistentCollection.java:201)
-	org.hibernate.collection.internal.AbstractPersistentCollection.readElementExistence(AbstractPersistentCollection.java:311)
-	org.hibernate.collection.internal.PersistentSet.contains(PersistentSet.java:154)
-	com.heidiaandahl.logic.ExperiencesSearch.getNeedsResponses(ExperiencesSearch.java:209)
-	com.heidiaandahl.controller.SearchStats.doPost(SearchStats.java:125)
-	javax.servlet.http.HttpServlet.service(HttpServlet.java:648)
-	javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
-	org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
- */
+
         Map needsResponses = new TreeMap();
 
         // get all the descriptions using the dao
@@ -206,9 +195,7 @@ org.hibernate.LazyInitializationException: failed to lazily initialize a collect
 
         // todo refactor nested mess
 
-        // todo maybe figure out how to make this more useful - it isn't really the
-        //  proper use of keys and values, and I am not yet figuring out how to make
-        //  it available to jsp and/or js to make chart
+        // todo correct json w/keys and values
 
         // loop through descriptions to map id to a hashmap of description and count
         for (NeedsDescription needsDescription: needsDescriptions) {
@@ -224,8 +211,12 @@ org.hibernate.LazyInitializationException: failed to lazily initialize a collect
             }
 
             Map needsCount = new HashMap();
-            needsCount.put(needsDescription.getDescription(), counter);
-            needsResponses.put(needsDescription.getId(), needsCount);
+
+            needsCount.put("description", needsDescription.getDescription());
+            needsCount.put("count", counter);
+
+            // todo - see if I can keep this part to keep numbers definitely in order
+            needsResponses.put(("id" + needsDescription.getId()), needsCount);
         }
 
         return needsResponses;
