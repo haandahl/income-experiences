@@ -40,24 +40,30 @@
                 <p>${matchingSurveys}</p>
 
                 <h3>Stats</h3>
-                <h4>Temporary needsResponses dump</h4>
-                <p>${needsResponses}</p>
-                <p>this feature is under development</p>
+                <div class="row">
+                   <div class="col-md-6 col-lg-4">
+                       <h4 class="chart-title">How Well Needs Were Met</h4>
+                       <div class="data-chart">
+                           <canvas id="needsChart" width="250" height="350"></canvas>
+                       </div>
+                   </div>
+                    <div class="col-md-6 col-lg-4">
+                        <h4 class="chart-title">How Well Goals Were Met</h4>
+                        <div class="data-chart">
+                            <canvas id="goalsChart" width="250" height="350"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <h4 class="chart-title">Impact of Gifts, Borrowing, etc.</h4>
+                        <div class="data-chart">
+                            <canvas id="incomeSkewChart" width="250" height="350"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-xs-0 col-md-6 col-lg-0"></div>
+                </div><!-- end row -->
 
-                <h4>How Well Needs Were Met</h4>
-                <div class="data-chart">
-                    <canvas id="needsChart" width="400" height="400"></canvas>
-                </div>
 
-                <h4>How Well Goals Were Met</h4>
-                <div class="data-chart">
-                    <canvas id="goalsChart" width="500" height="300"></canvas>
-                </div>
 
-                <h4>Impact of Gifts, Borrowing, etc.</h4>
-                <div class="data-chart">
-                    <canvas id="incomeSkewChart" width="300" height="300"></canvas>
-                </div>
 
                 <h3>Financial Stories</h3>
                 <p>this feature is under development</p>

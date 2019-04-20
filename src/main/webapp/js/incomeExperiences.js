@@ -61,7 +61,7 @@ const makeNeedsChart = needsMapJson => {
     // controlling canvas size todo - figure out if this actually IS now limiting canvas size, overriding css?
     // resource: https://stackoverflow.com/questions/19847582/chart-js-canvas-resize  jcmiller11
     // that did not work; todo - try to shrink charts
-    ctx.canvas.width = 400;
+    ctx.canvas.width = 250;
     //ctx.canvas.height = 900;
 
     var myChart = new Chart(ctx, {

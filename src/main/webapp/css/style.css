@@ -5,7 +5,13 @@
  */
 
 .data-chart {
-    max-height: 600px;
-    min-width: 500px;
-    background-color: lightyellow;
+    max-height: 350px;
+}
+
+.chart-title {
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 1em;
 }
