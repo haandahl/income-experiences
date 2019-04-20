@@ -45,11 +45,19 @@
                 <p>this feature is under development</p>
 
                 <h4>How Well Needs Were Met</h4>
-                <canvas id="needsChart" width="300" height="300"></canvas>
+                <div class="data-chart">
+                    <canvas id="needsChart" width="400" height="400"></canvas>
+                </div>
+
                 <h4>How Well Goals Were Met</h4>
-                <canvas id="goalsChart" width="300" height="300"></canvas>
+                <div class="data-chart">
+                    <canvas id="goalsChart" width="500" height="300"></canvas>
+                </div>
+
                 <h4>Impact of Gifts, Borrowing, etc.</h4>
-                <canvas id="incomeSkewChart" width="300" height="300"></canvas>
+                <div class="data-chart">
+                    <canvas id="incomeSkewChart" width="300" height="300"></canvas>
+                </div>
 
                 <h3>Financial Stories</h3>
                 <p>this feature is under development</p>

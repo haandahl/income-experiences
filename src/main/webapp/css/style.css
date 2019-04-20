@@ -3,3 +3,9 @@
     Heidi Aandahl
     April 2019
  */
+
+.data-chart {
+    max-height: 600px;
+    min-width: 500px;
+    background-color: lightyellow;
+}
