@@ -39,6 +39,9 @@
                 <h3>Survey Dump</h3>
                 <p>${matchingSurveys}</p>
 
+                <h3>Matching Survey Data Dump</h3>
+                <p>${chartData}</p>
+
                 <h3>Stats</h3>
                 <div class="row">
                    <div class="col-md-6 col-lg-4">

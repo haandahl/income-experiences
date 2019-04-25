@@ -1,9 +1,7 @@
 package com.heidiaandahl.logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.heidiaandahl.entity.NeedsDescription;
-import com.heidiaandahl.entity.Survey;
-import com.heidiaandahl.entity.User;
+import com.heidiaandahl.entity.*;
 import com.heidiaandahl.persistence.GenericDao;
 import com.heidiaandahl.service.*;
 import org.apache.logging.log4j.LogManager;
@@ -180,6 +178,9 @@ public class ExperiencesSearch {
         return usingThisIncome;
     }
 
+    // TODO - refactor; maybe by passing in type?  Maybe by pulling out code that is re-used?
+    // TODO test
+
     /**
      * Returns a map of the needs descriptions and how many relevant surveys included that response
      * @param matchingSurveys surveys matching query
@@ -187,15 +188,11 @@ public class ExperiencesSearch {
      */
     public Map<Integer, HashMap<String, Integer>> getNeedsResponses(List<Survey> matchingSurveys) {
 
-        Map needsResponses = new TreeMap();
+         Map needsResponses = new TreeMap();
 
         // get all the descriptions using the dao
         GenericDao needsDescriptionDao = new GenericDao(NeedsDescription.class);
         List<NeedsDescription> needsDescriptions = needsDescriptionDao.getAll();
-
-        // todo refactor nested mess
-
-        // todo correct json w/keys and values
 
         // loop through descriptions to map id to a hashmap of description and count
         for (NeedsDescription needsDescription: needsDescriptions) {
@@ -215,13 +212,86 @@ public class ExperiencesSearch {
             needsCount.put("description", needsDescription.getDescription());
             needsCount.put("count", counter);
 
-            // todo - see if I can keep this part to keep numbers definitely in order
             needsResponses.put(("id" + needsDescription.getId()), needsCount);
         }
 
         return needsResponses;
     }
 
+    /**
+     * Returns a map of the goals descriptions and how many relevant surveys included that response
+     * @param matchingSurveys surveys matching query
+     * @return map of goals descriptions and number of respondents picking that level
+     */
+    public Map<Integer, HashMap<String, Integer>> getGoalsResponses(List<Survey> matchingSurveys) {
+
+        Map goalsResponses = new TreeMap();
+
+        // get all the descriptions using the dao
+        GenericDao goalsDescriptionDao = new GenericDao(GoalsDescription.class);
+        List<GoalsDescription> goalsDescriptions = goalsDescriptionDao.getAll();
+
+        // loop through descriptions to map id to a hashmap of description and count
+        for (GoalsDescription goalsDescription: goalsDescriptions) {
+            Set<Survey> goalsurveys = goalsDescription.getSurveysWithGoalsDescription();
+            int counter = 0;
+
+            // increment the counter for each survey returne in the result that is associated
+            // with a specific goals description
+            for (Survey searchSurvey : matchingSurveys) {
+                if (goalsurveys.contains(searchSurvey)) {
+                    counter += 1;
+                }
+            }
+
+            Map goalsCount = new HashMap();
+
+            goalsCount.put("description", goalsDescription.getDescription());
+            goalsCount.put("count", counter);
+
+            goalsResponses.put(("id" + goalsDescription.getId()), goalsCount);
+        }
+
+        return goalsResponses;
+    }
+
+
+    /**
+     * Returns a map of the income skew descriptions and how many relevant surveys included that response
+     * @param matchingSurveys surveys matching query
+     * @return map of income skew descriptions and number of respondents picking that level
+     */
+    public Map<Integer, HashMap<String, Integer>> getIncomeSkewResponses(List<Survey> matchingSurveys) {
+
+        Map skewResponses = new TreeMap();
+
+        // get all the descriptions using the dao
+        GenericDao incomeSkewDao = new GenericDao(IncomeSkew.class);
+        List<IncomeSkew> incomeSkewDescriptions = incomeSkewDao.getAll();
+
+        // loop through descriptions to map id to a hashmap of description and count
+        for (IncomeSkew skewDescription: incomeSkewDescriptions) {
+            Set<Survey> incomeSkewSurveys = skewDescription.getSurveysWithIncomeSkew();
+            int counter = 0;
+
+            // increment the counter for each survey returne in the result that is associated
+            // with a specific goals description
+            for (Survey searchSurvey : matchingSurveys) {
+                if (incomeSkewSurveys.contains(searchSurvey)) {
+                    counter += 1;
+                }
+            }
+
+            Map goalsCount = new HashMap();
+
+            goalsCount.put("description", skewDescription.getDescription());
+            goalsCount.put("count", counter);
+
+            skewResponses.put(("id" + skewDescription.getId()), goalsCount);
+        }
+
+        return skewResponses;
+    }
 
 }
 

@@ -21,10 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 @WebServlet(
         name = "searchStats",
@@ -125,29 +122,37 @@ public class SearchStats extends HttpServlet {
 
         // TODO - remove dump from jsp
 
-        // TODO - declare elswhere for refactor
-        // issue - ultimately i do want these sorted by needs id...
+        // TODO - refactor?
         ObjectMapper mapper = new ObjectMapper();
         Map needsResponses = experiencesSearch.getNeedsResponses(matchingSurveys);
 
+        // todo delete old approach as viable
+        // String needsResponsesJson = mapper.writeValueAsString(needsResponses);
+
         // get a map of goals descriptions to number of responses
+        Map goalsResponses = experiencesSearch.getGoalsResponses(matchingSurveys);
 
         // get a map of income skew descriptions to number of responses
-
-
-        String needsResponsesJson = mapper.writeValueAsString(needsResponses);
+        Map incomeSkewResponses = experiencesSearch.getIncomeSkewResponses(matchingSurveys);
 
         // TODO - make a larger collection of the 3 collections and put it in the servletcontext
+        Map allResponses = new HashMap();
+        allResponses.put("needs", needsResponses);
+        allResponses.put("goals", goalsResponses);
+        allResponses.put("incomeSkew", incomeSkewResponses);
+
+        String allResponsesJson = mapper.writeValueAsString(allResponses);
+
+        // todo tempor.arary
+        request.setAttribute("chartData", allResponsesJson);
+
+        logger.debug(allResponsesJson);
 
         // TODO make a different servlet that can be called by ajax request that
         //  accesses the big collection in the servlet context and sends it as a respones
 
-
-        // first just try this w/one collection
-
         // Make data needed for charts available to the application
-
-        context.setAttribute("chartData", needsResponsesJson);
+        context.setAttribute("chartData", allResponsesJson);
 
         // set request attributes for happy path
         // request.setAttribute("needsResponses", needsResponsesJson);  // todo delete if not using in jsp

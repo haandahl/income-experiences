@@ -2,20 +2,15 @@
     CSS for Enterprise Java project: Income Experiences
     Heidi Aandahl
     April 2019
+    TODO - refactor, maybe make colors in more meaningful sequence (red scary, green good)
   */
 const init = () => {
-     // Sample of workable JSON:
-     // let needsMapJson = JSON.parse("{\"id1\":{\"count\":0,\"description\":\"Severely unmet needs caused permanent harm.\"},\"id2\":{\"count\":1,\"description\":\"Unmet needs caused illness or decreased ability at work or school.\"},\"id3\":{\"count\":0,\"description\":\"Unmet needs caused discomfort.\"},\"id4\":{\"count\":0,\"description\":\"Needs were generally met.\"},\"id5\":{\"count\":0,\"description\":\"All needs were comfortably met.\"}}");
-
     putDataInCharts();
-
- }
+}
 
 const putDataInCharts = () => {
 
     let xhr = new XMLHttpRequest();
-
-    // do I need true as 3rd param?  or is that old school?
 
     xhr.open("post", "chart-data");
 
@@ -24,45 +19,33 @@ const putDataInCharts = () => {
             let data = JSON.parse(xhr.responseText);
             console.table(data);
 
-            // todo maybe separate data needed by each chart?
-
-            // make the charts
             makeNeedsChart(data);
-            // ^^^ wait, is the DATA coming up null now?
-
-            // todo activate
-            // makeGoalsChart(data);
-            // makeIncomeSkewChart(data);
+            makeGoalsChart(data);
+            makeIncomeSkewChart(data);
         }
     }
 
     xhr.send(null);
 }
 
-const makeNeedsChart = needsMapJson => {
+const makeNeedsChart = data => {
 
-    // todo - figure out how to preserve the labels on teh graphs.  I made them responsive but that cuts off the labels!
+    let label1 = formatLabel(data["needs"].id1.description, 20);
+    let label2 = formatLabel(data["needs"].id2.description, 20);
+    let label3 = formatLabel(data["needs"].id3.description, 20);
+    let label4 = formatLabel(data["needs"].id4.description, 20);
+    let label5 = formatLabel(data["needs"].id5.description, 20);
 
-
-    let label1 = formatLabel(needsMapJson["id1"].description, 20);
-    let label2 = formatLabel(needsMapJson["id2"].description, 20);
-    let label3 = formatLabel(needsMapJson["id3"].description, 20);
-    let label4 = formatLabel(needsMapJson["id4"].description, 20);
-    let label5 = formatLabel(needsMapJson["id5"].description, 20);
-
-    let data1 = needsMapJson["id1"].count;
-    let data2 = needsMapJson["id2"].count;
-    let data3 = needsMapJson["id3"].count;
-    let data4 = needsMapJson["id4"].count;
-    let data5 = needsMapJson["id5"].count;
+    let data1 = data["needs"].id1.count;
+    let data2 = data["needs"].id2.count;
+    let data3 = data["needs"].id3.count;
+    let data4 = data["needs"].id4.count;
+    let data5 = data["needs"].id5.count;
 
     var ctx = document.getElementById('needsChart').getContext('2d');
 
-    // controlling canvas size todo - figure out if this actually IS now limiting canvas size, overriding css?
-    // resource: https://stackoverflow.com/questions/19847582/chart-js-canvas-resize  jcmiller11
-    // that did not work; todo - try to shrink charts
+    // resource for controlling canvas size: https://stackoverflow.com/questions/19847582/chart-js-canvas-resize  jcmiller11
     ctx.canvas.width = 250;
-    //ctx.canvas.height = 900;
 
     var myChart = new Chart(ctx, {
         type: 'horizontalBar',
@@ -103,6 +86,115 @@ const makeNeedsChart = needsMapJson => {
     //removed from chart orange, rgba(255, 159, 64, 0.2), rgba(255, 159, 64, 1)
 
 }
+
+const makeGoalsChart = data => {
+
+    let label1 = formatLabel(data["goals"].id1.description, 20);
+    let label2 = formatLabel(data["goals"].id2.description, 20);
+    let label3 = formatLabel(data["goals"].id3.description, 20);
+    let label4 = formatLabel(data["goals"].id4.description, 20);
+    let label5 = formatLabel(data["goals"].id5.description, 20);
+
+    let data1 = data["goals"].id1.count;
+    let data2 = data["goals"].id2.count;
+    let data3 = data["goals"].id3.count;
+    let data4 = data["goals"].id4.count;
+    let data5 = data["goals"].id5.count;
+
+    var ctx = document.getElementById('goalsChart').getContext('2d');
+
+    // resource for controlling canvas size: https://stackoverflow.com/questions/19847582/chart-js-canvas-resize  jcmiller11
+    ctx.canvas.width = 250;
+
+    var myChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: [label1, label2, label3, label4, label5],
+            datasets: [{
+                label: '# of Households',
+                data: [data1, data2, data3, data4, data5],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    //removed from chart orange, rgba(255, 159, 64, 0.2), rgba(255, 159, 64, 1)
+
+}
+
+const makeIncomeSkewChart = data => {
+
+    let label1 = formatLabel(data["incomeSkew"].id1.description, 20);
+    let label2 = formatLabel(data["incomeSkew"].id2.description, 20);
+    let label3 = formatLabel(data["incomeSkew"].id3.description, 20);
+
+    let data1 = data["incomeSkew"].id1.count;
+    let data2 = data["incomeSkew"].id2.count;
+    let data3 = data["incomeSkew"].id3.count;
+
+    var ctx = document.getElementById('incomeSkewChart').getContext('2d');
+
+    // resource for controlling canvas size: https://stackoverflow.com/questions/19847582/chart-js-canvas-resize  jcmiller11
+    ctx.canvas.width = 250;
+
+    var myChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: [label1, label2, label3],
+            datasets: [{
+                label: '# of Households',
+                data: [data1, data2, data3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+
 
 /*
     Source: https://stackoverflow.com/questions/21409717/chart-js-and-long-labels

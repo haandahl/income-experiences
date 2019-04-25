@@ -167,7 +167,7 @@ authentication implemented (log in capability)</li>
 <li>Accommodate the data difference for Orthodontist; replace with another?</li>
 <li>Stretch - upgrade to fuzzy search for topic?</li>
 
-<li>Code quality check -- refactor search?</li>
+<li>Code quality check -- possibly refactor SearchStats servlet, Search</li>
 
 <li>Assess where unit tests are still needed and create them: likely API use, search</li>
 <li>Assess where validation is needed and build it in. </li>
