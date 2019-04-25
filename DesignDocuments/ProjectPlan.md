@@ -148,12 +148,12 @@ authentication implemented (log in capability)</li>
 #### Coursework: no new topics?
 #### Project: 
 <ul>
-<li>Finish functionality to display charts for stats search.</li>
+<li>X--Finish functionality to display charts for stats search.</li>
 <li>Build functionality for a user to sign up with a short survey.</li>
 <li>Build functionality for a user to add, change, or delete their story.</li>
 <li>Build functionality for an admin to review content, change user status, or remove a user.</li>
 
-<li>Deploy to AWS at functionality milestone(s)</li>
+<li>X--charts--Deploy to AWS at functionality milestone(s)</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 </ul>

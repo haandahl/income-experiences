@@ -38,7 +38,7 @@ public class SearchStats extends HttpServlet {
 
         // get search info from user
         String incomeInput = request.getParameter("income").trim();
-        String householdSizeInput = request.getParameter("householdSize");
+        String householdSizeInput = request.getParameter("householdSize"); // todo see if empty income gives npe?  it doesn't - why not? it does in sign in
         String careerInput = request.getParameter("careerInput");
 
         // set up variables with placeholder values
@@ -80,7 +80,7 @@ public class SearchStats extends HttpServlet {
          if (validationMessage != "") {
             nextUrl = "/search.jsp";
 
-            // set request attributes
+            // set request attributes - todo see if these are used?  can user redo form with entered data?
             request.setAttribute("validationMessage", validationMessage);
             request.setAttribute("incomeInput", incomeInput);
             request.setAttribute("householdSizeInput", householdSizeInput);
@@ -143,7 +143,6 @@ public class SearchStats extends HttpServlet {
         // forward to jsp
         dispatcher = request.getRequestDispatcher(nextUrl);
         dispatcher.forward(request, response);
-        //com.heidiaandahl.controller.SearchStats.doPost(SearchStats.java:145) *** THIS is where lang error shows up
     }
 
     // todo test and/or place method in logic file (ExperiencesSearch) if that makes more sense

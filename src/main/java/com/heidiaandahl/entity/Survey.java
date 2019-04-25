@@ -39,6 +39,7 @@ public class Survey {
     @JoinColumn(name = "income_skew_id")
     private IncomeSkew incomeSkew;
 
+    // todo - need to unmap unused survey parts?
     @OneToOne(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private NeedsUnmet needsUnmet;
 

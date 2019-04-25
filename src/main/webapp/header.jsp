@@ -25,6 +25,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="login">Log In</a>
                     </li>
+                    <li>
+                        <a class="nav-link" href="signup.jsp">Sign Up</a>
+                    </li>
                 </c:when>
                 <c:otherwise>
                     <li class="nav-item">
