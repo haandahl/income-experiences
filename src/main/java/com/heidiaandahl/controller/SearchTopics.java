@@ -30,10 +30,7 @@ public class SearchTopics extends HttpServlet {
         // get search string
         String searchString = request.getParameter("topic");
 
-        // TODO modify search string to add ~2 at the end of each token
-
-        // TODO - move this method so it is not executed with every search - I THINK THIS IS NOW HAPPENING IN APP STARTUP!
-        // backfillIndex();
+        // TODO - nice to do - modify search string to add ~2 at the end of each token
 
         // Adapted from: https://docs.jboss.org/hibernate/search/5.9/reference/en-US/pdf/hibernate_search_reference.pdf
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -70,20 +67,4 @@ public class SearchTopics extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/textResult.jsp");
         dispatcher.forward(request, response);
     }
-/* TODO - delete, I think.  Or copy to startup servlet as called method
-    private void backfillIndex() {
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        FullTextSession fullTextSession = Search.getFullTextSession(session);
-
-         try {
-            fullTextSession.createIndexer().startAndWait();
-        } catch (InterruptedException interrupted) {
-            logger.error("There was an interruption while attempting to build an index on the existing db.");
-        } catch (Exception exeption) {
-            logger.error("There was an error while attempting to build an index on the existing db.");
-        } finally {
-            session.close();
-        }
-    }
-    */
 }

@@ -68,16 +68,6 @@ public class ExperiencesSearch {
         this.income = income;
     }
 
-    /**
-     * Assemble chart information.
-     */
-    public void assembleChartInformation() {
-        // JS will chart results, but I'm trying to gather info needed
-
-       // this might organize some of the methods?  not sure yet
-
-    }
-
     public double getMedianWageFromBls(String careerInput) {
 
         double medianWage = 0.0;
@@ -293,6 +283,36 @@ public class ExperiencesSearch {
         return skewResponses;
     }
 
+    // todo doc and test
+    public List<Story> getMatchingStories(List<Survey> matchingSurveys) {
+        List<Story> matchingStories = new ArrayList<>();
+
+        for (Survey survey : matchingSurveys) {
+            GenericDao<Story> storyDao = new GenericDao(Story.class);
+            User surveyPartipant = survey.getParticipant(); // todo separate this step in order to display link to user
+
+            // Map the search criteria
+            Map<String, Object> storyCriteria = new HashMap<>();
+            storyCriteria.put("profileUser", surveyPartipant);
+            storyCriteria.put("isVisible", true);
+
+            //message javax.el.ELException: Cannot convert
+            // [Story{id=2, storyContent='(NOT A REAL PERSON) This is the federal poverty level for 2 people,
+            // published by https://www.healthcare.com/blog/federal-poverty-levels/ on January 15, 2019.
+            // Any survey data, aside from the income, is speculation.', editDate=2019-01-15, isVisible=true, isUnsuitable=false}]
+            // of type class java.util.ArrayList to class java.lang.Boolean
+
+            // get the stories that match (there should just be one)
+            List<Story> stories = (List<Story>) storyDao.getByPropertyNames(storyCriteria);
+
+            for (Story story : stories) {
+                matchingStories.add(story);
+            }
+        }
+
+
+        return matchingStories;
+    }
 }
 
 

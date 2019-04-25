@@ -4,6 +4,18 @@
     April 2019
  */
 
+body {
+    margin-bottom: 3em;
+}
+
+section {
+    margin-top: 2.5em;
+}
+
+.chart {
+    padding: 3em;
+}
+
 .data-chart {
     max-height: 350px;
 }

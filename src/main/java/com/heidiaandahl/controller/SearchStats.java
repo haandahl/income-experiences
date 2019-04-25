@@ -1,6 +1,8 @@
 package com.heidiaandahl.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.heidiaandahl.entity.Story;
 import com.heidiaandahl.entity.Survey;
 import com.heidiaandahl.entity.User;
 import com.heidiaandahl.logic.ExperiencesSearch;
@@ -32,7 +34,7 @@ public class SearchStats extends HttpServlet {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO - decide, is the servlet doing too much?  place code in separate class?
+        // TODO - break up monster method
 
         // get search info from user
         String incomeInput = request.getParameter("income").trim();
@@ -120,22 +122,41 @@ public class SearchStats extends HttpServlet {
         percentDifference = Math.round(Double.parseDouble(storedPercentDifferenceFromTarget) * 100);
         percentDifferenceToDisplay = String.valueOf(percentDifference) + "%";
 
-        // TODO - remove dump from jsp
+        // get data as JSON to use in Chart.js
+        String allResponsesJson = getChartData(matchingSurveys, experiencesSearch);
 
-        // TODO - refactor?
+        // get list of stories to display to user
+        // TODO - get user separately and provide link to profile (break up code in called method)
+        List<Story> matchingStories = experiencesSearch.getMatchingStories(matchingSurveys);
+
+        // Make data needed for charts available to the application
+        context.setAttribute("chartData", allResponsesJson);
+
+        // set request attributes for happy path
+        request.setAttribute("income", incomeDisplay);
+        request.setAttribute("householdSize", householdSizeInput);
+        request.setAttribute("careerName", careerName);
+        request.setAttribute("matchingStories", matchingStories);
+        request.setAttribute("matchingSurveys", matchingSurveys);
+        request.setAttribute("percentDifferenceSearched", percentDifferenceToDisplay);
+
+        // forward to jsp
+        dispatcher = request.getRequestDispatcher(nextUrl);
+        dispatcher.forward(request, response);
+        //com.heidiaandahl.controller.SearchStats.doPost(SearchStats.java:145) *** THIS is where lang error shows up
+    }
+
+    // todo test and/or place method in logic file (ExperiencesSearch) if that makes more sense
+
+    private String getChartData(List<Survey> matchingSurveys, ExperiencesSearch experiencesSearch) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
+
+        // organize survey statistics from matching surveys
         Map needsResponses = experiencesSearch.getNeedsResponses(matchingSurveys);
-
-        // todo delete old approach as viable
-        // String needsResponsesJson = mapper.writeValueAsString(needsResponses);
-
-        // get a map of goals descriptions to number of responses
         Map goalsResponses = experiencesSearch.getGoalsResponses(matchingSurveys);
-
-        // get a map of income skew descriptions to number of responses
         Map incomeSkewResponses = experiencesSearch.getIncomeSkewResponses(matchingSurveys);
 
-        // TODO - make a larger collection of the 3 collections and put it in the servletcontext
+        // Put all the chart data in one map
         Map allResponses = new HashMap();
         allResponses.put("needs", needsResponses);
         allResponses.put("goals", goalsResponses);
@@ -143,27 +164,7 @@ public class SearchStats extends HttpServlet {
 
         String allResponsesJson = mapper.writeValueAsString(allResponses);
 
-        // todo tempor.arary
-        request.setAttribute("chartData", allResponsesJson);
-
         logger.debug(allResponsesJson);
-
-        // TODO make a different servlet that can be called by ajax request that
-        //  accesses the big collection in the servlet context and sends it as a respones
-
-        // Make data needed for charts available to the application
-        context.setAttribute("chartData", allResponsesJson);
-
-        // set request attributes for happy path
-        // request.setAttribute("needsResponses", needsResponsesJson);  // todo delete if not using in jsp
-        request.setAttribute("income", incomeDisplay);
-        request.setAttribute("householdSize", householdSizeInput);
-        request.setAttribute("careerName", careerName);
-        request.setAttribute("matchingSurveys", matchingSurveys); // todo delete if not used
-        request.setAttribute("percentDifferenceSearched", percentDifferenceToDisplay);
-
-        // forward to jsp
-        dispatcher = request.getRequestDispatcher(nextUrl);
-        dispatcher.forward(request, response);
+        return allResponsesJson;
     }
 }

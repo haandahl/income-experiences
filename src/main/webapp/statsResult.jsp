@@ -4,9 +4,13 @@
 <html>
 <c:import url = "head.jsp" />
 <body>
-<div class="container">
+<div class="container-fluid">
     <c:import url = "header.jsp" />
+
     <h2>Search Results</h2>
+
+    <section class="row">
+        <div class="col">
     <h3>Your Search</h3>
     <ul>
         <c:choose>
@@ -27,7 +31,6 @@
             retrieved from BLS.gov.</p>
     </c:if>
 
-
     <c:choose>
             <c:when test="${empty matchingSurveys}">
                 <p>Our data does not include a household of ${householdSize}
@@ -36,42 +39,78 @@
             <c:otherwise>
                 <p>Results are for the household size that you searched and includes incomes within ${percentDifferenceSearched}
                     of your search income.</p>
-                <h3>Survey Dump</h3>
-                <p>${matchingSurveys}</p>
+            </c:otherwise>
+    </c:choose>
+        </div>
+    </section>
 
-                <h3>Matching Survey Data Dump</h3>
-                <p>${chartData}</p>
 
-                <h3>Stats</h3>
+
+
+            <c:if test="${!empty matchingSurveys}">
+        <section class="row">
+            <div class="col">
+            <h3>Stats</h3>
+
+                <!-- todo style charts to stack for better readability, or override page boundaries for bootstrap -->
+
                 <div class="row">
-                   <div class="col-md-6 col-lg-4">
+                   <div class="col-md-6 col-lg-4 chart">
                        <h4 class="chart-title">How Well Needs Were Met</h4>
                        <div class="data-chart">
                            <canvas id="needsChart" width="250" height="350"></canvas>
                        </div>
                    </div>
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-4 chart">
                         <h4 class="chart-title">How Well Goals Were Met</h4>
                         <div class="data-chart">
                             <canvas id="goalsChart" width="250" height="350"></canvas>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-4 chart">
                         <h4 class="chart-title">Impact of Gifts, Borrowing, etc.</h4>
                         <div class="data-chart">
                             <canvas id="incomeSkewChart" width="250" height="350"></canvas>
                         </div>
                     </div>
                     <div class="col-xs-0 col-md-6 col-lg-0"></div>
-                </div><!-- end row -->
-
-
-
+                </div>
+            </div>
+        </section>
+    </c:if>
+    <c:if test="${!empty matchingSurveys}">
+        <section class="row">
+            <div class="col">
 
                 <h3>Financial Stories</h3>
-                <p>this feature is under development</p>
-            </c:otherwise>
-    </c:choose>
+                 <c:choose>
+                    <c:when test="${!empty matchingStories}">
+
+                        <%-- TODO provide link to user profile --%>
+
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Person</th><th>Financial Story</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var = "story" items="${matchingStories}">
+                                    <tr><td>${story.profileUser.username}</td><td>${story.storyContent}</td></tr>
+                                </c:forEach>
+                            </tbody>
+
+                        </table>
+                    </c:when>
+                    <c:otherwise>
+                        <p>There are no financial stories available that match your search.</p>
+                    </c:otherwise>
+
+                </c:choose>
+            </div>
+        </section>
+    </c:if>
+
 
 </div>
 </body>

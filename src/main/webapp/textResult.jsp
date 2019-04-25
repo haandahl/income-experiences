@@ -2,7 +2,7 @@
 <html>
 <%@include file="head.jsp"%>
     <body>
-    <div class="container">
+    <div class="container-fluid">
         <c:import url = "header.jsp" />
         <h2> Results for the search</h2>
         <p>You searched for "${topic}"</p>
