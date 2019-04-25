@@ -1,7 +1,6 @@
 # Income Experiences Project Plan
 
-<p>This is an original, individual project being completed for Enterprise Java at Madison Area Technical College. 
-The project plan is adapted from instructor Paula Waite's sample plan.</p>
+<p>Items marked X are complete, but not always in the week specified; see the time log for actual completion dates.</p>
 
 ## complete
 #### Coursework: IntelliJ, Maven, Tomcat, jUnit, Log4J, Git
@@ -80,9 +79,9 @@ NB: All anticipated tables have been built, even though that work was broken out
 
 <ul>
 <li>X--Look up security issue with selected pre-made template.</li>
-<li>Create template for JSPs using Bootstrap 4</li>
-<li>Decide how text search of stories will look on interface</li>
-<li>GOOD PROGRESS -- Implement hibernate search on stories</li>
+<li>IN PROGRESS -- Create template for JSPs using Bootstrap 4</li>
+<li>IN PROGRESS -- Decide how text search of stories will look on interface</li>
+<li>AT VIABLE STOP POINT -- Implement hibernate search on stories</li>
 <li>GOOD PROGRESS -- Build out and test survey entity.</li>
 <li>IN PROGRESS -- Complete JSP/Servlet for displaying a profile (username and story so far)</li>
 </ul>
@@ -92,7 +91,6 @@ NB: All anticipated tables have been built, even though that work was broken out
 #### Project: 
 <ul>
 <li>X--Incorporate feedback from project reviews/checkpoint 2</li>
-<li>Create JSP elements for creating an account (including the survey), logging in, and logging out.</li>
 <li>X--Add and test the role entity.</li>
 <li>X--Set up authentication locally</li>
 <li>X--Set up authentication on AWS</li>
@@ -105,11 +103,11 @@ NB: All anticipated tables have been built, even though that work was broken out
 #### Coursework: Web Services - SOAP Services
 #### Project: 
 <ul>
-<li>Integration with BLS API</li>
-<li>Add a JSP and Servlet to search for income experiences by income and/or career</li>
-<li>Complete and test ExperiencesSearch Class.</li>
-<li>Consider Ellis's feedback on autocomplete options (see open issues)</li>
-<li>Update time log</li>
+<li>X -- Integration with BLS API</li>
+<li>IN PROGRESS -- Add a JSP and Servlet to search for income experiences by income and/or career</li>
+<li>IN PROGRESS -- Complete and test ExperiencesSearch Class.</li>
+<li>X--Consider Ellis's feedback on autocomplete options (see open issues)</li>
+<li>X--Update time log</li>
 <li>X--Push work to GitHub</li>
 <li>X--Confirm readiness for checkpoint 3:
 deployed to AWS, at least one JSP that displays data from the database is implemented,
@@ -120,43 +118,42 @@ authentication implemented (log in capability)</li>
 #### Coursework: RESTful Web Services
 #### Project: 
 <ul>
-<li>Build JSPs and Servlets for Admin page.</li>
-<li>Research Chart.js or c3.js to display charts</li>
-<li>Add a JSP to display search results and complete the Servlet for the search.</li>
-<li>Consider where validation is needed and whether to use a new technology like hibernate validate.</li>
-<li>Take stock of loose ends and update project plan.</li>
-<li>Update time log</li>
-<li>Push work to GitHub</li>
+<li>X--Research Chart.js or c3.js to display charts</li>
+<li>IN PROGRESS -- Add a JSP to display search results and complete the Servlet for the search.</li>
+<li>X--Update time log</li>
+<li>X--Push work to GitHub</li>
 </ul>
 
 ## by 4/15/19 (week 11)
 #### Coursework: no new topics?
 #### Project: 
 <ul>
-<li>Unit test API integrations</li>
-<li>Create "About" Page</li>
-<li>Update time log</li>
-<li>Push work to GitHub</li>
+<li>X--Update time log</li>
+<li>X--Push work to GitHub</li>
 </ul>
 
 ## by 4/22/19 (week 12 -- team project presentations)
 #### Coursework: Multithreading
 #### Project: 
 <ul>
-<li>Review project status and rubric and plan remainder</li>
-<li>Update time log</li>
-<li>Push work to GitHub</li>
+<li>X--Update time log</li>
+<li>X--Push work to GitHub</li>
 </ul>
+
+## -----------------------------------------------------------------
+## CURRENT PLAN REVISION NOTED BELOW
+## -----------------------------------------------------------------
 
 ## by 4/29/19 (week 13)
 #### Coursework: no new topics?
 #### Project: 
 <ul>
-<li><b>Update by 4/22:</b></li>
-<li></li>
-<li></li>
-<li></li>
-<li>Code quality check</li>
+<li>Finish functionality to display charts for stats search.</li>
+<li>Build functionality for a user to sign up with a short survey.</li>
+<li>Build functionality for a user to add, change, or delete their story.</li>
+<li>Build functionality for an admin to review content, change user status, or remove a user.</li>
+
+<li>Deploy to AWS at functionality milestone(s)</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 </ul>
@@ -165,10 +162,30 @@ authentication implemented (log in capability)</li>
 #### Coursework: Asynchronous messaging
 #### Project: 
 <ul>
+<li>Complete profile display.</li>
+<li>Add functionalisty to display stories along with stats search.</li>
+<li>Accommodate the data difference for Orthodontist; replace with another?</li>
+<li>Stretch - upgrade to fuzzy search for topic?</li>
+
+<li>Code quality check -- refactor search?</li>
+
+<li>Assess where unit tests are still needed and create them: likely API use, search</li>
+<li>Assess where validation is needed and build it in. </li>
+
+<li>Apply Bootstrap and some color</li>
+<li>Complete "About" Page</li>
+<li>Create more data so that top jobs return results too.</li>
+<li>Review and close prior code review items.</li>
+
+<li>Revise Readme.doc and User stories to reflect project status.</li>
+
+<li>Deploy to AWS at functionality milestone(s)</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
 <li>Confirm readiness for code review</li>
 </ul>
+
+## -----------------------------------------------------------------
 
 ## by 5/13/19 (week 15, presentation)
 #### Project: 
@@ -178,6 +195,7 @@ authentication implemented (log in capability)</li>
 <li>Create video</li>
 <li>Update time log</li>
 <li>Push work to GitHub</li>
+<li>Last deploy to AWS</li>
 <li>Last check for documentation visible on GitHub</li>
 <li>Last check of functionality of application</li>
 <li>Confirm readiness for presentation</li>
