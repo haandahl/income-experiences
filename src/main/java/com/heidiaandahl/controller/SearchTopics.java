@@ -20,7 +20,7 @@ import java.util.List;
 
 @WebServlet(
         name = "searchExperiences",
-        urlPatterns = { "/search-topics"}
+        urlPatterns = {"/search-topics"}
 )
 public class SearchTopics extends HttpServlet {
 

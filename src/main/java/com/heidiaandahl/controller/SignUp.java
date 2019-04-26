@@ -2,6 +2,8 @@ package com.heidiaandahl.controller;
 
 import com.heidiaandahl.entity.*;
 import com.heidiaandahl.persistence.GenericDao;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,12 +17,16 @@ import java.util.List;
 
 @WebServlet(
     name = "signUp",
-    urlPatterns = { "/sign-up"}
+    urlPatterns = {"/sign-up"}
 )
 public class SignUp extends HttpServlet {
+
+    private final Logger logger = LogManager.getLogger(this.getClass());
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         // get info from user
-        String username = request.getParameter("username").trim(); // default ""
+        String username = request.getParameter("username").trim();
         String password = request.getParameter("password").trim();
         String password2 = request.getParameter("password2").trim();
         String income = request.getParameter("surveyIncome").trim();
@@ -66,7 +72,8 @@ public class SignUp extends HttpServlet {
         // set up urls
         if (passwordsMatch && hasAllInputs && hasAllSelections && hasUniqueUsername) {
             hasUserError = false;
-            nextUrl = "profile"; // todo see if that needs slash - jps's do
+            nextUrl = "/welcome.jsp"; // todo improve validation feedback and then make stuff required on front-end
+
         } else {
             nextUrl = "/signup.jsp";
             validationMessage = "oops not done";
@@ -86,8 +93,6 @@ public class SignUp extends HttpServlet {
 
             int userAdded = userDao.insert(newUser);
 
-            // todo check above?  int > 0?  1 for added?  or id??
-
             // get survey data integers
             int householdSizeInt = Integer.parseInt(householdSize);
 
@@ -106,7 +111,20 @@ public class SignUp extends HttpServlet {
 
             int surveyAdded = surveyDao.insert(survey);
 
-            // todo check above too before finishing request?
+            // TODO start here --- must add user role and if not successfull, pull user and have them start again.
+
+            // make sure user was added and provide feedbak
+            if (userAdded > 0) {
+                request.setAttribute("username", username);
+            } else {
+                validationMessage = "Sorry, there was a problem adding your account. Please try signing up again.";
+                nextUrl = "/signup.jsp";
+            }
+
+            // log error if user is added without a survey, but allow user to continue
+            if (userAdded > 0 && surveyAdded == 0) {
+                logger.error("A user was added without a survey");
+            }
 
         }
 

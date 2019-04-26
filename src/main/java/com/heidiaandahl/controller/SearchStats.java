@@ -27,7 +27,7 @@ import java.util.*;
 
 @WebServlet(
         name = "searchStats",
-        urlPatterns = { "/search-stats"}
+        urlPatterns = {"/search-stats"}
 )
 public class SearchStats extends HttpServlet {
 
