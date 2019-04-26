@@ -6,6 +6,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -18,7 +19,12 @@ import java.util.Set;
 @Indexed
 @Entity(name = "User")
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
+    /*
+        Resource for choice to implement Serializable:
+        https://stackoverflow.com/questions/4525186/cannot-be-cast-to-java-io-serializable
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -49,6 +55,9 @@ public class User {
 
     @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Survey> userSurveys = new HashSet<>();
+
+    @OneToMany(mappedBy = "username", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Role> userRoles = new HashSet<>();
 
     /**
      * Instantiates a new User.
@@ -157,12 +166,40 @@ public class User {
         this.storyVersionsWithUserEdit = storyVersionsWithUserEdit;
     }
 
+    /**
+     * Gets user surveys.
+     *
+     * @return the user surveys
+     */
     public Set<Survey> getUserSurveys() {
         return userSurveys;
     }
 
+    /**
+     * Sets user surveys.
+     *
+     * @param userSurveys the user surveys
+     */
     public void setUserSurveys(Set<Survey> userSurveys) {
         this.userSurveys = userSurveys;
+    }
+
+    /**
+     * Gets user roles.
+     *
+     * @return the user roles
+     */
+    public Set<Role> getUserRoles() {
+        return userRoles;
+    }
+
+    /**
+     * Sets user roles.
+     *
+     * @param userRoles the user roles
+     */
+    public void setUserRoles(Set<Role> userRoles) {
+        this.userRoles = userRoles;
     }
 
     /**

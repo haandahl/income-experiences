@@ -52,7 +52,6 @@ public class SurveyDaoTest {
      */
     @Test
     void addSuccess() {
-        // TODO erase PASSED 3/13
         User testUser = (User) userDao.getById(3);
 
         // TODO test getById on lookup entities directly
@@ -84,8 +83,6 @@ public class SurveyDaoTest {
      */
     @Test
     void simpleDeleteSuccess() {
-        // TODO erase PASSED 3/14
-
         surveyDao.delete(surveyDao.getById(4));
         assertNull(surveyDao.getById(4));
     }
@@ -97,8 +94,6 @@ public class SurveyDaoTest {
      */
     @Test
     void deleteSuccess() {
-        // TODO erase PASSED 3/14
-
         /* Test DB Info
             survey (id, date, family size, income, user_id, needs_description_id, goals_description_id, income_skew_id)
             INSERT into survey values

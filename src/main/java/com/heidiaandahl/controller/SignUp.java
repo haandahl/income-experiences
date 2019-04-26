@@ -87,6 +87,7 @@ public class SignUp extends HttpServlet {
             GenericDao goalsDescriptionDao = new GenericDao(GoalsDescription.class);
             GenericDao incomeSkewDao = new GenericDao(IncomeSkew.class);
             GenericDao surveyDao = new GenericDao(Survey.class);
+            GenericDao roleDao = new GenericDao(Role.class);
 
             // add new user
             User newUser = new User(username, password);
@@ -112,9 +113,13 @@ public class SignUp extends HttpServlet {
             int surveyAdded = surveyDao.insert(survey);
 
             // TODO start here --- must add user role and if not successfull, pull user and have them start again.
+            Role userRole = new Role("user", newUser);
+            int roleAdded = roleDao.insert(userRole);
 
-            // make sure user was added and provide feedbak
-            if (userAdded > 0) {
+
+
+            // make sure user was added and provide feedback
+            if (userAdded > 0 && roleAdded > 0) {
                 request.setAttribute("username", username);
             } else {
                 validationMessage = "Sorry, there was a problem adding your account. Please try signing up again.";

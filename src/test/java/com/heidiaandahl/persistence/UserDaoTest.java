@@ -5,9 +5,8 @@ import com.heidiaandahl.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,24 +31,6 @@ public class UserDaoTest {
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
     }
-
-    /**
-     * TODO - revise after role entity is created and tested; may not belong in this test set.
-     * Verifies that a user can be updated with a new role.
-     *
-    @Test
-    void updateSuccess() {
-        int newRole = 3;  //cleandb sets original role to 4
-
-        User userToUpdate = (User)genericDao.getById(8);
-        userToUpdate.setRole(newRole);
-
-        genericDao.saveOrUpdate(userToUpdate);
-        User retrievedUser = (User)genericDao.getById(8);
-
-        assertEquals(newRole, retrievedUser.getRole());
-    }
-    */
 
     /**
      * Verifies that a new user can be added.

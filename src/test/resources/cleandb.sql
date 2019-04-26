@@ -59,7 +59,8 @@ INSERT into USER values  (8, 'mary', 'password7');
 -- ------------------------------------------------------------------------------------------------
 -- role (id, name, username) <--name refers to role descriptor
 -- ------------------------------------------------------------------------------------------------
--- TODO set up multiple roles for individuals?  Not sure if needed?
+-- TODO set up multiple roles for individuals?  Not sure if needed? ... decision, probably not
+-- TODO revise roles: only admin, user, and blocked user.  Continue pattern of admin having complete acces (don't need separate user role).
 -- ------------------------------------------------------------------------------------------------
 INSERT into ROLE values (1, 'admin', 'admin');
 INSERT into ROLE values (2, 'data user', 'jean');

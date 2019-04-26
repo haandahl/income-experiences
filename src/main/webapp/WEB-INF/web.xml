@@ -28,6 +28,7 @@
             <role-name>data user</role-name>
             <role-name>advanced user</role-name>
             <role-name>blocked user</role-name>
+            <role-name>user</role-name>
         </auth-constraint>
     </security-constraint>
 
@@ -62,6 +63,7 @@
             <role-name>data user</role-name>
             <role-name>advanced user</role-name>
             <role-name>blocked user</role-name>
+            <role-name>user</role-name>
         </auth-constraint>
     </security-constraint>
     <!-- Protect search servlet. -->
@@ -84,8 +86,11 @@
             <role-name>data user</role-name>
             <role-name>advanced user</role-name>
             <role-name>blocked user</role-name>
+            <role-name>user</role-name>
         </auth-constraint>
     </security-constraint>
+
+    <!-- todo clean up roles that I am not going to use-->
 
     <security-role>
         <role-name>admin</role-name>
@@ -101,6 +106,10 @@
 
     <security-role>
         <role-name>advanced user</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>user</role-name>
     </security-role>
 
     <!-- blocked user can search but not write text -->
