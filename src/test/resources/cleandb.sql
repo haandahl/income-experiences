@@ -59,17 +59,23 @@ INSERT into USER values  (8, 'mary', 'password7');
 -- ------------------------------------------------------------------------------------------------
 -- role (id, name, username) <--name refers to role descriptor
 -- ------------------------------------------------------------------------------------------------
--- TODO set up multiple roles for individuals?  Not sure if needed? ... decision, probably not
--- TODO revise roles: only admin, user, and blocked user.  Continue pattern of admin having complete acces (don't need separate user role).
--- ------------------------------------------------------------------------------------------------
 INSERT into ROLE values (1, 'admin', 'admin');
-INSERT into ROLE values (2, 'data user', 'jean');
-INSERT into ROLE values (3, 'new user', 'chris');
-INSERT into ROLE values (4, 'advanced user', 'jen');
-INSERT into ROLE values (5, 'new user', 'sam');
-INSERT into ROLE values (6, 'new user', 'kj');
-INSERT into ROLE values (7, 'new user', 'ryan');
-INSERT into ROLE values (8, 'advanced user', 'mary');
+INSERT into ROLE values (2, 'read', 'admin');
+INSERT into ROLE values (3, 'write', 'admin');
+INSERT into ROLE values (4, 'read', 'jean');
+INSERT into ROLE values (5, 'write', 'jean');
+INSERT into ROLE values (6, 'read', 'chris');
+INSERT into ROLE values (7, 'write', 'chris');
+INSERT into ROLE values (8, 'read', 'jen');
+INSERT into ROLE values (9, 'write', 'jen');
+INSERT into ROLE values (10, 'read', 'sam');
+INSERT into ROLE values (11, 'write', 'sam');
+INSERT into ROLE values (12, 'read', 'kj');
+INSERT into ROLE values (13, 'write', 'kj');
+INSERT into ROLE values (14, 'read', 'ryan');
+INSERT into ROLE values (15, 'write', 'ryan');
+INSERT into ROLE values (16, 'read', 'mary');
+INSERT into ROLE values (17, 'write', 'mary');
 -- -----------------------------------------------------------------------------------------------
 -- financial_story (id, content, date, visible, profile_user, editor, unsuitable)
 -- -----------------------------------------------------------------------------------------------

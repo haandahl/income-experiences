@@ -24,11 +24,8 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
-            <role-name>new user</role-name>
-            <role-name>data user</role-name>
-            <role-name>advanced user</role-name>
-            <role-name>blocked user</role-name>
-            <role-name>user</role-name>
+            <role-name>read</role-name>
+            <role-name>write</role-name>
         </auth-constraint>
     </security-constraint>
 
@@ -44,11 +41,10 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
-            </auth-constraint>
+        </auth-constraint>
     </security-constraint>
     <!-- Protect display profile -->
-    <!-- TODO - figure out how to display personal profile to any group but new user, vs any profile to advance user + admin -->
-    <security-constraint>
+     <security-constraint>
         <web-resource-collection>
             <web-resource-name>DisplayProfile</web-resource-name>
             <url-pattern>/profile</url-pattern>
@@ -59,15 +55,11 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
-            <role-name>new user</role-name>
-            <role-name>data user</role-name>
-            <role-name>advanced user</role-name>
-            <role-name>blocked user</role-name>
-            <role-name>user</role-name>
+            <role-name>read</role-name>
+            <role-name>write</role-name>
         </auth-constraint>
     </security-constraint>
     <!-- Protect search servlet. -->
-    <!-- TODO - figure out how to differentiate search results for data vs. advanced users -->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>search</web-resource-name>
@@ -83,10 +75,7 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
-            <role-name>data user</role-name>
-            <role-name>advanced user</role-name>
-            <role-name>blocked user</role-name>
-            <role-name>user</role-name>
+            <role-name>read</role-name>
         </auth-constraint>
     </security-constraint>
 
@@ -97,25 +86,11 @@
     </security-role>
 
     <security-role>
-        <role-name>new user</role-name>
+        <role-name>read</role-name>
     </security-role>
 
     <security-role>
-        <role-name>data user</role-name>
-    </security-role>
-
-    <security-role>
-        <role-name>advanced user</role-name>
-    </security-role>
-
-    <security-role>
-        <role-name>user</role-name>
-    </security-role>
-
-    <!-- blocked user can search but not write text -->
-    <!-- TODO - maybe blocked user s/b more like data user, but w/o ability to write anything.  Decide -->
-    <security-role>
-        <role-name>blocked user</role-name>
+        <role-name>write</role-name>
     </security-role>
 
     <!-- error-code related error pages -->

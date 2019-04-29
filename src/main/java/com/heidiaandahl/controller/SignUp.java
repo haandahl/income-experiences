@@ -112,14 +112,21 @@ public class SignUp extends HttpServlet {
 
             int surveyAdded = surveyDao.insert(survey);
 
-            // TODO start here --- must add user role and if not successfull, pull user and have them start again.
+            /* todo delete
             Role userRole = new Role("user", newUser);
             int roleAdded = roleDao.insert(userRole);
+            */
+
+            Role readRole = new Role ("read", newUser);
+            int readRoleAdded = roleDao.insert(readRole);
+            Role writeRole = new Role ("write", newUser);
+            int writeRoleAdded = roleDao.insert(writeRole);
+
 
 
 
             // make sure user was added and provide feedback
-            if (userAdded > 0 && roleAdded > 0) {
+            if (userAdded > 0 && readRoleAdded > 0 && writeRoleAdded > 0) {
                 request.setAttribute("username", username);
             } else {
                 validationMessage = "Sorry, there was a problem adding your account. Please try signing up again.";
