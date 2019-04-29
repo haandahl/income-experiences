@@ -6,6 +6,10 @@ import com.heidiaandahl.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -45,9 +49,32 @@ public class RoleDaoTest {
         assertEquals(testRole, insertedRole);
     }
 
-    // todo - my intention was to have the admin change the user roles,
-    //  but that only makes sense if a user is only allowed to have one role.  Since that's not the deal (in theory),
-    //  the admin would actually delete the wrong role and add the right role.
+    @Test
+    void removeSuccess() {
+        /*  some data in cleandb:
+            16	read	mary
+            17	write	mary
 
+            8	mary	password7
+         */
+
+        GenericDao userDao = new GenericDao(User.class);
+        User testUser = (User) userDao.getById(8);
+
+        // Map the search criteria
+        Map<String, Object> testMap = new HashMap<>();
+        testMap.put("username", testUser);
+        testMap.put("name", "write");
+
+        Role testRole = ((List<Role>) roleDao.getByPropertyNames(testMap)).get(0);
+
+        roleDao.delete(testRole);
+
+        List<Role> remainingRoles = (List<Role>) roleDao.getAll();
+
+        assertFalse(remainingRoles.contains(testRole));
+
+
+    }
 
 }
