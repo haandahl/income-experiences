@@ -73,8 +73,6 @@ public class RoleDaoTest {
         List<Role> remainingRoles = (List<Role>) roleDao.getAll();
 
         assertFalse(remainingRoles.contains(testRole));
-
-
     }
 
 }

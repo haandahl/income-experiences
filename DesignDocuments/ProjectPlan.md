@@ -149,13 +149,13 @@ authentication implemented (log in capability)</li>
 #### Project: 
 <ul>
 <li>X--Finish functionality to display charts for stats search.</li>
-<li>IN PROGRESS -- Build functionality for a user to sign up with a short survey.</li>
+<li>X-- Build functionality for a user to sign up with a short survey.</li>
 <li>Build functionality for a user to add, change, or delete their story.</li>
 <li>Build functionality for an admin to review content, change user status, or remove a user.</li>
 
 <li>X--charts--Deploy to AWS at functionality milestone(s)</li>
-<li>Update time log</li>
-<li>Push work to GitHub</li>
+<li>X--Update time log</li>
+<li>X--Push work to GitHub</li>
 </ul>
 
 ## by 5/6/19 (week 14, code review)
@@ -167,7 +167,7 @@ authentication implemented (log in capability)</li>
 <li>Accommodate the data difference for Orthodontist; replace with another?</li>
 <li>Stretch - upgrade to fuzzy search for topic?</li>
 
-<li>Code quality check -- possibly refactor SearchStats servlet, Search</li>
+<li>Code quality check -- possibly refactor SearchStats servlet, Search, SignUp servelet</li>
 
 <li>Assess where unit tests are still needed and create them: likely API use, search</li>
 <li>Assess where validation is needed and build it in. </li>

@@ -6,6 +6,7 @@ import com.heidiaandahl.entity.User;
 import com.heidiaandahl.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,9 +38,45 @@ public class DisplayProfile extends HttpServlet {
         User currentUser = currentUsers.get(0);
         request.setAttribute("user", currentUser);
 
+        setRequestSurvey(request, currentUser);
 
+
+        // Access the current user's financial story, if there is one and it's meant to be visible
+        GenericDao storyDao = new GenericDao(Story.class);
+
+        Map<String, Object> storyDisplayProperties = new HashMap<>();
+        storyDisplayProperties.put("profileUser", currentUser);
+        storyDisplayProperties.put("isVisible", true);
+
+        List<Story> storiesList = (List<Story>)storyDao.getByPropertyNames(storyDisplayProperties);
+
+        ServletContext context = getServletContext();
+        if (storiesList.size() != 0) {
+            Story profileStory = storiesList.get(0);
+
+            //request.setAttribute("profileStory", profileStory);
+            context.setAttribute("profileStory", profileStory);
+        } else {
+            //request.setAttribute("profileStory", null);
+            context.setAttribute("profileStory",null);
+        }
+
+        // forward to profile jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User currentUser = (User) request.getAttribute("user");
+        setRequestSurvey(request, currentUser);
+        // forward to profile jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void setRequestSurvey(HttpServletRequest request, User currentUser) {
         // Access the current user's financial survey
-            // TODO - this currently assumes there is only 1 survey (currently true); to improve/maintain, alter to retrieve most resent survey
+        // TODO - this currently assumes there is only 1 survey (currently true); to improve/maintain, alter to retrieve most resent survey
         GenericDao surveyDao = new GenericDao(Survey.class);
 
         Map<String, Object> surveyCriteria = new HashMap<>();
@@ -52,28 +89,9 @@ public class DisplayProfile extends HttpServlet {
         } else {
             request.setAttribute("survey", null);
         }
-
-        // TODO - build something that sorts out booleans from survey; integrate them for display in jsp
-
-        // Access the current user's financial story, if there is one and it's meant to be visible
-        GenericDao storyDao = new GenericDao(Story.class);
-
-        Map<String, Object> storyDisplayProperties = new HashMap<>();
-        storyDisplayProperties.put("profileUser", currentUser);
-        storyDisplayProperties.put("isVisible", true);
-
-        List<Story> storiesList = (List<Story>)storyDao.getByPropertyNames(storyDisplayProperties);
-
-        if (storiesList.size() != 0) {
-            Story profileStory = storiesList.get(0);
-            request.setAttribute("profileStory", profileStory);
-        } else {
-            request.setAttribute("profileStory", null);
-        }
-
-        // forward to profile jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
-        dispatcher.forward(request, response);
     }
+
+
+
 }
 
