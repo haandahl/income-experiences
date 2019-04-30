@@ -24,22 +24,26 @@ import java.util.Map;
 )
 public class DisplayProfile extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ServletContext context = getServletContext();
+        // TODO refactor the doGet... maybe I need a Profile object?
 
-        // TODO refactor the doGet
+        User currentUser = (User) context.getAttribute("user");
 
-        // Access the username of the person logged in
-        // Resource https://grokbase.com/t/tomcat/users/063snnw95r/get-jdbcrealms-current-user
-        String currentUsername = request.getRemoteUser();
-        
-        GenericDao userDao = new GenericDao(User.class);
+        if (currentUser == null) {
+            // Access the username of the person logged in
+            // Resource https://grokbase.com/t/tomcat/users/063snnw95r/get-jdbcrealms-current-user
+            String currentUsername = request.getRemoteUser();
 
-        List<User> currentUsers = (List<User>)userDao.getByPropertyName("username", currentUsername);
-        
-        User currentUser = currentUsers.get(0);
-        request.setAttribute("user", currentUser);
+            GenericDao userDao = new GenericDao(User.class);
 
-        setRequestSurvey(request, currentUser);
+            List<User> currentUsers = (List<User>)userDao.getByPropertyName("username", currentUsername);
 
+            currentUser = currentUsers.get(0);
+
+            context.setAttribute("user", currentUser);
+        }
+
+         setContextSurvey(context, currentUser);
 
         // Access the current user's financial story, if there is one and it's meant to be visible
         GenericDao storyDao = new GenericDao(Story.class);
@@ -50,14 +54,10 @@ public class DisplayProfile extends HttpServlet {
 
         List<Story> storiesList = (List<Story>)storyDao.getByPropertyNames(storyDisplayProperties);
 
-        ServletContext context = getServletContext();
         if (storiesList.size() != 0) {
             Story profileStory = storiesList.get(0);
-
-            //request.setAttribute("profileStory", profileStory);
             context.setAttribute("profileStory", profileStory);
         } else {
-            //request.setAttribute("profileStory", null);
             context.setAttribute("profileStory",null);
         }
 
@@ -67,16 +67,14 @@ public class DisplayProfile extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User currentUser = (User) request.getAttribute("user");
-        setRequestSurvey(request, currentUser);
-        // forward to profile jsp
+        // Note: this point should not be reachable without having already set the user, survey, and story to the context with doPost
         RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void setRequestSurvey(HttpServletRequest request, User currentUser) {
+    private void setContextSurvey(ServletContext context, User currentUser) {
         // Access the current user's financial survey
-        // TODO - this currently assumes there is only 1 survey (currently true); to improve/maintain, alter to retrieve most resent survey
+        // TODO - if future improvements allow annual surveys, revise this to retrieve only the most recent.
         GenericDao surveyDao = new GenericDao(Survey.class);
 
         Map<String, Object> surveyCriteria = new HashMap<>();
@@ -85,9 +83,9 @@ public class DisplayProfile extends HttpServlet {
 
         if (currentSurveys.size() != 0) {
             Survey currentSurvey = currentSurveys.get(0);
-            request.setAttribute("survey", currentSurvey);
+            context.setAttribute("survey", currentSurvey);
         } else {
-            request.setAttribute("survey", null);
+            context.setAttribute("survey", null);
         }
     }
 

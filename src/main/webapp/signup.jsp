@@ -4,7 +4,7 @@
 <html>
 <c:import url = "head.jsp" />
 <body>
-<div class="container-fluid">
+<div class="container">
     <c:import url = "header.jsp" />
 
     <%-- TODO -- apply same types of validation steps here as on search form --%>

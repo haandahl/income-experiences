@@ -112,11 +112,6 @@ public class SignUp extends HttpServlet {
 
             int surveyAdded = surveyDao.insert(survey);
 
-            /* todo delete
-            Role userRole = new Role("user", newUser);
-            int roleAdded = roleDao.insert(userRole);
-            */
-
             Role readRole = new Role ("read", newUser);
             int readRoleAdded = roleDao.insert(readRole);
             Role writeRole = new Role ("write", newUser);

@@ -6,7 +6,7 @@
     <c:import url = "head.jsp" />
 
     <body>
-    <div class="container-fluid">
+    <div class="container">
         <c:import url="header.jsp" />
 
            <FORM ACTION="j_security_check" METHOD="POST">

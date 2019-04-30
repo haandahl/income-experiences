@@ -23,20 +23,18 @@ public class AddStory extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Create an object from request parameters
         String newStoryContent = request.getParameter("financial-story").trim();
-        //java.lang.NullPointerException
-        //	com.heidiaandahl.controller.AddStory.doPost(AddStory.java:25)
-        // todo why did it work when I first submitted it, but not for the revision??
-        // I get the npe when I click edit... // ah I might have it
-        // todo nope this is a mess... come back
 
         ServletContext context = getServletContext();
         Story priorProfileStory = (Story) context.getAttribute("profileStory");
 
         GenericDao storyDao = new GenericDao(Story.class);
 
-
         // todo start here - what should criteria be?  Show them where user enters stuff
         // Check whether the object is complete and ok
+        // 100 characters minimum
+        // I should then allow a user to not-display their story if they don't want to replace it with something.
+        // Also test what happens with really long story.
+
 
         // Mark old story invisible
         if (priorProfileStory != null) {
@@ -44,15 +42,9 @@ public class AddStory extends HttpServlet {
             storyDao.saveOrUpdate(priorProfileStory);  // todo is this tested?
         }
 
-        // Get the current user
-        GenericDao userDao = new GenericDao(User.class);
-        String currentUsername = request.getRemoteUser();
-        List<User> currentUsers = (List<User>)userDao.getByPropertyName("username", currentUsername);
-
-        User currentUser = currentUsers.get(0);
-        request.setAttribute("user", currentUser); // todo - at some point should the current user be in teh context, not the rquest?
-
-        // Add new story
+        // Add the story with the current user named as the profile user and editor
+        // TODO - future updates could allow an admin to adjust the story as the editor
+        User currentUser = (User) context.getAttribute("user");
         Story newStory = new Story(newStoryContent, LocalDate.now(), true, currentUser, currentUser, false);
         storyDao.insert(newStory);
 

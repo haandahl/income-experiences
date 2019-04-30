@@ -3,7 +3,7 @@
 <html>
     <c:import url = "head.jsp" />
     <body>
-        <div class="container-fluid">
+        <div class="container">
             <c:import url = "header.jsp" />
 
             <p>There was a problem with the application or server. Try the <a href="index.jsp">home</a> page.

@@ -18,6 +18,8 @@ public class LogOut extends HttpServlet {
         HttpSession session = request.getSession();
         session.invalidate();
 
+        // todo - find all the stuff in the servlet context and remove it (needed?)
+
 
         // TODO -- PW feedback week 7:Log out should trigger a session.invalidate() type method to removed the logged in user's info from session. Hope that helps!
 

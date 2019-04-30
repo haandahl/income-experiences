@@ -2,7 +2,7 @@
 <html>
 <%@include file="head.jsp"%>
     <body>
-        <div class="container-fluid">
+        <div class="container">
             <c:import url = "header.jsp" />
             <h2>${user.username}'s Profile</h2>
 
@@ -21,39 +21,25 @@
                 <p>${survey.goalsDescription.description}</p>
            </c:if>
 
-            <%-- Normally users should not get to a profile page without having done a survey, but there could
-             be exceptions added at the back end, such as the current admin (3/29/29)--%>
-            <%--<c:choose>
-                <c:when test="${!empty survey}">
-                    <li>Household income: ${survey.income}</li>
-                    <li>Household size: ${survey.familySize}</li>
-                    <li>Impact of other financial factors: ${survey.incomeSkew.description}</li>
-                    <li>Survey date: ${survey.surveyDate}</li>
+           <c:choose>
+                <c:when test="${!empty profileStory && empty oldStory}">
 
-                    <h3>Needs</h3>
-                    <p>Overall: ${survey.needsDescription.description}</p>
-
-                    <h3>Goals</h3>
-                    <p>Overall: ${survey.goalsDescription.description}</p>
-
-
-                </c:when>
-                <c:otherwise>
-                    <p>Oops! You don't have a survey! Get into the back end and get it done!</p>
-                </c:otherwise>
-            </c:choose>--%>
-
-
-            <h3>${user.username}'s Story</h3>
-            <c:choose>
-                <c:when test="${!empty profileStory}">
-                        <p>${profileStory.storyContent}</p>
-                        <form method="post" action="add-story">
-                            <span class="hidden"><textarea name="financial-story">${profileStory.storyContent}</textarea></span>
+                    <h3>${user.username}'s Story</h3>
+                    <p>${profileStory.storyContent}</p>
+                    <form action="edit-story" method="post">
+                            <span class="hidden"><textarea name="old-story">${profileStory.storyContent}</textarea></span>
                             <button type="submit" class="btn btn-primary">Edit Your Story</button>
-                        </form>
+                    </form>
+
+                </c:when>
+                <c:when test="${!empty profileStory && !empty oldStory}">
+                    <h3>Tips for Updating Your Story </h3>
+                    <p>Add to the story you've already told - don't lose your past!  Also consider these points of interest:</p>
+                    <%@include file="storyArea.jsp"%>
                 </c:when>
                 <c:otherwise>
+                    <h3>Share Your Story</h3>
+                    <p>Let people know what your money situation has really been like. This is free-form, but here are some ideas:</p>
                     <%@include file="storyArea.jsp"%>
 
                 </c:otherwise>
@@ -64,9 +50,6 @@
             <%-- TODO screenshots of logging, test coverage --%>
             <%-- TODO video demo can be loaded to YouTube and linked in GitHub --%>
             <%-- TODO remember I can't project --%>
-
-
-
 
         </div>
     </body>
