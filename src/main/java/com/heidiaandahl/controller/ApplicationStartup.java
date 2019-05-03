@@ -35,9 +35,7 @@ public class ApplicationStartup extends HttpServlet implements PropertiesLoader 
 
     public void init() {
         // Make sure existing db info has lucene index
-        logger.debug("in init of ApplicationStartup");
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        logger.debug("just opened a session in ApplicationStartup: " + session);
         FullTextSession fullTextSession = Search.getFullTextSession(session);
 
         MassIndexer newMassIndexer = fullTextSession.createIndexer();
@@ -70,17 +68,6 @@ public class ApplicationStartup extends HttpServlet implements PropertiesLoader 
         ServletContext context = getServletContext();
         context.setAttribute("incomeExperiencesProperties", incomeExperiencesProperties);
 
-        // TODO decide how to get the properties where they are needed
-        // code below is from adv java where I guess one employee directory was set for the whole application
-        // does something like that make sense here?
-                // TODO get properties available in
-                // Search JSP - so I don't have to store exact jobs
-                // Search Results JSP - for formatted career
-                // Search Logic java - to access codes, maybe to get career so I don't have to put properties in Results JSP
-
-        // EmployeeDirectory employeeDirectory = new EmployeeDirectory(incomeExperiencesProperties);
-
-        // context.setAttribute("employeeDirectory", employeeDirectory);
 
      }
 }

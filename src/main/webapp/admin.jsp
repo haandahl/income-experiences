@@ -22,6 +22,34 @@
             </c:otherwise>
 
         </c:choose>
+
+        <%--   THIS IS COPIED FROM TEXTRESULT.JSP - IT LOOKS LIKE I HAD IN MIND TO LAY OUT A HISTORY OF SOMEBODY'S STORIES?  MORE OF AN ADMIN THING??
+
+        <c:choose>
+            <c:when test="${!empty textResult}">
+                <table>
+                    <c:forEach var = "result" items="${textResult}">
+                        <tr>
+                            <td>${result.username}</td>
+                        </tr>
+                        <c:forEach var = "story" items="${result.storyVersionsForUserProfile}">
+                            <tr>
+                                <form acton="flag-content" method=""post">
+                                <td><span class="hidden"><input type="text" value="${story.storyContent}" ></span>${story.storyContent}</td>
+                                </form>
+                            </tr>
+                        </c:forEach>
+                    </c:forEach>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <p>No results were found.</p>
+            </c:otherwise>
+        </c:choose>
+
+       --%>
+
+
     </div>
     </body>
 </html>

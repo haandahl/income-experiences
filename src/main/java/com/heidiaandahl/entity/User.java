@@ -1,7 +1,9 @@
 package com.heidiaandahl.entity;
 
+import com.heidiaandahl.persistence.VisibleStoryFilterFactory;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FullTextFilterDef;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
@@ -19,6 +21,7 @@ import java.util.Set;
 @Indexed
 @Entity(name = "User")
 @Table(name = "user")
+//@FullTextFilterDef(name = "visibleStory", impl = VisibleStoryFilterFactory.class)
 public class User implements Serializable {
     /*
         Resource for choice to implement Serializable:

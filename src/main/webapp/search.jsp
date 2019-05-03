@@ -92,7 +92,7 @@
                         </select>
                     </div>
                     <c:if test="${!empty validationMessage}">
-                        <p>${validationMessage}</p>
+                        <p class="bg-warning">${validationMessage}</p>
                     </c:if>
                     <button type="submit" class="btn btn-primary">Search for Stats and Stories</button>
                 </form>

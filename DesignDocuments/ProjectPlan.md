@@ -150,7 +150,7 @@ authentication implemented (log in capability)</li>
 <ul>
 <li>X--Finish functionality to display charts for stats search.</li>
 <li>X-- Build functionality for a user to sign up with a short survey.</li>
-<li>Build functionality for a user to add, change, or delete their story.</li>
+<li>X--Build functionality for a user to add, change, or delete their story.</li>
 <li>Build functionality for an admin to review content, change user status, or remove a user.</li>
 
 <li>X--charts--Deploy to AWS at functionality milestone(s)</li>
@@ -162,8 +162,8 @@ authentication implemented (log in capability)</li>
 #### Coursework: Asynchronous messaging
 #### Project: 
 <ul>
-<li>Complete profile display.</li>
-<li>Add functionalisty to display stories along with stats search.</li>
+<li>Allow others' profiles to be displayed.</li>
+<li>X--Add functionalisty to display stories along with stats search.</li>
 <li>Accommodate the data difference for Orthodontist; replace with another?</li>
 <li>Stretch - upgrade to fuzzy search for topic?</li>
 
@@ -174,7 +174,7 @@ authentication implemented (log in capability)</li>
 
 <li>Apply Bootstrap and some color</li>
 <li>Complete "About" Page</li>
-<li>Create more data so that top jobs return results too.</li>
+<li>IN PROGRESS--Create more data so that top jobs return results too.</li>
 <li>Review and close prior code review items.</li>
 <li>Find all todo's in project; resolve/delete where appropriate.</li>
 

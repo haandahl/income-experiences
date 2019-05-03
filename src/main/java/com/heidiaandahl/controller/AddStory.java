@@ -21,6 +21,9 @@ import java.util.List;
 )
 public class AddStory extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO consider api to help find "bad words" https://www.neutrinoapi.com/api/bad-word-filter/
+        // In future stories could be reviewed before being displayed, or at least flagged for admin review
+
         // Create an object from request parameters
         String newStoryContent = request.getParameter("financial-story").trim();
 
@@ -51,7 +54,7 @@ public class AddStory extends HttpServlet {
         // put new story in servlet context
         context.setAttribute("profileStory", newStory);
 
-        // forward to jsp
+       // forward to jsp
        RequestDispatcher dispatcher = request.getRequestDispatcher("profile");
        dispatcher.forward(request, response);
     }

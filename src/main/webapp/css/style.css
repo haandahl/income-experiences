@@ -12,6 +12,31 @@ section {
     margin-top: 2.5em;
 }
 
+.hidden {
+    display: none;
+}
+
+.centered {
+    text-align: center;
+}
+.profile-box {
+    border-radius: 0.6em;
+    text-align: center;
+}
+
+#profileSkew {
+    background-color: green;
+}
+
+#profileNeeds {
+    background-color: darkorchid;
+}
+
+#profileGoals {
+    background-color: gold;
+}
+
+
 .chart {
     padding: 3em;
 }
@@ -28,6 +53,4 @@ section {
     margin-top: 1em;
 }
 
-.hidden {
-    display: none;
-}
+

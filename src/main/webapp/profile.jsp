@@ -11,14 +11,21 @@
                 <li>Household income: ${survey.income}</li>
                 <li>Household size: ${survey.familySize}</li>
 
-                <%-- todo color coded boxes for needs/wants, "good" & "bad" colors --%>
+            <div class="row">
 
-                <h4>Impact of other financial factors: ${survey.incomeSkew.description}</h4>
-                <h4>Needs</h4>
-                <p>${survey.needsDescription.description}</p>
-
-                <h4>Goals</h4>
-                <p>${survey.goalsDescription.description}</p>
+                <div class="col-md-4 profile-box" id="profileNeeds">
+                    <h4>Needs</h4>
+                    <p>${survey.needsDescription.description}</p>
+                </div>
+                <div class="col-md-4 profile-box" id="profileGoals">
+                    <h4>Goals</h4>
+                    <p>${survey.goalsDescription.description}</p>
+                </div>
+                <div class="col-md-4 profile-box" id="profileSkew">
+                    <h4>Reliance on Non-Income</h4>
+                    <p>${survey.incomeSkew.description}</p>
+                </div>
+            </div>
            </c:if>
 
            <c:choose>
@@ -46,7 +53,6 @@
             </c:choose>
 
             <%-- TODO before code review - run plugins, choose favorite --%>
-            <%-- TODO - conditional display of story/ edit --%>
             <%-- TODO screenshots of logging, test coverage --%>
             <%-- TODO video demo can be loaded to YouTube and linked in GitHub --%>
             <%-- TODO remember I can't project --%>

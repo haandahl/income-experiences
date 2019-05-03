@@ -3,8 +3,14 @@ package com.heidiaandahl.controller.admin;
 import com.heidiaandahl.entity.Story;
 import com.heidiaandahl.entity.User;
 import com.heidiaandahl.persistence.GenericDao;
+import com.heidiaandahl.persistence.SessionFactoryProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,7 +30,13 @@ public class AssembleAdminInfo extends HttpServlet {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         // TODO - improve functionality, Get all the users with edits/removals associated with their stories
+
+
+        // Idea - display flag button to all users, so anyone can mark a story unsuitable.  Admin reviews those that
+        // are unsuitable and visible.  Admin can edit story to "invisible" (should put message on user's profile page
+        // explaining why no story is there).  Admin can block or remove user too.
 
         logger.debug("stuff is actually happening in the admin servlet");
 
@@ -39,40 +51,7 @@ public class AssembleAdminInfo extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("./admin.jsp");
         dispatcher.forward(request, response);
+
     }
 }
 
-/*
-    TODO - maybe - add text search to capture inappropriate user names and stories
-
-    Draft:
-            // Adapted from: https://docs.jboss.org/hibernate/search/5.9/reference/en-US/pdf/hibernate_search_reference.pdf
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        FullTextSession fullTextSession = Search.getFullTextSession(session);
-        Transaction transaction = fullTextSession.beginTransaction();
-
-        // create native Lucene query using the query DSL (recommended)
-        QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(User.class).get();
-
-        // Fuzzy simpleQueryString search defaults to "or" and allows some misspelling
-        org.apache.lucene.search.Query query = queryBuilder
-                .simpleQueryString()
-                .onFields("username","storyVersionsForUserProfile.storyContent")
-                .matching("opvertey~2 Medicaid~2")
-                .createQuery();
-
-     // wrap Lucene query in a org.hibernate.Query
-    org.hibernate.Query fullTextQuery = fullTextSession.createFullTextQuery(query, User.class);
-
-    // execute search
-    List result = fullTextQuery.list();
-        transaction.commit();
-                session.close();
-
-                if (result.size() !=0) {
-                request.setAttribute("textResult", result);
-                } else {
-                request.setAttribute("textResult", null);
-                }
-
-*/

@@ -19,7 +19,9 @@
                         </tr>
                         <c:forEach var = "story" items="${result.storyVersionsForUserProfile}">
                             <tr>
-                                <td>${story.storyContent}</td>
+                                <form acton="flag-content" method=""post">
+                                    <td><span class="hidden"><input type="text" value="${story.storyContent}" ></span>${story.storyContent}</td>
+                                </form>
                             </tr>
                         </c:forEach>
                     </c:forEach>
