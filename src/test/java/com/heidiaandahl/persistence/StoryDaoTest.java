@@ -131,7 +131,6 @@ public class StoryDaoTest {
 
         assertEquals(3, testList.size());
         // TODO - find out whether this test makes sense in terms of relying on a certain order within the list?
-        // TODO - consider that these 3 depend on getById passing too.
         assertEquals(firstExpectedStory, testList.get(0));
         assertEquals(secondExpectedStory, testList.get(1));
         assertEquals(thirdExpectedStory, testList.get(2));

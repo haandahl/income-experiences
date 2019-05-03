@@ -17,10 +17,18 @@
                     <c:forEach var = "result" items="${textResult}">
                         <tr>
                             <td>${result.profileUser.username}</td>
-                            <form action="flag-content" method="post">
-                                <td><span class="hidden"><input type="text" value="${result.storyContent}" ></span>${result.storyContent}</td>
-                                <td><button type="submit" class="btn btn-warning">Flag</button></td>
-                            </form>
+                            <td>${result.storyContent}</td>
+                            <c:choose>
+                                <c:when test="${!result.unsuitable}">
+                                    <form action="flag-content" method="post">
+                                        <td><span class="hidden"><input type="text" name="flaggable-story" value="${result.storyContent}" ></span>
+                                        <button type="submit" class="btn btn-warning">Flag</button></td>
+                                    </form>
+                                </c:when>
+                                <c:otherwise>
+                                    <td><span class="text-muted">moderator will review</span></td>
+                                </c:otherwise>
+                            </c:choose>
                         </tr>
                     </c:forEach>
                 </table>

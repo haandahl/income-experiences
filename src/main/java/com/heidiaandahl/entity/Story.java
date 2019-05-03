@@ -39,8 +39,10 @@ public class Story {
     @Column(name = "visible")
     private boolean isVisible;
 
+    // todo rename this and all "is" booleans to the characteristic without the is, so usable in jsps
+
     @Column(name = "unsuitable")
-    private boolean isUnsuitable;
+    private boolean unsuitable;
 
     /*
         Resource for ManyToOne JoinColumn: https://www.baeldung.com/hibernate-one-to-many
@@ -69,15 +71,15 @@ public class Story {
      * @param isVisible    whether the version may be displayed to site users
      * @param profileUser  the profile user
      * @param editor       the editor
-     * @param isUnsuitable the is unsuitable
+     * @param unsuitable the is unsuitable
      */
-    public Story(String storyContent, LocalDate editDate, boolean isVisible, User profileUser, User editor, boolean isUnsuitable) {
+    public Story(String storyContent, LocalDate editDate, boolean isVisible, User profileUser, User editor, boolean unsuitable) {
         this.storyContent = storyContent;
         this.editDate = editDate;
         this.isVisible = isVisible;
         this.profileUser = profileUser;
         this.editor = editor;
-        this.isUnsuitable = isUnsuitable;
+        this.unsuitable = unsuitable;
     }
 
     /**
@@ -194,7 +196,7 @@ public class Story {
      * @return the status indicating whether an administrator has flagged the content unsuitable
      */
     public boolean isUnsuitable() {
-        return isUnsuitable;
+        return unsuitable;
     }
 
     /**
@@ -203,7 +205,7 @@ public class Story {
      * @param unsuitable the status indicating whether an administrator has flagged the content unsuitable
      */
     public void setUnsuitable(boolean unsuitable) {
-        isUnsuitable = unsuitable;
+        this.unsuitable = unsuitable;
     }
 
     @Override
@@ -213,14 +215,14 @@ public class Story {
         Story story = (Story) o;
         return id == story.id &&
                 isVisible == story.isVisible &&
-                isUnsuitable == story.isUnsuitable &&
+                unsuitable == story.unsuitable &&
                 Objects.equals(storyContent, story.storyContent) &&
                 Objects.equals(editDate, story.editDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, storyContent, editDate, isVisible, isUnsuitable);
+        return Objects.hash(id, storyContent, editDate, isVisible, unsuitable);
     }
 
     @Override
@@ -230,7 +232,7 @@ public class Story {
                 ", storyContent='" + storyContent + '\'' +
                 ", editDate=" + editDate +
                 ", isVisible=" + isVisible +
-                ", isUnsuitable=" + isUnsuitable +
+                ", unsuitable=" + unsuitable +
                 '}';
     }
 

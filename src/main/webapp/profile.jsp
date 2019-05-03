@@ -13,6 +13,8 @@
 
             <div class="row">
 
+                <%-- TODO - nest containers w/padding so boxes don't wrap --%>
+
                 <div class="col-md-4 profile-box" id="profileNeeds">
                     <h4>Needs</h4>
                     <p>${survey.needsDescription.description}</p>

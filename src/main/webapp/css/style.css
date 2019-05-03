@@ -22,18 +22,19 @@ section {
 .profile-box {
     border-radius: 0.6em;
     text-align: center;
+    margin: 1em;
 }
 
 #profileSkew {
-    background-color: green;
+    background-color: rgba(255, 99, 132, 0.2);
 }
 
 #profileNeeds {
-    background-color: darkorchid;
+    background-color: rgba(54, 162, 235, 0.2);
 }
 
 #profileGoals {
-    background-color: gold;
+    background-color: rgba(255, 206, 86, 0.2);
 }
 
 
