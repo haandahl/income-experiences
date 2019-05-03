@@ -1,7 +1,10 @@
 package com.heidiaandahl.entity;
 
+import com.heidiaandahl.persistence.VisibleStoryFilterFactory;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FullTextFilterDef;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,8 +17,10 @@ import java.util.Objects;
  *
  * @author Heidi Aandahl
  */
+@Indexed
 @Entity(name = "Story")
 @Table(name = "financial_story")
+@FullTextFilterDef(name = "visibleStory", impl = VisibleStoryFilterFactory.class)
 public class Story {
 
     @Id
@@ -30,6 +35,7 @@ public class Story {
     @Column(name = "date")
     private LocalDate editDate;
 
+    @Field
     @Column(name = "visible")
     private boolean isVisible;
 

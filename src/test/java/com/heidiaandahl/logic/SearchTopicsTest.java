@@ -1,7 +1,6 @@
 package com.heidiaandahl.logic;
 
 import com.heidiaandahl.entity.Story;
-import com.heidiaandahl.entity.User;
 import com.heidiaandahl.persistence.GenericDao;
 import com.heidiaandahl.persistence.SessionFactoryProvider;
 import com.heidiaandahl.test.util.Database;
@@ -19,11 +18,22 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests the TopicSearch class, which contains a method that searches
+ * for visible stories by search term, using an "or" search.
+ *
+ * @author Heidi Aandahl
+ */
 public class SearchTopicsTest {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
+
+    /**
+     * Prepares the test database and lucene indexes before each test.
+     */
     @BeforeEach
     void setUp() {
+        // Set up database with test data
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
 
@@ -40,13 +50,16 @@ public class SearchTopicsTest {
         } catch (Exception exception) {
             logger.error("There was an error making an index for the application.");
         } finally {
-            // TODO - consider that the finally block was added to see if it helped later in the app.  No effect. Should it be here anyway?
             session.close();
             fullTextSession.close();
         }
 
     }
 
+    /**
+     * Tests to be sure that the method getSearchResults returns only visible stories that contain the search
+     * term.
+     */
     @Test
     void getSearchByTopicsResultSuccess() {
         /*
@@ -63,9 +76,9 @@ public class SearchTopicsTest {
 
         TopicSearch testSearch = new TopicSearch();
 
-        List testUsers = testSearch.getSearchResults("great");
+        List testStories = testSearch.getSearchResults("great");
 
-        assertEquals(1, testUsers.size());
-
+        assertEquals(1, testStories.size());
+        assertTrue(testStories.contains(expectedStory));
     }
 }
