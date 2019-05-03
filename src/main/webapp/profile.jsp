@@ -15,17 +15,23 @@
 
                 <%-- TODO - nest containers w/padding so boxes don't wrap --%>
 
-                <div class="col-md-4 profile-box" id="profileNeeds">
-                    <h4>Needs</h4>
-                    <p>${survey.needsDescription.description}</p>
+                <div class="col-md-4">
+                    <div class="profile-box" id="profileNeeds">
+                        <h4>Needs</h4>
+                        <p>${survey.needsDescription.description}</p>
+                    </div>
                 </div>
-                <div class="col-md-4 profile-box" id="profileGoals">
+                <div class="col-md-4">
+                    <div class="profile-box" id="profileGoals">
                     <h4>Goals</h4>
                     <p>${survey.goalsDescription.description}</p>
+                    </div>
                 </div>
-                <div class="col-md-4 profile-box" id="profileSkew">
+                <div class="col-md-4">
+                    <div class="profile-box" id="profileSkew">
                     <h4>Reliance on Non-Income</h4>
                     <p>${survey.incomeSkew.description}</p>
+                    </div>
                 </div>
             </div>
            </c:if>

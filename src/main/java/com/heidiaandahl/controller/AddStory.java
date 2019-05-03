@@ -24,7 +24,7 @@ public class AddStory extends HttpServlet {
         // TODO  - (future) - consider api to help find "bad words"
         //  https://www.neutrinoapi.com/api/bad-word-filter/ and flag stories for review as they are added
 
-       // Create an object from request parameters
+        // Create an object from request parameters
         String newStoryContent = request.getParameter("financial-story").trim();
 
         ServletContext context = getServletContext();
@@ -46,7 +46,7 @@ public class AddStory extends HttpServlet {
         }
 
         // Add the story with the current user named as the profile user and editor
-        // TODO - future updates could allow an admin to adjust the story as the editor
+        // TODO - (future) - update code to separately identify profile user and editor
         User currentUser = (User) context.getAttribute("user");
         Story newStory = new Story(newStoryContent, LocalDate.now(), true, currentUser, currentUser, false);
         storyDao.insert(newStory);
@@ -54,9 +54,9 @@ public class AddStory extends HttpServlet {
         // put new story in servlet context
         context.setAttribute("profileStory", newStory);
 
-       // forward to jsp
-       RequestDispatcher dispatcher = request.getRequestDispatcher("profile");
-       dispatcher.forward(request, response);
+        // forward to jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("profile");
+        dispatcher.forward(request, response);
     }
 }
 
