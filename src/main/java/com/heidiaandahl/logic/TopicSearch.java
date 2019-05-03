@@ -47,18 +47,6 @@ public class TopicSearch {
                 .onFields("storyContent")
                 .matching(searchString)
                 .createQuery();
-        //todo - figure out how this came up - I thought i was working on a diff problem!  This is coming up under /flag-content
-        // i tried just searching on "" to see if a similar error came up, and it did not!  WHAAAAAA????
-        // type Exception report
-        //
-        //message HSEARCH000334: The simple query parser does not support null queries.
-        //
-        //description The server encountered an internal error that prevented it from fulfilling this request.
-        //
-        //exception
-        //
-        //org.hibernate.search.exception.SearchException: HSEARCH000334: The simple query parser does not support null queries.
-        //	org.hibernate.search.query.dsl.impl.ConnectedMultiFieldsSimpleQueryStringQueryBuilder.createQuery(ConnectedMultiFieldsSimpleQueryStringQueryBuilder.java:51)
 
         // wrap Lucene query in a hibernate FullTextQuery
         FullTextQuery fullTextQuery = fullTextSession.createFullTextQuery(query, Story.class);
