@@ -12,18 +12,16 @@
 
         <c:choose>
             <c:when test="${!empty textResult}">
-                <table>
+                <table class="table table-hover table-responsive">
+                    <tr><th>Site User</th><th>Financial Story</th><th>Flag for Moderator Review</th></tr>
                     <c:forEach var = "result" items="${textResult}">
                         <tr>
-                            <td>${result.username}</td>
+                            <td>${result.profileUser.username}</td>
+                            <form action="flag-content" method="post">
+                                <td><span class="hidden"><input type="text" value="${result.storyContent}" ></span>${result.storyContent}</td>
+                                <td><button type="submit" class="btn btn-warning">Flag</button></td>
+                            </form>
                         </tr>
-                        <c:forEach var = "story" items="${result.storyVersionsForUserProfile}">
-                            <tr>
-                                <form acton="flag-content" method=""post">
-                                    <td><span class="hidden"><input type="text" value="${story.storyContent}" ></span>${story.storyContent}</td>
-                                </form>
-                            </tr>
-                        </c:forEach>
                     </c:forEach>
                 </table>
             </c:when>

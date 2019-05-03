@@ -34,7 +34,7 @@ public class SearchTopics extends HttpServlet {
         // TODO - (future) - modify search string to add ~2 at the end of each token for a fuzzy search
         TopicSearch search = new TopicSearch();
 
-        List result = search.getSearchResults(searchString);
+        List<Story> result = search.getSearchResults(searchString);
 
         // send info to results page
         if (result.size() != 0) {
