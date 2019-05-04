@@ -6,58 +6,55 @@
 
         <c:import url = "header.jsp" />
 
-        <h2>Unsuitable!</h2>
+        <h2>Items for Moderator Action</h2>
 
         <c:choose>
-            <c:when test="${unsuitableStories}">
-                <table>
-                    <c:forEach var = "story" items="${unsuitableStories}">
-                        <tr><td>${story.editDate}</td><td>${story.profileUser}</td><td>${story.storyContent}</td></tr>
-                    </c:forEach>
-
-                </table>
-            </c:when>
-            <c:otherwise>
-                <p>There is no history of unsuitable stories to report!</p>
-            </c:otherwise>
-
-        </c:choose>
-
-        <%--   THIS IS COPIED FROM TEXTRESULT.JSP - IT LOOKS LIKE I HAD IN MIND TO LAY OUT A HISTORY OF SOMEBODY'S STORIES?  MORE OF AN ADMIN THING??
-
-        <c:choose>
-            <c:when test="${!empty textResult}">
-                <table>
-                    <c:forEach var = "result" items="${textResult}">
+            <c:when test="${!empty itemsToReview}">
+                <table class="table table-hover table-responsive">
+                    <tr><th>Who</th><th>No. of Past Flags</th><th class="limited-width">Current Story</th><th></th>Options</th></tr>
+                    <c:forEach var = "item" items="${itemsToReview}">
                         <tr>
-                            <td>${result.username}</td>
+                            <td>${item.profileUser.username}</td>
+                            <td class="limited-width">${item.profileUser.archivedUnsuitableStories}</td>
+                            <td>${item.storyContent}</td>
+
+                            <%-- TODO come back and wrap in choose/when/otherwise so admin can see results of actions --%>
+                            <td>
+                                <div class="admin-form">
+                                    <form action="unflag" method="post">
+                                        <span class="hidden"><input type="text" name="story-to-unflag" value="${item}" ></span>
+                                        <button type="submit" class="btn btn-success">Unflag Story</button>
+                                    </form>
+                                </div>
+                                <div class="admin-form">
+                                    <form action="hide-content" method="post">
+                                        <span class="hidden"><input type="text" name="story-to-archive" value="${item}" ></span>
+                                        <button type="submit" class="btn btn-secondary">Hide Story</button>
+                                    </form>
+                                </div>
+                                <div class="admin-form">
+                                    <form action="block-user" method="post">
+                                        <span class="hidden"><input type="text" name="user-to-block" value="${item.profileUser}" ></span>
+                                        <button type="submit" class="btn btn-warning">Block User</button>
+                                    </form>
+                                </div>
+                                <div class="admin-form">
+                                    <form action="remove-user" method="post">
+                                         <span class="hidden"><input type="text" name="user-to-remove" value="${item.profileUser}" ></span>
+                                         <button type="submit" class="btn btn-danger">Remove User</button>
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
-                        <c:forEach var = "story" items="${result.storyVersionsForUserProfile}">
-                            <tr>
-                                <form acton="flag-content" method=""post">
-                                <td><span class="hidden"><input type="text" value="${story.storyContent}" ></span>${story.storyContent}</td>
-                                </form>
-                            </tr>
-                        </c:forEach>
                     </c:forEach>
+
                 </table>
             </c:when>
             <c:otherwise>
-                <p>No results were found.</p>
+                <p>There are no financial stories flagged for review.</p>
             </c:otherwise>
+
         </c:choose>
-
-       --%>
-
-<%--
-    1. find stories currently visible and unsuitable
-    2. find profile user with that story
-    3. for each user, list ALL their stories marked unsuitable (visible and invisible) or simply keep a tally
-    4. display user, current story, tally of invisible/unsuitable
-    5. options: remove user, hide story and block user, mark story suitable
-
---%>
-
     </div>
     </body>
 </html>

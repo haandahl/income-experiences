@@ -1,12 +1,11 @@
 package com.heidiaandahl.entity;
 
+import com.heidiaandahl.persistence.GenericDao;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User of the web application.
@@ -233,6 +232,24 @@ public class User implements Serializable {
     }
 
     //TODO add and remove methods for survey sets plus test
+
+    /**
+     * Get the number of financial story versions associated with the profile that were
+     * flagged unsuitable and are now no longer visible.
+     *
+     * @return
+     */
+    public Long getArchivedUnsuitableStories() {
+        GenericDao storyDao = new GenericDao(Story.class);
+        Map<String, Object> tallyCriteria = new HashMap<>();
+        tallyCriteria.put("profileUser", this);
+        tallyCriteria.put("isVisible", false);
+        tallyCriteria.put("unsuitable", true);
+
+        Long archivedUnsuitableStories = storyDao.getTallyByPropertyNames(tallyCriteria);
+
+        return archivedUnsuitableStories;
+    }
 
     @Override
     public String toString() {

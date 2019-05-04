@@ -295,12 +295,6 @@ public class ExperiencesSearch {
             storyCriteria.put("profileUser", surveyPartipant);
             storyCriteria.put("isVisible", true);
 
-            //message javax.el.ELException: Cannot convert
-            // [Story{id=2, storyContent='(NOT A REAL PERSON) This is the federal poverty level for 2 people,
-            // published by https://www.healthcare.com/blog/federal-poverty-levels/ on January 15, 2019.
-            // Any survey data, aside from the income, is speculation.', editDate=2019-01-15, isVisible=true, isUnsuitable=false}]
-            // of type class java.util.ArrayList to class java.lang.Boolean
-
             // get the stories that match (there should just be one)
             List<Story> stories = (List<Story>) storyDao.getByPropertyNames(storyCriteria);
 
@@ -308,7 +302,6 @@ public class ExperiencesSearch {
                 matchingStories.add(story);
             }
         }
-
 
         return matchingStories;
     }

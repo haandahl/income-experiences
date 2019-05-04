@@ -20,6 +20,10 @@ section {
     text-align: center;
 }
 
+.limited-width {
+    max-width: 200em;
+}
+
 .profile-box {
     border-radius: 0.6em;
     text-align: center;
@@ -54,6 +58,11 @@ section {
     text-transform: uppercase;
     text-align: center;
     margin-top: 1em;
+}
+
+.admin-form {
+    float: left;
+    padding: 0.3em;
 }
 
 
