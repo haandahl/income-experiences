@@ -49,9 +49,9 @@ public class SearchTopics extends HttpServlet {
 
         // make info available to application so that the results page can process user input with another servlet
         if (result.size() != 0) {
-            context.setAttribute("textResult", result);
+            context.setAttribute("storiesToDisplay", result);
         } else {
-            context.setAttribute("textResult", null);
+            context.setAttribute("storiesToDisplay", null);
         }
         context.setAttribute("topic", searchString);
         context.setAttribute("returnUrl", "textResult.jsp");

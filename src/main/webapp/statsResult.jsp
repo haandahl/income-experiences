@@ -79,6 +79,16 @@
         </section>
     </c:if>
     <c:if test="${!empty matchingSurveys}">
+        <h3>Financial Stories</h3>
+        <section class="row">
+            <div class="col">
+                <%@include file="storyTable.jsp"%>
+            </div>
+        </section>
+    </c:if>
+
+    <%-- todo try to re-use code from textResult and structure servlets to match
+    <c:if test="${!empty matchingSurveys}">
         <section class="row">
             <div class="col">
 
@@ -86,7 +96,7 @@
                  <c:choose>
                     <c:when test="${!empty matchingStories}">
 
-                        <%-- TODO provide link to user profile --%>
+
 
                         <table class="table">
                             <thead class="thead-light">
@@ -107,11 +117,13 @@
                     </c:otherwise>
 
                 </c:choose>
+
+
             </div>
         </section>
     </c:if>
+    --%>
 
-
-</div>
+</div><!-- end container -->
 </body>
 </html>

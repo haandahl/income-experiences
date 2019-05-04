@@ -90,11 +90,10 @@ public class ExperiencesSearch {
 
         try {
             careerResponse = mapper.readValue(response, Response.class);
-
         } catch (IOException ioException) {
-            // TODO - something to show problem
+            logger.error(ioException.getMessage());
         } catch (Exception exception) {
-            // TODO - something to show problem
+            logger.error(exception.getMessage());
         }
 
         // Get the first (only series) and its data items

@@ -132,13 +132,14 @@ public class SearchStats extends HttpServlet {
         // Make data needed for charts available to the application
         context.setAttribute("chartData", allResponsesJson);
 
-        // set request attributes for happy path
-        request.setAttribute("income", incomeDisplay);
-        request.setAttribute("householdSize", householdSizeInput);
-        request.setAttribute("careerName", careerName);
-        request.setAttribute("matchingStories", matchingStories);
-        request.setAttribute("matchingSurveys", matchingSurveys);
-        request.setAttribute("percentDifferenceSearched", percentDifferenceToDisplay);
+        // make search information available to display to user
+        context.setAttribute("income", incomeDisplay);
+        context.setAttribute("householdSize", householdSizeInput);
+        context.setAttribute("careerName", careerName);
+        context.setAttribute("matchingSurveys", matchingSurveys);
+        context.setAttribute("percentDifferenceSearched", percentDifferenceToDisplay);
+        context.setAttribute("storiesToDisplay", matchingStories);
+        context.setAttribute("returnUrl", nextUrl);
 
         // forward to jsp
         dispatcher = request.getRequestDispatcher(nextUrl);

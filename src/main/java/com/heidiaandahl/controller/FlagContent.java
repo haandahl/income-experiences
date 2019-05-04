@@ -46,7 +46,7 @@ public class FlagContent extends HttpServlet {
         List<Story> flaggedStories = (List<Story>) storyDao.getByPropertyName("storyContent", flaggedContent);
 
         ServletContext context = getServletContext();
-        List<Story> flagOrigin = (List<Story>) context.getAttribute("textResult");
+        List<Story> flagOrigin = (List<Story>) context.getAttribute("storiesToDisplay");
 
         // TODO refactor separate methods?
 
@@ -65,7 +65,7 @@ public class FlagContent extends HttpServlet {
             }
         }
 
-        context.setAttribute("textResult", flagOrigin);
+        context.setAttribute("storiesToDisplay", flagOrigin);
 
         // redirect back to jsp so user can view same results with flag option removed as appropriate
         String url = (String) context.getAttribute("returnUrl");
