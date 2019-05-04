@@ -83,6 +83,8 @@ INSERT into financial_story values (1, 'We made it work in our 4-generation home
 INSERT into financial_story values (2, 'It was a great year. Please check out my pyramid scheme.', '2018-03-04', false, 8, 8, true);
 INSERT into financial_story values (3, 'It was a great year.', '2018-03-05', true, 8, 1, false);
 INSERT into financial_story values (4, 'We had a job loss and a foreclosure on our home.', '2019-02-03', true, 1, 1, false);
+INSERT into financial_story values (5, 'I want you to buy the dogs I breed', '2019-02-04', false, 2, 2, true);
+INSERT into financial_story values (6, 'Please buy my stuff.', '2019-02-06', true, 2, 2, true);
 -- ------------------------------------------------------------------------------------------------
 -- survey (id, date, family size, income, user_id, needs_description_id, goals_description_id, income_skew_id)
 -- ------------------------------------------------------------------------------------------------

@@ -76,7 +76,7 @@ public class StoryDaoTest {
         assertNotEquals(0,id);
         Story insertedStory = (Story)genericStoryDao.getById(id);
 
-        assertEquals(5, insertedStory.getId());
+        assertEquals(7, insertedStory.getId());
         assertEquals(testStoryContent, insertedStory.getStoryContent());
         assertEquals(testEditDate, insertedStory.getEditDate());
         assertEquals(testVisibility, insertedStory.isVisible());
@@ -129,11 +129,28 @@ public class StoryDaoTest {
 
         List<Story> testList = genericStoryDao.getByPropertyName("isVisible", testVisibility);
 
-        assertEquals(3, testList.size());
+        assertEquals(4, testList.size());
         // TODO - find out whether this test makes sense in terms of relying on a certain order within the list?
         assertEquals(firstExpectedStory, testList.get(0));
         assertEquals(secondExpectedStory, testList.get(1));
         assertEquals(thirdExpectedStory, testList.get(2));
+    }
+
+    /**
+     * Verifies that story versions can be retrieved by visibility and suitability.
+     */
+    @Test
+    void getByPropertyNamesSuccess() {
+        Story expectedStory = (Story) genericStoryDao.getById(6);
+
+        Map<String, Object> testProperties = new HashMap<>();
+        testProperties.put("isVisible", true);
+        testProperties.put("unsuitable", true);
+
+        List<Story> testList = genericStoryDao.getByPropertyNames(testProperties);
+
+        assertEquals(1,testList.size());
+        assertTrue(testList.contains(expectedStory));
     }
 
     /**
