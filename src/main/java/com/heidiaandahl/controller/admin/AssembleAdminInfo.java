@@ -12,10 +12,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
 
+/**
+ * A servlet that gathers information for the site administrator to review when making decisions about users and content.
+ *
+ * @author Heidi Aandahl
+ */
 @WebServlet(
         name = "assembleAdminInfo",
         urlPatterns = { "/admin"}
@@ -23,10 +29,20 @@ import java.util.*;
 public class AssembleAdminInfo extends HttpServlet {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Finds financial stories that have been flagged unsuitable, tallies the associated user's history of
+     * unsuitable stories, places the information into the session, and forwards to the admin page.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // TODO - improve functionality, Get all the users with edits/removals associated with their stories
         GenericDao storyDao = new GenericDao(Story.class);
+
+        // TODO - refactor and test single purpose methods
 
         // get visible stories that have been flagged for review
         Map<String, Object> queryProperties = new HashMap<>();
@@ -35,41 +51,33 @@ public class AssembleAdminInfo extends HttpServlet {
 
         List<Story> unsuitableVisibleStories = (List<Story>) storyDao.getByPropertyNames(queryProperties);
 
-        // for each unsuitable visible story - can this happen at jsp?... nah
-            // get the user
-            // get the tally of their invisible unsuitable stories
+        // todo - nice to do - try to order by history.
 
-        // create x to hold for each "record" - content, tally (User can be gotten as property)
-            // todo - try to order by history.  I want to access for each "thing" tally, Story, maybe duuplicat tallies no duplicate stories, so I want a TreeSet of maps I think
-
-        //Set<Map<int, Object>> historiesToReview = new TreeSet<>();
-        //Error:(44, 17) java: unexpected type
-        //  required: reference
-        //  found:    int
+        // get the tally of the associated user's past stories that were flagged unsuitable
+        Set<Map<String, Object>> historiesToReview = new TreeSet<>();
 
         for (Story story : unsuitableVisibleStories) {
             User profileUser = story.getProfileUser();
-            int archivedUnsuitableStories = 0; // try get count by properties in dao?
+
+            Map<String, Object> tallyCriteria = new HashMap<>();
+            tallyCriteria.put("profileUser", profileUser);
+            tallyCriteria.put("isVisible", false);
+            tallyCriteria.put("unsuitable", true);
+
+            Long archivedUnsuitableStories = storyDao.getTallyByPropertyNames(tallyCriteria);
+
+            Map<String, Object> historyData = new HashMap<>();
+            historyData.put("currentStory", story);
+            historyData.put("archivedUnsuitableStories", archivedUnsuitableStories);
+
+            historiesToReview.add(historyData);
         }
 
-        // todo - pick up in this area.  see also steps listed on admin.jsp
+        HttpSession httpSession = request.getSession();
+        httpSession.setAttribute("historiesToReview", historiesToReview);
 
+        // todo - remember to notify profile user if admin has made their stuff invisble
 
-        // Idea - display flag button to all users, so anyone can mark a story unsuitable.  Admin reviews those that
-        // are unsuitable and visible.  Admin can edit story to "invisible" (should put message on user's profile page
-        // explaining why no story is there).  Admin can block or remove user too.
-
-
-        /*
-        List<Story> unsuitableStories = (List<Story>)storyDao.getByPropertyName("isUnsuitable", true);
-
-
-        if (unsuitableStories.size() !=0) {
-            request.setAttribute("unsuitableStories", unsuitableStories);
-        } else {
-            request.setAttribute("unsuitableStories", null);
-        }
-        */
         RequestDispatcher dispatcher = request.getRequestDispatcher("./admin.jsp");
         dispatcher.forward(request, response);
     }
