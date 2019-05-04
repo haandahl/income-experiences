@@ -5,6 +5,7 @@ import com.heidiaandahl.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.ejb.Local;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -89,5 +90,28 @@ public class UserTest {
     public void removeStoryFromEditListSuccess() {
         testEditor.removeStoryFromEditList(setupStory);
         assertFalse(testEditor.getStoryVersionsWithUserEdit().contains(setupStory));
+    }
+
+    /**
+     * Verifies that a user's tally of past stories marked "unsuitable" can be retrieved.
+     */
+    @Test
+    public void getArchivedUnsuitableStoriesSuccess() {
+        LocalDate testBadEntriesDate = LocalDate.parse("2017-05-04");
+
+        Story testArchivedStory1 = new Story("I have a bridge to sell you.",
+                testBadEntriesDate, false, testProfileUser, testProfileUser, true);
+        Story testArchivedStory2 = new Story("Why won't the idiot moderators let me sell stuff?",
+                testBadEntriesDate, false, testProfileUser, testProfileUser, true);
+        Story testArchivedStory3 = new Story("We tried an online business but it didn't work.",
+                testBadEntriesDate, false, testProfileUser, testProfileUser, false);
+
+        setupStorySet.add(testArchivedStory1);
+        setupStorySet.add(testArchivedStory2);
+        setupStorySet.add(testArchivedStory3);
+
+        int testTally = testProfileUser.getArchivedUnsuitableStories();
+
+        assertEquals(2, testTally);
     }
 }

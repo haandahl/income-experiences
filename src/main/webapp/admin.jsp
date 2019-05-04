@@ -11,15 +11,17 @@
         <c:choose>
             <c:when test="${!empty itemsToReview}">
                 <table class="table table-hover table-responsive">
-                    <tr><th>Who</th><th>No. of Past Flags</th><th class="limited-width">Current Story</th><th></th>Options</th></tr>
+                    <tr><th class="narrow">Who</th><th class="narrow">No. of Past Flags</th><th>Current Story and Admin Options</th></tr>
                     <c:forEach var = "item" items="${itemsToReview}">
                         <tr>
                             <td>${item.profileUser.username}</td>
-                            <td class="limited-width">${item.profileUser.archivedUnsuitableStories}</td>
-                            <td>${item.storyContent}</td>
+                            <td>${item.profileUser.archivedUnsuitableStories}</td>
+                            <td><p>${item.storyContent}</p>
+
 
                             <%-- TODO come back and wrap in choose/when/otherwise so admin can see results of actions --%>
-                            <td>
+                            <%-- TODO improve display!!  maybe try flex box?  maybe separate user buttons from story buttons? --%>
+
                                 <div class="admin-form">
                                     <form action="unflag" method="post">
                                         <span class="hidden"><input type="text" name="story-to-unflag" value="${item}" ></span>

@@ -20,10 +20,6 @@ section {
     text-align: center;
 }
 
-.limited-width {
-    max-width: 200em;
-}
-
 .profile-box {
     border-radius: 0.6em;
     text-align: center;
@@ -61,7 +57,7 @@ section {
 }
 
 .admin-form {
-    float: left;
+    display: inline-block;
     padding: 0.3em;
 }
 
