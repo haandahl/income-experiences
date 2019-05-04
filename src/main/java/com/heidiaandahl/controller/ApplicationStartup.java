@@ -43,11 +43,10 @@ public class ApplicationStartup extends HttpServlet implements PropertiesLoader 
         try {
             newMassIndexer.startAndWait();
         } catch (InterruptedException interruptedException) {
-            logger.error("The thread was interrupted while waiting.");
+            logger.error(interruptedException.getMessage());
         } catch (Exception exception) {
-            logger.error("There was an error making an index for the application.");
+            logger.error(exception.getMessage());
         } finally {
-            // TODO - consider that the finally block was added to see if it helped later in the app.  No effect. Should it be here anyway?
             session.close();
             fullTextSession.close();
         }
@@ -59,10 +58,9 @@ public class ApplicationStartup extends HttpServlet implements PropertiesLoader 
             incomeExperiencesProperties = loadProperties("/incomeexperiences.properties");
             // appears to be loading, debug shows size 31
         } catch (IOException ioException) {
-            log("An IOException is occurring while attempting to load the properties file.");
+            logger.error(ioException.getMessage());
         } catch (Exception exception) {
-            log("An Exception is occurring while attempting to load the "
-                    + "properties file.");
+            logger.error(exception.getMessage());
         }
 
         ServletContext context = getServletContext();

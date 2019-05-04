@@ -24,10 +24,11 @@ import java.util.Map;
 )
 public class DisplayProfile extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ServletContext context = getServletContext();
+        // ServletContext context = getServletContext();
+        HttpSession httpSession = request.getSession();
         // TODO refactor the doGet... maybe I need a Profile object?
 
-        User currentUser = (User) context.getAttribute("user");
+        User currentUser = (User) httpSession.getAttribute("user");
 
         if (currentUser == null) {
             // Access the username of the person logged in
@@ -40,10 +41,10 @@ public class DisplayProfile extends HttpServlet {
 
             currentUser = currentUsers.get(0);
 
-            context.setAttribute("user", currentUser);
+            httpSession.setAttribute("user", currentUser);
         }
 
-         setContextSurvey(context, currentUser);
+         setSessionSurvey(httpSession, currentUser);
 
         // Access the current user's financial story, if there is one and it's meant to be visible
         GenericDao storyDao = new GenericDao(Story.class);
@@ -56,9 +57,9 @@ public class DisplayProfile extends HttpServlet {
 
         if (storiesList.size() != 0) {
             Story profileStory = storiesList.get(0);
-            context.setAttribute("profileStory", profileStory);
+            httpSession.setAttribute("profileStory", profileStory);
         } else {
-            context.setAttribute("profileStory",null);
+            httpSession.setAttribute("profileStory",null);
         }
 
         // forward to profile jsp
@@ -67,12 +68,12 @@ public class DisplayProfile extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Note: this point should not be reachable without having already set the user, survey, and story to the context with doPost
+        // Note: this point should not be reachable without having already set the user, survey, and story to the session with doPost
         RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void setContextSurvey(ServletContext context, User currentUser) {
+    private void setSessionSurvey(HttpSession httpSession, User currentUser) {
         // Access the current user's financial survey
         // TODO - if future improvements allow annual surveys, revise this to retrieve only the most recent.
         GenericDao surveyDao = new GenericDao(Survey.class);
@@ -83,9 +84,9 @@ public class DisplayProfile extends HttpServlet {
 
         if (currentSurveys.size() != 0) {
             Survey currentSurvey = currentSurveys.get(0);
-            context.setAttribute("survey", currentSurvey);
+            httpSession.setAttribute("survey", currentSurvey);
         } else {
-            context.setAttribute("survey", null);
+            httpSession.setAttribute("survey", null);
         }
     }
 

@@ -4,16 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heidiaandahl.entity.Story;
 import com.heidiaandahl.entity.Survey;
-import com.heidiaandahl.entity.User;
 import com.heidiaandahl.logic.ExperiencesSearch;
-import com.heidiaandahl.persistence.SessionFactoryProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
-import org.hibernate.search.query.dsl.QueryBuilder;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -22,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
@@ -34,6 +29,7 @@ public class SearchStats extends HttpServlet {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession httpSession = request.getSession();
         // TODO - break up monster method
 
         // get search info from user
@@ -93,7 +89,7 @@ public class SearchStats extends HttpServlet {
         } else {
             // if there is no user error, clear chartData of previous results and set up forward to results display
             nextUrl = "/statsResult.jsp";
-            context.removeAttribute("chartData");
+            httpSession.removeAttribute("chartData");
         }
 
         // if proceeding with search, set family size
@@ -130,16 +126,16 @@ public class SearchStats extends HttpServlet {
         List<Story> matchingStories = experiencesSearch.getMatchingStories(matchingSurveys);
 
         // Make data needed for charts available to the application
-        context.setAttribute("chartData", allResponsesJson);
+        httpSession.setAttribute("chartData", allResponsesJson);
 
         // make search information available to display to user
-        context.setAttribute("income", incomeDisplay);
-        context.setAttribute("householdSize", householdSizeInput);
-        context.setAttribute("careerName", careerName);
-        context.setAttribute("matchingSurveys", matchingSurveys);
-        context.setAttribute("percentDifferenceSearched", percentDifferenceToDisplay);
-        context.setAttribute("storiesToDisplay", matchingStories);
-        context.setAttribute("returnUrl", nextUrl);
+        httpSession.setAttribute("income", incomeDisplay);
+        httpSession.setAttribute("householdSize", householdSizeInput);
+        httpSession.setAttribute("careerName", careerName);
+        httpSession.setAttribute("matchingSurveys", matchingSurveys);
+        httpSession.setAttribute("percentDifferenceSearched", percentDifferenceToDisplay);
+        httpSession.setAttribute("storiesToDisplay", matchingStories);
+        httpSession.setAttribute("returnUrl", nextUrl);
 
         // forward to jsp
         dispatcher = request.getRequestDispatcher(nextUrl);

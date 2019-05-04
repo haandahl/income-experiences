@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -45,8 +46,9 @@ public class FlagContent extends HttpServlet {
         GenericDao storyDao = new GenericDao(Story.class);
         List<Story> flaggedStories = (List<Story>) storyDao.getByPropertyName("storyContent", flaggedContent);
 
-        ServletContext context = getServletContext();
-        List<Story> flagOrigin = (List<Story>) context.getAttribute("storiesToDisplay");
+        // ServletContext context = getServletContext();
+        HttpSession httpSession = request.getSession();
+        List<Story> flagOrigin = (List<Story>) httpSession.getAttribute("storiesToDisplay");
 
         // TODO refactor separate methods?
 
@@ -58,17 +60,17 @@ public class FlagContent extends HttpServlet {
             }
         }
 
-        // mark the story "unsuitable in the context list so that it is updated for the user's benefit
+        // mark the story "unsuitable in the httpSession list so that it is updated for the user's benefit
         for (Story story : flagOrigin) {
             if (story.getStoryContent().equals(flaggedContent)) {
                 story.setUnsuitable(true);
             }
         }
 
-        context.setAttribute("storiesToDisplay", flagOrigin);
+        httpSession.setAttribute("storiesToDisplay", flagOrigin);
 
         // redirect back to jsp so user can view same results with flag option removed as appropriate
-        String url = (String) context.getAttribute("returnUrl");
+        String url = (String) httpSession.getAttribute("returnUrl");
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Makes data from application available for charts made using JavaScript.
@@ -26,8 +27,9 @@ public class TransferChartData extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws java.io.IOException {
 
-        ServletContext context = getServletContext();
-        String chartData = (String) context.getAttribute("chartData");
+        HttpSession httpSession = request.getSession();
+        //ServletContext context = getServletContext();
+        String chartData = (String) httpSession.getAttribute("chartData");
         response.setContentType("text/html");
         response.getWriter().write(chartData);
     }

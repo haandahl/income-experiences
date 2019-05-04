@@ -38,8 +38,6 @@ public class AssembleAdminInfo extends HttpServlet {
         // are unsuitable and visible.  Admin can edit story to "invisible" (should put message on user's profile page
         // explaining why no story is there).  Admin can block or remove user too.
 
-        logger.debug("stuff is actually happening in the admin servlet");
-
         GenericDao storyDao = new GenericDao(Story.class);
         List<Story> unsuitableStories = (List<Story>)storyDao.getByPropertyName("isUnsuitable", true);
 
@@ -51,7 +49,6 @@ public class AssembleAdminInfo extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("./admin.jsp");
         dispatcher.forward(request, response);
-
     }
 }
 

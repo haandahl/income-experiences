@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -37,7 +38,9 @@ public class SearchTopics extends HttpServlet {
      * @throws IOException
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ServletContext context = getServletContext();
+        // ServletContext context = getServletContext();
+        HttpSession httpSession = request.getSession();
+
 
         // get search string
         String searchString = request.getParameter("topic");
@@ -47,14 +50,14 @@ public class SearchTopics extends HttpServlet {
 
         List<Story> result = search.getSearchResults(searchString);
 
-        // make info available to application so that the results page can process user input with another servlet
+        // make info available the session so that the results page can process user input with another servlet
         if (result.size() != 0) {
-            context.setAttribute("storiesToDisplay", result);
+            httpSession.setAttribute("storiesToDisplay", result);
         } else {
-            context.setAttribute("storiesToDisplay", null);
+            httpSession.setAttribute("storiesToDisplay", null);
         }
-        context.setAttribute("topic", searchString);
-        context.setAttribute("returnUrl", "textResult.jsp");
+        httpSession.setAttribute("topic", searchString);
+        httpSession.setAttribute("returnUrl", "textResult.jsp");
 
         // forward info for user to view
         RequestDispatcher dispatcher = request.getRequestDispatcher("/textResult.jsp");

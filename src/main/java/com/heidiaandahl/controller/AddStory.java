@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -27,8 +28,10 @@ public class AddStory extends HttpServlet {
         // Create an object from request parameters
         String newStoryContent = request.getParameter("financial-story").trim();
 
-        ServletContext context = getServletContext();
-        Story priorProfileStory = (Story) context.getAttribute("profileStory");
+        HttpSession httpSession = request.getSession();
+
+        // ServletContext context = getServletContext();
+        Story priorProfileStory = (Story) httpSession.getAttribute("profileStory");
 
         GenericDao storyDao = new GenericDao(Story.class);
 
@@ -47,12 +50,12 @@ public class AddStory extends HttpServlet {
 
         // Add the story with the current user named as the profile user and editor
         // TODO - (future) - update code to separately identify profile user and editor
-        User currentUser = (User) context.getAttribute("user");
+        User currentUser = (User) httpSession.getAttribute("user");
         Story newStory = new Story(newStoryContent, LocalDate.now(), true, currentUser, currentUser, false);
         storyDao.insert(newStory);
 
-        // put new story in servlet context
-        context.setAttribute("profileStory", newStory);
+        // put new story in servlet httpSession
+        httpSession.setAttribute("profileStory", newStory);
 
         // forward to jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("profile");

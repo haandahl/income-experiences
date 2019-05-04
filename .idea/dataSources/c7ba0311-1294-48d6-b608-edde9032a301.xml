@@ -1242,9 +1242,8 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="300" parent="241" name="username">
+    <index id="300" parent="241" name="username_index">
       <ColNames>username</ColNames>
-      <Unique>1</Unique>
       <Type>btree</Type>
     </index>
     <key id="301" parent="241" name="PRIMARY">
@@ -1252,140 +1251,136 @@
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="302" parent="241" name="username">
-      <ColNames>username</ColNames>
-      <UnderlyingIndexName>username</UnderlyingIndexName>
-    </key>
-    <foreign-key id="303" parent="241" name="role_ibfk_1">
+    <foreign-key id="302" parent="241" name="role_ibfk_1">
       <ColNames>username</ColNames>
       <RefSchemaName>income_experiences</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>username</RefColNames>
     </foreign-key>
-    <column id="304" parent="242" name="id">
+    <column id="303" parent="242" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="305" parent="242" name="date">
+    <column id="304" parent="242" name="date">
       <Position>2</Position>
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="306" parent="242" name="family_size">
+    <column id="305" parent="242" name="family_size">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="307" parent="242" name="income">
+    <column id="306" parent="242" name="income">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="308" parent="242" name="user_id">
+    <column id="307" parent="242" name="user_id">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="309" parent="242" name="needs_description_id">
+    <column id="308" parent="242" name="needs_description_id">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="310" parent="242" name="goals_description_id">
+    <column id="309" parent="242" name="goals_description_id">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="311" parent="242" name="income_skew_id">
+    <column id="310" parent="242" name="income_skew_id">
       <Position>8</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="312" parent="242" name="survey_user">
+    <index id="311" parent="242" name="survey_user">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="313" parent="242" name="survey_needs_description">
+    <index id="312" parent="242" name="survey_needs_description">
       <ColNames>needs_description_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="314" parent="242" name="survey_goals_description">
+    <index id="313" parent="242" name="survey_goals_description">
       <ColNames>goals_description_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="315" parent="242" name="survey_income_skew">
+    <index id="314" parent="242" name="survey_income_skew">
       <ColNames>income_skew_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="316" parent="242" name="PRIMARY">
+    <key id="315" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="317" parent="242" name="survey_user">
+    <foreign-key id="316" parent="242" name="survey_user">
       <ColNames>user_id</ColNames>
       <RefSchemaName>income_experiences</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="318" parent="242" name="survey_needs_description">
+    <foreign-key id="317" parent="242" name="survey_needs_description">
       <ColNames>needs_description_id</ColNames>
       <RefSchemaName>income_experiences</RefSchemaName>
       <RefTableName>needs_description</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="319" parent="242" name="survey_goals_description">
+    <foreign-key id="318" parent="242" name="survey_goals_description">
       <ColNames>goals_description_id</ColNames>
       <RefSchemaName>income_experiences</RefSchemaName>
       <RefTableName>goals_description</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="320" parent="242" name="survey_income_skew">
+    <foreign-key id="319" parent="242" name="survey_income_skew">
       <ColNames>income_skew_id</ColNames>
       <RefSchemaName>income_experiences</RefSchemaName>
       <RefTableName>income_skew</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="321" parent="243" name="id">
+    <column id="320" parent="243" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="322" parent="243" name="username">
+    <column id="321" parent="243" name="username">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="323" parent="243" name="password">
+    <column id="322" parent="243" name="password">
       <Position>3</Position>
       <DataType>varchar(150)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="324" parent="243" name="username">
+    <index id="323" parent="243" name="username">
       <ColNames>username</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="325" parent="243" name="PRIMARY">
+    <key id="324" parent="243" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="326" parent="243" name="username">
+    <key id="325" parent="243" name="username">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>username</UnderlyingIndexName>
     </key>

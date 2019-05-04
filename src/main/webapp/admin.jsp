@@ -49,6 +49,14 @@
 
        --%>
 
+<%--
+    1. find stories currently visible and unsuitable
+    2. find profile user with that story
+    3. for each user, list ALL their stories marked unsuitable (visible and invisible) or simply keep a tally
+    4. display user, current story, tally of invisible/unsuitable
+    5. options: remove user, hide story and block user, mark story suitable
+
+--%>
 
     </div>
     </body>
