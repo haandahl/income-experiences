@@ -1,6 +1,7 @@
 package com.heidiaandahl.controller.admin;
 
 import com.heidiaandahl.entity.Story;
+import com.heidiaandahl.entity.User;
 import com.heidiaandahl.persistence.GenericDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,9 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @WebServlet(
@@ -36,9 +35,22 @@ public class AssembleAdminInfo extends HttpServlet {
 
         List<Story> unsuitableVisibleStories = (List<Story>) storyDao.getByPropertyNames(queryProperties);
 
-        // for each unsuitable visible story
+        // for each unsuitable visible story - can this happen at jsp?... nah
             // get the user
             // get the tally of their invisible unsuitable stories
+
+        // create x to hold for each "record" - content, tally (User can be gotten as property)
+            // todo - try to order by history.  I want to access for each "thing" tally, Story, maybe duuplicat tallies no duplicate stories, so I want a TreeSet of maps I think
+
+        //Set<Map<int, Object>> historiesToReview = new TreeSet<>();
+        //Error:(44, 17) java: unexpected type
+        //  required: reference
+        //  found:    int
+
+        for (Story story : unsuitableVisibleStories) {
+            User profileUser = story.getProfileUser();
+            int archivedUnsuitableStories = 0; // try get count by properties in dao?
+        }
 
         // todo - pick up in this area.  see also steps listed on admin.jsp
 

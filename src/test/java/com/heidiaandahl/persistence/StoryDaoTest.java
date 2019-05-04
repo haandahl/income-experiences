@@ -76,7 +76,7 @@ public class StoryDaoTest {
         assertNotEquals(0,id);
         Story insertedStory = (Story)genericStoryDao.getById(id);
 
-        assertEquals(7, insertedStory.getId());
+        assertEquals(8, insertedStory.getId());
         assertEquals(testStoryContent, insertedStory.getStoryContent());
         assertEquals(testEditDate, insertedStory.getEditDate());
         assertEquals(testVisibility, insertedStory.isVisible());
@@ -141,7 +141,7 @@ public class StoryDaoTest {
      */
     @Test
     void getByPropertyNamesSuccess() {
-        Story expectedStory = (Story) genericStoryDao.getById(6);
+        Story expectedStory = (Story) genericStoryDao.getById(7);
 
         Map<String, Object> testProperties = new HashMap<>();
         testProperties.put("isVisible", true);
@@ -160,7 +160,7 @@ public class StoryDaoTest {
     void getProfileStorySuccess() {
         GenericDao userDao = new GenericDao(User.class);
 
-        // Test user associated with 2 stories, 1 visible, 1 not
+        // Test user associated with 3 stories, 1 visible, 2 not //todo verify this step is needed?  or just get by id? probably s/b seperate test
         String userTestProperty = "username";
         String userTestValue = "mary";
         List<User> testUsers = (List<User>)userDao.getByPropertyName(userTestProperty, userTestValue);
@@ -180,6 +180,28 @@ public class StoryDaoTest {
         // Expect list size to be 1 and id to be 3
         assertEquals(1, testStories.size());
         assertEquals(expectedStory, testStories.get(0));
+    }
+
+    /**
+     * Verifies that a tally of stories can be retrieved based on user, visibility, and flagged content.
+     */
+    @Test
+    void getArchivedFlaggedStoriesForUserSuccess() {
+        GenericDao userDao = new GenericDao(User.class);
+
+        // Test user associated with 3 stories, all flagged unsuitable, only 1 visible
+        User testUser = (User) userDao.getById(2);
+        Long expectedTally = Long.valueOf(2);
+
+        // Map the search criteria
+        Map<String, Object> testMap = new HashMap<>();
+        testMap.put("profileUser", testUser);
+        testMap.put("isVisible", false);
+        testMap.put("unsuitable", true);
+
+        Long testTally = genericStoryDao.getTallyByPropertyNames(testMap);
+
+        assertEquals(expectedTally, testTally);
     }
 
     /**

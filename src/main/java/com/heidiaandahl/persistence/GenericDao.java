@@ -164,7 +164,16 @@ public class GenericDao<T> {
         return entities;
     }
 
-    // todo - test, doc, implement, maybe simplify code?
+    /**
+     * Gets entities by two properties, one based on a single value and the other based on a range of values.
+     *
+     * @param singlePropertyName property name to be searched by value
+     * @param value value property
+     * @param rangePropertyName property name to be searched by range
+     * @param floor floor of range
+     * @param ceiling ceiling of range
+     * @return entities matching criteria
+     */
     public List<T> getByPropertiesValueAndRange(String singlePropertyName, int value, String rangePropertyName, int floor, int ceiling) {
         Session session = getSession();
 
@@ -212,7 +221,35 @@ public class GenericDao<T> {
         return entities;
     }
 
-     /**
+    /**
+     * Gets tally by multiple properties.
+     * @param propertyMap property and value pairs
+     * @return tally of matching entities
+     */
+    public Long getTallyByPropertyNames(Map<String, Object> propertyMap) {
+        Session session = getSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+         /*
+            Resource for querying to get a sum:
+            https://stackoverflow.com/questions/14363634/jpa-hibernate-count-using-criteriabuilder-with-generatedalias
+            Answer by perissf
+         */
+        CriteriaQuery<Long> queryCount = builder.createQuery(Long.class);
+        Root<T> root = queryCount.from(type);
+
+        List<Predicate> predicates = new ArrayList<Predicate>();
+        for (Map.Entry entry: propertyMap.entrySet()) {
+            predicates.add(builder.equal(root.get((String) entry.getKey()), entry.getValue()));
+        }
+        queryCount.select(builder.count(root)).where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+
+        Long tally = session.createQuery(queryCount).getSingleResult();
+        session.close();
+
+        return tally;
+    }
+
+    /**
      * Gets by property where the search String is contained in the value.
      *
      * @param propertyName the property name
