@@ -11,29 +11,33 @@
                 <li>Household income: ${survey.income}</li>
                 <li>Household size: ${survey.familySize}</li>
 
-            <div class="row">
+                 <div class="card-deck">
 
-                <%-- TODO - nest containers w/padding so boxes don't wrap --%>
+                    <div class="card" id="profileNeeds">
+                        <div class="card-body text-center">
+                            <h4 class="card-text">Needs</h4>
+                            <p class="card-text">${survey.needsDescription.description}</p>
+                        </div>
+                      </div>
 
-                <div class="col-md-4">
-                    <div class="profile-box" id="profileNeeds">
-                        <h4>Needs</h4>
-                        <p>${survey.needsDescription.description}</p>
+
+                    <div class="card" id="profileGoals">
+                        <div class="card-body text-center">
+                            <h4 class="card-text">Goals</h4>
+                            <p class="card-text">${survey.goalsDescription.description}</p>
+                        </div>
+                    </div>
+
+
+                    <div class="card" id="profileSkew">
+                        <div class="card-body text-center">
+                            <h4 class="card-text">Reliance on Non-Income</h4>
+                            <p class="card-text">${survey.incomeSkew.description}</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="profile-box" id="profileGoals">
-                    <h4>Goals</h4>
-                    <p>${survey.goalsDescription.description}</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="profile-box" id="profileSkew">
-                    <h4>Reliance on Non-Income</h4>
-                    <p>${survey.incomeSkew.description}</p>
-                    </div>
-                </div>
-            </div>
+
+
            </c:if>
 
            <c:choose>

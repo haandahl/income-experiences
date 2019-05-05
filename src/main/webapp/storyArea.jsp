@@ -15,12 +15,18 @@
 
         <c:choose>
             <c:when test="${!empty oldStory}">
-                <textarea name="financial-story" rows="4" cols="50" placeholder="enter your story here">${oldStory}</textarea>
-                <button type="submit" class="btn btn-primary">Share Your Revised Story</button>
+                <div class="form-group">
+                    <textarea name="financial-story" rows="4" cols="50" placeholder="enter your story here">${oldStory}</textarea>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Share Your Revised Story</button>
+                </div>
             </c:when>
             <c:otherwise>
-                <textarea name="financial-story" rows="4" cols="50" placeholder="enter your story here"></textarea>
-                <button type="submit" class="btn btn-primary">Share Your Story</button>
+                <div class="form-group">
+                    <textarea name="financial-story" rows="4" cols="50" placeholder="enter your story here"></textarea>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Share Your Story</button>
+                </div>
             </c:otherwise>
         </c:choose>
 
