@@ -88,8 +88,5 @@ public class DisplayProfile extends HttpServlet {
             httpSession.setAttribute("survey", null);
         }
     }
-
-
-
 }
 

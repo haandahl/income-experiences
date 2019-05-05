@@ -49,10 +49,6 @@ public class BlockUser extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
         dispatcher.forward(request, response);
-
-        // TODO - make sure a user with read only privilges actually CANT write - currently they can!
-
-        // TODO - place an indicator on the profile page when a user has lost write privileges
     }
 }
 

@@ -1,6 +1,5 @@
 package com.heidiaandahl.entity;
 
-import com.heidiaandahl.persistence.GenericDao;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -253,9 +252,18 @@ public class User implements Serializable {
      * @param roleName name of role to remove
      */
     public void removeRole(String roleName) {
-        for (Role role : this.userRoles) {
+        /*
+            Resource for avoiding ConcurrentModificationException
+            https://stackoverflow.com/questions/18448671/how-to-avoid-concurrentmodificationexception-while-removing-elements-from-arr
+            Answer by arshajii
+         */
+        Set<Role> roles = this.userRoles;
+        Iterator<Role> iterator = roles.iterator();
+        while (iterator.hasNext()) {
+            Role role = iterator.next();
+
             if (role.getName().equals(roleName)) {
-                this.userRoles.remove(role);
+                iterator.remove();
             }
         }
     }
@@ -276,12 +284,25 @@ public class User implements Serializable {
      * @return boolean indicating whether user has write privileges
      */
     public boolean isAbleToWrite() {
+        boolean ableToWrite = false;
+        for (Role role : this.userRoles) {
+            if (role.getName().equals("write")) {
+                ableToWrite = true;
+            }
+        }
+        return ableToWrite;
+
+        /*
         Role writeRole = new Role("write", this);
+
         if (this.userRoles.contains(writeRole)) {
             return true;
         } else {
             return false;
         }
+        */
+
+        // todo resolve - tests ok but not working w/new user in jsp?  looks like new role is given an id of 0, and that's why they don't match.
     }
 
 

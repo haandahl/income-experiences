@@ -1,13 +1,10 @@
 package com.heidiaandahl.entity;
 
-import com.heidiaandahl.entity.Story;
-import com.heidiaandahl.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.ejb.Local;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;

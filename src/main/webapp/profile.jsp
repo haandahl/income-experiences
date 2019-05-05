@@ -39,29 +39,34 @@
 
            </c:if>
 
-            <%-- TODO - here and/or servlet - ensure that read-only users cant write stories!  --%>
+            <c:choose>
+                <c:when test="${user.ableToWrite}">
+                    <c:choose>
+                        <c:when test="${!empty profileStory && empty oldStory}">
 
-           <c:choose>
-                <c:when test="${!empty profileStory && empty oldStory}">
+                            <h3>${user.username}'s Story</h3>
+                            <p>${profileStory.storyContent}</p>
+                            <form action="edit-story" method="post">
+                                <span class="hidden"><textarea name="old-story">${profileStory.storyContent}</textarea></span>
+                                <button type="submit" class="btn btn-primary">Edit Your Story</button>
+                            </form>
 
-                    <h3>${user.username}'s Story</h3>
-                    <p>${profileStory.storyContent}</p>
-                    <form action="edit-story" method="post">
-                            <span class="hidden"><textarea name="old-story">${profileStory.storyContent}</textarea></span>
-                            <button type="submit" class="btn btn-primary">Edit Your Story</button>
-                    </form>
+                        </c:when>
+                        <c:when test="${!empty profileStory && !empty oldStory}">
+                            <h3>Tips for Updating Your Story </h3>
+                            <p>Add to the story you've already told - don't lose your past!  Also consider these points of interest:</p>
+                            <%@include file="storyArea.jsp"%>
+                        </c:when>
+                        <c:otherwise>
+                            <h3>Share Your Story</h3>
+                            <p>Let people know what your money situation has really been like. This is free-form, but here are some ideas:</p>
+                            <%@include file="storyArea.jsp"%>
 
-                </c:when>
-                <c:when test="${!empty profileStory && !empty oldStory}">
-                    <h3>Tips for Updating Your Story </h3>
-                    <p>Add to the story you've already told - don't lose your past!  Also consider these points of interest:</p>
-                    <%@include file="storyArea.jsp"%>
+                        </c:otherwise>
+                    </c:choose>
                 </c:when>
                 <c:otherwise>
-                    <h3>Share Your Story</h3>
-                    <p>Let people know what your money situation has really been like. This is free-form, but here are some ideas:</p>
-                    <%@include file="storyArea.jsp"%>
-
+                    <p class="bg-info">Due to content unsuitable for the Income Experiences website, your financial story has been removed.</p>
                 </c:otherwise>
             </c:choose>
 
