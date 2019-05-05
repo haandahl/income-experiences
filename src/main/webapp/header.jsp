@@ -36,7 +36,6 @@
                 </c:otherwise>
             </c:choose>
 
-
           </ul>
     </nav>
     <div class="jumbotron">

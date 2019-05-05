@@ -37,7 +37,6 @@
                     </div>
                 </div>
 
-
            </c:if>
 
            <c:choose>

@@ -30,10 +30,5 @@
    <title>
         Income Experiences
     </title>
-    <%-- todo erase if unused...Resources for getting CSS to all templated pages:
-        Slack w/Kat Kohler 12/2/18
-        https://stackoverflow.com/questions/14548998/adding-external-resources-css-javascript-images-etc-in-jsp/14571407
-    <link href="<c:url value='/css/style.css' />" rel="stylesheet" type="text/css" />
-    <link href="<c:url value='/css/styleProject.css' />" rel="stylesheet" type="text/css" /> --%>
 </head>
 

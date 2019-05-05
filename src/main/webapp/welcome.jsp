@@ -7,7 +7,6 @@
 <div class="container">
     <c:import url = "header.jsp" />
 
-
     <h2>Welcome, ${username}!</h2>
     <p>Thanks so much for signing up and sharing useful information about how income has shaped your year!</p>
     <p>

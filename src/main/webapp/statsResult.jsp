@@ -87,43 +87,6 @@
         </section>
     </c:if>
 
-    <%-- todo try to re-use code from textResult and structure servlets to match
-    <c:if test="${!empty matchingSurveys}">
-        <section class="row">
-            <div class="col">
-
-                <h3>Financial Stories</h3>
-                 <c:choose>
-                    <c:when test="${!empty matchingStories}">
-
-
-
-                        <table class="table">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th>Person</th><th>Financial Story</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var = "story" items="${matchingStories}">
-                                    <tr><td>${story.profileUser.username}</td><td>${story.storyContent}</td></tr>
-                                </c:forEach>
-                            </tbody>
-
-                        </table>
-                    </c:when>
-                    <c:otherwise>
-                        <p>There are no financial stories available that match your search.</p>
-                    </c:otherwise>
-
-                </c:choose>
-
-
-            </div>
-        </section>
-    </c:if>
-    --%>
-
 </div><!-- end container -->
 </body>
 </html>

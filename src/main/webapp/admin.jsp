@@ -36,6 +36,8 @@
                                             </form>
                                         </div>
                                     </div>
+
+                                    <%--  todo reveal as implemented
                                     <div class="col">
                                         <div class="admin-form">
                                             <form action="block-user" method="post">
@@ -52,6 +54,8 @@
                                             </form>
                                         </div>
                                     </div>
+                                    --%>
+
                                     <div class="col">
                                         <div class="admin-form">
                                             <form action="unflag" method="post">

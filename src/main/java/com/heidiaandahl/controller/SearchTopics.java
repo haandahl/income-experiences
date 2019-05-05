@@ -41,7 +41,6 @@ public class SearchTopics extends HttpServlet {
         // ServletContext context = getServletContext();
         HttpSession httpSession = request.getSession();
 
-
         // get search string
         String searchString = request.getParameter("topic");
         // TODO - (future) - modify search string to add ~2 at the end of each token for a fuzzy search

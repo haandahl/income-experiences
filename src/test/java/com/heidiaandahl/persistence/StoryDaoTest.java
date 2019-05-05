@@ -130,10 +130,10 @@ public class StoryDaoTest {
         List<Story> testList = genericStoryDao.getByPropertyName("isVisible", testVisibility);
 
         assertEquals(4, testList.size());
-        // TODO - find out whether this test makes sense in terms of relying on a certain order within the list?
-        assertEquals(firstExpectedStory, testList.get(0));
-        assertEquals(secondExpectedStory, testList.get(1));
-        assertEquals(thirdExpectedStory, testList.get(2));
+
+        assertTrue(testList.contains(firstExpectedStory));
+        assertTrue(testList.contains(secondExpectedStory));
+        assertTrue(testList.contains(thirdExpectedStory));
     }
 
     /**
