@@ -27,6 +27,7 @@ public class UserTest {
     LocalDate setupStoryDate;
     Set<Story> setupStorySet;
 
+
     /**
      * Sets up conditions for testing.
      * Instantiates a story, a user whose profile has the story, a user who edits the story,
@@ -114,4 +115,27 @@ public class UserTest {
 
         assertEquals(2, testTally);
     }
+
+    /**
+     * Verifies that a user's role can be removed by role name.
+     */
+    @Test
+    public void removeRoleSuccess() {
+        // create read and write roles
+        Set<Role> testRoleSet = new HashSet<>();
+        Role readRole = new Role("read", testProfileUser);
+        Role writeRole = new Role ("write", testProfileUser);
+        testRoleSet.add(readRole);
+        testRoleSet.add(writeRole);
+
+        // assign the roles to the user
+        testProfileUser.setUserRoles(testRoleSet);
+
+        // remove the write role
+        testProfileUser.removeRole("write");
+
+        assertEquals(1, testProfileUser.getUserRoles().size());
+        assertFalse(testProfileUser.getUserRoles().contains(writeRole));
+     }
+
 }

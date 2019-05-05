@@ -231,9 +231,7 @@ public class User implements Serializable {
         story.setProfileUser(null);
     }
 
-    //TODO add and remove methods for survey sets plus test
-
-    /**
+     /**
      * Get the number of financial story versions associated with the profile that were
      * flagged unsuitable and are now no longer visible.
      *
@@ -248,6 +246,21 @@ public class User implements Serializable {
         }
         return archivedUnsuitableStories;
     }
+
+    /**
+     * Removes a role from the user.
+     *
+     * @param roleName name of role to remove
+     */
+    public void removeRole(String roleName) {
+        for (Role role : this.userRoles) {
+            if (role.getName().equals(roleName)) {
+                this.userRoles.remove(role);
+            }
+        }
+    }
+
+    // todo create method to make sure all stories are marked invisible
 
 
     @Override

@@ -36,8 +36,6 @@
                                             </form>
                                         </div>
                                     </div>
-
-                                    <%--  todo reveal as implemented
                                     <div class="col">
                                         <div class="admin-form">
                                             <form action="block-user" method="post">
@@ -46,15 +44,16 @@
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="admin-form">
-                                            <form action="hide-content" method="post">
-                                                <span class="hidden"><input type="text" name="story-to-archive" value="${item.id}" ></span>
-                                                <button type="submit" class="btn btn-secondary btn-block">Just Hide Story</button>
-                                            </form>
+                                        <%--  todo reveal as implemented
+                                        <div class="col">
+                                            <div class="admin-form">
+                                                <form action="hide-content" method="post">
+                                                    <span class="hidden"><input type="text" name="story-to-archive" value="${item.id}" ></span>
+                                                    <button type="submit" class="btn btn-secondary btn-block">Just Hide Story</button>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
-                                    --%>
+                                        --%>
 
                                     <div class="col">
                                         <div class="admin-form">

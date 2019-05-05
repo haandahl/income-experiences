@@ -15,14 +15,13 @@ import java.io.IOException;
  * A servlet that removes a user from the database and returns the administrator back to the admin page,
  * where they will see a message indicating that the removal occurred.
  *
- *  * @author Heidi Aandahl
+ * @author Heidi Aandahl
  */
 @WebServlet(
     name = "removeUser",
     urlPatterns = { "/remove-user"}
 )
 public class RemoveUser extends HttpServlet {
-
     /**
      * Removes a user from the database and returns the administrator back to the admin page,
      * where they will see a message indicating that the removal occurred.
