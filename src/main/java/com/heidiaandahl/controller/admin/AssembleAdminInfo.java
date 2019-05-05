@@ -1,7 +1,6 @@
 package com.heidiaandahl.controller.admin;
 
 import com.heidiaandahl.entity.Story;
-import com.heidiaandahl.entity.User;
 import com.heidiaandahl.persistence.GenericDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
@@ -29,6 +27,8 @@ import java.util.*;
 public class AssembleAdminInfo extends HttpServlet {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    // todo finish any refactor and write javadoc
+
     /**
      * Finds financial stories that have been flagged unsuitable, tallies the associated user's history of
      * unsuitable stories, places the information into the session, and forwards to the admin page.
@@ -40,6 +40,23 @@ public class AssembleAdminInfo extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        gatherItemsForAdminReview(request);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("./admin.jsp");
+        dispatcher.forward(request, response);
+      }
+
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        gatherItemsForAdminReview(request);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("./admin.jsp");
+        dispatcher.forward(request, response);
+     }
+
+    private void gatherItemsForAdminReview(HttpServletRequest request) {
+        // todo put in separate class? also test I suppose.
         GenericDao storyDao = new GenericDao(Story.class);
 
         // get visible stories that have been flagged for review
@@ -49,13 +66,8 @@ public class AssembleAdminInfo extends HttpServlet {
 
         List<Story> unsuitableVisibleStories = (List<Story>) storyDao.getByPropertyNames(queryProperties);
 
-        HttpSession httpSession = request.getSession();
-        httpSession.setAttribute("itemsToReview", unsuitableVisibleStories);
-
-        // todo - remember to notify profile user if admin has made their stuff invisble
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("./admin.jsp");
-        dispatcher.forward(request, response);
+        //HttpSession httpSession = request.getSession();
+        request.setAttribute("itemsToReview", unsuitableVisibleStories);
     }
 }
 

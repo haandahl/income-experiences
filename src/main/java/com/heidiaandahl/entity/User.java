@@ -233,25 +233,6 @@ public class User implements Serializable {
 
     //TODO add and remove methods for survey sets plus test
 
-    /**  TODO delete this version when replacement is checked/integrated. Not a persistence thing.
-     * Get the number of financial story versions associated with the profile that were
-     * flagged unsuitable and are now no longer visible.
-     *
-     * @return
-
-    public Long getArchivedUnsuitableStories() {
-        GenericDao storyDao = new GenericDao(Story.class);
-        Map<String, Object> tallyCriteria = new HashMap<>();
-        tallyCriteria.put("profileUser", this);
-        tallyCriteria.put("isVisible", false);
-        tallyCriteria.put("unsuitable", true);
-
-        Long archivedUnsuitableStories = storyDao.getTallyByPropertyNames(tallyCriteria);
-
-        return archivedUnsuitableStories;
-    }
-     */
-
     /**
      * Get the number of financial story versions associated with the profile that were
      * flagged unsuitable and are now no longer visible.

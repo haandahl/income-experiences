@@ -1,5 +1,9 @@
 package com.heidiaandahl.controller.admin;
 
+import com.heidiaandahl.entity.User;
+import com.heidiaandahl.persistence.GenericDao;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,15 +17,22 @@ import java.io.IOException;
 )
 public class RemoveUser extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Create an object from request parameters
+        // get the user selected for removal
+        int userId = Integer.parseInt(request.getParameter("user-to-remove"));
+        GenericDao userDao = new GenericDao(User.class);
+        User userToRemove = (User) userDao.getById(userId);
 
-        // Check whether the object is complete and ok
+        // Prepare feedback for the admin
+        String deleteUserMessage = "The site user " + userToRemove.getUsername() + " was removed.";
 
-        // Do something with the object or give feedback to the user
+        // delete the user from the database  todo confirm testing?
+        userDao.delete(userToRemove);
 
-        // Choose forward or redirect. Reminder: forward hides new location
+        request.setAttribute("adminFeedbackMessage", deleteUserMessage);
 
-        // TODO verify need for thrown exceptions
+        RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
+        dispatcher.forward(request, response);
+
     }
 }
 
