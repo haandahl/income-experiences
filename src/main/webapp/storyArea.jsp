@@ -8,7 +8,6 @@
     <li>Compare your income, family size, and lifestyle to what they used to be. What has surprised you about the changes?</li>
     <li>How are you feeling about your financial future, and why?</li>
     <li>What would you like to know from others posting on this site?</li>
-
 </ul>
 
 <form action="add-story" method="post">

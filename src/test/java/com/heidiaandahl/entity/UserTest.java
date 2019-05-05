@@ -158,4 +158,19 @@ public class UserTest {
         assertEquals(expectedStorySet, testProfileUser.getStoryVersionsForUserProfile());
     }
 
+    @Test
+    public void isAbleToWriteSuccess() {
+        // create read and write roles
+        Set<Role> testRoleSet = new HashSet<>();
+        Role readRole = new Role("read", testProfileUser);
+        Role writeRole = new Role ("write", testProfileUser);
+        testRoleSet.add(readRole);
+        testRoleSet.add(writeRole);
+
+        // assign the roles to the user
+        testProfileUser.setUserRoles(testRoleSet);
+
+        assertTrue(testProfileUser.isAbleToWrite());
+     }
+
 }

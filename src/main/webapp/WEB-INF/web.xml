@@ -54,12 +54,11 @@
             <url-pattern>/profile.jsp</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>admin</role-name>
             <role-name>read</role-name>
             <role-name>write</role-name>
         </auth-constraint>
     </security-constraint>
-    <!-- Protect search servlet. -->
+    <!-- Protect searches. -->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>search</web-resource-name>
@@ -73,8 +72,15 @@
             <web-resource-name>search topics</web-resource-name>
             <url-pattern>/search-topics</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>display stats</web-resource-name>
+            <url-pattern>/statsResult.jsp</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>display topic</web-resource-name>
+            <url-pattern>/textResult.jsp</url-pattern>
+        </web-resource-collection>
         <auth-constraint>
-            <role-name>admin</role-name>
             <role-name>read</role-name>
         </auth-constraint>
     </security-constraint>

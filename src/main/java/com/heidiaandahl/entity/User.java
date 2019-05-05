@@ -271,6 +271,19 @@ public class User implements Serializable {
         }
     }
 
+    /**
+     * Checks whether a user has write privileges.
+     * @return boolean indicating whether user has write privileges
+     */
+    public boolean isAbleToWrite() {
+        Role writeRole = new Role("write", this);
+        if (this.userRoles.contains(writeRole)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     @Override
     public String toString() {

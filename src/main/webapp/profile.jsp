@@ -39,6 +39,8 @@
 
            </c:if>
 
+            <%-- TODO - here and/or servlet - ensure that read-only users cant write stories!  --%>
+
            <c:choose>
                 <c:when test="${!empty profileStory && empty oldStory}">
 

@@ -6,7 +6,6 @@ import com.heidiaandahl.entity.User;
 import com.heidiaandahl.persistence.GenericDao;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,9 +23,9 @@ import java.util.Map;
 )
 public class DisplayProfile extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // ServletContext context = getServletContext();
         HttpSession httpSession = request.getSession();
         // TODO refactor the doGet... maybe I need a Profile object?
+        // a profile knows its user, its survey, its story, and write status
 
         User currentUser = (User) httpSession.getAttribute("user");
 
@@ -75,7 +74,7 @@ public class DisplayProfile extends HttpServlet {
 
     private void setSessionSurvey(HttpSession httpSession, User currentUser) {
         // Access the current user's financial survey
-        // TODO - if future improvements allow annual surveys, revise this to retrieve only the most recent.
+        // TODO - (future) - if future improvements allow annual surveys, revise this to retrieve only the most recent.
         GenericDao surveyDao = new GenericDao(Survey.class);
 
         Map<String, Object> surveyCriteria = new HashMap<>();
