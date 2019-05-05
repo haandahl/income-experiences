@@ -25,6 +25,7 @@ section {
     text-align: center;
     margin: 1em;
     padding:0.7em;
+    height: 100% /* try to get all boxes the same height - do a card deck*/
 }
 
 #profileSkew {
@@ -57,8 +58,14 @@ section {
 }
 
 .admin-form {
-    display: inline-block; /* did not help*/
+    display: inline-block; /* did not help, or did it? no very bad*/
     padding: 0.3em;
+}
+
+#admin-feedback {
+    margin-left: 2em;
+    margin-right: 2em;
+    padding: 1em;
 }
 
 

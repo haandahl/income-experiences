@@ -6,59 +6,58 @@
 
         <c:import url = "header.jsp" />
 
-        <h2>Items for Moderator Action</h2>
+        <h2>Items for Moderator Review</h2>
 
         <c:if test="${!empty adminFeedbackMessage}">
-            <p class="bg-info">${adminFeedbackMessage}</p>
+            <p id="admin-feedback bg-info">${adminFeedbackMessage}</p>
         </c:if>
 
         <c:choose>
             <c:when test="${!empty itemsToReview}">
-                <table class="table table-hover table-responsive">
-                    <tr><th class="narrow">Who</th><th class="narrow">No. of Past Flags</th><th>Current Story and Admin Options</th></tr>
                     <c:forEach var = "item" items="${itemsToReview}">
-                        <tr>
-                            <td><p>${item.profileUser.username}</p>
-                                <div class="admin-form">
-                                    <form action="remove-user" method="post">
-                                        <span class="hidden"><input type="text" name="user-to-remove" value="${item.profileUser.id}" ></span>
-                                        <button type="submit" class="btn btn-danger">Remove User</button>
-                                    </form>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>${item.profileUser.username}</p>
+                                        <p>Number of flagged stories in archive: ${item.profileUser.archivedUnsuitableStories}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3>Flagged Story</h3>
+                                        <p>${item.storyContent}</p>
+                                    </div>
                                 </div>
-                                <div class="admin-form">
-                                    <form action="block-user" method="post">
-                                        <span class="hidden"><input type="text" name="user-to-block" value="${item.profileUser.id}" ></span>
-                                        <button type="submit" class="btn btn-warning">Block User and Hide Story</button>
-                                    </form>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="admin-form">
+                                            <form action="remove-user" method="post">
+                                                <span class="hidden"><input type="text" name="user-to-remove" value="${item.profileUser.id}" ></span>
+                                                <button type="submit" class="btn btn-danger">Remove User</button>
+                                            </form>
+                                        </div>
+                                        <div class="admin-form">
+                                            <form action="block-user" method="post">
+                                                <span class="hidden"><input type="text" name="user-to-block" value="${item.profileUser.id}" ></span>
+                                                <button type="submit" class="btn btn-warning">Block User & Hide Story</button>
+                                            </form>
+                                        </div>
+                                        <div class="admin-form">
+                                            <form action="hide-content" method="post">
+                                                <span class="hidden"><input type="text" name="story-to-archive" value="${item.id}" ></span>
+                                                <button type="submit" class="btn btn-secondary">Just Hide Story</button>
+                                            </form>
+                                        </div>
+                                        <div class="admin-form">
+                                            <form action="unflag" method="post">
+                                                <span class="hidden"><input type="text" name="story-to-unflag" value="${item.id}" ></span>
+                                                <button type="submit" class="btn btn-success">UnFlag Story</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                            </td>
-                            <td>${item.profileUser.archivedUnsuitableStories}</td>
-                            <td><p>${item.storyContent}</p>
-
-
-                            <%-- TODO come back and wrap in choose/when/otherwise so admin can see results of actions --%>
-                            <%-- TODO improve display!!  maybe try flex box?  maybe separate user buttons from story buttons? --%>
-
-                                 <div class="admin-form">
-                                    <form action="hide-content" method="post">
-                                        <span class="hidden"><input type="text" name="story-to-archive" value="${item.id}" ></span>
-                                        <button type="submit" class="btn btn-secondary">Just Hide Story</button>
-                                    </form>
-                                </div>
-                                <div class="admin-form">
-                                    <form action="unflag" method="post">
-                                        <span class="hidden"><input type="text" name="story-to-unflag" value="${item.id}" ></span>
-                                        <button type="submit" class="btn btn-success">Remove Story Flag</button>
-                                    </form>
-                                </div>
-
-
-
-                            </td>
-                        </tr>
-                    </c:forEach>
-
-                </table>
+                            </div>
+                        </div>
+                     </c:forEach>
             </c:when>
             <c:otherwise>
                 <p>There are no financial stories flagged for review.</p>
