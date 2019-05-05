@@ -2,6 +2,8 @@ package com.heidiaandahl.entity;
 
 import com.heidiaandahl.entity.Story;
 import com.heidiaandahl.entity.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +29,7 @@ public class UserTest {
     LocalDate setupStoryDate;
     Set<Story> setupStorySet;
 
+    private final Logger logger = LogManager.getLogger(this.getClass());
 
     /**
      * Sets up conditions for testing.
@@ -137,5 +140,22 @@ public class UserTest {
         assertEquals(1, testProfileUser.getUserRoles().size());
         assertFalse(testProfileUser.getUserRoles().contains(writeRole));
      }
+
+    /**
+     * Verifies that a user's profile story versions can be made invisible.
+     */
+    @Test
+    public void hideProfileStoriesSuccess() {
+        testProfileUser.hideProfileStories();
+
+        Story expectedStory = new Story("We saved up for a wonderful holiday season this year.",
+                setupStoryDate, false, testProfileUser, testEditor, true);
+
+        Set<Story> expectedStorySet = new HashSet<>();
+        expectedStorySet.add(expectedStory);
+
+        assertEquals(1, testProfileUser.getStoryVersionsForUserProfile().size());
+        assertEquals(expectedStorySet, testProfileUser.getStoryVersionsForUserProfile());
+    }
 
 }

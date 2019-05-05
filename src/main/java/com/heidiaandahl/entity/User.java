@@ -260,7 +260,16 @@ public class User implements Serializable {
         }
     }
 
-    // todo create method to make sure all stories are marked invisible
+    /**
+     * Makes any visible profile story versions invisible.
+     */
+    public void hideProfileStories() {
+        for (Story story : this.storyVersionsForUserProfile) {
+            if (story.isVisible()) {
+                story.setVisible(false);
+            }
+        }
+    }
 
 
     @Override

@@ -1,20 +1,16 @@
 package com.heidiaandahl.controller.admin;
 
-import com.heidiaandahl.entity.Role;
-import com.heidiaandahl.entity.Story;
 import com.heidiaandahl.entity.User;
 import com.heidiaandahl.persistence.GenericDao;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 
 /**
  * A servlet that removes a user's "write" privilege, removes their financial story from display, and returns
@@ -42,23 +38,19 @@ public class BlockUser extends HttpServlet {
         GenericDao userDao = new GenericDao(User.class);
         User userToBlock = (User) userDao.getById(userId);
 
-        // remove the user's write privilege
+        // remove write privilege and hide profile story
         userToBlock.removeRole("write");
-
-
-        // ensure none of the user's stories are visible - todo - move to user entity
-        Set<Story> storiesToHide = userToBlock.getStoryVersionsForUserProfile();
-
-        for (Story story : storiesToHide) {
-            if (story.isVisible()) {
-                story.setVisible(false);
-            }
-        }
-
+        userToBlock.hideProfileStories();
         userDao.saveOrUpdate(userToBlock);
 
+        // Prepare feedback for the admin
+        String blockUserMessage = "Write privileges for " + userToBlock.getUsername() + " were removed and their story was hidden.";
+        request.setAttribute("adminFeedbackMessage", blockUserMessage);
 
-        // Choose forward or redirect. Reminder: forward hides new location
+        RequestDispatcher dispatcher = request.getRequestDispatcher("admin");
+        dispatcher.forward(request, response);
+
+        // TODO - make sure a user with read only privilges actually CANT write - currently they can!
 
         // TODO - place an indicator on the profile page when a user has lost write privileges
     }
