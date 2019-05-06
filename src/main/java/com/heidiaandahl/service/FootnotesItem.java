@@ -1,6 +1,5 @@
 package com.heidiaandahl.service;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")

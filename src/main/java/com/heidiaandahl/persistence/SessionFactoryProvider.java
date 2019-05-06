@@ -1,7 +1,5 @@
 package com.heidiaandahl.persistence;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -15,7 +13,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
  * @author paulawaite
  * @version 2.0 1/27/18.
  */
-public class SessionFactoryProvider {
+public final class SessionFactoryProvider {
 
     private static SessionFactory sessionFactory;
 

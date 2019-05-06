@@ -1,5 +1,8 @@
 package com.heidiaandahl.utility;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -9,12 +12,12 @@ import java.util.Properties;
  * using a properties file path as input.
  *
  * @author Eric Knapp
- * @author haandahl (javadoc revision only)
+ * @author haandahl
  *
  */
 public interface PropertiesLoader {
 
-    /**
+     /**
      * Loads a properties file into a
      * <code style="color: gray; font-size: 0.8em;">Properties</code>
      *  instance and returns it.
@@ -29,10 +32,8 @@ public interface PropertiesLoader {
         try {
             properties.load(this.getClass().getResourceAsStream(propertiesFilePath));
         } catch (IOException ioException) {
-            ioException.printStackTrace();
             throw ioException;
         } catch (Exception exception) {
-            exception.printStackTrace();
             throw exception;
         }
         return properties;

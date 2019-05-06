@@ -289,7 +289,6 @@ public class GenericDao<T> {
         session.close();
     }
 
-
     /**
      * Deletes the entity.
      *

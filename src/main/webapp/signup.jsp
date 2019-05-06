@@ -22,8 +22,18 @@
                         <h3>Account</h3>
                         <div class="form-group">
                             <label for="username">Username:</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="name to display to other users">
+                            <c:choose>
+                                <c:when test="${empty username}">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="name to display to other users">
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="text" class="form-control" id="username" name="username" value="${username}">
+                                </c:otherwise>
+                            </c:choose>
+
                         </div>
+
+                        <%-- todo wrap other fields in choose if effective --%>
 
                         <div class="form-group">
                             <label for="password">Password:</label>
