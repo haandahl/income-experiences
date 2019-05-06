@@ -7,14 +7,16 @@
 <div class="container">
     <c:import url = "header.jsp" />
 
-    <%-- TODO -- apply same types of validation steps here as on search form --%>
-
-    <div class="card">
+     <div class="card">
         <div class="card-header">
 
             <h2>Sign Up</h2>
         </div>
         <div class="card-body <c:if test="${!empty validationMessage}">form-error</c:if>">
+            <c:if test="${!empty validationMessage}">
+                <p class="bg-warning">${validationMessage}</p>
+            </c:if>
+
             <form method="post" action="sign-up">
 
                 <div class="row">
@@ -24,25 +26,23 @@
                             <label for="username">Username:</label>
                             <c:choose>
                                 <c:when test="${empty signUpAttempt.username}">
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="name to display to other users">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="name to display to other users" required>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="text" class="form-control" id="username" name="username" value="${signUpAttempt.username}">
+                                    <input type="text" class="form-control" id="username" name="username" value="${signUpAttempt.username}" required>
                                 </c:otherwise>
                             </c:choose>
 
                         </div>
 
-                        <%-- todo wrap other fields in choose so values are retained --%>
-
-                        <div class="form-group">
+                         <div class="form-group">
                             <label for="password">Password:</label>
                             <c:choose>
                                 <c:when test="${empty signUpAttempt.password}">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="password" class="form-control" id="password" name="password"  value="${signUpAttempt.password}">
+                                    <input type="password" class="form-control" id="password" name="password"  value="${signUpAttempt.password}" required>
                                 </c:otherwise>
                             </c:choose>
 
@@ -52,10 +52,10 @@
                             <label for="password2">Re-type password:</label>
                             <c:choose>
                                 <c:when test="${empty signUpAttempt.password2}">
-                                    <input type="password" class="form-control" id="password2" name="password2" placeholder="password">
+                                    <input type="password" class="form-control" id="password2" name="password2" placeholder="password" required>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="password" class="form-control" id="password2" name="password2"  value="${signUpAttempt.password2}">
+                                    <input type="password" class="form-control" id="password2" name="password2"  value="${signUpAttempt.password2}" required>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -66,7 +66,7 @@
                         <div class="form-group">
                             <label for="householdSizeInput">Household size (anyone in the home dependent on the household income):</label>
 
-                            <select class="form-control" id="householdSizeInput" name="householdSizeInput">
+                            <select class="form-control" id="householdSizeInput" name="householdSizeInput" required>
                                 <option disabled selected value="0">(select a household size)</option>
                                 <option <c:if test="${signUpAttempt.householdSize.equals('1')}">selected</c:if>>1</option>
                                 <option <c:if test="${signUpAttempt.householdSize.equals('2')}">selected</c:if>>2</option>
@@ -84,10 +84,10 @@
                             <label for="surveyIncome">The household's most recent total yearly income, before tax:</label>
                             <c:choose>
                                 <c:when test="${empty signUpAttempt.income}">
-                                    <input type="number" class="form-control" id="surveyIncome" name="surveyIncome" placeholder="Example: 40000">
+                                    <input type="number" class="form-control" id="surveyIncome" name="surveyIncome" min="0" placeholder="Example: 40000" required>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="number" class="form-control" id="surveyIncome" name="surveyIncome"  value="${signUpAttempt.income}">
+                                    <input type="number" class="form-control" id="surveyIncome" name="surveyIncome" min="0" value="${signUpAttempt.income}" required>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -104,7 +104,7 @@
                             <label for="surveyNeeds">Select the best description of how well the household's income met everyone's needs:</label>
                             <p class="text-info">Needs could include food, housing, utilities, health care, clothing, transportation, child care, etc.</p>
 
-                            <select class="form-control" id="surveyNeeds" name="surveyNeeds">
+                            <select class="form-control" id="surveyNeeds" name="surveyNeeds" required>
                                     <option disabled selected value="0">(select one)</option>
                                     <option value="1" <c:if test="${signUpAttempt.needs.equals('1')}">selected</c:if>>Severely unmet needs caused permanent harm.</option>
                                     <option value="2" <c:if test="${signUpAttempt.needs.equals('2')}">selected</c:if>>Unmet needs caused illness or decreased ability at work or school.</option>
@@ -118,7 +118,7 @@
                             <label for="surveyGoals">Select the best description of how well the household's income met everyone's goals:</label>
                             <p class="text-info">Goals could include savings, education, upgraded necessities, hobbies, travel, gifts/donations, services, etc.</p>
 
-                            <select class="form-control" id="surveyGoals" name="surveyGoals">
+                            <select class="form-control" id="surveyGoals" name="surveyGoals" required>
                                 <option disabled selected value="0">(select one)</option>
                                 <option value="1" <c:if test="${signUpAttempt.goals.equals('1')}">selected</c:if>>Unmet goals caused insecurity or high stress.</option>
                                 <option value="2" <c:if test="${signUpAttempt.goals.equals('2')}">selected</c:if>>Unmet goals caused frustration.</option>
@@ -132,7 +132,7 @@
                             <label for="surveyIncomeSkew">Select the best description of how much other financial factors helped meet needs and goals:</label>
                             <p class="text-info">Examples could include reducing savings, increasing debt, or receiving gifts of time or services. </p>
 
-                            <select class="form-control" id="surveyIncomeSkew" name="surveyIncomeSkew">
+                            <select class="form-control" id="surveyIncomeSkew" name="surveyIncomeSkew" required>
                                 <option disabled selected value="0">(select one)</option>
                                 <option value="1" <c:if test="${signUpAttempt.incomeSkew.equals('1')}">selected</c:if>>little or no impact</option>
                                 <option value="2" <c:if test="${signUpAttempt.incomeSkew.equals('2')}">selected</c:if>>some impact</option>
@@ -143,10 +143,6 @@
 
                     <div class="col-lg-2"></div>
                 </div>
-
-                <c:if test="${!empty validationMessage}">
-                    <p class="bg-warning">${validationMessage}</p>
-                </c:if>
                 <div class="centered">
                     <button type="submit" class="btn btn-primary">Sign Up</button>
                 </div>

@@ -7,7 +7,14 @@ import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * A class that processes the user's input when they attempt to sign up for the website. Used for validating the input,
+ * providing feedback to the user, and committing the information to the database.
+ *
+ * @author Heidi Aandahl
+ */
 public class SignUpAttempt {
     private String username;
     private String password;
@@ -20,13 +27,26 @@ public class SignUpAttempt {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-
-    // todo tostring, hash etc
     // todo test methods, docs
 
+    /**
+     * Instantiates a new Sign up attempt.
+     */
     public SignUpAttempt() {
     }
 
+    /**
+     * Instantiates a new Sign up attempt.
+     *
+     * @param username      the username
+     * @param password      the password
+     * @param password2     the password 2
+     * @param income        the income
+     * @param householdSize the household size
+     * @param needs         the needs
+     * @param goals         the goals
+     * @param incomeSkew    the income skew
+     */
     public SignUpAttempt(String username, String password, String password2, String income, String householdSize,
                          String needs, String goals, String incomeSkew) {
         this.username = username;
@@ -39,70 +59,155 @@ public class SignUpAttempt {
         this.incomeSkew = incomeSkew;
     }
 
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Gets password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets password.
+     *
+     * @param password the password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Gets password 2.
+     *
+     * @return the password 2
+     */
     public String getPassword2() {
         return password2;
     }
 
+    /**
+     * Sets password 2.
+     *
+     * @param password2 the password 2
+     */
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
 
+    /**
+     * Gets income.
+     *
+     * @return the income
+     */
     public String getIncome() {
         return income;
     }
 
+    /**
+     * Sets income.
+     *
+     * @param income the income
+     */
     public void setIncome(String income) {
         this.income = income;
     }
 
+    /**
+     * Gets household size.
+     *
+     * @return the household size
+     */
     public String getHouseholdSize() {
         return householdSize;
     }
 
+    /**
+     * Sets household size.
+     *
+     * @param householdSize the household size
+     */
     public void setHouseholdSize(String householdSize) {
         this.householdSize = householdSize;
     }
 
+    /**
+     * Gets needs.
+     *
+     * @return the needs
+     */
     public String getNeeds() {
         return needs;
     }
 
+    /**
+     * Sets needs.
+     *
+     * @param needs the needs
+     */
     public void setNeeds(String needs) {
         this.needs = needs;
     }
 
+    /**
+     * Gets goals.
+     *
+     * @return the goals
+     */
     public String getGoals() {
         return goals;
     }
 
+    /**
+     * Sets goals.
+     *
+     * @param goals the goals
+     */
     public void setGoals(String goals) {
         this.goals = goals;
     }
 
+    /**
+     * Gets income skew.
+     *
+     * @return the income skew
+     */
     public String getIncomeSkew() {
         return incomeSkew;
     }
 
+    /**
+     * Sets income skew.
+     *
+     * @param incomeSkew the income skew
+     */
     public void setIncomeSkew(String incomeSkew) {
         this.incomeSkew = incomeSkew;
     }
 
+    /**
+     * Calls methods to check that user input is complete and valid.
+     *
+     * @return validation details to include in a message to the user
+     */
     public String getValidationDetails() {
         String validationDetails = "";
 
@@ -129,7 +234,11 @@ public class SignUpAttempt {
         return validationDetails;
     }
 
-    private boolean hasMatchingPasswords() {
+    /**
+     * Checks whether passwords match
+     * @return boolean whether passwords match
+     */
+     private boolean hasMatchingPasswords() {
         if (password.equals(password2)) {
             return true;
         } else {
@@ -137,6 +246,10 @@ public class SignUpAttempt {
         }
     }
 
+    /**
+     * Checks whether input fields are complete
+     * @return boolean whether input fields are complete
+     */
     private boolean hasCompleteFields() {
         if (username.length() > 0 && password.length() > 0 && password2.length() > 0 && income.length() > 0) {
             return true;
@@ -145,6 +258,10 @@ public class SignUpAttempt {
         }
     }
 
+    /**
+     * Checks whether items were selected from all input menus
+     * @return boolean whether items were selected from all input menus
+     */
     private boolean hasSelectionsFromAllMenus() {
         if (householdSize != null && needs != null && goals != null && incomeSkew != null ) {
             return true;
@@ -153,6 +270,10 @@ public class SignUpAttempt {
         }
     }
 
+    /**
+     * Checks whether the username is one that does not already exist in the database
+     * @return boolean whether the username is one that does not already exist in the database
+     */
     private boolean hasUniqueUsername() {
         GenericDao userDao = new GenericDao(User.class);
         List<User> usersWithUsername = (List<User>) userDao.getByPropertyName("username", username);
@@ -163,6 +284,10 @@ public class SignUpAttempt {
         }
     }
 
+    /**
+     * Checks whether the income is a positive number in the correct format
+     * @return boolean whether the income is a positive number in the correct format
+     */
     private boolean hasValidIncome() {
         try {
             int incomeInt = Integer.parseInt(income);
@@ -178,6 +303,11 @@ public class SignUpAttempt {
         }
     }
 
+    /**
+     * Adds a the new user to the database.
+     *
+     * @return how many users were added
+     */
     public int addNewUser() {
         User newUser = new User(username, password);
         GenericDao userDao = new GenericDao(User.class);
@@ -193,6 +323,9 @@ public class SignUpAttempt {
         return userAdded;
     }
 
+    /**
+     * Adds the user's survey information to the database.
+     */
     private void addNewSurvey(User newUser) {
         // get daos
         GenericDao needsDescriptionDao = new GenericDao(NeedsDescription.class);
@@ -222,6 +355,9 @@ public class SignUpAttempt {
         }
     }
 
+    /**
+     * Adds the user's read and write roles to the database.
+     */
     private void addNewRoles(User newUser) {
         GenericDao roleDao = new GenericDao(Role.class);
 
@@ -233,5 +369,41 @@ public class SignUpAttempt {
         if (readRoleAdded == 0 || writeRoleAdded == 0) {
             logger.error("A user was added but on or both of the read and write roles failed to add.");
         }
+
+        // TODO - notify user if roles were not added.
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SignUpAttempt that = (SignUpAttempt) o;
+        return Objects.equals(username, that.username) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(password2, that.password2) &&
+                Objects.equals(income, that.income) &&
+                Objects.equals(householdSize, that.householdSize) &&
+                Objects.equals(needs, that.needs) &&
+                Objects.equals(goals, that.goals) &&
+                Objects.equals(incomeSkew, that.incomeSkew);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password, password2, income, householdSize, needs, goals, incomeSkew);
+    }
+
+    @Override
+    public String toString() {
+        return "SignUpAttempt{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", password2='" + password2 + '\'' +
+                ", income='" + income + '\'' +
+                ", householdSize='" + householdSize + '\'' +
+                ", needs='" + needs + '\'' +
+                ", goals='" + goals + '\'' +
+                ", incomeSkew='" + incomeSkew + '\'' +
+                '}';
     }
 }
