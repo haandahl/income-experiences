@@ -21,7 +21,7 @@ public class SignUpAttempt {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
 
-    // todo getters, setters, etc (do I need to ? it's not a bean...)
+    // todo tostring, hash etc
     // todo test methods, docs
 
     public SignUpAttempt() {
@@ -36,6 +36,70 @@ public class SignUpAttempt {
         this.householdSize = householdSize;
         this.needs = needs;
         this.goals = goals;
+        this.incomeSkew = incomeSkew;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
+    }
+
+    public String getIncome() {
+        return income;
+    }
+
+    public void setIncome(String income) {
+        this.income = income;
+    }
+
+    public String getHouseholdSize() {
+        return householdSize;
+    }
+
+    public void setHouseholdSize(String householdSize) {
+        this.householdSize = householdSize;
+    }
+
+    public String getNeeds() {
+        return needs;
+    }
+
+    public void setNeeds(String needs) {
+        this.needs = needs;
+    }
+
+    public String getGoals() {
+        return goals;
+    }
+
+    public void setGoals(String goals) {
+        this.goals = goals;
+    }
+
+    public String getIncomeSkew() {
+        return incomeSkew;
+    }
+
+    public void setIncomeSkew(String incomeSkew) {
         this.incomeSkew = incomeSkew;
     }
 
@@ -56,6 +120,10 @@ public class SignUpAttempt {
 
         if (!hasUniqueUsername()) {
             validationDetails += " The username you selected is taken; please try another one.";
+        }
+
+        if (income.length() > 0 && !hasValidIncome()) {
+            validationDetails += " The income must be a positive number without symbols. Example: 70000, not $70,000 or -70000.";
         }
 
         return validationDetails;
@@ -95,6 +163,21 @@ public class SignUpAttempt {
         }
     }
 
+    private boolean hasValidIncome() {
+        try {
+            int incomeInt = Integer.parseInt(income);
+            if (incomeInt >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException numberFormatException) {
+            return false;
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
     public int addNewUser() {
         User newUser = new User(username, password);
         GenericDao userDao = new GenericDao(User.class);
@@ -119,7 +202,7 @@ public class SignUpAttempt {
 
         // convert survey info to integers
         int householdSizeInt = Integer.parseInt(householdSize);
-        int incomeInt = Integer.parseInt(income); // todo make sure user can enter decimal but get rid of .00 for this
+        int incomeInt = Integer.parseInt(income);
         int needsId = Integer.parseInt(needs);
         int goalsId = Integer.parseInt(goals);
         int incomeSkewId = Integer.parseInt(incomeSkew);

@@ -151,7 +151,7 @@ authentication implemented (log in capability)</li>
 <li>X--Finish functionality to display charts for stats search.</li>
 <li>X-- Build functionality for a user to sign up with a short survey.</li>
 <li>X--Build functionality for a user to add, change, or delete their story.</li>
-<li>Build functionality for an admin to review content, change user status, or remove a user.</li>
+<li>X--Build functionality for an admin to review content, change user status, or remove a user.</li>
 
 <li>X--charts--Deploy to AWS at functionality milestone(s)</li>
 <li>X--Update time log</li>
@@ -162,14 +162,14 @@ authentication implemented (log in capability)</li>
 #### Coursework: Asynchronous messaging
 #### Project: 
 <ul>
-<li>Allow others' profiles to be displayed.</li>
+<li>REMOVE--Allow others' profiles to be displayed.</li>
 <li>X--Add functionalisty to display stories along with stats search.</li>
 <li>Accommodate the data difference for Orthodontist; replace with another?</li>
-<li>Stretch - upgrade to fuzzy search for topic?</li>
+<li>REMOVE--Stretch - upgrade to fuzzy search for topic?</li>
 
 <li>Code quality check -- possibly refactor SearchStats servlet, Search, SignUp servelet</li>
 
-<li>Assess where unit tests are still needed and create them: likely API use, search</li>
+<li>Assess where unit tests are still needed and create them: API use, search, signUpAttempt</li>
 <li>Assess where validation is needed and build it in. </li>
 
 <li>Apply Bootstrap and some color</li>
@@ -191,6 +191,7 @@ authentication implemented (log in capability)</li>
 ## by 5/13/19 (week 15, presentation)
 #### Project: 
 <ul>
+<li>Move urls to properties</li>
 <li>Incorporate feedback from code review</li>
 <li>Code quality check</li>
 <li>Create video</li>

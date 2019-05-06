@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+// todo docs
+
 @WebServlet(
     name = "signUp",
     urlPatterns = {"/sign-up"}
@@ -60,15 +62,9 @@ public class SignUp extends HttpServlet {
 
         // make necessary info available to the user on the next screen
         request.setAttribute("username", username);
+        request.setAttribute("signUpAttempt", signUpAttempt);
 
         if (nextUrl.equals("/signup.jsp")) {
-            request.setAttribute("password", password);
-            request.setAttribute("password2", password2);
-            request.setAttribute("income", income);
-            request.setAttribute("householdSize", householdSize);
-            request.setAttribute("needs", needs);
-            request.setAttribute("goals", goals);
-            request.setAttribute("incomeSkew", incomeSkew);
             request.setAttribute("validationMessage", validationMessage);
         }
 

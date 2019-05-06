@@ -14,7 +14,7 @@
 
             <h2>Sign Up</h2>
         </div>
-        <div class="card-body">
+        <div class="card-body <c:if test="${!empty validationMessage}">form-error</c:if>">
             <form method="post" action="sign-up">
 
                 <div class="row">
@@ -23,26 +23,41 @@
                         <div class="form-group">
                             <label for="username">Username:</label>
                             <c:choose>
-                                <c:when test="${empty username}">
+                                <c:when test="${empty signUpAttempt.username}">
                                     <input type="text" class="form-control" id="username" name="username" placeholder="name to display to other users">
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="text" class="form-control" id="username" name="username" value="${username}">
+                                    <input type="text" class="form-control" id="username" name="username" value="${signUpAttempt.username}">
                                 </c:otherwise>
                             </c:choose>
 
                         </div>
 
-                        <%-- todo wrap other fields in choose if effective --%>
+                        <%-- todo wrap other fields in choose so values are retained --%>
 
                         <div class="form-group">
                             <label for="password">Password:</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                            <c:choose>
+                                <c:when test="${empty signUpAttempt.password}">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="password" class="form-control" id="password" name="password"  value="${signUpAttempt.password}">
+                                </c:otherwise>
+                            </c:choose>
+
                         </div>
 
                         <div class="form-group">
                             <label for="password2">Re-type password:</label>
-                            <input type="password" class="form-control" id="password2" name="password2" placeholder="password">
+                            <c:choose>
+                                <c:when test="${empty signUpAttempt.password2}">
+                                    <input type="password" class="form-control" id="password2" name="password2" placeholder="password">
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="password" class="form-control" id="password2" name="password2"  value="${signUpAttempt.password2}">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
 
@@ -53,21 +68,28 @@
 
                             <select class="form-control" id="householdSizeInput" name="householdSizeInput">
                                 <option disabled selected value="0">(select a household size)</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
+                                <option <c:if test="${signUpAttempt.householdSize.equals('1')}">selected</c:if>>1</option>
+                                <option <c:if test="${signUpAttempt.householdSize.equals('2')}">selected</c:if>>2</option>
+                                <option <c:if test="${signUpAttempt.householdSize.equals('3')}">selected</c:if>>3</option>
+                                <option <c:if test="${signUpAttempt.householdSize.equals('4')}">selected</c:if>>4</option>
+                                <option <c:if test="${signUpAttempt.householdSize.equals('5')}">selected</c:if>>5</option>
+                                <option <c:if test="${signUpAttempt.householdSize.equals('6')}">selected</c:if>>6</option>
+                                <option <c:if test="${signUpAttempt.householdSize.equals('7')}">selected</c:if>>7</option>
+                                <option <c:if test="${signUpAttempt.householdSize.equals('8')}">selected</c:if>>8</option>
+                                <option <c:if test="${signUpAttempt.householdSize.equals('9')}">selected</c:if>>9</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="surveyIncome">The household's most recent total yearly income, before tax:</label>
-                            <input type="number" class="form-control" id="surveyIncome" name="surveyIncome" placeholder="00000.00">
+                            <c:choose>
+                                <c:when test="${empty signUpAttempt.income}">
+                                    <input type="number" class="form-control" id="surveyIncome" name="surveyIncome" placeholder="Example: 40000">
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="number" class="form-control" id="surveyIncome" name="surveyIncome"  value="${signUpAttempt.income}">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -84,11 +106,11 @@
 
                             <select class="form-control" id="surveyNeeds" name="surveyNeeds">
                                     <option disabled selected value="0">(select one)</option>
-                                    <option value="1">Severely unmet needs caused permanent harm.</option>
-                                    <option value="2">Unmet needs caused illness or decreased ability at work or school.</option>
-                                    <option value="3">Unmet needs caused discomfort.</option>
-                                    <option value="4">Needs were generally met.</option>
-                                    <option value="5">All needs were comfortably met.</option>
+                                    <option value="1" <c:if test="${signUpAttempt.needs.equals('1')}">selected</c:if>>Severely unmet needs caused permanent harm.</option>
+                                    <option value="2" <c:if test="${signUpAttempt.needs.equals('2')}">selected</c:if>>Unmet needs caused illness or decreased ability at work or school.</option>
+                                    <option value="3" <c:if test="${signUpAttempt.needs.equals('3')}">selected</c:if>>Unmet needs caused discomfort.</option>
+                                    <option value="4" <c:if test="${signUpAttempt.needs.equals('4')}">selected</c:if>>Needs were generally met.</option>
+                                    <option value="5" <c:if test="${signUpAttempt.needs.equals('5')}">selected</c:if>>All needs were comfortably met.</option>
                                 </select>
                         </div>
 
@@ -98,11 +120,11 @@
 
                             <select class="form-control" id="surveyGoals" name="surveyGoals">
                                 <option disabled selected value="0">(select one)</option>
-                                <option value="1">Unmet goals caused insecurity or high stress.</option>
-                                <option value="2">Unmet goals caused frustration.</option>
-                                <option value="3">Many goals were met.</option>
-                                <option value="4">Most or all goals were easily met.</option>
-                                <option value="5">Income allowed for new or expanding financial goals.</option>
+                                <option value="1" <c:if test="${signUpAttempt.goals.equals('1')}">selected</c:if>>Unmet goals caused insecurity or high stress.</option>
+                                <option value="2" <c:if test="${signUpAttempt.goals.equals('2')}">selected</c:if>>Unmet goals caused frustration.</option>
+                                <option value="3" <c:if test="${signUpAttempt.goals.equals('3')}">selected</c:if>>Many goals were met.</option>
+                                <option value="4" <c:if test="${signUpAttempt.goals.equals('4')}">selected</c:if>>Most or all goals were easily met.</option>
+                                <option value="5" <c:if test="${signUpAttempt.goals.equals('5')}">selected</c:if>>Income allowed for new or expanding financial goals.</option>
                             </select>
                         </div>
 
@@ -112,17 +134,15 @@
 
                             <select class="form-control" id="surveyIncomeSkew" name="surveyIncomeSkew">
                                 <option disabled selected value="0">(select one)</option>
-                                <option value="1">little or no impact</option>
-                                <option value="2">some impact</option>
-                                <option value="3">strong impact</option>
+                                <option value="1" <c:if test="${signUpAttempt.incomeSkew.equals('1')}">selected</c:if>>little or no impact</option>
+                                <option value="2" <c:if test="${signUpAttempt.incomeSkew.equals('2')}">selected</c:if>>some impact</option>
+                                <option value="3" <c:if test="${signUpAttempt.incomeSkew.equals('3')}">selected</c:if>>strong impact</option>
                              </select>
                         </div>
                     </div>
 
                     <div class="col-lg-2"></div>
                 </div>
-
-                <%-- todo - nice to do - let user review entries before final submit --%>
 
                 <c:if test="${!empty validationMessage}">
                     <p class="bg-warning">${validationMessage}</p>
