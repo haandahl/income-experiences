@@ -44,9 +44,6 @@
         </div>
     </section>
 
-
-
-
             <c:if test="${!empty matchingSurveys}">
         <section class="row">
             <div class="col">

@@ -30,22 +30,20 @@ public class SearchStats extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
-        // TODO - break up monster method
+        // TODO - break up monster method, use sign-up as a model for validation
 
         // get search info from user
         String incomeInput = request.getParameter("income").trim();
-        String householdSizeInput = request.getParameter("householdSize"); // todo see if empty income gives npe?  it doesn't - why not? it does in sign in
+        String householdSizeInput = request.getParameter("householdSize");
         String careerInput = request.getParameter("careerInput");
 
         // set up variables with placeholder values
         String nextUrl = "";
-        String validationMessage = "";
         String careerName = "";
         String storedPercentDifferenceFromTarget = "";
         String percentDifferenceToDisplay = "";
         String incomeDisplay = "";
 
-        boolean usingThisIncome = false;
         double incomeDouble = 0.0;
         long percentDifference = 0;
         RequestDispatcher dispatcher = null;
@@ -57,22 +55,9 @@ public class SearchStats extends HttpServlet {
         Properties properties = (Properties) context.getAttribute("incomeExperiencesProperties");
         ExperiencesSearch experiencesSearch = new ExperiencesSearch(properties);
 
-        // validate combination of fields entered by user
-        boolean hasCorrectFields = experiencesSearch.hasCorrectFields(incomeInput, householdSizeInput, careerInput);
+        String validationMessage = experiencesSearch.getValidationMessage(incomeInput, householdSizeInput, careerInput)
 
-        // create validation message if fields are incorrect or ExperiencesSearch could not set income as entered.
-        if (!hasCorrectFields) {
-            validationMessage = "Oops! Please check your search. You need a career or an income (not both) " +
-                    "and must select a household size.";
-        } else if (hasCorrectFields && incomeInput != "") {
-            // if the user entered an income, set it now if possible
-            usingThisIncome = experiencesSearch.usingThisIncome(incomeInput);
-            if (!usingThisIncome) {
-                validationMessage = "Please re-enter the income you are interested in. It must be a number.";
-            }
-        }
-
-        // if there is a user error, display validation message on search page;
+         // if there is a user error, display validation message on search page;
          if (validationMessage != "") {
             nextUrl = "/search.jsp";
 
@@ -122,7 +107,6 @@ public class SearchStats extends HttpServlet {
         String allResponsesJson = getChartData(matchingSurveys, experiencesSearch);
 
         // get list of stories to display to user
-        // TODO - get user separately and provide link to profile (break up code in called method)
         List<Story> matchingStories = experiencesSearch.getMatchingStories(matchingSurveys);
 
         // Make data needed for charts available to the application

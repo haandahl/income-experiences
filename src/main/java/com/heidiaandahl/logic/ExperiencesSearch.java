@@ -68,6 +68,26 @@ public class ExperiencesSearch {
         this.income = income;
     }
 
+    public String getValidationMessage(String incomeInput, String householdSizeInput, String careerInput) {
+        String validationMessage = "";
+
+        // validate combination of fields entered by user
+        boolean hasCorrectFields = hasCorrectFields(incomeInput, householdSizeInput, careerInput);
+
+        // create validation message if fields are incorrect or ExperiencesSearch could not set income as entered.
+        if (!hasCorrectFields) {
+            validationMessage = "Please check your search. You need a career or an income (not both) " +
+                    "and must select a household size.";
+        } else if (hasCorrectFields && incomeInput != "") {
+            // if the user entered an income, set it now if possible todo refactor
+            boolean usingThisIncome = usingThisIncome(incomeInput);
+            if (!usingThisIncome) {
+                validationMessage = "Please re-enter the income you are interested in. It must be a number.";
+            }
+        }
+        return validationMessage;
+    }
+
     public double getMedianWageFromBls(String careerInput) {
 
         double medianWage = 0.0;
@@ -90,6 +110,8 @@ public class ExperiencesSearch {
 
         try {
             careerResponse = mapper.readValue(response, Response.class);
+            logger.debug("careerResponse");
+            logger.debug(careerResponse);
         } catch (IOException ioException) {
             logger.error(ioException.getMessage());
         } catch (Exception exception) {
@@ -99,6 +121,12 @@ public class ExperiencesSearch {
         // Get the first (only series) and its data items
         // todo - figure out how to handle orthodontist differently b/c data is different & NPE happens below (other pre-set careers are fine - no npe)
         List<DataItem> webDevDataItems = careerResponse.getResults().getSeries().get(0).getData();
+        //[DEBUG] 2019-05-06 14:14:00.963 [http-nio-8080-exec-9] ExperiencesSearch - https://api.bls.gov/publicAPI/v2/timeseries/data/OEUN000000000000029102313?registrationkey=c892d8d0b0f84712a4acd3c353813363
+        //[ERROR] 2019-05-06 14:14:03.912 [http-nio-8080-exec-9] ExperiencesSearch - Unrecognized field "code" (class com.heidiaandahl.service.FootnotesItem), not marked as ignorable (0 known properties: ])
+        // at [Source: (String)"{"status":"REQUEST_SUCCEEDED","responseTime":195,"message":["No Data Available for Series OEUN000000000000029102313 Year: 2016","No Data Available for Series OEUN000000000000029102313 Year: 2017"],"Results":{
+        //"series":
+        //[{"seriesID":"OEUN000000000000029102313","data":[{"year":"2018","period":"A01","periodName":"Annual","latest":"true","value":"-","footnotes":[{"code":"5","text":"This wage is equal to or greater than $100.00 per hour or $208,000 per year."}]}]}]
+        //}}"; line: 3, column: 152] (through reference chain: com.heidiaandahl.service.Response["Results"]->com.heidiaandahl.service.Results["series"]->java.util.ArrayList[0]->com.heidiaandahl.service.SeriesItem["data"]->java.util.ArrayList[0]->com.heidiaandahl.service.DataItem["footnotes"]->java.util.ArrayList[0]->com.heidiaandahl.service.FootnotesItem["code"])
 
         // Find average of wages for recent years
         // Not totally sure this is necessary - maybe only one year is ever marked latest?
@@ -288,7 +316,7 @@ public class ExperiencesSearch {
 
         for (Survey survey : matchingSurveys) {
             GenericDao<Story> storyDao = new GenericDao(Story.class);
-            User surveyPartipant = survey.getParticipant(); // todo separate this step in order to display link to user
+            User surveyPartipant = survey.getParticipant();
 
             // Map the search criteria
             Map<String, Object> storyCriteria = new HashMap<>();

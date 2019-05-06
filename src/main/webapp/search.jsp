@@ -36,7 +36,11 @@
                         <div class="card-header">
 
                             <h3>Search for Stats and Stories Matching a Household Size and Income</h3>
+
                         </div>
+                        <c:if test="${!empty validationMessage}">
+                            <p class="bg-warning">${validationMessage}</p>
+                        </c:if>
                         <div class="card-body">
                 <form method="post" action="search-stats">
                     <!-- Resource for blank defaults in select groups:
@@ -91,9 +95,7 @@
                             <option>9</option>
                         </select>
                     </div>
-                    <c:if test="${!empty validationMessage}">
-                        <p class="bg-warning">${validationMessage}</p>
-                    </c:if>
+
                     <button type="submit" class="btn btn-primary">Search for Stats and Stories</button>
                 </form>
                 </div>
