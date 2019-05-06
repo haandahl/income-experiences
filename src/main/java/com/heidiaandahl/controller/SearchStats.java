@@ -30,121 +30,76 @@ public class SearchStats extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
-        // TODO - break up monster method, use sign-up as a model for validation
+
+        // set up for user's next step
+        String nextUrl = "/search.jsp"; // default to error
+        String validationMessage = "";
+        String careerName = "";
 
         // get search info from user
         String incomeInput = request.getParameter("income").trim();
         String householdSizeInput = request.getParameter("householdSize");
         String careerInput = request.getParameter("careerInput");
 
-        // set up variables with placeholder values
-        String nextUrl = "";
-        String careerName = "";
-        String storedPercentDifferenceFromTarget = "";
-        String percentDifferenceToDisplay = "";
-        String incomeDisplay = "";
-
-        double incomeDouble = 0.0;
-        long percentDifference = 0;
-        RequestDispatcher dispatcher = null;
-        List<Survey> matchingSurveys = null;
-
+        // instantiate an ExperiencesSearch
         ServletContext context = getServletContext();
-
-        // set up search using properties for the application
         Properties properties = (Properties) context.getAttribute("incomeExperiencesProperties");
-        ExperiencesSearch experiencesSearch = new ExperiencesSearch(properties);
+        ExperiencesSearch experiencesSearch = new ExperiencesSearch(properties, incomeInput, householdSizeInput, careerInput);
 
-        String validationMessage = experiencesSearch.getValidationMessage(incomeInput, householdSizeInput, careerInput)
+        String validationDetails = experiencesSearch.getValidationDetails();
+
+        if (validationDetails.length() == 0) {
+            nextUrl = "/statsResult.jsp";
+            // complete the search
+            String percentDifferenceSearched = experiencesSearch.setMatchingSurveys();
+
+            // prepare info for user to view
+            if (careerInput != "") {
+                careerName = properties.getProperty(careerInput + ".display.name");
+            }
+            // todo change - income is now long not double, maybe it doesn't matter?
+            String incomeDisplay = String.format("$%d", Math.round(experiencesSearch.getTargetIncome()));
+
+            long percentDifferenceSearchedLong = Math.round(Double.parseDouble(percentDifferenceSearched) * 100);
+            String percentDifferenceToDisplay = String.valueOf(percentDifferenceSearchedLong) + "%";
+
+            // get data as JSON to use in Chart.js
+            String allResponsesJson = experiencesSearch.getChartData();
+
+            // get list of stories to display to user
+            List<Story> matchingStories = experiencesSearch.getMatchingStories();
+
+            // Make data needed for charts available to the application
+            httpSession.setAttribute("chartData", allResponsesJson);
+
+            // todo put hte experiencesSearch to the session and reduce number of things here
+            // make search information available to display to user
+            httpSession.setAttribute("income", incomeDisplay);
+            httpSession.setAttribute("householdSize", householdSizeInput);
+            httpSession.setAttribute("careerName", careerName);
+            httpSession.setAttribute("matchingSurveys", experiencesSearch.getMatchingSurveys());
+            httpSession.setAttribute("percentDifferenceSearched", percentDifferenceToDisplay);
+            httpSession.setAttribute("storiesToDisplay", matchingStories);
+            httpSession.setAttribute("returnUrl", nextUrl);
+
+        } else {
+            validationMessage = "Please change your search as follows: " + validationDetails;
+        }
 
          // if there is a user error, display validation message on search page;
          if (validationMessage != "") {
-            nextUrl = "/search.jsp";
 
-            // set request attributes - todo see if these are used?  can user redo form with entered data?
+            // set request attributes -
+             // TODO - apply these in JSP so values are retained if there is an error
             request.setAttribute("validationMessage", validationMessage);
             request.setAttribute("incomeInput", incomeInput);
             request.setAttribute("householdSizeInput", householdSizeInput);
             request.setAttribute("careerInput", careerInput);
+       }
 
-            // forward to jsp
-            dispatcher = request.getRequestDispatcher(nextUrl);
-            dispatcher.forward(request, response);
-            // todo - check to be sure flow can't pass beyond here?
-        } else {
-            // if there is no user error, clear chartData of previous results and set up forward to results display
-            nextUrl = "/statsResult.jsp";
-            httpSession.removeAttribute("chartData");
-        }
-
-        // if proceeding with search, set family size
-        experiencesSearch.setTargetFamilySize(Integer.parseInt(householdSizeInput));
-
-        // if user is (correctly) searching by career, set income for search and career name for display
-        if (careerInput != "") {
-            incomeDouble = experiencesSearch.getMedianWageFromBls(careerInput);
-            experiencesSearch.setIncome(incomeDouble);
-            careerName = properties.getProperty(careerInput + ".display.name");
-        }
-
-        // try to get surveys matching family size and closely matching income
-        storedPercentDifferenceFromTarget = properties.getProperty("search.income.percent");
-        matchingSurveys = experiencesSearch.getSurveysNearlyMatchingIncome(storedPercentDifferenceFromTarget);
-
-
-        // If no surveys matched, search again with a bigger income range
-        if (matchingSurveys.isEmpty()) {
-            storedPercentDifferenceFromTarget = properties.getProperty("search.income.percent.alternate");
-            matchingSurveys = experiencesSearch.getSurveysNearlyMatchingIncome(storedPercentDifferenceFromTarget);
-        }
-
-        // prepare income and variation info to display to user
-        incomeDisplay = String.format("$%d", Math.round(experiencesSearch.getIncome()));
-        percentDifference = Math.round(Double.parseDouble(storedPercentDifferenceFromTarget) * 100);
-        percentDifferenceToDisplay = String.valueOf(percentDifference) + "%";
-
-        // get data as JSON to use in Chart.js
-        String allResponsesJson = getChartData(matchingSurveys, experiencesSearch);
-
-        // get list of stories to display to user
-        List<Story> matchingStories = experiencesSearch.getMatchingStories(matchingSurveys);
-
-        // Make data needed for charts available to the application
-        httpSession.setAttribute("chartData", allResponsesJson);
-
-        // make search information available to display to user
-        httpSession.setAttribute("income", incomeDisplay);
-        httpSession.setAttribute("householdSize", householdSizeInput);
-        httpSession.setAttribute("careerName", careerName);
-        httpSession.setAttribute("matchingSurveys", matchingSurveys);
-        httpSession.setAttribute("percentDifferenceSearched", percentDifferenceToDisplay);
-        httpSession.setAttribute("storiesToDisplay", matchingStories);
-        httpSession.setAttribute("returnUrl", nextUrl);
-
-        // forward to jsp
-        dispatcher = request.getRequestDispatcher(nextUrl);
+       // forward to jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher(nextUrl);
         dispatcher.forward(request, response);
     }
 
-    // todo test and/or place method in logic file (ExperiencesSearch) if that makes more sense
-
-    private String getChartData(List<Survey> matchingSurveys, ExperiencesSearch experiencesSearch) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-
-        // organize survey statistics from matching surveys
-        Map needsResponses = experiencesSearch.getNeedsResponses(matchingSurveys);
-        Map goalsResponses = experiencesSearch.getGoalsResponses(matchingSurveys);
-        Map incomeSkewResponses = experiencesSearch.getIncomeSkewResponses(matchingSurveys);
-
-        // Put all the chart data in one map
-        Map allResponses = new HashMap();
-        allResponses.put("needs", needsResponses);
-        allResponses.put("goals", goalsResponses);
-        allResponses.put("incomeSkew", incomeSkewResponses);
-
-        String allResponsesJson = mapper.writeValueAsString(allResponses);
-
-        logger.debug(allResponsesJson);
-        return allResponsesJson;
-    }
-}
+ }

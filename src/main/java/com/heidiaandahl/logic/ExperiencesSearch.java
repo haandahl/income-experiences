@@ -1,5 +1,6 @@
 package com.heidiaandahl.logic;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heidiaandahl.entity.*;
 import com.heidiaandahl.persistence.GenericDao;
@@ -20,14 +21,16 @@ import java.util.*;
  */
 public class ExperiencesSearch {
     private Properties properties;
-    private int targetFamilySize;
-    private double income;  // todo refactor as needed b/c was using int
+
+    // TODO new...
+    private String incomeInput;
+    private String householdSizeInput;
+    private String careerInput;
+    private List<Survey> matchingSurveys;
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     // TODO - redo getters, setters, others if needed
-    // TODO - get users. for mvp, stories will be displayed for all linked users regardless of whether survey is current
-
 
     /**
      * Instantiates a new Experiences search.
@@ -40,8 +43,15 @@ public class ExperiencesSearch {
      *
      * @param properties       the properties
       */
-    public ExperiencesSearch(Properties properties) {
+      public ExperiencesSearch(Properties properties) {
+            this.properties = properties;
+      }
+
+    public ExperiencesSearch(Properties properties, String incomeInput, String householdSizeInput, String careerInput) {
         this.properties = properties;
+        this.incomeInput = incomeInput;
+        this.householdSizeInput = householdSizeInput;
+        this.careerInput = careerInput;
     }
 
     public Properties getProperties() {
@@ -52,45 +62,115 @@ public class ExperiencesSearch {
         this.properties = properties;
     }
 
-    public int getTargetFamilySize() {
-        return targetFamilySize;
+    public String getIncomeInput() {
+        return incomeInput;
     }
 
-    public void setTargetFamilySize(int targetFamilySize) {
-        this.targetFamilySize = targetFamilySize;
+    public void setIncomeInput(String incomeInput) {
+        this.incomeInput = incomeInput;
     }
 
-    public double getIncome() {
-        return income;
+    public String getHouseholdSizeInput() {
+        return householdSizeInput;
     }
 
-    public void setIncome(double income) {
-        this.income = income;
+    public void setHouseholdSizeInput(String householdSizeInput) {
+        this.householdSizeInput = householdSizeInput;
     }
 
-    public String getValidationMessage(String incomeInput, String householdSizeInput, String careerInput) {
-        String validationMessage = "";
+    public String getCareerInput() {
+        return careerInput;
+    }
 
-        // validate combination of fields entered by user
-        boolean hasCorrectFields = hasCorrectFields(incomeInput, householdSizeInput, careerInput);
+    public void setCareerInput(String careerInput) {
+        this.careerInput = careerInput;
+    }
 
-        // create validation message if fields are incorrect or ExperiencesSearch could not set income as entered.
-        if (!hasCorrectFields) {
-            validationMessage = "Please check your search. You need a career or an income (not both) " +
-                    "and must select a household size.";
-        } else if (hasCorrectFields && incomeInput != "") {
-            // if the user entered an income, set it now if possible todo refactor
-            boolean usingThisIncome = usingThisIncome(incomeInput);
-            if (!usingThisIncome) {
-                validationMessage = "Please re-enter the income you are interested in. It must be a number.";
-            }
+    public List<Survey> getMatchingSurveys() {
+        return matchingSurveys;
+    }
+
+    public void setMatchingSurveys(List<Survey> matchingSurveys) {
+        this.matchingSurveys = matchingSurveys;
+    }
+
+    public String getValidationDetails() {
+        String validationDetails = "";
+
+        if (!hasCorrectFields()) {
+            validationDetails += " You need to search on a career or an income (not both) " +
+            "and must select a household size.";
         }
-        return validationMessage;
+
+        if (isDependentOnImproperIncome()) {
+            validationDetails += "  The income must be a positive number without symbols. Example: 70000, not $70,000 or -70000.";
+        }
+
+        if (isDependentOnFailedBlsSearch()) {
+            validationDetails += " Sorry, the BLS income could not be calculated for the career you chose.";
+        }
+
+         return validationDetails;
     }
 
-    public double getMedianWageFromBls(String careerInput) {
+    private boolean hasCorrectFields() {
+        boolean hasCorrectFields = true;
 
-        double medianWage = 0.0;
+        if (householdSizeInput == null || (incomeInput == "" && careerInput == "")
+                || (incomeInput != "" && careerInput != "")) {
+            hasCorrectFields = false;
+        }
+        return hasCorrectFields;
+    }
+
+    private boolean isDependentOnImproperIncome() {
+          boolean dependentOnImproperIncome = false;
+
+          if (incomeInput != "") {
+              try {
+                  int incomeInt = Integer.parseInt(incomeInput);
+                  if (incomeInt < 0) {
+                      dependentOnImproperIncome = true;
+                  }
+               } catch (NumberFormatException numberFormatException) {
+                  dependentOnImproperIncome = true;
+              } catch (Exception exception) {
+                  dependentOnImproperIncome = true;
+              }
+          }
+          return dependentOnImproperIncome;
+    }
+
+    private boolean isDependentOnFailedBlsSearch() {
+        boolean dependentOnFailedBlsSearch = false;
+
+        // todo try this out - I think it's probbably pretty bad java but may be necessary?  improve?
+
+        try {
+            long income = getMedianWageFromBls();
+        } catch (Exception exception) {
+            dependentOnFailedBlsSearch = true;
+        }
+
+        return dependentOnFailedBlsSearch;
+
+    }
+
+    // todo  do i need a setter for jsp to read this as a property?
+    public long getTargetIncome(){
+        long targetIncome = 0;
+
+        if (incomeInput != "") {
+            targetIncome = Integer.parseInt(incomeInput); // todo any problem leaving as int here??
+        } else {
+            targetIncome = getMedianWageFromBls();
+        }
+        return targetIncome;
+     }
+
+    public long getMedianWageFromBls() {
+
+        long medianWage = 0;
 
         Response careerResponse = null;
 
@@ -142,10 +222,36 @@ public class ExperiencesSearch {
         }
 
         if (numberOfWages > 0) {
-            medianWage = wagesSum / numberOfWages;
+            double averageMedianWage = (double) wagesSum / (double) numberOfWages;
+            medianWage = Math.round(averageMedianWage);
         }
 
+        // todo make the income a long everywhere I guess... not sure why that wasn't necessary before???
+
         return medianWage;
+    }
+
+    // todo is it bad java to have a setter with a return value???
+    // todo need setter to be understood by jsp?
+    // todo how can i store the percent used at the same time?  maybe this could be a setter for an instance variable and return the percentage?
+    public String setMatchingSurveys() {
+         List<Survey> matchingSurveys = new ArrayList<>();
+         String storedPercentDifferenceFromTarget = "";
+
+         // try to get surveys matching family size and closely matching income
+         storedPercentDifferenceFromTarget = properties.getProperty("search.income.percent");
+         matchingSurveys = getSurveysNearlyMatchingIncome(storedPercentDifferenceFromTarget);
+
+
+        // If no surveys matched, search again with a bigger income range
+        if (matchingSurveys.isEmpty()) {
+            storedPercentDifferenceFromTarget = properties.getProperty("search.income.percent.alternate");
+            matchingSurveys = getSurveysNearlyMatchingIncome(storedPercentDifferenceFromTarget);
+        }
+
+        this.matchingSurveys = matchingSurveys;
+
+        return storedPercentDifferenceFromTarget;
     }
 
     // todo docs
@@ -153,46 +259,18 @@ public class ExperiencesSearch {
         List<Survey> returnedSurveys = new ArrayList<>();
         GenericDao surveyDao = new GenericDao(Survey.class);
 
-        double percentIncomeTarget = Double.parseDouble(storedPercentDifferenceFromTarget);
-        int incomeFloor = (int) Math.round(this.income * (1 - percentIncomeTarget));
-        int incomeCeiling = (int) Math.round(this.income * (1 + percentIncomeTarget));
+        int familySize = Integer.parseInt(householdSizeInput);
+        long targetIncome = getTargetIncome();
 
-        returnedSurveys = surveyDao.getByPropertiesValueAndRange("familySize", this.targetFamilySize, "income", incomeFloor, incomeCeiling);
+        // todo look for fallout from changing income from int to long...
+
+        double percentIncomeTarget = Double.parseDouble(storedPercentDifferenceFromTarget);
+        int incomeFloor = (int) Math.round(targetIncome * (1 - percentIncomeTarget));
+        int incomeCeiling = (int) Math.round(targetIncome * (1 + percentIncomeTarget));
+
+        returnedSurveys = surveyDao.getByPropertiesValueAndRange("familySize", familySize, "income", incomeFloor, incomeCeiling);
 
         return returnedSurveys;
-    }
-
-    public boolean hasCorrectFields(String incomeTarget, String householdSizeInput, String careerInput) {
-        boolean isValid = true;
-
-        if (householdSizeInput == null || (incomeTarget == "" && careerInput == "")
-                || (incomeTarget != "" && careerInput != "")) {
-            isValid = false;
-        }
-        return isValid;
-    }
-
-    /**
-     * Sets the income for this instance of the ExperiencesSearch if the value entered can be converted to a double.
-     *
-     * @param incomeTarget the income entered by the user
-     * @return whether the income for this search was able to be set
-     */
-     public boolean usingThisIncome(String incomeTarget) {
-        boolean usingThisIncome = false;
-        double incomeDouble = 0.0;
-
-         try {
-              incomeDouble = Double.parseDouble((incomeTarget.replaceAll(",", "")).replaceAll("$", ""));
-              this.income = incomeDouble;
-              usingThisIncome = true;
-         } catch (NumberFormatException numberFormatException) {
-              logger.error("User entered non-numeric income.");
-         } catch (Exception exception) {
-             logger.error("There was a problem using the income entered by the user.");
-         }
-
-        return usingThisIncome;
     }
 
     // TODO - refactor; maybe by passing in type?  Maybe by pulling out code that is re-used?
@@ -200,10 +278,9 @@ public class ExperiencesSearch {
 
     /**
      * Returns a map of the needs descriptions and how many relevant surveys included that response
-     * @param matchingSurveys surveys matching query
      * @return map of needs descriptions and number of respondents picking that level
      */
-    public Map<Integer, HashMap<String, Integer>> getNeedsResponses(List<Survey> matchingSurveys) {
+    public Map<Integer, HashMap<String, Integer>> getNeedsResponses() {
 
          Map needsResponses = new TreeMap();
 
@@ -237,10 +314,9 @@ public class ExperiencesSearch {
 
     /**
      * Returns a map of the goals descriptions and how many relevant surveys included that response
-     * @param matchingSurveys surveys matching query
      * @return map of goals descriptions and number of respondents picking that level
      */
-    public Map<Integer, HashMap<String, Integer>> getGoalsResponses(List<Survey> matchingSurveys) {
+    public Map<Integer, HashMap<String, Integer>> getGoalsResponses() {
 
         Map goalsResponses = new TreeMap();
 
@@ -275,10 +351,9 @@ public class ExperiencesSearch {
 
     /**
      * Returns a map of the income skew descriptions and how many relevant surveys included that response
-     * @param matchingSurveys surveys matching query
      * @return map of income skew descriptions and number of respondents picking that level
      */
-    public Map<Integer, HashMap<String, Integer>> getIncomeSkewResponses(List<Survey> matchingSurveys) {
+    public Map<Integer, HashMap<String, Integer>> getIncomeSkewResponses() {
 
         Map skewResponses = new TreeMap();
 
@@ -311,7 +386,7 @@ public class ExperiencesSearch {
     }
 
     // todo doc and test
-    public List<Story> getMatchingStories(List<Survey> matchingSurveys) {
+    public List<Story> getMatchingStories() {
         List<Story> matchingStories = new ArrayList<>();
 
         for (Survey survey : matchingSurveys) {
@@ -333,6 +408,29 @@ public class ExperiencesSearch {
 
         return matchingStories;
     }
+
+    // todo test
+
+    public String getChartData() throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        // organize survey statistics from matching surveys
+        Map needsResponses = getNeedsResponses();
+        Map goalsResponses = getGoalsResponses();
+        Map incomeSkewResponses = getIncomeSkewResponses();
+
+        // Put all the chart data in one map
+        Map allResponses = new HashMap();
+        allResponses.put("needs", needsResponses);
+        allResponses.put("goals", goalsResponses);
+        allResponses.put("incomeSkew", incomeSkewResponses);
+
+        String allResponsesJson = mapper.writeValueAsString(allResponses);
+
+        logger.debug(allResponsesJson);
+        return allResponsesJson;
+    }
+
 }
 
 
