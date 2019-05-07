@@ -14,7 +14,7 @@
                     <c:choose>
                         <c:when test="${!story.unsuitable}">
                             <form action="flag-content" method="post">
-                                <td><span class="hidden"><input type="text" name="flaggable-story" value="${story.storyContent}" ></span>
+                                <td><span class="hidden" style="display-none"><input type="text" name="flaggable-story" value="${story.storyContent}" ></span>
                                     <button type="submit" class="btn btn-warning">Flag</button></td>
                             </form>
                         </c:when>

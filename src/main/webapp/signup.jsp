@@ -4,7 +4,7 @@
 <html>
 <c:import url = "head.jsp" />
 <body>
-<div class="container">
+<div class="container padded-container">
     <c:import url = "header.jsp" />
 
      <div class="card">
@@ -14,7 +14,7 @@
         </div>
         <div class="card-body <c:if test="${!empty validationMessage}">form-error</c:if>">
             <c:if test="${!empty validationMessage}">
-                <p class="bg-warning">${validationMessage}</p>
+                <p class="bg-warning feedback">${validationMessage}</p>
             </c:if>
 
             <form method="post" action="sign-up">
@@ -144,7 +144,7 @@
                     <div class="col-lg-2"></div>
                 </div>
                 <div class="centered">
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                    <button type="submit" class="btn btn-info">Sign Up</button>
                 </div>
             </form>
         </div>

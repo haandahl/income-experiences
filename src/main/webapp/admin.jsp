@@ -2,14 +2,14 @@
 <html>
 <%@include file="head.jsp"%>
     <body>
-    <div class="container">
+    <div class="container padded-container">
 
         <c:import url = "header.jsp" />
 
         <h2>Items for Moderator Review</h2>
 
         <c:if test="${!empty adminFeedbackMessage}">
-            <p id="admin-feedback" class="bg-info">${adminFeedbackMessage}</p>
+            <p id="admin-feedback" class="bg-info feedback">${adminFeedbackMessage}</p>
         </c:if>
 
         <c:choose>
@@ -31,7 +31,7 @@
                                     <div class="col">
                                         <div class="admin-form">
                                             <form action="remove-user" method="post">
-                                                <span class="hidden"><input type="text" name="user-to-remove" value="${item.profileUser.id}" ></span>
+                                                <span class="hidden" style="display: none"><input type="text" name="user-to-remove" value="${item.profileUser.id}" ></span>
                                                 <button type="submit" class="btn btn-danger btn-block">Remove User</button>
                                             </form>
                                         </div>
@@ -39,16 +39,16 @@
                                     <div class="col">
                                         <div class="admin-form">
                                             <form action="block-user" method="post">
-                                                <span class="hidden"><input type="text" name="user-to-block" value="${item.profileUser.id}" ></span>
+                                                <span class="hidden" style="display: none"><input type="text" name="user-to-block" value="${item.profileUser.id}" ></span>
                                                 <button type="submit" class="btn btn-warning btn-block">Block User & Hide Story</button>
                                             </form>
                                         </div>
                                     </div>
-                                        <%--  todo reveal as implemented
+                                        <%--  todo reveal if implemented
                                         <div class="col">
                                             <div class="admin-form">
                                                 <form action="hide-content" method="post">
-                                                    <span class="hidden"><input type="text" name="story-to-archive" value="${item.id}" ></span>
+                                                    <span class="hidden" style="display: none"><input type="text" name="story-to-archive" value="${item.id}" ></span>
                                                     <button type="submit" class="btn btn-secondary btn-block">Just Hide Story</button>
                                                 </form>
                                             </div>
@@ -58,7 +58,7 @@
                                     <div class="col">
                                         <div class="admin-form">
                                             <form action="unflag" method="post">
-                                                <span class="hidden"><input type="text" name="story-to-unflag" value="${item.id}" ></span>
+                                                <span class="hidden" style="display: none"><input type="text" name="story-to-unflag" value="${item.id}" ></span>
                                                 <button type="submit" class="btn btn-success btn-block">UnFlag Story</button>
                                             </form>
                                         </div>

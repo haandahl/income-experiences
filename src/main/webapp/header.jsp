@@ -3,7 +3,7 @@
 <header>
     <!-- Grey with black text -->
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
-        <a class="navbar-brand" href="index.jsp">Income Experiences</a>
+        <a class="navbar-brand text-info" href="index.jsp">Income Experiences</a>
         <ul class="navbar-nav">
 
             <!-- todo add logic to only show admin page to logged in admin-->
@@ -38,7 +38,7 @@
 
           </ul>
     </nav>
-    <div class="jumbotron">
+    <div class="jumbotron bg-info white-text">
         <h1>breaking the money taboo</h1>
     </div>
 </header>

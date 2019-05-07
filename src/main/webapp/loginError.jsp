@@ -3,7 +3,7 @@
 <html>
     <c:import url = "head.jsp" />
     <body>
-        <div class="container">
+        <div class="container padded-container">
             <c:import url = "header.jsp" />
 
             <p>There was an error logging you in.  You may <a href="login.jsp">try again</a> or visit the <a href="index.jsp">home</a> page.

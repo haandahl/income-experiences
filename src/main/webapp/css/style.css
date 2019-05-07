@@ -12,6 +12,11 @@ section {
     margin-top: 2.5em;
 }
 
+.padded-container {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
 .hidden {
     display: none;
 }
@@ -20,21 +25,61 @@ section {
     text-align: center;
 }
 
+.white-text {
+    color: white;
+}
+
+.disclaimer {
+    font-size: 0.9em;
+    font-style: italic;
+}
+
 .form-error {
     background-color: lightgoldenrodyellow;
 }
 
-#profileSkew {
-    background-color: rgba(255, 99, 132, 0.2);
+.feedback {
+    margin-left: 2em;
+    margin-right: 2em;
+    padding: 1em;
+}
+
+#admin-feedback {
+    color: white;
+}
+
+/* cards */
+
+.deck-margin {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#profile-card {
+    margin-bottom: 1.5em;
+}
+
+#profileSkew, #household-card {
+    background-color: rgba(255, 206, 86, 0.2);
 }
 
 #profileNeeds {
-    background-color: rgba(54, 162, 235, 0.2);
+    background-color: rgba(255, 99, 132, 0.2);
 }
 
 #profileGoals {
-    background-color: rgba(255, 206, 86, 0.2);
+    background-color: rgba(54, 162, 235, 0.2);
 }
+
+#career-card {
+    background-color: rgba(153, 102, 255, 0.2)
+}
+
+#income-card, #welcome-card {
+    background-color: rgba(75, 192, 192, 0.2);
+}
+
+/* chart stuff */
 
 .chart {
     padding: 3em;
@@ -50,13 +95,6 @@ section {
     text-transform: uppercase;
     text-align: center;
     margin-top: 1em;
-}
-
-#admin-feedback {
-    margin-left: 2em;
-    margin-right: 2em;
-    padding: 1em;
-    color: white;
 }
 
 

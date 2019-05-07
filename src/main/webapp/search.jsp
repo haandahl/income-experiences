@@ -4,48 +4,30 @@
 <html>
     <c:import url = "head.jsp" />
         <body>
-        <div class="container">
+        <div class="container padded-container">
         <c:import url = "header.jsp" />
 
+            <h2>Search Income Experiences</h2>
 
-            <section class="row">
-                <div class="col">
+            <div class="row">
 
-                    <h2>Search Experiences</h2>
-                    <!-- TODO finesse -->
-                    <p> There are a couple different options for you. You may search for stats and stories, which will show
-                        you survey data and contributors' financial stories for the household size you choose and incomes near
-                        either an income that you choose or the median income of a career of interest. The career options
-                        are the top five careers, according to US News, and the top five careers with projected new jobs,
-                        according to the Bureau of Labor Statitics. (These were selected according to 2019 data).
-                        You may select the income and household size that interests you.
-                    </p>
-                    <p>
-                        Another option is to search the financial stories for a topic that interests you, and you'll see relevant
-                        stories and be able to link to the profile of their authors.
-                    </p>
-                </div>
-            </section>
-
-            <section class="row">
-
-                <!-- todo style forms to appear more separate, maybe colored differently, give 1st one more room, check -->
-
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
 
-                            <h3>Search for Stats and Stories Matching a Household Size and Income</h3>
+                            <h3>By Household Size and Income</h3>
 
                         </div>
                         <c:if test="${!empty validationMessage}">
-                            <p class="bg-warning">${validationMessage}</p>
+                            <p class="bg-warning feedback">${validationMessage}</p>
                         </c:if>
                         <div class="card-body">
                 <form method="post" action="search-stats">
                     <!-- Resource for blank defaults in select groups:
                     https://stackoverflow.com/questions/8605516/default-select-option-as-blank -->
-                    <p>You may select a career (and we'll find its median income) or you may skip the career and enter the income directly.</p>
+                    <p>The career options are the top five careers, according to US News, and the top five careers with
+                        projected new jobs, according to the Bureau of Labor Statistics. (These were selected according to 2019 data).
+                        You may select a career (and we'll find its median income) or you may skip the career and enter the income directly. </p>
                     <div class="form-group">
                         <label for="careerInput">Career:</label>
 
@@ -96,29 +78,30 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Search for Stats and Stories</button>
+                    <button type="submit" class="btn btn-info">Search for Stats and Stories</button>
                 </form>
                 </div>
                     </div><!-- end card body -->
                 </div><!-- end card -->
 
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
 
-                <h3>Search by Topic</h3>
+                <h3>By Topic</h3>
                         </div>
                         <div class="card-body">
                 <form method="post" action="search-topics">
                     <div class="form-group">
                         <label for="topic">Topic(s):</label>
-                        <input type="text" class="form-control" id="topic" name="topic" placeholder="example: frugal dumpster diving" >
+                        <input type="text" class="form-control" id="topic" name="topic" placeholder="example: frugal dumpster diving" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Search by Topic</button>
+                    <button type="submit" class="btn btn-info">Search by Topic</button>
                 </form>
                         </div><!-- end card body-->
                     </div><!-- end card -->
             </div>
-            </section>
+            </div><!-- end row-->
+        </div><!-- end container -->
     </body>
 </html>
