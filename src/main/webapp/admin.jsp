@@ -9,7 +9,7 @@
         <h2>Items for Moderator Review</h2>
 
         <c:if test="${!empty adminFeedbackMessage}">
-            <p id="admin-feedback" class="bg-info feedback">${adminFeedbackMessage}</p>
+            <p class="bg-warning feedback">${adminFeedbackMessage}</p>
         </c:if>
 
         <c:choose>
