@@ -1,19 +1,14 @@
 # Project Technologies/Techniques 
 
-<p>This is an original, individual project being completed for Enterprise Java at Madison Area Technical College. 
-The technologies list is adapted from instructor Paula Waite's sample list.</p>
-
 * Security/Authentication
   * Tomcat's JDBC Realm Authentication
-  * Visitor (no login): view admin page (possibly sample information on Experiences or Forum page)
-  * Student role: read all data
-  * Basic member: search survey data, add story (and upgrade membership)
-  * Advanced member: adds to basic member functions -- search financial stories and forum, 
-  comment on stories and forum threads, add forum topics, edit their own financial story.
-  * Admin: create/read all data, update text data or user status, delete text data, delete user and all associated data
+  * Visitor (no login): view home only
+  * Read: visit any jsp except admin; search, flag content for review
+  * Write: add or edit personal financial story
+  * Admin: unflag content, hide stories, change user roles
 * Database
   * MySQL
-  * Store users, roles, surveys, financial stories, forum topics, any user comments, etc.
+  * Store users, roles, surveys (over multiple tables), financial stories,
 * ORM Framework
   * Hibernate 5.2
 * Dependency Management
@@ -22,16 +17,16 @@ The technologies list is adapted from instructor Paula Waite's sample list.</p>
   * BLS API for obtaining careers and their median salaries
 * CSS 
   * Bootstrap 4
-* Data Validation (These are Paula's, maybe they apply?)
-  * Bootstrap Validator for front end
-  * Explore Hibernate's validation  
+* Data Validation 
+  * Html attributes on front end
+  * Java methods in back end 
 * Logging
-  * Configurable logging using Log4J2. In production, only errors will normally be logged, but logging at a debug level can be turned on to facilitate trouble-shooting. 
+  * Configurable logging using Log4J2.
 * Hosting
   * AWS
 * Independent Research Topic/s
   * Hibernate Search
-  * Explore these for making graphs: Chart.js or c3.js
+  * Chart.js
 * Unit Testing
-  * JUnit tests to achieve 80%+ code coverage (Paula's goal)
+  * JUnit tests (original coverage goal: 80%)
 * IDE: IntelliJ IDEA

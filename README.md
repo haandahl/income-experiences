@@ -15,14 +15,9 @@ This website is intended as a safe place for people to share and explore what di
 households. Some users may be motivated to tell their story and help others, especially younger people, make decisions. 
 Others may visit the site primarily to gather perspectives. In order to build robust information to draw from,
 new users will be required to complete a short survey about their financial situation the past year before they can see 
-survey results of other members. However, to accommodate young people without access to their family's finances, 
-students will be able to search the site using an access code provided at their school, instead of signing up as 
-members.
-
-At a higher level of engagement, members will be provide their financial story -- an narrative that 
+survey results of other members. Members will have the option of sharing their financial story -- a narrative that 
 can include their financial history, changes they've experienced, and the biggest factors influencing their 
-feelings about their incomes.  Members who include a personal story will have access to others' stories and
-will be able to participate in a forum to help move the conversation in a direction that is helpful to them.
+feelings about their incomes.
 
 Since many people are likely to explore careers and incomes concurrently, this site will allow people to search
 for income experiences based on career, using information from the Bureau of Labor Statistics to direct them to the 
@@ -30,7 +25,7 @@ appropriate income survey results.
 
 ## [Technologies](DesignDocuments/ProjectTechnology.md)
 
-## Design
+## Original Design
 
 * [User Stories](DesignDocuments/UserStories.md)
 * [Screen Design](DesignDocuments/ScreenDesigns.md)
