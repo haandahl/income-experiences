@@ -53,7 +53,7 @@ public class SearchStats extends HttpServlet {
             if (careerInput != "") {
                 careerName = properties.getProperty(careerInput + ".display.name");
             }
-            // todo change - income is now long not double, maybe it doesn't matter?
+
             String incomeDisplay = String.format("$%d", Math.round(experiencesSearch.getTargetIncome()));
 
             long percentDifferenceSearchedLong = Math.round(Double.parseDouble(percentDifferenceSearched) * 100);
@@ -68,8 +68,7 @@ public class SearchStats extends HttpServlet {
             // Make data needed for charts available to the application
             httpSession.setAttribute("chartData", allResponsesJson);
 
-            // todo put hte experiencesSearch to the session and reduce number of things here
-            // make search information available to display to user
+             // make search information available to display to user
             httpSession.setAttribute("income", incomeDisplay);
             httpSession.setAttribute("householdSize", householdSizeInput);
             httpSession.setAttribute("careerName", careerName);
@@ -82,11 +81,8 @@ public class SearchStats extends HttpServlet {
             validationMessage = "Please change your search as follows: " + validationDetails;
         }
 
-         // if there is a user error, display validation message on search page;
+         // if there is a user error, display validation message and user inputs on search page;
          if (validationMessage != "") {
-
-            // set request attributes -
-             // TODO - apply these in JSP so values are retained if there is an error
             request.setAttribute("validationMessage", validationMessage);
             request.setAttribute("incomeInput", incomeInput);
             request.setAttribute("householdSizeInput", householdSizeInput);

@@ -8,12 +8,6 @@ import com.heidiaandahl.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -143,93 +137,29 @@ public class ExperiencesSearch {
 
     private boolean isDependentOnFailedBlsSearch() {
         boolean dependentOnFailedBlsSearch = false;
+        CareerMedianWage medianWage = new CareerMedianWage(properties);
 
-        // todo try this out - I think it's probbably pretty bad java but may be necessary?  improve?
-
-        try {
-            long income = getMedianWageFromBls();
-        } catch (Exception exception) {
+        if (medianWage.getMedianWageFromBls(careerInput) == 0) {
             dependentOnFailedBlsSearch = true;
         }
 
         return dependentOnFailedBlsSearch;
-
     }
 
-    // todo  do i need a setter for jsp to read this as a property?
     public long getTargetIncome(){
         long targetIncome = 0;
 
+        CareerMedianWage medianWage = new CareerMedianWage(properties);
+
         if (incomeInput != "") {
-            targetIncome = Integer.parseInt(incomeInput); // todo any problem leaving as int here??
+            targetIncome = Integer.parseInt(incomeInput);
         } else {
-            targetIncome = getMedianWageFromBls();
+            targetIncome = medianWage.getMedianWageFromBls(careerInput);
         }
         return targetIncome;
      }
 
-    public long getMedianWageFromBls() {
 
-        long medianWage = 0;
-
-        Response careerResponse = null;
-
-        String apiCareerCode = properties.getProperty(careerInput + ".bls.api.code");
-
-        String apiUri = properties.getProperty("api.bls.endpoint") + properties.getProperty("api.bls.resource") +
-                        properties.getProperty("api.bls.survey") + apiCareerCode +
-                        properties.getProperty("api.bls.data") + properties.getProperty("api.bls.key.parameter");
-
-        Client client = ClientBuilder.newClient();
-
-        WebTarget target = client.target(apiUri);
-
-        String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            careerResponse = mapper.readValue(response, Response.class);
-            logger.debug("careerResponse");
-            logger.debug(careerResponse);
-        } catch (IOException ioException) {
-            logger.error(ioException.getMessage());
-        } catch (Exception exception) {
-            logger.error(exception.getMessage());
-        }
-
-        // Get the first (only series) and its data items
-        // todo - figure out how to handle orthodontist differently b/c data is different & NPE happens below (other pre-set careers are fine - no npe)
-        List<DataItem> webDevDataItems = careerResponse.getResults().getSeries().get(0).getData();
-        //[DEBUG] 2019-05-06 14:14:00.963 [http-nio-8080-exec-9] ExperiencesSearch - https://api.bls.gov/publicAPI/v2/timeseries/data/OEUN000000000000029102313?registrationkey=c892d8d0b0f84712a4acd3c353813363
-        //[ERROR] 2019-05-06 14:14:03.912 [http-nio-8080-exec-9] ExperiencesSearch - Unrecognized field "code" (class com.heidiaandahl.service.FootnotesItem), not marked as ignorable (0 known properties: ])
-        // at [Source: (String)"{"status":"REQUEST_SUCCEEDED","responseTime":195,"message":["No Data Available for Series OEUN000000000000029102313 Year: 2016","No Data Available for Series OEUN000000000000029102313 Year: 2017"],"Results":{
-        //"series":
-        //[{"seriesID":"OEUN000000000000029102313","data":[{"year":"2018","period":"A01","periodName":"Annual","latest":"true","value":"-","footnotes":[{"code":"5","text":"This wage is equal to or greater than $100.00 per hour or $208,000 per year."}]}]}]
-        //}}"; line: 3, column: 152] (through reference chain: com.heidiaandahl.service.Response["Results"]->com.heidiaandahl.service.Results["series"]->java.util.ArrayList[0]->com.heidiaandahl.service.SeriesItem["data"]->java.util.ArrayList[0]->com.heidiaandahl.service.DataItem["footnotes"]->java.util.ArrayList[0]->com.heidiaandahl.service.FootnotesItem["code"])
-
-        // Find average of wages for recent years
-        // Not totally sure this is necessary - maybe only one year is ever marked latest?
-        // todo - play with this more in testing
-        int wagesSum = 0;
-        int numberOfWages = 0;
-
-        for (DataItem item : webDevDataItems) {
-            if (item.getLatest().equals("true")) {
-                wagesSum += Integer.parseInt(item.getValue());
-                numberOfWages += 1;
-            }
-        }
-
-        if (numberOfWages > 0) {
-            double averageMedianWage = (double) wagesSum / (double) numberOfWages;
-            medianWage = Math.round(averageMedianWage);
-        }
-
-        // todo make the income a long everywhere I guess... not sure why that wasn't necessary before???
-
-        return medianWage;
-    }
 
     // todo is it bad java to have a setter with a return value???
     // todo need setter to be understood by jsp?
@@ -261,8 +191,6 @@ public class ExperiencesSearch {
 
         int familySize = Integer.parseInt(householdSizeInput);
         long targetIncome = getTargetIncome();
-
-        // todo look for fallout from changing income from int to long...
 
         double percentIncomeTarget = Double.parseDouble(storedPercentDifferenceFromTarget);
         int incomeFloor = (int) Math.round(targetIncome * (1 - percentIncomeTarget));
