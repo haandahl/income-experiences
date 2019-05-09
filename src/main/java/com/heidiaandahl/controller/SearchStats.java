@@ -1,6 +1,7 @@
 package com.heidiaandahl.controller;
 
 import com.heidiaandahl.entity.Story;
+import com.heidiaandahl.logic.ChartData;
 import com.heidiaandahl.logic.ExperiencesSearch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -60,7 +61,8 @@ public class SearchStats extends HttpServlet {
             String percentDifferenceToDisplay = String.valueOf(percentDifferenceSearchedLong) + "%";
 
             // get data as JSON to use in Chart.js
-            String allResponsesJson = experiencesSearch.getChartData();
+            ChartData chartData = new ChartData();
+            String allResponsesJson = chartData.getChartData(experiencesSearch.getMatchingSurveys());
 
             // get list of stories to display to user
             List<Story> matchingStories = experiencesSearch.getMatchingStories();
