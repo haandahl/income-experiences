@@ -127,9 +127,8 @@ public class ChartData {
     protected int tallyMatchingSurveyAnswers(List<Survey> searchResultSurveys, Set<Survey> allSurveysWithTheResponse) {
         int counter = 0;
 
-        // increment the counter for each survey returne in the result that is associated
-        // with a specific goals description
-        // todo is this backward?? test first!
+        // increment the counter for each survey returned in the result that is associated
+        // with a specific survey answer
         for (Survey searchSurvey : searchResultSurveys) {
             if (allSurveysWithTheResponse.contains(searchSurvey)) {
                 counter += 1;
