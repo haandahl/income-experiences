@@ -7,6 +7,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Needs description represents the extent to which a household's income allowed their needs to be met.
+ *
+ * @author Heidi Aandahl
+ */
 @Entity(name = "NeedsDescription")
 @Table(name = "needs_description")
 public class NeedsDescription {
@@ -22,35 +27,65 @@ public class NeedsDescription {
     private Set<Survey> surveysWithNeedsDescription = new HashSet<>();
 
 
+    /**
+     * Instantiates a new Needs description.
+     */
     public NeedsDescription() {
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Gets surveys with needs description.
+     *
+     * @return the surveys with needs description
+     */
     public Set<Survey> getSurveysWithNeedsDescription() {
         return surveysWithNeedsDescription;
     }
 
+    /**
+     * Sets surveys with needs description.
+     *
+     * @param surveysWithNeedsDescription the surveys with needs description
+     */
     public void setSurveysWithNeedsDescription(Set<Survey> surveysWithNeedsDescription) {
         this.surveysWithNeedsDescription = surveysWithNeedsDescription;
     }
-
-    // TODO - if needed, create and test add/remove methods for surveysWithNeedsDescription.
-    //  However, I don't think I need to explicitly add/remove these...
 
     @Override
     public boolean equals(Object o) {

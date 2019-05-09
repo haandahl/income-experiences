@@ -7,6 +7,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Goals description represents the extent to which a household's income allowed financial goals to be met.
+ *
+ * @author Heidi Aandahl
+ */
 @Entity(name = "GoalsDescription")
 @Table(name = "goals_description")
 public class GoalsDescription {
@@ -21,35 +26,65 @@ public class GoalsDescription {
     @OneToMany(mappedBy = "goalsDescription", fetch = FetchType.EAGER)
     private Set<Survey> surveysWithGoalsDescription = new HashSet<>();
 
+    /**
+     * Instantiates a new Goals description.
+     */
     public GoalsDescription() {
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Gets surveys with goals description.
+     *
+     * @return the surveys with goals description
+     */
     public Set<Survey> getSurveysWithGoalsDescription() {
         return surveysWithGoalsDescription;
     }
 
+    /**
+     * Sets surveys with goals description.
+     *
+     * @param surveysWithGoalsDescription the surveys with goals description
+     */
     public void setSurveysWithGoalsDescription(Set<Survey> surveysWithGoalsDescription) {
         this.surveysWithGoalsDescription = surveysWithGoalsDescription;
     }
-
-    // TODO - if needed, create and test add/remove methods for surveysWithGoalsDescription.
-    //  However, I don't think I need to explicitly add/remove these...
 
     @Override
     public boolean equals(Object o) {

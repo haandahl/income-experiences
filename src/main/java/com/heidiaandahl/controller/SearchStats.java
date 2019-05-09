@@ -1,13 +1,9 @@
 package com.heidiaandahl.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heidiaandahl.entity.Story;
-import com.heidiaandahl.entity.Survey;
 import com.heidiaandahl.logic.ExperiencesSearch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;

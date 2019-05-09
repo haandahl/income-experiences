@@ -36,45 +36,48 @@
                         <select class="form-control" id="careerInput" name="careerInput">
                             <option selected value="">(select a job or skip this and enter income below) </option>
                             <optgroup label="Both Top Jobs and Most New Jobs">
-                                <option value="bestAndMost1">${incomeExperiencesProperties["bestAndMost1.display.name"]}</option>
+                                <option <c:if test="${careerInput.equals('bestAndMost1')}">selected</c:if> value="bestAndMost1">${incomeExperiencesProperties["bestAndMost1.display.name"]}</option>
                             </optgroup>
                             <optgroup label="Top Jobs">
-                                <option value="best1">${incomeExperiencesProperties["best1.display.name"]}</option>
-                                <option value="best2">${incomeExperiencesProperties["best2.display.name"]}</option>
-                                <option value="best3">${incomeExperiencesProperties["best3.display.name"]}</option>
-                                <option value="best4">${incomeExperiencesProperties["best4.display.name"]}</option>
+                                <option <c:if test="${careerInput.equals('best1')}">selected</c:if> value="best1">${incomeExperiencesProperties["best1.display.name"]}</option>
+                                <option <c:if test="${careerInput.equals('best2')}">selected</c:if> value="best2">${incomeExperiencesProperties["best2.display.name"]}</option>
+                                <option <c:if test="${careerInput.equals('best3')}">selected</c:if> value="best3">${incomeExperiencesProperties["best3.display.name"]}</option>
+                                <option <c:if test="${careerInput.equals('best4')}">selected</c:if> value="best4">${incomeExperiencesProperties["best4.display.name"]}</option>
                             </optgroup>
                             <optgroup label="Most New Jobs">
-                                <option value="most1">${incomeExperiencesProperties["most1.display.name"]}</option>
-                                <option value="most2">${incomeExperiencesProperties["most2.display.name"]}</option>
-                                <option value="most3">${incomeExperiencesProperties["most3.display.name"]}</option>
-                                <option value="most4">${incomeExperiencesProperties["most4.display.name"]}</option>
+                                <option <c:if test="${careerInput.equals('most1')}">selected</c:if> value="most1">${incomeExperiencesProperties["most1.display.name"]}</option>
+                                <option <c:if test="${careerInput.equals('most2')}">selected</c:if> value="most2">${incomeExperiencesProperties["most2.display.name"]}</option>
+                                <option <c:if test="${careerInput.equals('most3')}">selected</c:if> value="most3">${incomeExperiencesProperties["most3.display.name"]}</option>
+                                <option <c:if test="${careerInput.equals('most4')}">selected</c:if> value="most4">${incomeExperiencesProperties["most4.display.name"]}</option>
                             </optgroup>
                          </select>
                     </div>
                     <div class="form-group">
                         <label for="income">Before-tax annual income:</label>
-
-                        <!-- TODO keep selection from erroneous submittal -->
-
-                        <input type="number" class="form-control" id="income" name="income" placeholder="(leave empty if searching by career)">
+                        <input type="number" class="form-control" id="income" name="income" min="0"
+                        <c:choose>
+                            <c:when test="${empty incomeInput}">
+                               placeholder="(leave empty if searching by career)"
+                            </c:when>
+                            <c:otherwise>
+                               value="${incomeInput}"
+                        </c:otherwise>
+                        </c:choose> >
                     </div>
                     <div class="form-group">
                         <label for="householdSize">Household size:</label>
 
-                        <!-- TODO keep selection from erroneous submittal -->
-
                         <select class="form-control" id="householdSize" name="householdSize">
                             <option disabled selected value>(select a household size)</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
+                            <option <c:if test="${householdSizeInput.equals('1')}">selected</c:if> >1</option>
+                            <option <c:if test="${householdSizeInput.equals('2')}">selected</c:if> >2</option>
+                            <option <c:if test="${householdSizeInput.equals('3')}">selected</c:if> >3</option>
+                            <option <c:if test="${householdSizeInput.equals('4')}">selected</c:if> >4</option>
+                            <option <c:if test="${householdSizeInput.equals('5')}">selected</c:if> >5</option>
+                            <option <c:if test="${householdSizeInput.equals('6')}">selected</c:if> >6</option>
+                            <option <c:if test="${householdSizeInput.equals('7')}">selected</c:if> >7</option>
+                            <option <c:if test="${householdSizeInput.equals('8')}">selected</c:if> >8</option>
+                            <option <c:if test="${householdSizeInput.equals('9')}">selected</c:if> >9</option>
                         </select>
                     </div>
 
