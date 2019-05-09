@@ -12,8 +12,6 @@ import java.util.*;
 public class ChartData {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
-    // TODO - refactor; maybe by passing in type?  Maybe by pulling out code that is re-used?
-    // TODO test
 
     /**
      * Returns a map of the needs descriptions and how many relevant surveys included that response
@@ -126,6 +124,9 @@ public class ChartData {
 
         return skewResponses;
     }
+
+
+
 
      // todo test
 
