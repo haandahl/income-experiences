@@ -36,7 +36,7 @@ public class SearchStats extends HttpServlet {
      * Coordinates the search for survey and story data based on criteria chosen by the user. The
      * criteria can be career and household size or income and household size.
      *
-     * @param request the request
+     * @param request  the request
      * @param response the response
      * @throws ServletException
      * @throws IOException
@@ -102,10 +102,10 @@ public class SearchStats extends HttpServlet {
             request.setAttribute("careerInput", careerInput);
         }
 
-          // forward to jsp
-         RequestDispatcher dispatcher = request.getRequestDispatcher(nextUrl);
-         dispatcher.forward(request, response);
- }
+        // forward to jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher(nextUrl);
+        dispatcher.forward(request, response);
+    }
 
     /**
      * Adds data to the session in json format to enable charts to be made.
@@ -120,3 +120,4 @@ public class SearchStats extends HttpServlet {
         String allResponsesJson = chartData.getChartData(experiencesSearch.getMatchingSurveys());
         httpSession.setAttribute("chartData", allResponsesJson);
     }
+}
