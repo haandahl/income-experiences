@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Makes data from application available for charts made using JavaScript.
+ * Makes data from the session available for charts made using JavaScript.
  * Inspired by Joe at
  * https://javapapers.com/ajax/getting-started-with-ajax-using-java/.
  *
@@ -23,11 +23,17 @@ import javax.servlet.http.HttpSession;
 public class TransferChartData extends HttpServlet {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Makes data from the session available for charts made using JavaScript.
+     *
+     * @param request
+     * @param response
+     * @throws java.io.IOException
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws java.io.IOException {
 
         HttpSession httpSession = request.getSession();
-        //ServletContext context = getServletContext();
         String chartData = (String) httpSession.getAttribute("chartData");
         response.setContentType("text/html");
         response.getWriter().write(chartData);

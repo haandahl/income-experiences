@@ -1,5 +1,6 @@
 package com.heidiaandahl.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.heidiaandahl.entity.Story;
 import com.heidiaandahl.logic.ChartData;
 import com.heidiaandahl.logic.ExperiencesSearch;
@@ -17,6 +18,12 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * A servlet that coordinates the search for survey and story data based on criteria chosen by the user. The
+ * criteria can be career and household size or income and household size.
+ *
+ * @author Heidi Aandahl
+ */
 @WebServlet(
         name = "searchStats",
         urlPatterns = {"/search-stats"}
@@ -25,6 +32,15 @@ public class SearchStats extends HttpServlet {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Coordinates the search for survey and story data based on criteria chosen by the user. The
+     * criteria can be career and household size or income and household size.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
 
@@ -43,12 +59,17 @@ public class SearchStats extends HttpServlet {
         Properties properties = (Properties) context.getAttribute("incomeExperiencesProperties");
         ExperiencesSearch experiencesSearch = new ExperiencesSearch(properties, incomeInput, householdSizeInput, careerInput);
 
+        // validate user input
         String validationDetails = experiencesSearch.getValidationDetails();
 
+        // determine next steps based on validation results
         if (validationDetails.length() == 0) {
             nextUrl = "/statsResult.jsp";
             // complete the search
             String percentDifferenceSearched = experiencesSearch.setMatchingSurveys();
+
+            // make data available so charts can be created
+            addChartDataToSession(httpSession, experiencesSearch);
 
             // prepare info for user to view
             if (careerInput != "") {
@@ -60,17 +81,10 @@ public class SearchStats extends HttpServlet {
             long percentDifferenceSearchedLong = Math.round(Double.parseDouble(percentDifferenceSearched) * 100);
             String percentDifferenceToDisplay = String.valueOf(percentDifferenceSearchedLong) + "%";
 
-            // get data as JSON to use in Chart.js
-            ChartData chartData = new ChartData();
-            String allResponsesJson = chartData.getChartData(experiencesSearch.getMatchingSurveys());
-
             // get list of stories to display to user
             List<Story> matchingStories = experiencesSearch.getMatchingStories();
 
-            // Make data needed for charts available to the application
-            httpSession.setAttribute("chartData", allResponsesJson);
-
-             // make search information available to display to user
+            // make search information available to display to user
             httpSession.setAttribute("income", incomeDisplay);
             httpSession.setAttribute("householdSize", householdSizeInput);
             httpSession.setAttribute("careerName", careerName);
@@ -80,20 +94,29 @@ public class SearchStats extends HttpServlet {
             httpSession.setAttribute("returnUrl", nextUrl);
 
         } else {
+            // add user input and validation info to the request to help user complete the form correctly
             validationMessage = "Please change your search as follows: " + validationDetails;
-        }
-
-         // if there is a user error, display validation message and user inputs on search page;
-         if (validationMessage != "") {
             request.setAttribute("validationMessage", validationMessage);
             request.setAttribute("incomeInput", incomeInput);
             request.setAttribute("householdSizeInput", householdSizeInput);
             request.setAttribute("careerInput", careerInput);
-       }
+        }
 
-       // forward to jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher(nextUrl);
-        dispatcher.forward(request, response);
-    }
-
+          // forward to jsp
+         RequestDispatcher dispatcher = request.getRequestDispatcher(nextUrl);
+         dispatcher.forward(request, response);
  }
+
+    /**
+     * Adds data to the session in json format to enable charts to be made.
+     *
+     * @param httpSession       the http session
+     * @param experiencesSearch the experiences search
+     * @throws JsonProcessingException the json processing exception
+     */
+    protected void addChartDataToSession(HttpSession httpSession, ExperiencesSearch experiencesSearch) throws JsonProcessingException {
+        // get data as JSON to use in Chart.js
+        ChartData chartData = new ChartData();
+        String allResponsesJson = chartData.getChartData(experiencesSearch.getMatchingSurveys());
+        httpSession.setAttribute("chartData", allResponsesJson);
+    }
