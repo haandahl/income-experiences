@@ -135,9 +135,11 @@ public class ExperiencesSearch {
 
     private boolean isDependentOnFailedBlsSearch() {
         boolean dependentOnFailedBlsSearch = false;
-        CareerMedianWage medianWage = new CareerMedianWage(properties);
 
-        if (medianWage.getMedianWageFromBls(careerInput) == 0) {
+        CareerMedianWage medianWage = new CareerMedianWage(properties);
+        long blsWage = medianWage.getMedianWageFromBls(careerInput);
+
+        if (incomeInput == "" && blsWage == 0) {
             dependentOnFailedBlsSearch = true;
         }
 
