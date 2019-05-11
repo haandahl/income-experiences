@@ -14,40 +14,46 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * A servlet that adds a user's financial story and hides prior stories associated with the user.
+ *
+ * @author Heidi Aandahl
+ */
+
 @WebServlet(
         name = "addStory",
         urlPatterns = { "/add-story"}
 )
 public class AddStory extends HttpServlet {
+    /**
+     * Adds a user's financial story, hides prior stories associated with the user, and forwards to the profile page.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException servlet exception
+     * @throws IOException io exception
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO  - (future) - consider api to help find "bad words"
+        // TODO  - (future)
+        //  consider api to help find "bad words"
         //  https://www.neutrinoapi.com/api/bad-word-filter/ and flag stories for review as they are added
 
-        // Create an object from request parameters
+        // Get the new story
         String newStoryContent = request.getParameter("financial-story").trim();
 
+        // Get the previous story
         HttpSession httpSession = request.getSession();
-
-        // ServletContext context = getServletContext();
         Story priorProfileStory = (Story) httpSession.getAttribute("profileStory");
 
         GenericDao storyDao = new GenericDao(Story.class);
 
-        // todo start here - what should criteria be?  Show them where user enters stuff
-        // Check whether the object is complete and ok
-        // 100 characters minimum
-        // I should then allow a user to not-display their story if they don't want to replace it with something.
-        // Also test what happens with really long story.
-
-
         // Mark old story invisible
         if (priorProfileStory != null) {
             priorProfileStory.setVisible(false);
-            storyDao.saveOrUpdate(priorProfileStory);  // todo is this tested?
+            storyDao.saveOrUpdate(priorProfileStory);
         }
 
         // Add the story with the current user named as the profile user and editor
-        // TODO - (future) - update code to separately identify profile user and editor
         User currentUser = (User) httpSession.getAttribute("user");
         Story newStory = new Story(newStoryContent, LocalDate.now(), true, currentUser, currentUser, false);
         storyDao.insert(newStory);

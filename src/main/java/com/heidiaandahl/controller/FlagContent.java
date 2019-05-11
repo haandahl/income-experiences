@@ -49,8 +49,6 @@ public class FlagContent extends HttpServlet {
         HttpSession httpSession = request.getSession();
         List<Story> flagOrigin = (List<Story>) httpSession.getAttribute("storiesToDisplay");
 
-        // TODO refactor separate methods?
-
         // mark the story "unsuitable" in the database (includes stories with duplicate content if they exist)
         for (Story story : flaggedStories) {
             if (!story.isUnsuitable()) {

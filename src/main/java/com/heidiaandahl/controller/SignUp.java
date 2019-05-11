@@ -12,8 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// todo docs
-
+/**
+ * A servlet that signs a new user up.
+ *
+ * @author Heidi Aandahl
+ */
 @WebServlet(
     name = "signUp",
     urlPatterns = {"/sign-up"}
@@ -22,6 +25,15 @@ public class SignUp extends HttpServlet {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Instantiates a signup attempt entity and uses it to validate the user's input and add them to the database
+     * or give them a validation message.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException servlet exception
+     * @throws IOException io exception
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // set up for user's next step

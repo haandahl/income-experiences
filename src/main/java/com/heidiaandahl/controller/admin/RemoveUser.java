@@ -25,10 +25,11 @@ public class RemoveUser extends HttpServlet {
     /**
      * Removes a user from the database and returns the administrator back to the admin page,
      * where they will see a message indicating that the removal occurred.
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException servlet exception
+     * @throws IOException io exception
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // get the user selected for removal

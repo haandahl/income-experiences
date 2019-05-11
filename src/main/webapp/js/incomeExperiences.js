@@ -2,7 +2,6 @@
     CSS for Enterprise Java project: Income Experiences
     Heidi Aandahl
     April 2019
-    TODO - refactor, maybe make colors in more meaningful sequence (red scary, green good)
   */
 const init = () => {
     putDataInCharts();
@@ -83,8 +82,6 @@ const makeNeedsChart = data => {
             }
         }
     });
-    //removed from chart orange, rgba(255, 159, 64, 0.2), rgba(255, 159, 64, 1)
-
 }
 
 const makeGoalsChart = data => {
@@ -142,9 +139,7 @@ const makeGoalsChart = data => {
             }
         }
     });
-    //removed from chart orange, rgba(255, 159, 64, 0.2), rgba(255, 159, 64, 1)
-
-}
+ }
 
 const makeIncomeSkewChart = data => {
 

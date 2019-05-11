@@ -17,12 +17,20 @@ import java.io.IOException;
  *
  * @author Heidi Aandahl
  */
-
 @WebServlet(
         name = "unflagStory",
         urlPatterns = { "/unflag"}
 )
 public class UnflagStory extends HttpServlet {
+    /**
+     * Sets a story's "unsuitable" property to false and returns the administrator back to the admin page,
+     * where they will see a message indicating that the change occurred.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException servlet exception
+     * @throws IOException io exception
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // get the selected story
         int storyId = Integer.parseInt(request.getParameter("story-to-unflag"));
@@ -41,6 +49,3 @@ public class UnflagStory extends HttpServlet {
         dispatcher.forward(request, response);
     }
 }
-/*
-    TODO - review authentication for complete list of servlets and jsps
- */

@@ -31,10 +31,10 @@ public class SearchTopics extends HttpServlet {
     /**
      * Gets financial stories based on a user's search terms and coordinates their display back to the user.
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request the request
+     * @param response the response
+     * @throws ServletException servlet exception
+     * @throws IOException io exception
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // ServletContext context = getServletContext();

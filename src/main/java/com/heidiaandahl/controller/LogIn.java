@@ -19,8 +19,15 @@ import java.io.IOException;
     urlPatterns = { "/login"}
 )
 public class LogIn extends HttpServlet {
+    /**
+     * Redirects user to home page.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException servlet exception
+     * @throws IOException io exception
+     */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO - consider whether this works for all scenarios.  Login should only show up on index page, so probably ok??
         response.sendRedirect("index.jsp");
     }
 }

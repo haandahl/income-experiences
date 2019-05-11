@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * Income skew represents how much factors other than income contributed to a site user's household
- * meeting financial needs and goals.
+ * meeting financial needs and goals. Examples would be gifts of help or money, or taking out loans.
  *
  * @author Heidi Aandahl
  */

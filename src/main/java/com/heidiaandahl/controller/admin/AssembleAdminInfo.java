@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
-
 /**
  * A servlet that gathers information for the site administrator to review when making decisions about users and content.
  *
@@ -25,18 +24,14 @@ import java.util.*;
         urlPatterns = { "/admin"}
 )
 public class AssembleAdminInfo extends HttpServlet {
-    private final Logger logger = LogManager.getLogger(this.getClass());
-
-    // todo finish any refactor and write javadoc
 
     /**
-     * Finds financial stories that have been flagged unsuitable, tallies the associated user's history of
-     * unsuitable stories, places the information into the session, and forwards to the admin page.
+     * Calls a method to gather information for the admin to review and forwards to the admin page.
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request the request
+     * @param response the response
+     * @throws ServletException servlet exception
+     * @throws IOException io exception
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -46,7 +41,14 @@ public class AssembleAdminInfo extends HttpServlet {
         dispatcher.forward(request, response);
       }
 
-
+    /**
+     * Calls a method to gather information for the admin to review and forwards to the admin page.
+     *
+     * @param request the request
+     * @param response the response
+     * @throws ServletException servlet exception
+     * @throws IOException io exception
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         gatherItemsForAdminReview(request);
@@ -55,8 +57,13 @@ public class AssembleAdminInfo extends HttpServlet {
         dispatcher.forward(request, response);
      }
 
+    /**
+     * Finds financial stories that have been flagged unsuitable, tallies the associated user's history of
+     * unsuitable stories, and places the information into the request.
+     *
+     * @param request the request
+     */
     private void gatherItemsForAdminReview(HttpServletRequest request) {
-        // todo put in separate class? also test I suppose.
         GenericDao storyDao = new GenericDao(Story.class);
 
         // get visible stories that have been flagged for review
@@ -66,7 +73,6 @@ public class AssembleAdminInfo extends HttpServlet {
 
         List<Story> unsuitableVisibleStories = (List<Story>) storyDao.getByPropertyNames(queryProperties);
 
-        //HttpSession httpSession = request.getSession();
         request.setAttribute("itemsToReview", unsuitableVisibleStories);
     }
 }

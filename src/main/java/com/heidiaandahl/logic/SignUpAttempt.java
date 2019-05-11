@@ -27,8 +27,6 @@ public class SignUpAttempt {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-    // todo test methods, docs
-
     /**
      * Instantiates a new Sign up attempt.
      */

@@ -1,8 +1,5 @@
 package com.heidiaandahl.utility;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.IOException;
 import java.util.Properties;
 

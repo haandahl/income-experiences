@@ -229,30 +229,6 @@ public class SurveyDaoTest {
      }
 
     /**
-     * Verifies that surveys can be retrieved by a range of incomes (inclusive).
-     */
-    @Test
-    void getSurveysByIncomeRangeSuccess() {
-        /*  TEST DB
-            -- ------------------------------------------------------------------------------------------------
-            -- survey (id, date, family size, income, user_id, needs_description_id, goals_description_id, income_skew_id)
-            -- ------------------------------------------------------------------------------------------------
-            INSERT into survey values (1, '2018-01-01', 6, 65000, 4, 3, 2, 3);
-            INSERT into survey values (2, '2018-03-04', 1, 150000, 8, 5, 5, 2);
-            INSERT into survey values (3, '2019-01-15', 3, 50000, 1, 3, 1, 2);
-            INSERT into survey values (4, '2017-12-12', 2, 90000, 2, 5, 3, 1);
-         */
-        List<Survey> testList = surveyDao.getByPropertyRange("income", 50000, 65000);
-
-        Survey expectedSurvey1 = (Survey)surveyDao.getById(3);
-        Survey expectedSurvey2 = (Survey)surveyDao.getById(1);
-
-        assertEquals(true, testList.contains(expectedSurvey1));
-        assertEquals(true, testList.contains(expectedSurvey2));
-        assertEquals(2, testList.size());
-    }
-
-    /**
      * Verifies that surveys can be retrieved by a family size and range of income (inclusive).
      */
     @Test

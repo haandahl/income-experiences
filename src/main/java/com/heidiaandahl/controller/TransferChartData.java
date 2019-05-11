@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 /**
  * Makes data from the session available for charts made using JavaScript.
- * Inspired by Joe at
+ * Inspired by Joe (Joseph Kulandai) at
  * https://javapapers.com/ajax/getting-started-with-ajax-using-java/.
  *
  * @author Heidi Aandahl
@@ -26,9 +27,9 @@ public class TransferChartData extends HttpServlet {
     /**
      * Makes data from the session available for charts made using JavaScript.
      *
-     * @param request
-     * @param response
-     * @throws java.io.IOException
+     * @param request the request
+     * @param response the response
+     * @throws IOException io exception
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws java.io.IOException {

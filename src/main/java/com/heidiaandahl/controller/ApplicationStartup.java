@@ -33,6 +33,9 @@ public class ApplicationStartup extends HttpServlet implements PropertiesLoader 
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Initializes the application by building the index for Hibernate Search and loading a properties file.
+     */
     public void init() {
         // Make sure existing db info has lucene index
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -65,8 +68,6 @@ public class ApplicationStartup extends HttpServlet implements PropertiesLoader 
 
         ServletContext context = getServletContext();
         context.setAttribute("incomeExperiencesProperties", incomeExperiencesProperties);
-
-
      }
 }
 

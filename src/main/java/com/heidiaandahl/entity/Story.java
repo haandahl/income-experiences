@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-
 /**
  * The financial story of a site user. Each story is a "version" that may represent the original
  * content, a version edited by the original author, or a version edited by an administrator.
@@ -38,8 +37,6 @@ public class Story {
     @Field
     @Column(name = "visible")
     private boolean isVisible;
-
-    // todo rename this and all "is" booleans to the characteristic without the is, so usable in jsps
 
     @Column(name = "unsuitable")
     private boolean unsuitable;

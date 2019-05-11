@@ -1,6 +1,5 @@
 package com.heidiaandahl.persistence;
 
-import com.heidiaandahl.persistence.SessionFactoryProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -150,20 +149,6 @@ public class GenericDao<T> {
         return entities;
     }
 
-    // todo - maybe discard? it is tested... add doc if continuing to use
-    public List<T> getByPropertyRange(String propertyName, int floor, int ceiling) {
-        Session session = getSession();
-
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<T> query = builder.createQuery(type);
-        Root<T> root = query.from(type);
-        // Resource: https://docs.oracle.com/cd/E19226-01/820-7627/gjixa/index.html
-        query.select(root).where(builder.between(root.get(propertyName), floor, ceiling));
-        List<T> entities = session.createQuery(query).getResultList();
-        session.close();
-        return entities;
-    }
-
     /**
      * Gets entities by two properties, one based on a single value and the other based on a range of values.
      *
@@ -180,13 +165,7 @@ public class GenericDao<T> {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<T> query = builder.createQuery(type);
         Root<T> root = query.from(type);
-        /*
-            // TODO - nice to do - this query tries to follow oracle and is simpler... however "and" displays red, unrecognized by IntelliJ.
-            // TODO - cont - figure out why?  oracle shows and between 2 conditions, Paula shows and as a method of the criteriabuilder
-            // Resource: https://docs.oracle.com/cd/E19226-01/820-7627/gjixa/index.html
-            // TRIES TO FOLLOW ORACLE:
-            // query.select(root).where(builder.equal(root.get(singlePropertyName), value).and(builder.between(root.get(rangePropertyName), floor, ceiling)));
-        */
+
         List<Predicate> predicates = new ArrayList<Predicate>();
         predicates.add(builder.equal(root.get(singlePropertyName), value));
         predicates.add(builder.between(root.get(rangePropertyName), floor, ceiling));
@@ -256,7 +235,6 @@ public class GenericDao<T> {
      * @param value        the search String
      * @return the entities matching the query
      */
-//TODO determine whether this is still needed with Hibernate Search
     public List<T> getByPropertyLike(String propertyName, String value) {
         Session session = getSession();
 

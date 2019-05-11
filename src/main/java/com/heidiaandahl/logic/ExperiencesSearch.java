@@ -9,12 +9,14 @@ import org.apache.logging.log4j.Logger;
 import java.util.*;
 
 /**
- * The type Experiences search.
+ * A search conducted by the user that finds data relevant to a combination of career and household size or
+ * a user-selected income and household size.
+ *
+ * @author Heidi Aandahl
  */
 public class ExperiencesSearch {
     private Properties properties;
 
-    // TODO new...
     private String incomeInput;
     private String householdSizeInput;
     private String careerInput;
@@ -22,7 +24,6 @@ public class ExperiencesSearch {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-    // TODO - redo getters, setters, others if needed
 
     /**
      * Instantiates a new Experiences search.
@@ -30,15 +31,23 @@ public class ExperiencesSearch {
     public ExperiencesSearch() {
     }
 
-     /**
+    /**
      * Instantiates a new Experiences search.
      *
-     * @param properties       the properties
-      */
-      public ExperiencesSearch(Properties properties) {
+     * @param properties the properties
+     */
+    public ExperiencesSearch(Properties properties) {
             this.properties = properties;
       }
 
+    /**
+     * Instantiates a new Experiences search.
+     *
+     * @param properties         the properties
+     * @param incomeInput        the income input
+     * @param householdSizeInput the household size input
+     * @param careerInput        the career input
+     */
     public ExperiencesSearch(Properties properties, String incomeInput, String householdSizeInput, String careerInput) {
         this.properties = properties;
         this.incomeInput = incomeInput;
@@ -46,46 +55,92 @@ public class ExperiencesSearch {
         this.careerInput = careerInput;
     }
 
+    /**
+     * Gets properties.
+     *
+     * @return the properties
+     */
     public Properties getProperties() {
         return properties;
     }
 
+    /**
+     * Sets properties.
+     *
+     * @param properties the properties
+     */
     public void setProperties(Properties properties) {
         this.properties = properties;
     }
 
+    /**
+     * Gets income input.
+     *
+     * @return the income input
+     */
     public String getIncomeInput() {
         return incomeInput;
     }
 
+    /**
+     * Sets income input.
+     *
+     * @param incomeInput the income input
+     */
     public void setIncomeInput(String incomeInput) {
         this.incomeInput = incomeInput;
     }
 
+    /**
+     * Gets household size input.
+     *
+     * @return the household size input
+     */
     public String getHouseholdSizeInput() {
         return householdSizeInput;
     }
 
+    /**
+     * Sets household size input.
+     *
+     * @param householdSizeInput the household size input
+     */
     public void setHouseholdSizeInput(String householdSizeInput) {
         this.householdSizeInput = householdSizeInput;
     }
 
+    /**
+     * Gets career input.
+     *
+     * @return the career input
+     */
     public String getCareerInput() {
         return careerInput;
     }
 
+    /**
+     * Sets career input.
+     *
+     * @param careerInput the career input
+     */
     public void setCareerInput(String careerInput) {
         this.careerInput = careerInput;
     }
 
+    /**
+     * Gets matching surveys.
+     *
+     * @return the matching surveys
+     */
     public List<Survey> getMatchingSurveys() {
         return matchingSurveys;
     }
 
-    public void setMatchingSurveys(List<Survey> matchingSurveys) {
-        this.matchingSurveys = matchingSurveys;
-    }
-
+    /**
+     * Gets validation details.
+     *
+     * @return the validation details
+     */
     public String getValidationDetails() {
         String validationDetails = "";
 
@@ -133,6 +188,11 @@ public class ExperiencesSearch {
           return dependentOnImproperIncome;
     }
 
+    /**
+     * Checks whether the search is depending on a BLS api search that can't return an income.
+     *
+     * @return whether the search is dependent on a failed BLS api search for income
+     */
     private boolean isDependentOnFailedBlsSearch() {
         boolean dependentOnFailedBlsSearch = false;
 
@@ -141,11 +201,17 @@ public class ExperiencesSearch {
 
         if (incomeInput == "" && blsWage == 0) {
             dependentOnFailedBlsSearch = true;
+            logger.error("BLS api failed to return income for " + careerInput);
         }
 
         return dependentOnFailedBlsSearch;
     }
 
+    /**
+     * Get target income long.
+     *
+     * @return the long
+     */
     public long getTargetIncome(){
         long targetIncome = 0;
 
@@ -159,9 +225,12 @@ public class ExperiencesSearch {
         return targetIncome;
      }
 
-    // todo is it bad java to have a setter with a return value???
-    // todo need setter to be understood by jsp?
-    // todo how can i store the percent used at the same time?  maybe this could be a setter for an instance variable and return the percentage?
+    /**
+     * Searches for and returns surveys based on two tiers: a small percent difference from the target income if
+     * possible, and an alternate (larger) percent difference if no results were returned with the smaller number.
+     *
+     * @return the matching surveys
+     */
     public String setMatchingSurveys() {
          List<Survey> matchingSurveys = new ArrayList<>();
          String storedPercentDifferenceFromTarget = "";
@@ -182,7 +251,12 @@ public class ExperiencesSearch {
         return storedPercentDifferenceFromTarget;
     }
 
-    // todo docs
+    /**
+     * Gets surveys nearly matching income.
+     *
+     * @param storedPercentDifferenceFromTarget the percent from the target income
+     * @return the surveys nearly matching income
+     */
     public List<Survey> getSurveysNearlyMatchingIncome(String storedPercentDifferenceFromTarget) {
         List<Survey> returnedSurveys = new ArrayList<>();
         GenericDao surveyDao = new GenericDao(Survey.class);
@@ -194,12 +268,17 @@ public class ExperiencesSearch {
         int incomeFloor = (int) Math.round(targetIncome * (1 - percentIncomeTarget));
         int incomeCeiling = (int) Math.round(targetIncome * (1 + percentIncomeTarget));
 
-        returnedSurveys = surveyDao.getByPropertiesValueAndRange("familySize", familySize, "income", incomeFloor, incomeCeiling);
+        returnedSurveys = surveyDao.getByPropertiesValueAndRange("familySize",
+                familySize, "income", incomeFloor, incomeCeiling);
 
         return returnedSurveys;
     }
 
-    // todo doc and test
+    /**
+     * Gets matching stories.
+     *
+     * @return the matching stories
+     */
     public List<Story> getMatchingStories() {
         List<Story> matchingStories = new ArrayList<>();
 
