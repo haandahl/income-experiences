@@ -31,9 +31,7 @@
                     <div class="form-group">
                         <label for="careerInput">Career:</label>
 
-                        <!-- TODO keep selection from erroneous submittal -->
-
-                        <select class="form-control" id="careerInput" name="careerInput">
+                         <select class="form-control" id="careerInput" name="careerInput">
                             <option selected value="">(select a job or skip this and enter income below) </option>
                             <optgroup label="Both Top Jobs and Most New Jobs">
                                 <option <c:if test="${careerInput.equals('bestAndMost1')}">selected</c:if> value="bestAndMost1">${incomeExperiencesProperties["bestAndMost1.display.name"]}</option>

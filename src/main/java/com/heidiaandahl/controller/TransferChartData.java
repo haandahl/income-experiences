@@ -1,8 +1,5 @@
 package com.heidiaandahl.controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +19,6 @@ import java.io.IOException;
         urlPatterns = { "/chart-data"}
 )
 public class TransferChartData extends HttpServlet {
-    private final Logger logger = LogManager.getLogger(this.getClass());
 
     /**
      * Makes data from the session available for charts made using JavaScript.

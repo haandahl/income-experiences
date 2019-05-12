@@ -41,7 +41,7 @@ public class TopicSearch {
         // create native Lucene query using the query DSL
         QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Story.class).get();
 
-        // Do an "or" search that will be fuzzy if incoming words end in ~2 (future development)
+        // Do an "or" search on the story content
         Query query = queryBuilder
                 .simpleQueryString()
                 .onFields("storyContent")

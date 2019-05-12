@@ -66,7 +66,7 @@ public class CareerMedianWage {
         // map json to Java class
         Response careerResponse = getCareerResponse(response);
 
-        // Get the first (only series) and its data items
+        // Get the first (only) series and its data items
         try {
             careerDataItems = careerResponse.getResults().getSeries().get(0).getData();
             medianWage = getMedianWage(careerDataItems);

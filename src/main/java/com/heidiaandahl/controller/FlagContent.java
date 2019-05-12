@@ -33,10 +33,10 @@ public class FlagContent extends HttpServlet {
      * Marks a financial story "unsuitable" based on user input. Directs the user back to the page where they flagged
      * the content without changing anything that does not pertain to their flagging action.
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request the request
+     * @param response the response
+     * @throws ServletException servlet exception
+     * @throws IOException io exception
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
          // match the user-flagged story to the story in the database
