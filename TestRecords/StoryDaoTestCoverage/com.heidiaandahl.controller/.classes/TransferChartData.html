@@ -1,0 +1,125 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: TransferChartData</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.heidiaandahl.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: TransferChartData (com.heidiaandahl.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TransferChartData</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/ 7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.heidiaandahl.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.apache.logging.log4j.LogManager;
+<i>4</i>&nbsp;import org.apache.logging.log4j.Logger;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import javax.servlet.annotation.WebServlet;
+<i>7</i>&nbsp;import javax.servlet.http.HttpServlet;
+<i>8</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>9</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>10</i>&nbsp;import javax.servlet.http.HttpSession;
+<i>11</i>&nbsp;import java.io.IOException;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/**
+<i>14</i>&nbsp; * Makes data from the session available for charts made using JavaScript.
+<i>15</i>&nbsp; * Inspired by Joe (Joseph Kulandai) at
+<i>16</i>&nbsp; * https://javapapers.com/ajax/getting-started-with-ajax-using-java/.
+<i>17</i>&nbsp; *
+<i>18</i>&nbsp; * @author Heidi Aandahl
+<i>19</i>&nbsp; */
+<i>20</i>&nbsp;@WebServlet(
+<i>21</i>&nbsp;        name = &quot;chartData&quot;,
+<i>22</i>&nbsp;        urlPatterns = { &quot;/chart-data&quot;}
+<i>23</i>&nbsp;)
+<b class="fc"><i>24</i>&nbsp;public class TransferChartData extends HttpServlet {</b>
+<b class="fc"><i>25</i>&nbsp;    private final Logger logger = LogManager.getLogger(this.getClass());</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Makes data from the session available for charts made using JavaScript.
+<i>29</i>&nbsp;     *
+<i>30</i>&nbsp;     * @param request the request
+<i>31</i>&nbsp;     * @param response the response
+<i>32</i>&nbsp;     * @throws IOException io exception
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    public void doPost(HttpServletRequest request, HttpServletResponse response)
+<i>35</i>&nbsp;            throws java.io.IOException {
+<i>36</i>&nbsp;
+<b class="fc"><i>37</i>&nbsp;        HttpSession httpSession = request.getSession();</b>
+<b class="fc"><i>38</i>&nbsp;        String chartData = (String) httpSession.getAttribute(&quot;chartData&quot;);</b>
+<b class="fc"><i>39</i>&nbsp;        response.setContentType(&quot;text/html&quot;);</b>
+<b class="fc"><i>40</i>&nbsp;        response.getWriter().write(chartData);</b>
+<b class="nc"><i>41</i>&nbsp;    }</b>
+<i>42</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-11 07:45</div>
+</div>
+</body>
+</html>

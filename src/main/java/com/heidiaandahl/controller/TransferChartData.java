@@ -32,7 +32,7 @@ public class TransferChartData extends HttpServlet {
      * @throws IOException io exception
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws java.io.IOException {
+            throws IOException {
 
         HttpSession httpSession = request.getSession();
         String chartData = (String) httpSession.getAttribute("chartData");

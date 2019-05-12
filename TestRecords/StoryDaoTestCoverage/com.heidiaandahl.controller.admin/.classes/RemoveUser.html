@@ -1,0 +1,136 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RemoveUser</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.heidiaandahl.controller.admin</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RemoveUser (com.heidiaandahl.controller.admin)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RemoveUser</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.heidiaandahl.controller.admin;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.heidiaandahl.entity.User;
+<i>4</i>&nbsp;import com.heidiaandahl.persistence.GenericDao;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import javax.servlet.RequestDispatcher;
+<i>7</i>&nbsp;import javax.servlet.ServletException;
+<i>8</i>&nbsp;import javax.servlet.annotation.WebServlet;
+<i>9</i>&nbsp;import javax.servlet.http.HttpServlet;
+<i>10</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>11</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>12</i>&nbsp;import java.io.IOException;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;/**
+<i>15</i>&nbsp; * A servlet that removes a user from the database and returns the administrator back to the admin page,
+<i>16</i>&nbsp; * where they will see a message indicating that the removal occurred.
+<i>17</i>&nbsp; *
+<i>18</i>&nbsp; * @author Heidi Aandahl
+<i>19</i>&nbsp; */
+<i>20</i>&nbsp;@WebServlet(
+<i>21</i>&nbsp;    name = &quot;removeUser&quot;,
+<i>22</i>&nbsp;    urlPatterns = { &quot;/remove-user&quot;}
+<i>23</i>&nbsp;)
+<b class="nc"><i>24</i>&nbsp;public class RemoveUser extends HttpServlet {</b>
+<i>25</i>&nbsp;    /**
+<i>26</i>&nbsp;     * Removes a user from the database and returns the administrator back to the admin page,
+<i>27</i>&nbsp;     * where they will see a message indicating that the removal occurred.
+<i>28</i>&nbsp;     *
+<i>29</i>&nbsp;     * @param request the request
+<i>30</i>&nbsp;     * @param response the response
+<i>31</i>&nbsp;     * @throws ServletException servlet exception
+<i>32</i>&nbsp;     * @throws IOException io exception
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<i>35</i>&nbsp;        // get the user selected for removal
+<b class="nc"><i>36</i>&nbsp;        int userId = Integer.parseInt(request.getParameter(&quot;user-to-remove&quot;));</b>
+<b class="nc"><i>37</i>&nbsp;        GenericDao userDao = new GenericDao(User.class);</b>
+<b class="nc"><i>38</i>&nbsp;        User userToRemove = (User) userDao.getById(userId);</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;        // delete the user from the database
+<b class="nc"><i>41</i>&nbsp;        userDao.delete(userToRemove);</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;        // Prepare feedback for the admin
+<b class="nc"><i>44</i>&nbsp;        String deleteUserMessage = &quot;The site user &quot; + userToRemove.getUsername() + &quot; was removed.&quot;;</b>
+<b class="nc"><i>45</i>&nbsp;        request.setAttribute(&quot;adminFeedbackMessage&quot;, deleteUserMessage);</b>
+<i>46</i>&nbsp;
+<b class="nc"><i>47</i>&nbsp;        RequestDispatcher dispatcher = request.getRequestDispatcher(&quot;admin&quot;);</b>
+<b class="nc"><i>48</i>&nbsp;        dispatcher.forward(request, response);</b>
+<b class="nc"><i>49</i>&nbsp;    }</b>
+<i>50</i>&nbsp;}
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-11 07:45</div>
+</div>
+</body>
+</html>

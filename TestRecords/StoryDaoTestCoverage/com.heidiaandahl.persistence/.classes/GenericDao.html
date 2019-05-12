@@ -1,0 +1,366 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GenericDao</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.heidiaandahl.persistence</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GenericDao (com.heidiaandahl.persistence)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GenericDao</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 101)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.heidiaandahl.persistence;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.apache.logging.log4j.LogManager;
+<i>4</i>&nbsp;import org.apache.logging.log4j.Logger;
+<i>5</i>&nbsp;import org.hibernate.Session;
+<i>6</i>&nbsp;import org.hibernate.Transaction;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import javax.persistence.criteria.*;
+<i>9</i>&nbsp;import java.util.ArrayList;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;import java.util.Map;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/**
+<i>14</i>&nbsp; * A generic data access object (DAO) following the model from Paula Waite&#39;s Enterprise Java Course,
+<i>15</i>&nbsp; * originally inspired in part by http://rodrigouchoa.wordpress.com.
+<i>16</i>&nbsp; *
+<i>17</i>&nbsp; * @param &lt;T&gt; the type parameter
+<i>18</i>&nbsp; * @author Heidi Aandahl
+<i>19</i>&nbsp; */
+<i>20</i>&nbsp;public class GenericDao&lt;T&gt; {
+<i>21</i>&nbsp;    private Class&lt;T&gt; type;
+<b class="nc"><i>22</i>&nbsp;    private final Logger logger = LogManager.getLogger(this.getClass());</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * Instantiates a new Generic dao.
+<i>26</i>&nbsp;     *
+<i>27</i>&nbsp;     * @param type the type
+<i>28</i>&nbsp;     */
+<b class="nc"><i>29</i>&nbsp;    public GenericDao(Class&lt;T&gt; type) {</b>
+<b class="nc"><i>30</i>&nbsp;        this.type = type;</b>
+<i>31</i>&nbsp;    }
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * Returns an open session from the SessionFactory.
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    private Session getSession() {
+<b class="nc"><i>37</i>&nbsp;        return SessionFactoryProvider.getSessionFactory().openSession();</b>
+<i>38</i>&nbsp;    }
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    /**
+<i>42</i>&nbsp;     * Inserts an entity
+<i>43</i>&nbsp;     *
+<i>44</i>&nbsp;     * @param entity the entity
+<i>45</i>&nbsp;     * @return the entity id
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    public int insert(T entity) {
+<b class="nc"><i>48</i>&nbsp;        int id = 0;</b>
+<b class="nc"><i>49</i>&nbsp;        Session session = getSession();</b>
+<b class="nc"><i>50</i>&nbsp;        Transaction transaction = session.beginTransaction();</b>
+<i>51</i>&nbsp;
+<b class="nc"><i>52</i>&nbsp;        id = (int)session.save(entity);</b>
+<i>53</i>&nbsp;
+<b class="nc"><i>54</i>&nbsp;        transaction.commit();</b>
+<b class="nc"><i>55</i>&nbsp;        session.close();</b>
+<i>56</i>&nbsp;
+<b class="nc"><i>57</i>&nbsp;        return id;</b>
+<i>58</i>&nbsp;    }
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    /**
+<i>61</i>&nbsp;     * Gets all entities
+<i>62</i>&nbsp;     *
+<i>63</i>&nbsp;     * @return the all entities
+<i>64</i>&nbsp;     */
+<i>65</i>&nbsp;    public List&lt;T&gt; getAll() {
+<b class="nc"><i>66</i>&nbsp;        Session session = getSession();</b>
+<i>67</i>&nbsp;
+<b class="nc"><i>68</i>&nbsp;        CriteriaBuilder builder = session.getCriteriaBuilder();</b>
+<i>69</i>&nbsp;
+<b class="nc"><i>70</i>&nbsp;        CriteriaQuery&lt;T&gt; query = builder.createQuery(type);</b>
+<b class="nc"><i>71</i>&nbsp;        Root&lt;T&gt; root = query.from(type);</b>
+<b class="nc"><i>72</i>&nbsp;        List&lt;T&gt; list = session.createQuery(query).getResultList();</b>
+<b class="nc"><i>73</i>&nbsp;        session.close();</b>
+<b class="nc"><i>74</i>&nbsp;        return list;</b>
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;    }
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /**
+<i>79</i>&nbsp;     * Gets an entity by id.
+<i>80</i>&nbsp;     *
+<i>81</i>&nbsp;     * @param &lt;T&gt; the type of entity
+<i>82</i>&nbsp;     * @param id  the id of the entity
+<i>83</i>&nbsp;     * @return the id of the entity
+<i>84</i>&nbsp;     */
+<i>85</i>&nbsp;    public &lt;T&gt; T getById(int id) {
+<b class="nc"><i>86</i>&nbsp;        Session session = getSession(); // Is this where the NPE is?</b>
+<b class="nc"><i>87</i>&nbsp;        T entity = (T)session.get(type, id);</b>
+<b class="nc"><i>88</i>&nbsp;        session.close();</b>
+<b class="nc"><i>89</i>&nbsp;        return entity;</b>
+<i>90</i>&nbsp;    }
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;     /**
+<i>93</i>&nbsp;     * Gets entities by property name and value when the value is a String.
+<i>94</i>&nbsp;     *
+<i>95</i>&nbsp;     * @param propertyName the property name
+<i>96</i>&nbsp;     * @param value        the property value
+<i>97</i>&nbsp;     * @return the entities matching the query
+<i>98</i>&nbsp;     */
+<i>99</i>&nbsp;    public List&lt;T&gt; getByPropertyName(String propertyName, String value) {
+<b class="nc"><i>100</i>&nbsp;        Session session = getSession();</b>
+<i>101</i>&nbsp;
+<b class="nc"><i>102</i>&nbsp;        CriteriaBuilder builder = session.getCriteriaBuilder();</b>
+<b class="nc"><i>103</i>&nbsp;        CriteriaQuery&lt;T&gt; query = builder.createQuery(type);</b>
+<b class="nc"><i>104</i>&nbsp;        Root&lt;T&gt; root = query.from(type);</b>
+<i>105</i>&nbsp;
+<b class="nc"><i>106</i>&nbsp;        query.select(root).where(builder.equal(root.get(propertyName), value));</b>
+<b class="nc"><i>107</i>&nbsp;        List&lt;T&gt; entities = session.createQuery(query).getResultList();</b>
+<b class="nc"><i>108</i>&nbsp;        session.close();</b>
+<b class="nc"><i>109</i>&nbsp;        return entities;</b>
+<i>110</i>&nbsp;    }
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    /**
+<i>113</i>&nbsp;     * Gets entities by property name and value when the value is a boolean.
+<i>114</i>&nbsp;     *
+<i>115</i>&nbsp;     * @param propertyName the property name
+<i>116</i>&nbsp;     * @param value        the property value
+<i>117</i>&nbsp;     * @return the entities matching the query
+<i>118</i>&nbsp;     */
+<i>119</i>&nbsp;    public List&lt;T&gt; getByPropertyName(String propertyName, boolean value) {
+<b class="nc"><i>120</i>&nbsp;        Session session = getSession();</b>
+<i>121</i>&nbsp;
+<b class="nc"><i>122</i>&nbsp;        CriteriaBuilder builder = session.getCriteriaBuilder();</b>
+<b class="nc"><i>123</i>&nbsp;        CriteriaQuery&lt;T&gt; query = builder.createQuery(type);</b>
+<b class="nc"><i>124</i>&nbsp;        Root&lt;T&gt; root = query.from(type);</b>
+<i>125</i>&nbsp;
+<b class="nc"><i>126</i>&nbsp;        query.select(root).where(builder.equal(root.get(propertyName), value));</b>
+<b class="nc"><i>127</i>&nbsp;        List&lt;T&gt; entities = session.createQuery(query).getResultList();</b>
+<b class="nc"><i>128</i>&nbsp;        session.close();</b>
+<b class="nc"><i>129</i>&nbsp;        return entities;</b>
+<i>130</i>&nbsp;    }
+<i>131</i>&nbsp;
+<i>132</i>&nbsp;    /**
+<i>133</i>&nbsp;     * Gets entities by property name and value when the value is an int.
+<i>134</i>&nbsp;     *
+<i>135</i>&nbsp;     * @param propertyName the property name
+<i>136</i>&nbsp;     * @param value        the property value
+<i>137</i>&nbsp;     * @return the entities matching the query
+<i>138</i>&nbsp;     */
+<i>139</i>&nbsp;    public List&lt;T&gt; getByPropertyName(String propertyName, int value) {
+<b class="nc"><i>140</i>&nbsp;        Session session = getSession();</b>
+<i>141</i>&nbsp;
+<b class="nc"><i>142</i>&nbsp;        CriteriaBuilder builder = session.getCriteriaBuilder();</b>
+<b class="nc"><i>143</i>&nbsp;        CriteriaQuery&lt;T&gt; query = builder.createQuery(type);</b>
+<b class="nc"><i>144</i>&nbsp;        Root&lt;T&gt; root = query.from(type);</b>
+<i>145</i>&nbsp;
+<b class="nc"><i>146</i>&nbsp;        query.select(root).where(builder.equal(root.get(propertyName), value));</b>
+<b class="nc"><i>147</i>&nbsp;        List&lt;T&gt; entities = session.createQuery(query).getResultList();</b>
+<b class="nc"><i>148</i>&nbsp;        session.close();</b>
+<b class="nc"><i>149</i>&nbsp;        return entities;</b>
+<i>150</i>&nbsp;    }
+<i>151</i>&nbsp;
+<i>152</i>&nbsp;    /**
+<i>153</i>&nbsp;     * Gets entities by two properties, one based on a single value and the other based on a range of values.
+<i>154</i>&nbsp;     *
+<i>155</i>&nbsp;     * @param singlePropertyName property name to be searched by value
+<i>156</i>&nbsp;     * @param value value property
+<i>157</i>&nbsp;     * @param rangePropertyName property name to be searched by range
+<i>158</i>&nbsp;     * @param floor floor of range
+<i>159</i>&nbsp;     * @param ceiling ceiling of range
+<i>160</i>&nbsp;     * @return entities matching criteria
+<i>161</i>&nbsp;     */
+<i>162</i>&nbsp;    public List&lt;T&gt; getByPropertiesValueAndRange(String singlePropertyName, int value, String rangePropertyName, int floor, int ceiling) {
+<b class="nc"><i>163</i>&nbsp;        Session session = getSession();</b>
+<i>164</i>&nbsp;
+<b class="nc"><i>165</i>&nbsp;        CriteriaBuilder builder = session.getCriteriaBuilder();</b>
+<b class="nc"><i>166</i>&nbsp;        CriteriaQuery&lt;T&gt; query = builder.createQuery(type);</b>
+<b class="nc"><i>167</i>&nbsp;        Root&lt;T&gt; root = query.from(type);</b>
+<i>168</i>&nbsp;
+<b class="nc"><i>169</i>&nbsp;        List&lt;Predicate&gt; predicates = new ArrayList&lt;Predicate&gt;();</b>
+<b class="nc"><i>170</i>&nbsp;        predicates.add(builder.equal(root.get(singlePropertyName), value));</b>
+<b class="nc"><i>171</i>&nbsp;        predicates.add(builder.between(root.get(rangePropertyName), floor, ceiling));</b>
+<b class="nc"><i>172</i>&nbsp;        query.select(root).where(builder.and(predicates.toArray(new Predicate[predicates.size()])));</b>
+<i>173</i>&nbsp;
+<b class="nc"><i>174</i>&nbsp;        List&lt;T&gt; entities = session.createQuery(query).getResultList();</b>
+<b class="nc"><i>175</i>&nbsp;        session.close();</b>
+<b class="nc"><i>176</i>&nbsp;        return entities;</b>
+<i>177</i>&nbsp;    }
+<i>178</i>&nbsp;
+<i>179</i>&nbsp;    /**
+<i>180</i>&nbsp;     * Finds entities by multiple properties.
+<i>181</i>&nbsp;     * Written by Paula Waite (with slight modifications)
+<i>182</i>&nbsp;     * Inspired by https://stackoverflow.com/questions/11138118/really-dynamic-jpa-criteriabuilder
+<i>183</i>&nbsp;     * @param propertyMap property and value pairs
+<i>184</i>&nbsp;     * @return entities with properties equal to those passed in the map
+<i>185</i>&nbsp;     */
+<i>186</i>&nbsp;    public List&lt;T&gt; getByPropertyNames(Map&lt;String, Object&gt; propertyMap) {
+<b class="nc"><i>187</i>&nbsp;        Session session = getSession();</b>
+<b class="nc"><i>188</i>&nbsp;        CriteriaBuilder builder = session.getCriteriaBuilder();</b>
+<b class="nc"><i>189</i>&nbsp;        CriteriaQuery&lt;T&gt; query = builder.createQuery(type);</b>
+<b class="nc"><i>190</i>&nbsp;        Root&lt;T&gt; root = query.from(type);</b>
+<b class="nc"><i>191</i>&nbsp;        List&lt;Predicate&gt; predicates = new ArrayList&lt;Predicate&gt;();</b>
+<b class="nc"><i>192</i>&nbsp;        for (Map.Entry entry: propertyMap.entrySet()) {</b>
+<b class="nc"><i>193</i>&nbsp;            predicates.add(builder.equal(root.get((String) entry.getKey()), entry.getValue()));</b>
+<b class="nc"><i>194</i>&nbsp;        }</b>
+<b class="nc"><i>195</i>&nbsp;        query.select(root).where(builder.and(predicates.toArray(new Predicate[predicates.size()])));</b>
+<i>196</i>&nbsp;
+<b class="nc"><i>197</i>&nbsp;        List&lt;T&gt; entities = session.createQuery(query).getResultList();</b>
+<b class="nc"><i>198</i>&nbsp;        session.close();</b>
+<i>199</i>&nbsp;
+<b class="nc"><i>200</i>&nbsp;        return entities;</b>
+<i>201</i>&nbsp;    }
+<i>202</i>&nbsp;
+<i>203</i>&nbsp;    /**
+<i>204</i>&nbsp;     * Gets tally by multiple properties.
+<i>205</i>&nbsp;     * @param propertyMap property and value pairs
+<i>206</i>&nbsp;     * @return tally of matching entities
+<i>207</i>&nbsp;     */
+<i>208</i>&nbsp;    public Long getTallyByPropertyNames(Map&lt;String, Object&gt; propertyMap) {
+<b class="nc"><i>209</i>&nbsp;        Session session = getSession();</b>
+<b class="nc"><i>210</i>&nbsp;        CriteriaBuilder builder = session.getCriteriaBuilder();</b>
+<i>211</i>&nbsp;         /*
+<i>212</i>&nbsp;            Resource for querying to get a sum:
+<i>213</i>&nbsp;            https://stackoverflow.com/questions/14363634/jpa-hibernate-count-using-criteriabuilder-with-generatedalias
+<i>214</i>&nbsp;            Answer by perissf
+<i>215</i>&nbsp;         */
+<b class="nc"><i>216</i>&nbsp;        CriteriaQuery&lt;Long&gt; queryCount = builder.createQuery(Long.class);</b>
+<b class="nc"><i>217</i>&nbsp;        Root&lt;T&gt; root = queryCount.from(type);</b>
+<i>218</i>&nbsp;
+<b class="nc"><i>219</i>&nbsp;        List&lt;Predicate&gt; predicates = new ArrayList&lt;Predicate&gt;();</b>
+<b class="nc"><i>220</i>&nbsp;        for (Map.Entry entry: propertyMap.entrySet()) {</b>
+<b class="nc"><i>221</i>&nbsp;            predicates.add(builder.equal(root.get((String) entry.getKey()), entry.getValue()));</b>
+<b class="nc"><i>222</i>&nbsp;        }</b>
+<b class="nc"><i>223</i>&nbsp;        queryCount.select(builder.count(root)).where(builder.and(predicates.toArray(new Predicate[predicates.size()])));</b>
+<i>224</i>&nbsp;
+<b class="nc"><i>225</i>&nbsp;        Long tally = session.createQuery(queryCount).getSingleResult();</b>
+<b class="nc"><i>226</i>&nbsp;        session.close();</b>
+<i>227</i>&nbsp;
+<b class="nc"><i>228</i>&nbsp;        return tally;</b>
+<i>229</i>&nbsp;    }
+<i>230</i>&nbsp;
+<i>231</i>&nbsp;    /**
+<i>232</i>&nbsp;     * Gets by property where the search String is contained in the value.
+<i>233</i>&nbsp;     *
+<i>234</i>&nbsp;     * @param propertyName the property name
+<i>235</i>&nbsp;     * @param value        the search String
+<i>236</i>&nbsp;     * @return the entities matching the query
+<i>237</i>&nbsp;     */
+<i>238</i>&nbsp;    public List&lt;T&gt; getByPropertyLike(String propertyName, String value) {
+<b class="nc"><i>239</i>&nbsp;        Session session = getSession();</b>
+<i>240</i>&nbsp;
+<b class="nc"><i>241</i>&nbsp;        logger.debug(&quot;Searching for story with {} = {}&quot;,  propertyName, value);</b>
+<i>242</i>&nbsp;
+<b class="nc"><i>243</i>&nbsp;        CriteriaBuilder builder = session.getCriteriaBuilder();</b>
+<b class="nc"><i>244</i>&nbsp;        CriteriaQuery&lt;T&gt; query = builder.createQuery(type);</b>
+<b class="nc"><i>245</i>&nbsp;        Root&lt;T&gt; root = query.from(type);</b>
+<b class="nc"><i>246</i>&nbsp;        Expression&lt;String&gt; propertyPath = root.get(propertyName);</b>
+<i>247</i>&nbsp;
+<b class="nc"><i>248</i>&nbsp;        query.where(builder.like(propertyPath, &quot;%&quot; + value + &quot;%&quot;));</b>
+<i>249</i>&nbsp;
+<b class="nc"><i>250</i>&nbsp;        List&lt;T&gt; entities = session.createQuery(query).getResultList();</b>
+<b class="nc"><i>251</i>&nbsp;        session.close();</b>
+<b class="nc"><i>252</i>&nbsp;        return entities;</b>
+<i>253</i>&nbsp;    }
+<i>254</i>&nbsp;
+<i>255</i>&nbsp;    /**
+<i>256</i>&nbsp;     * Save or update.
+<i>257</i>&nbsp;     *
+<i>258</i>&nbsp;     * @param entity the entity
+<i>259</i>&nbsp;     */
+<i>260</i>&nbsp;    public void saveOrUpdate(T entity) {
+<b class="nc"><i>261</i>&nbsp;        Session session = getSession();</b>
+<b class="nc"><i>262</i>&nbsp;        Transaction transaction = session.beginTransaction();</b>
+<i>263</i>&nbsp;
+<b class="nc"><i>264</i>&nbsp;        session.saveOrUpdate(entity);</b>
+<i>265</i>&nbsp;
+<b class="nc"><i>266</i>&nbsp;        transaction.commit();</b>
+<b class="nc"><i>267</i>&nbsp;        session.close();</b>
+<i>268</i>&nbsp;    }
+<i>269</i>&nbsp;
+<i>270</i>&nbsp;    /**
+<i>271</i>&nbsp;     * Deletes the entity.
+<i>272</i>&nbsp;     *
+<i>273</i>&nbsp;     * @param entity entity to be deleted
+<i>274</i>&nbsp;     */
+<i>275</i>&nbsp;    public void delete(T entity) {
+<b class="nc"><i>276</i>&nbsp;        Session session = getSession();</b>
+<b class="nc"><i>277</i>&nbsp;        Transaction transaction = session.beginTransaction();</b>
+<b class="nc"><i>278</i>&nbsp;        session.delete(entity);</b>
+<b class="nc"><i>279</i>&nbsp;        transaction.commit();</b>
+<b class="nc"><i>280</i>&nbsp;        session.close();</b>
+<i>281</i>&nbsp;    }
+<i>282</i>&nbsp;
+<i>283</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-11 07:45</div>
+</div>
+</body>
+</html>

@@ -39,27 +39,24 @@ public class FlagContent extends HttpServlet {
      * @throws IOException
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         // get the problematic story
-        String flaggedContent = request.getParameter("flaggable-story");
-
+         // match the user-flagged story to the story in the database
+        String flaggedStoryId = request.getParameter("flaggable-story");
+        int flaggedStoryIdInt = Integer.parseInt(flaggedStoryId);
         GenericDao storyDao = new GenericDao(Story.class);
-        List<Story> flaggedStories = (List<Story>) storyDao.getByPropertyName("storyContent", flaggedContent);
+        Story problemStory = (Story) storyDao.getById(flaggedStoryIdInt);
 
-        // ServletContext context = getServletContext();
+        // mark the story "unsuitable" in the database
+        if (!problemStory.isUnsuitable()) {
+            problemStory.setUnsuitable(true);
+            storyDao.saveOrUpdate(problemStory);
+        }
+
+        // update the httpSession list so the user can see that the story will be reviewed
         HttpSession httpSession = request.getSession();
         List<Story> flagOrigin = (List<Story>) httpSession.getAttribute("storiesToDisplay");
 
-        // mark the story "unsuitable" in the database (includes stories with duplicate content if they exist)
-        for (Story story : flaggedStories) {
-            if (!story.isUnsuitable()) {
-                story.setUnsuitable(true);
-                storyDao.saveOrUpdate(story);
-            }
-        }
-
-        // mark the story "unsuitable in the httpSession list so that it is updated for the user's benefit
         for (Story story : flagOrigin) {
-            if (story.getStoryContent().equals(flaggedContent)) {
+            if (story.getId() == problemStory.getId()) {
                 story.setUnsuitable(true);
             }
         }

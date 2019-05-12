@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: TestBlsApi</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.heidiaandahl.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: TestBlsApi (com.heidiaandahl.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TestBlsApi</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.heidiaandahl.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fasterxml.jackson.databind.ObjectMapper;
+<i>4</i>&nbsp;import org.junit.jupiter.api.Test;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import javax.ws.rs.client.*;
+<i>7</i>&nbsp;import javax.ws.rs.core.MediaType;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import static org.junit.jupiter.api.Assertions.assertEquals;
+<i>12</i>&nbsp;
+<b class="nc"><i>13</i>&nbsp;public class TestBlsApi {</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    @Test
+<i>16</i>&nbsp;    public void testBlsApi() throws Exception {
+<i>17</i>&nbsp;        /*
+<i>18</i>&nbsp;        Client client = ClientBuilder.newClient();
+<i>19</i>&nbsp;        // TODO - obtain api key from properties and apply it here to allow more data calls
+<i>20</i>&nbsp;        // ?registrationkey=
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;        // api request for web developer wage
+<i>23</i>&nbsp;        WebTarget target =
+<i>24</i>&nbsp;                client.target(&quot;https://api.bls.gov/publicAPI/v2/timeseries/data/&quot; +
+<i>25</i>&nbsp;                        &quot;OEUN000000000000015113413&quot;);
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;        String expectedResponse = &quot;{\&quot;status\&quot;:\&quot;REQUEST_SUCCEEDED\&quot;,\&quot;responseTime\&quot;:266,\&quot;message\&quot;:[\&quot;No Data Available for Series OEUN000000000000015113413 Year: 2016\&quot;,\&quot;No Data Available for Series OEUN000000000000015113413 Year: 2017\&quot;],\&quot;Results\&quot;:{\n&quot; +
+<i>28</i>&nbsp;                &quot;  \&quot;series\&quot;:\n&quot; +
+<i>29</i>&nbsp;                &quot;  [{\&quot;seriesID\&quot;:\&quot;OEUN000000000000015113413\&quot;,\&quot;data\&quot;:[{\&quot;year\&quot;:\&quot;2018\&quot;,\&quot;period\&quot;:\&quot;A01\&quot;,\&quot;periodName\&quot;:\&quot;Annual\&quot;,\&quot;latest\&quot;:\&quot;true\&quot;,\&quot;value\&quot;:\&quot;69430\&quot;,\&quot;footnotes\&quot;:[{}]}]}]\n&quot; +
+<i>30</i>&nbsp;                &quot;}}&quot;;
+<i>31</i>&nbsp;        String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
+<i>32</i>&nbsp;        // Note: this doesn&#39;t work because the respones includes responseTime, which varies
+<i>33</i>&nbsp;                // assertEquals(expectedResponse, response);
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;        // I think how this might work is we want to get the DataItem for which &quot;latest&quot; is &quot;true&quot; and return its &quot;value&quot;
+<i>36</i>&nbsp;        // I&#39;m not sure how this might look if a career has data for more than one year
+<i>37</i>&nbsp;        // For the test case, the only value is 69430 so I&#39;ll try to get at that
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;        ObjectMapper mapper = new ObjectMapper();
+<i>40</i>&nbsp;        Response webDevResponse = mapper.readValue(response, Response.class);
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;        // Get the first (only series) and its data items
+<i>43</i>&nbsp;        List&lt;DataItem&gt; webDevDataItems = webDevResponse.getResults().getSeries().get(0).getData();
+<i>44</i>&nbsp;        //Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.103 sec &lt;&lt;&lt; FAILURE! - in com.heidiaandahl.service.TestBlsApi
+<i>45</i>&nbsp;        //testBlsApi()  Time elapsed: 2.103 sec  &lt;&lt;&lt; ERROR!
+<i>46</i>&nbsp;        //java.lang.NullPointerException
+<i>47</i>&nbsp;        //	at com.heidiaandahl.service.TestBlsApi.testBlsApi(TestBlsApi.java:42)
+<i>48</i>&nbsp;        // is this from making too many calls without key?
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;        // todo - decide how much to keep in this test -- it&#39;s more useful for getting a feel for the data
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;        // Find average of wages for recent years
+<i>53</i>&nbsp;        // Not totally sure this is necessary - maybe only one year is ever marked latest?
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;        int wagesSum = 0;
+<i>56</i>&nbsp;        int numberOfWages = 0;
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;        for (DataItem item : webDevDataItems) {
+<i>59</i>&nbsp;            if (item.getLatest().equals(&quot;true&quot;)) {
+<i>60</i>&nbsp;                wagesSum += Integer.parseInt(item.getValue());
+<i>61</i>&nbsp;                numberOfWages += 1;
+<i>62</i>&nbsp;            }
+<i>63</i>&nbsp;        }
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;        int averageRecentWage = 0;
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;        if (numberOfWages &gt; 0) {
+<i>68</i>&nbsp;            averageRecentWage = Math.round(wagesSum / numberOfWages);
+<i>69</i>&nbsp;        }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;        // todo - reinstate?
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;        //assertEquals(69430, averageRecentWage);
+<i>74</i>&nbsp;        */
+<b class="nc"><i>75</i>&nbsp;        assertEquals(&quot;skipThisTest&quot;, &quot;skipThisTest&quot;);</b>
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;        // TODO - redo test once logic is moved over to ExperiencesSearch
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    }
+<i>80</i>&nbsp;}
+<i>81</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-11 07:45</div>
+</div>
+</body>
+</html>

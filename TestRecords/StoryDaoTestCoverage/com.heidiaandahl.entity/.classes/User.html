@@ -1,0 +1,398 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: User</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.heidiaandahl.entity</a> ]
+</div>
+
+<h1>Coverage Summary for Class: User (com.heidiaandahl.entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">User</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 27)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 76)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.heidiaandahl.entity;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.hibernate.annotations.GenericGenerator;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import javax.persistence.*;
+<i>6</i>&nbsp;import java.io.Serializable;
+<i>7</i>&nbsp;import java.util.*;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/**
+<i>10</i>&nbsp; * User of the web application.
+<i>11</i>&nbsp; *
+<i>12</i>&nbsp; * @author Heidi Aandahl
+<i>13</i>&nbsp; */
+<i>14</i>&nbsp;@Entity(name = &quot;User&quot;)
+<i>15</i>&nbsp;@Table(name = &quot;user&quot;)
+<i>16</i>&nbsp;public class User implements Serializable {
+<i>17</i>&nbsp;    /*
+<i>18</i>&nbsp;        Resource for choice to implement Serializable:
+<i>19</i>&nbsp;        https://stackoverflow.com/questions/4525186/cannot-be-cast-to-java-io-serializable
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    @Id
+<i>23</i>&nbsp;    @GeneratedValue(strategy = GenerationType.AUTO, generator = &quot;native&quot;)
+<i>24</i>&nbsp;    @GenericGenerator(name = &quot;native&quot;, strategy = &quot;native&quot;)
+<i>25</i>&nbsp;    private int id;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @Column(name = &quot;username&quot;)
+<i>28</i>&nbsp;    private String username;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @Column(name = &quot;password&quot;)
+<i>31</i>&nbsp;    private String password;
+<i>32</i>&nbsp;
+<b class="nc"><i>33</i>&nbsp;    @OneToMany(mappedBy = &quot;profileUser&quot;, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)</b>
+<i>34</i>&nbsp;    private Set&lt;Story&gt; storyVersionsForUserProfile = new HashSet&lt;&gt;();
+<i>35</i>&nbsp;
+<b class="nc"><i>36</i>&nbsp;    @OneToMany(mappedBy = &quot;editor&quot;, orphanRemoval = false, fetch = FetchType.EAGER)</b>
+<i>37</i>&nbsp;    private Set&lt;Story&gt; storyVersionsWithUserEdit = new HashSet&lt;&gt;();
+<i>38</i>&nbsp;
+<b class="nc"><i>39</i>&nbsp;    @OneToMany(mappedBy = &quot;participant&quot;, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)</b>
+<i>40</i>&nbsp;    private Set&lt;Survey&gt; userSurveys = new HashSet&lt;&gt;();
+<i>41</i>&nbsp;
+<b class="nc"><i>42</i>&nbsp;    @OneToMany(mappedBy = &quot;username&quot;, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)</b>
+<i>43</i>&nbsp;    private Set&lt;Role&gt; userRoles = new HashSet&lt;&gt;();
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * Instantiates a new User.
+<i>47</i>&nbsp;     */
+<b class="nc"><i>48</i>&nbsp;    public User() {</b>
+<b class="nc"><i>49</i>&nbsp;    }</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * Instantiates a new User.
+<i>53</i>&nbsp;     *
+<i>54</i>&nbsp;     * @param username the username
+<i>55</i>&nbsp;     * @param password the password
+<i>56</i>&nbsp;     */
+<b class="nc"><i>57</i>&nbsp;    public User(String username, String password) {</b>
+<b class="nc"><i>58</i>&nbsp;        this.username = username;</b>
+<b class="nc"><i>59</i>&nbsp;        this.password = password;</b>
+<b class="nc"><i>60</i>&nbsp;    }</b>
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /**
+<i>63</i>&nbsp;     * Gets id.
+<i>64</i>&nbsp;     *
+<i>65</i>&nbsp;     * @return the id
+<i>66</i>&nbsp;     */
+<i>67</i>&nbsp;    public int getId() {
+<b class="nc"><i>68</i>&nbsp;        return id;</b>
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    /**
+<i>72</i>&nbsp;     * Sets id.
+<i>73</i>&nbsp;     *
+<i>74</i>&nbsp;     * @param id the id
+<i>75</i>&nbsp;     */
+<i>76</i>&nbsp;    public void setId(int id) {
+<b class="nc"><i>77</i>&nbsp;        this.id = id;</b>
+<b class="nc"><i>78</i>&nbsp;    }</b>
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;    /**
+<i>81</i>&nbsp;     * Gets username.
+<i>82</i>&nbsp;     *
+<i>83</i>&nbsp;     * @return the username
+<i>84</i>&nbsp;     */
+<i>85</i>&nbsp;    public String getUsername() {
+<b class="nc"><i>86</i>&nbsp;        return username;</b>
+<i>87</i>&nbsp;    }
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;    /**
+<i>90</i>&nbsp;     * Sets username.
+<i>91</i>&nbsp;     *
+<i>92</i>&nbsp;     * @param username the username
+<i>93</i>&nbsp;     */
+<i>94</i>&nbsp;    public void setUsername(String username) {
+<b class="nc"><i>95</i>&nbsp;        this.username = username;</b>
+<b class="nc"><i>96</i>&nbsp;    }</b>
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;    /**
+<i>99</i>&nbsp;     * Gets password.
+<i>100</i>&nbsp;     *
+<i>101</i>&nbsp;     * @return the password
+<i>102</i>&nbsp;     */
+<i>103</i>&nbsp;    public String getPassword() {
+<b class="nc"><i>104</i>&nbsp;        return password;</b>
+<i>105</i>&nbsp;    }
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;    /**
+<i>108</i>&nbsp;     * Sets password.
+<i>109</i>&nbsp;     *
+<i>110</i>&nbsp;     * @param password the password
+<i>111</i>&nbsp;     */
+<i>112</i>&nbsp;    public void setPassword(String password) {
+<b class="nc"><i>113</i>&nbsp;        this.password = password;</b>
+<b class="nc"><i>114</i>&nbsp;    }</b>
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    /**
+<i>117</i>&nbsp;     * Gets story versions for user profile.
+<i>118</i>&nbsp;     *
+<i>119</i>&nbsp;     * @return the story versions for user profile
+<i>120</i>&nbsp;     */
+<i>121</i>&nbsp;    public Set&lt;Story&gt; getStoryVersionsForUserProfile() {
+<b class="nc"><i>122</i>&nbsp;        return storyVersionsForUserProfile;</b>
+<i>123</i>&nbsp;    }
+<i>124</i>&nbsp;
+<i>125</i>&nbsp;    /**
+<i>126</i>&nbsp;     * Sets story versions for user profile.
+<i>127</i>&nbsp;     *
+<i>128</i>&nbsp;     * @param storyVersionsForUserProfile the story versions for user profile
+<i>129</i>&nbsp;     */
+<i>130</i>&nbsp;    public void setStoryVersionsForUserProfile(Set&lt;Story&gt; storyVersionsForUserProfile) {
+<b class="nc"><i>131</i>&nbsp;        this.storyVersionsForUserProfile = storyVersionsForUserProfile;</b>
+<b class="nc"><i>132</i>&nbsp;    }</b>
+<i>133</i>&nbsp;
+<i>134</i>&nbsp;    /**
+<i>135</i>&nbsp;     * Gets story versions with user edit.
+<i>136</i>&nbsp;     *
+<i>137</i>&nbsp;     * @return the story versions with user edit
+<i>138</i>&nbsp;     */
+<i>139</i>&nbsp;    public Set&lt;Story&gt; getStoryVersionsWithUserEdit() {
+<b class="nc"><i>140</i>&nbsp;        return storyVersionsWithUserEdit;</b>
+<i>141</i>&nbsp;    }
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;    /**
+<i>144</i>&nbsp;     * Sets story versions with user edit.
+<i>145</i>&nbsp;     *
+<i>146</i>&nbsp;     * @param storyVersionsWithUserEdit the story versions with user edit
+<i>147</i>&nbsp;     */
+<i>148</i>&nbsp;    public void setStoryVersionsWithUserEdit(Set&lt;Story&gt; storyVersionsWithUserEdit) {
+<b class="nc"><i>149</i>&nbsp;        this.storyVersionsWithUserEdit = storyVersionsWithUserEdit;</b>
+<b class="nc"><i>150</i>&nbsp;    }</b>
+<i>151</i>&nbsp;
+<i>152</i>&nbsp;    /**
+<i>153</i>&nbsp;     * Gets user surveys.
+<i>154</i>&nbsp;     *
+<i>155</i>&nbsp;     * @return the user surveys
+<i>156</i>&nbsp;     */
+<i>157</i>&nbsp;    public Set&lt;Survey&gt; getUserSurveys() {
+<b class="nc"><i>158</i>&nbsp;        return userSurveys;</b>
+<i>159</i>&nbsp;    }
+<i>160</i>&nbsp;
+<i>161</i>&nbsp;    /**
+<i>162</i>&nbsp;     * Sets user surveys.
+<i>163</i>&nbsp;     *
+<i>164</i>&nbsp;     * @param userSurveys the user surveys
+<i>165</i>&nbsp;     */
+<i>166</i>&nbsp;    public void setUserSurveys(Set&lt;Survey&gt; userSurveys) {
+<b class="nc"><i>167</i>&nbsp;        this.userSurveys = userSurveys;</b>
+<b class="nc"><i>168</i>&nbsp;    }</b>
+<i>169</i>&nbsp;
+<i>170</i>&nbsp;    /**
+<i>171</i>&nbsp;     * Gets user roles.
+<i>172</i>&nbsp;     *
+<i>173</i>&nbsp;     * @return the user roles
+<i>174</i>&nbsp;     */
+<i>175</i>&nbsp;    public Set&lt;Role&gt; getUserRoles() {
+<b class="nc"><i>176</i>&nbsp;        return userRoles;</b>
+<i>177</i>&nbsp;    }
+<i>178</i>&nbsp;
+<i>179</i>&nbsp;    /**
+<i>180</i>&nbsp;     * Sets user roles.
+<i>181</i>&nbsp;     *
+<i>182</i>&nbsp;     * @param userRoles the user roles
+<i>183</i>&nbsp;     */
+<i>184</i>&nbsp;    public void setUserRoles(Set&lt;Role&gt; userRoles) {
+<b class="nc"><i>185</i>&nbsp;        this.userRoles = userRoles;</b>
+<b class="nc"><i>186</i>&nbsp;    }</b>
+<i>187</i>&nbsp;
+<i>188</i>&nbsp;    /**
+<i>189</i>&nbsp;     * Add story for profile.
+<i>190</i>&nbsp;     *
+<i>191</i>&nbsp;     * @param story the story
+<i>192</i>&nbsp;     */
+<i>193</i>&nbsp;    public void addStoryForProfile(Story story) {
+<b class="nc"><i>194</i>&nbsp;        storyVersionsForUserProfile.add(story);</b>
+<b class="nc"><i>195</i>&nbsp;        story.setProfileUser(this);</b>
+<b class="nc"><i>196</i>&nbsp;    }</b>
+<i>197</i>&nbsp;
+<i>198</i>&nbsp;    /**
+<i>199</i>&nbsp;     * Remove story for profile.
+<i>200</i>&nbsp;     *
+<i>201</i>&nbsp;     * @param story the story
+<i>202</i>&nbsp;     */
+<i>203</i>&nbsp;    public void removeStoryForProfile(Story story) {
+<b class="nc"><i>204</i>&nbsp;        storyVersionsForUserProfile.remove(story);</b>
+<b class="nc"><i>205</i>&nbsp;        story.setProfileUser(null);</b>
+<b class="nc"><i>206</i>&nbsp;    }</b>
+<i>207</i>&nbsp;
+<i>208</i>&nbsp;    /**
+<i>209</i>&nbsp;     * Add story to edit list.
+<i>210</i>&nbsp;     *
+<i>211</i>&nbsp;     * @param story the story
+<i>212</i>&nbsp;     */
+<i>213</i>&nbsp;    public void addStoryToEditList(Story story) {
+<b class="nc"><i>214</i>&nbsp;        storyVersionsWithUserEdit.add(story);</b>
+<b class="nc"><i>215</i>&nbsp;        story.setProfileUser(this);</b>
+<b class="nc"><i>216</i>&nbsp;    }</b>
+<i>217</i>&nbsp;
+<i>218</i>&nbsp;    /**
+<i>219</i>&nbsp;     * Remove story to edit list.
+<i>220</i>&nbsp;     *
+<i>221</i>&nbsp;     * @param story the story
+<i>222</i>&nbsp;     */
+<i>223</i>&nbsp;    public void removeStoryFromEditList(Story story) {
+<b class="nc"><i>224</i>&nbsp;        storyVersionsWithUserEdit.remove(story);</b>
+<b class="nc"><i>225</i>&nbsp;        story.setProfileUser(null);</b>
+<b class="nc"><i>226</i>&nbsp;    }</b>
+<i>227</i>&nbsp;
+<i>228</i>&nbsp;     /**
+<i>229</i>&nbsp;     * Get the number of financial story versions associated with the profile that were
+<i>230</i>&nbsp;     * flagged unsuitable and are now no longer visible.
+<i>231</i>&nbsp;     *
+<i>232</i>&nbsp;     * @return the number of archived stories flagged &quot;unsuitable&quot;
+<i>233</i>&nbsp;     */
+<i>234</i>&nbsp;    public int getArchivedUnsuitableStories() {
+<b class="nc"><i>235</i>&nbsp;        int archivedUnsuitableStories = 0;</b>
+<b class="nc"><i>236</i>&nbsp;        for (Story story : this.storyVersionsForUserProfile) {</b>
+<b class="nc"><i>237</i>&nbsp;            if (story.isUnsuitable() &amp;&amp; !story.isVisible()) {</b>
+<b class="nc"><i>238</i>&nbsp;                archivedUnsuitableStories += 1;</b>
+<i>239</i>&nbsp;            }
+<b class="nc"><i>240</i>&nbsp;        }</b>
+<b class="nc"><i>241</i>&nbsp;        return archivedUnsuitableStories;</b>
+<i>242</i>&nbsp;    }
+<i>243</i>&nbsp;
+<i>244</i>&nbsp;    /**
+<i>245</i>&nbsp;     * Removes a role from the user.
+<i>246</i>&nbsp;     *
+<i>247</i>&nbsp;     * @param roleName name of role to remove
+<i>248</i>&nbsp;     */
+<i>249</i>&nbsp;    public void removeRole(String roleName) {
+<i>250</i>&nbsp;        /*
+<i>251</i>&nbsp;            Resource for avoiding ConcurrentModificationException
+<i>252</i>&nbsp;            https://stackoverflow.com/questions/18448671/how-to-avoid-concurrentmodificationexception-while-removing-elements-from-arr
+<i>253</i>&nbsp;            Answer by arshajii
+<i>254</i>&nbsp;         */
+<b class="nc"><i>255</i>&nbsp;        Set&lt;Role&gt; roles = this.userRoles;</b>
+<b class="nc"><i>256</i>&nbsp;        Iterator&lt;Role&gt; iterator = roles.iterator();</b>
+<b class="nc"><i>257</i>&nbsp;        while (iterator.hasNext()) {</b>
+<b class="nc"><i>258</i>&nbsp;            Role role = iterator.next();</b>
+<i>259</i>&nbsp;
+<b class="nc"><i>260</i>&nbsp;            if (role.getName().equals(roleName)) {</b>
+<b class="nc"><i>261</i>&nbsp;                iterator.remove();</b>
+<i>262</i>&nbsp;            }
+<b class="nc"><i>263</i>&nbsp;        }</b>
+<b class="nc"><i>264</i>&nbsp;    }</b>
+<i>265</i>&nbsp;
+<i>266</i>&nbsp;    /**
+<i>267</i>&nbsp;     * Makes any visible profile story versions invisible.
+<i>268</i>&nbsp;     */
+<i>269</i>&nbsp;    public void hideProfileStories() {
+<b class="nc"><i>270</i>&nbsp;        for (Story story : this.storyVersionsForUserProfile) {</b>
+<b class="nc"><i>271</i>&nbsp;            if (story.isVisible()) {</b>
+<b class="nc"><i>272</i>&nbsp;                story.setVisible(false);</b>
+<i>273</i>&nbsp;            }
+<b class="nc"><i>274</i>&nbsp;        }</b>
+<b class="nc"><i>275</i>&nbsp;    }</b>
+<i>276</i>&nbsp;
+<i>277</i>&nbsp;    /**
+<i>278</i>&nbsp;     * Checks whether a user has write privileges.
+<i>279</i>&nbsp;     * @return boolean indicating whether user has write privileges
+<i>280</i>&nbsp;     */
+<i>281</i>&nbsp;    public boolean isAbleToWrite() {
+<b class="nc"><i>282</i>&nbsp;        boolean ableToWrite = false;</b>
+<b class="nc"><i>283</i>&nbsp;        for (Role role : this.userRoles) {</b>
+<b class="nc"><i>284</i>&nbsp;            if (role.getName().equals(&quot;write&quot;)) {</b>
+<b class="nc"><i>285</i>&nbsp;                ableToWrite = true;</b>
+<i>286</i>&nbsp;            }
+<b class="nc"><i>287</i>&nbsp;        }</b>
+<b class="nc"><i>288</i>&nbsp;        return ableToWrite;</b>
+<i>289</i>&nbsp;    }
+<i>290</i>&nbsp;
+<i>291</i>&nbsp;
+<i>292</i>&nbsp;    @Override
+<i>293</i>&nbsp;    public String toString() {
+<b class="nc"><i>294</i>&nbsp;        return &quot;User{&quot; +</b>
+<i>295</i>&nbsp;                &quot;id=&quot; + id +
+<i>296</i>&nbsp;                &quot;, username=&#39;&quot; + username + &#39;\&#39;&#39; +
+<i>297</i>&nbsp;                &quot;, password=&#39;&quot; + password + &#39;\&#39;&#39; +
+<i>298</i>&nbsp;                &#39;}&#39;;
+<i>299</i>&nbsp;    }
+<i>300</i>&nbsp;
+<i>301</i>&nbsp;    @Override
+<i>302</i>&nbsp;    public boolean equals(Object o) {
+<b class="nc"><i>303</i>&nbsp;        if (this == o) return true;</b>
+<b class="nc"><i>304</i>&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="nc"><i>305</i>&nbsp;        User user = (User) o;</b>
+<b class="nc"><i>306</i>&nbsp;        return id == user.id &amp;&amp;</b>
+<b class="nc"><i>307</i>&nbsp;                Objects.equals(username, user.username) &amp;&amp;</b>
+<b class="nc"><i>308</i>&nbsp;                Objects.equals(password, user.password);</b>
+<i>309</i>&nbsp;    }
+<i>310</i>&nbsp;
+<i>311</i>&nbsp;    @Override
+<i>312</i>&nbsp;    public int hashCode() {
+<b class="nc"><i>313</i>&nbsp;        return Objects.hash(id, username, password);</b>
+<i>314</i>&nbsp;    }
+<i>315</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-11 07:45</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,299 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: StoryDaoTest</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.heidiaandahl.persistence</a> ]
+</div>
+
+<h1>Coverage Summary for Class: StoryDaoTest (com.heidiaandahl.persistence)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StoryDaoTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 77)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.heidiaandahl.persistence;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.heidiaandahl.entity.*;
+<i>4</i>&nbsp;import com.heidiaandahl.test.util.Database;
+<i>5</i>&nbsp;import org.junit.jupiter.api.BeforeEach;
+<i>6</i>&nbsp;import org.junit.jupiter.api.Test;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.time.LocalDate;
+<i>9</i>&nbsp;import java.util.ArrayList;
+<i>10</i>&nbsp;import java.util.HashMap;
+<i>11</i>&nbsp;import java.util.List;
+<i>12</i>&nbsp;import java.util.Map;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import static org.junit.jupiter.api.Assertions.*;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;/**
+<i>17</i>&nbsp; * Unit tests for &lt;code style=&quot;color: gray; font-size: 0.8em;&quot;&gt;GenericDao&lt;/code&gt; used with the
+<i>18</i>&nbsp; * &lt;code style=&quot;color: gray; font-size: 0.8em;&quot;&gt;Story&lt;/code&gt; class.
+<i>19</i>&nbsp; *
+<i>20</i>&nbsp; * @author Heidi Aandahl
+<i>21</i>&nbsp; */
+<b class="nc"><i>22</i>&nbsp;public class StoryDaoTest {</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    GenericDao genericStoryDao;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * Sets up a new &lt;code style=&quot;color: gray; font-size: 0.8em;&quot;&gt;GenericDao&lt;/code&gt; and
+<i>28</i>&nbsp;     * refreshes the test database before each unit test.
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    @BeforeEach
+<i>31</i>&nbsp;    void setUp() {
+<b class="nc"><i>32</i>&nbsp;        genericStoryDao = new GenericDao(Story.class);</b>
+<i>33</i>&nbsp;
+<b class="nc"><i>34</i>&nbsp;        Database database = Database.getInstance();</b>
+<b class="nc"><i>35</i>&nbsp;        database.runSQL(&quot;cleandb.sql&quot;);</b>
+<i>36</i>&nbsp;    }
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    /**
+<i>39</i>&nbsp;     * Verifies that a story can be updated with a new visibility setting.
+<i>40</i>&nbsp;     */
+<i>41</i>&nbsp;    @Test
+<i>42</i>&nbsp;    void updateSuccess() {
+<b class="nc"><i>43</i>&nbsp;        boolean isVisible = false;</b>
+<i>44</i>&nbsp;
+<b class="nc"><i>45</i>&nbsp;        Story storyToUpdate = (Story)genericStoryDao.getById(1);</b>
+<b class="nc"><i>46</i>&nbsp;        storyToUpdate.setVisible(isVisible);</b>
+<i>47</i>&nbsp;
+<b class="nc"><i>48</i>&nbsp;        genericStoryDao.saveOrUpdate(storyToUpdate);</b>
+<b class="nc"><i>49</i>&nbsp;        Story retrievedStory = (Story)genericStoryDao.getById(1);</b>
+<i>50</i>&nbsp;
+<b class="nc"><i>51</i>&nbsp;        assertEquals(isVisible, retrievedStory.isVisible());</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * Verifies that a new story can be added.
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;    @Test
+<i>58</i>&nbsp;    void addSuccess() {
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;        // Set up parameters for new Story
+<b class="nc"><i>61</i>&nbsp;        String testStoryContent = &quot;We had triplets this year; it was crazy.&quot;;</b>
+<b class="nc"><i>62</i>&nbsp;        LocalDate testEditDate = LocalDate.parse(&quot;2018-05-30&quot;);</b>
+<b class="nc"><i>63</i>&nbsp;        boolean testVisibility = true;</b>
+<i>64</i>&nbsp;
+<b class="nc"><i>65</i>&nbsp;        GenericDao genericUserDao = new GenericDao(User.class);</b>
+<b class="nc"><i>66</i>&nbsp;        User testProfileUser = (User)genericUserDao.getById(7);</b>
+<b class="nc"><i>67</i>&nbsp;        User testEditor = (User)genericUserDao.getById(7);</b>
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;        // Instantiate new story
+<b class="nc"><i>70</i>&nbsp;        Story newStory = new Story(testStoryContent, testEditDate, testVisibility, testProfileUser, testEditor, false);</b>
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;        // Insert new story to database
+<b class="nc"><i>73</i>&nbsp;        int id = genericStoryDao.insert(newStory);</b>
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;        // Test results
+<b class="nc"><i>76</i>&nbsp;        assertNotEquals(0,id);</b>
+<b class="nc"><i>77</i>&nbsp;        Story insertedStory = (Story)genericStoryDao.getById(id);</b>
+<i>78</i>&nbsp;
+<b class="nc"><i>79</i>&nbsp;        assertEquals(8, insertedStory.getId());</b>
+<b class="nc"><i>80</i>&nbsp;        assertEquals(testStoryContent, insertedStory.getStoryContent());</b>
+<b class="nc"><i>81</i>&nbsp;        assertEquals(testEditDate, insertedStory.getEditDate());</b>
+<b class="nc"><i>82</i>&nbsp;        assertEquals(testVisibility, insertedStory.isVisible());</b>
+<i>83</i>&nbsp;
+<b class="nc"><i>84</i>&nbsp;        assertEquals(7, insertedStory.getProfileUser().getId());</b>
+<b class="nc"><i>85</i>&nbsp;        assertEquals(7, insertedStory.getEditor().getId());</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;     /**
+<i>89</i>&nbsp;     * Verifies that a story can be retrieved by Id.
+<i>90</i>&nbsp;     */
+<i>91</i>&nbsp;    @Test
+<i>92</i>&nbsp;    void getByIdSuccess() {
+<i>93</i>&nbsp;
+<b class="nc"><i>94</i>&nbsp;        LocalDate expectedDate = LocalDate.parse(&quot;2018-01-01&quot;);</b>
+<i>95</i>&nbsp;
+<b class="nc"><i>96</i>&nbsp;        Story retrievedStory = (Story)genericStoryDao.getById(1);</b>
+<b class="nc"><i>97</i>&nbsp;        assertEquals(&quot;We made it work in our 4-generation home.&quot;, retrievedStory.getStoryContent());</b>
+<b class="nc"><i>98</i>&nbsp;        assertEquals(expectedDate, retrievedStory.getEditDate());</b>
+<b class="nc"><i>99</i>&nbsp;        assertEquals(true, retrievedStory.isVisible());</b>
+<b class="nc"><i>100</i>&nbsp;        assertEquals(4, retrievedStory.getProfileUser().getId());</b>
+<b class="nc"><i>101</i>&nbsp;        assertEquals(4, retrievedStory.getEditor().getId());</b>
+<i>102</i>&nbsp;    }
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;    /**
+<i>105</i>&nbsp;     * Verifies that a story version can be retrieved by search term.
+<i>106</i>&nbsp;     */
+<i>107</i>&nbsp;    @Test
+<i>108</i>&nbsp;    void getByPropertyLikeSuccess() {
+<i>109</i>&nbsp;
+<b class="nc"><i>110</i>&nbsp;        String testSearchTerm = &quot;generation&quot;;</b>
+<b class="nc"><i>111</i>&nbsp;        Story expectedStory = (Story)genericStoryDao.getById(1);</b>
+<i>112</i>&nbsp;
+<b class="nc"><i>113</i>&nbsp;        List&lt;Story&gt; testList = genericStoryDao.getByPropertyLike(&quot;storyContent&quot;, testSearchTerm);</b>
+<i>114</i>&nbsp;
+<b class="nc"><i>115</i>&nbsp;        assertEquals(1, testList.size());</b>
+<b class="nc"><i>116</i>&nbsp;        assertEquals(expectedStory, testList.get(0));</b>
+<i>117</i>&nbsp;    }
+<i>118</i>&nbsp;
+<i>119</i>&nbsp;    /**
+<i>120</i>&nbsp;     * Verifies that story versions can be retrieved by visibility.
+<i>121</i>&nbsp;     */
+<i>122</i>&nbsp;    @Test
+<i>123</i>&nbsp;    void getByBooleanPropertySuccess() {
+<i>124</i>&nbsp;
+<b class="nc"><i>125</i>&nbsp;        boolean testVisibility = true;</b>
+<b class="nc"><i>126</i>&nbsp;        Story firstExpectedStory = (Story)genericStoryDao.getById(1);</b>
+<b class="nc"><i>127</i>&nbsp;        Story secondExpectedStory = (Story)genericStoryDao.getById(3);</b>
+<b class="nc"><i>128</i>&nbsp;        Story thirdExpectedStory = (Story)genericStoryDao.getById(4);</b>
+<i>129</i>&nbsp;
+<b class="nc"><i>130</i>&nbsp;        List&lt;Story&gt; testList = genericStoryDao.getByPropertyName(&quot;isVisible&quot;, testVisibility);</b>
+<i>131</i>&nbsp;
+<b class="nc"><i>132</i>&nbsp;        assertEquals(4, testList.size());</b>
+<i>133</i>&nbsp;
+<b class="nc"><i>134</i>&nbsp;        assertTrue(testList.contains(firstExpectedStory));</b>
+<b class="nc"><i>135</i>&nbsp;        assertTrue(testList.contains(secondExpectedStory));</b>
+<b class="nc"><i>136</i>&nbsp;        assertTrue(testList.contains(thirdExpectedStory));</b>
+<i>137</i>&nbsp;    }
+<i>138</i>&nbsp;
+<i>139</i>&nbsp;    /**
+<i>140</i>&nbsp;     * Verifies that story versions can be retrieved by visibility and suitability.
+<i>141</i>&nbsp;     */
+<i>142</i>&nbsp;    @Test
+<i>143</i>&nbsp;    void getByPropertyNamesSuccess() {
+<b class="nc"><i>144</i>&nbsp;        Story expectedStory = (Story) genericStoryDao.getById(7);</b>
+<i>145</i>&nbsp;
+<b class="nc"><i>146</i>&nbsp;        Map&lt;String, Object&gt; testProperties = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>147</i>&nbsp;        testProperties.put(&quot;isVisible&quot;, true);</b>
+<b class="nc"><i>148</i>&nbsp;        testProperties.put(&quot;unsuitable&quot;, true);</b>
+<i>149</i>&nbsp;
+<b class="nc"><i>150</i>&nbsp;        List&lt;Story&gt; testList = genericStoryDao.getByPropertyNames(testProperties);</b>
+<i>151</i>&nbsp;
+<b class="nc"><i>152</i>&nbsp;        assertEquals(1,testList.size());</b>
+<b class="nc"><i>153</i>&nbsp;        assertTrue(testList.contains(expectedStory));</b>
+<i>154</i>&nbsp;    }
+<i>155</i>&nbsp;
+<i>156</i>&nbsp;    /**
+<i>157</i>&nbsp;     * Verifies that a story can be retrieved based user and visibility, when the user is identified by username.
+<i>158</i>&nbsp;     */
+<i>159</i>&nbsp;    @Test
+<i>160</i>&nbsp;    void getProfileStorySuccess() {
+<b class="nc"><i>161</i>&nbsp;        GenericDao userDao = new GenericDao(User.class);</b>
+<i>162</i>&nbsp;
+<i>163</i>&nbsp;        // Test user associated with 3 stories, 1 visible, 2 not //todo verify this step is needed?  or just get by id? probably s/b seperate test
+<b class="nc"><i>164</i>&nbsp;        String userTestProperty = &quot;username&quot;;</b>
+<b class="nc"><i>165</i>&nbsp;        String userTestValue = &quot;mary&quot;;</b>
+<b class="nc"><i>166</i>&nbsp;        List&lt;User&gt; testUsers = (List&lt;User&gt;)userDao.getByPropertyName(userTestProperty, userTestValue);</b>
+<b class="nc"><i>167</i>&nbsp;        User testUser = testUsers.get(0);</b>
+<i>168</i>&nbsp;
+<i>169</i>&nbsp;         // Map the search criteria
+<b class="nc"><i>170</i>&nbsp;        Map&lt;String, Object&gt; testMap = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>171</i>&nbsp;        testMap.put(&quot;profileUser&quot;, testUser);</b>
+<b class="nc"><i>172</i>&nbsp;        testMap.put(&quot;isVisible&quot;, true);</b>
+<i>173</i>&nbsp;
+<i>174</i>&nbsp;        // Expected result
+<b class="nc"><i>175</i>&nbsp;        Story expectedStory = (Story)genericStoryDao.getById(3);</b>
+<i>176</i>&nbsp;
+<i>177</i>&nbsp;        // Run test
+<b class="nc"><i>178</i>&nbsp;        List&lt;Story&gt; testStories = (ArrayList&lt;Story&gt;)genericStoryDao.getByPropertyNames(testMap);</b>
+<i>179</i>&nbsp;
+<i>180</i>&nbsp;        // Expect list size to be 1 and id to be 3
+<b class="nc"><i>181</i>&nbsp;        assertEquals(1, testStories.size());</b>
+<b class="nc"><i>182</i>&nbsp;        assertEquals(expectedStory, testStories.get(0));</b>
+<i>183</i>&nbsp;    }
+<i>184</i>&nbsp;
+<i>185</i>&nbsp;    /**
+<i>186</i>&nbsp;     * Verifies that a tally of stories can be retrieved based on user, visibility, and flagged content.
+<i>187</i>&nbsp;     */
+<i>188</i>&nbsp;    @Test
+<i>189</i>&nbsp;    void getArchivedFlaggedStoriesForUserSuccess() {
+<b class="nc"><i>190</i>&nbsp;        GenericDao userDao = new GenericDao(User.class);</b>
+<i>191</i>&nbsp;
+<i>192</i>&nbsp;        // Test user associated with 3 stories, all flagged unsuitable, only 1 visible
+<b class="nc"><i>193</i>&nbsp;        User testUser = (User) userDao.getById(2);</b>
+<b class="nc"><i>194</i>&nbsp;        Long expectedTally = Long.valueOf(2);</b>
+<i>195</i>&nbsp;
+<i>196</i>&nbsp;        // Map the search criteria
+<b class="nc"><i>197</i>&nbsp;        Map&lt;String, Object&gt; testMap = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>198</i>&nbsp;        testMap.put(&quot;profileUser&quot;, testUser);</b>
+<b class="nc"><i>199</i>&nbsp;        testMap.put(&quot;isVisible&quot;, false);</b>
+<b class="nc"><i>200</i>&nbsp;        testMap.put(&quot;unsuitable&quot;, true);</b>
+<i>201</i>&nbsp;
+<b class="nc"><i>202</i>&nbsp;        Long testTally = genericStoryDao.getTallyByPropertyNames(testMap);</b>
+<i>203</i>&nbsp;
+<b class="nc"><i>204</i>&nbsp;        assertEquals(expectedTally, testTally);</b>
+<i>205</i>&nbsp;    }
+<i>206</i>&nbsp;
+<i>207</i>&nbsp;    /**
+<i>208</i>&nbsp;     * Verfies that a story can be deleted.
+<i>209</i>&nbsp;     */
+<i>210</i>&nbsp;    @Test
+<i>211</i>&nbsp;    void deleteSuccess() {
+<b class="nc"><i>212</i>&nbsp;        genericStoryDao.delete(genericStoryDao.getById(2));</b>
+<b class="nc"><i>213</i>&nbsp;        assertNull(genericStoryDao.getById(2));</b>
+<i>214</i>&nbsp;    }
+<i>215</i>&nbsp;
+<i>216</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-11 07:45</div>
+</div>
+</body>
+</html>
