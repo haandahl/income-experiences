@@ -30,16 +30,14 @@ import java.util.*;
 )
 public class SearchStats extends HttpServlet {
 
-    private final Logger logger = LogManager.getLogger(this.getClass());
-
     /**
      * Coordinates the search for survey and story data based on criteria chosen by the user. The
      * criteria can be career and household size or income and household size.
      *
-     * @param request  the request
+     * @param request the request
      * @param response the response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException servlet exception
+     * @throws IOException io exception
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession httpSession = request.getSession();

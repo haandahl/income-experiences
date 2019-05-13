@@ -23,6 +23,12 @@ Since many people are likely to explore careers and incomes concurrently, this s
 for income experiences based on career, using information from the Bureau of Labor Statistics to direct them to the 
 appropriate income survey results.
 
+## [Video Demo](https://youtu.be/vVu5pHfgIw8)
+
+## [Slideshow](DesignDocuments/Income Experiences.pptx)
+
+## [JavaDocs](JavaDocs/index-files/index.html)
+
 ## [Technologies](DesignDocuments/ProjectTechnology.md)
 
 ## Original Design

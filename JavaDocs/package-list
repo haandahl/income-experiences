@@ -1,0 +1,7 @@
+com.heidiaandahl.controller
+com.heidiaandahl.controller.admin
+com.heidiaandahl.entity
+com.heidiaandahl.logic
+com.heidiaandahl.persistence
+com.heidiaandahl.service
+com.heidiaandahl.utility

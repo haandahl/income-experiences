@@ -79,11 +79,11 @@ NB: All anticipated tables have been built, even though that work was broken out
 
 <ul>
 <li>X--Look up security issue with selected pre-made template.</li>
-<li>IN PROGRESS -- Create template for JSPs using Bootstrap 4</li>
-<li>IN PROGRESS -- Decide how text search of stories will look on interface</li>
-<li>AT VIABLE STOP POINT -- Implement hibernate search on stories</li>
-<li>GOOD PROGRESS -- Build out and test survey entity.</li>
-<li>IN PROGRESS -- Complete JSP/Servlet for displaying a profile (username and story so far)</li>
+<li>X -- Create template for JSPs using Bootstrap 4</li>
+<li>X -- Decide how text search of stories will look on interface</li>
+<li>X -- Implement hibernate search on stories</li>
+<li>X -- Build out and test survey entity.</li>
+<li>X -- Complete JSP/Servlet for displaying a profile (username and story so far)</li>
 </ul>
 
 ## by 3/25/19 (week 8, presentation on Hibernate Search)
@@ -104,7 +104,7 @@ NB: All anticipated tables have been built, even though that work was broken out
 #### Project: 
 <ul>
 <li>X -- Integration with BLS API</li>
-<li>IN PROGRESS -- Add a JSP and Servlet to search for income experiences by income and/or career</li>
+<li>X -- Add a JSP and Servlet to search for income experiences by income and/or career</li>
 <li>IN PROGRESS -- Complete and test ExperiencesSearch Class.</li>
 <li>X--Consider Ellis's feedback on autocomplete options (see open issues)</li>
 <li>X--Update time log</li>
@@ -119,7 +119,7 @@ authentication implemented (log in capability)</li>
 #### Project: 
 <ul>
 <li>X--Research Chart.js or c3.js to display charts</li>
-<li>IN PROGRESS -- Add a JSP to display search results and complete the Servlet for the search.</li>
+<li>X--Add a JSP to display search results and complete the Servlet for the search.</li>
 <li>X--Update time log</li>
 <li>X--Push work to GitHub</li>
 </ul>
@@ -140,10 +140,6 @@ authentication implemented (log in capability)</li>
 <li>X--Push work to GitHub</li>
 </ul>
 
-## -----------------------------------------------------------------
-## CURRENT PLAN REVISION NOTED BELOW
-## -----------------------------------------------------------------
-
 ## by 4/29/19 (week 13)
 #### Coursework: no new topics?
 #### Project: 
@@ -162,28 +158,23 @@ authentication implemented (log in capability)</li>
 #### Coursework: Asynchronous messaging
 #### Project: 
 <ul>
-<li>REMOVE--Allow others' profiles to be displayed.</li>
 <li>X--Add functionalisty to display stories along with stats search.</li>
-<li>Accommodate the data difference for Orthodontist; replace with another?</li>
-<li>REMOVE--Stretch - upgrade to fuzzy search for topic?</li>
+<li>X--Accommodate the data difference for Orthodontist (validtion message)</li>
+<li>IN PROGRESS--Code quality check -- possibly refactor SearchStats servlet, Search, SignUp servelet</li>
 
-<li>Code quality check -- possibly refactor SearchStats servlet, Search, SignUp servelet</li>
+<li>IN PROGRESS--Assess where unit tests are still needed and create them: API use, search, signUpAttempt</li>
+<li>X--Assess where validation is needed and build it in. </li>
 
-<li>Assess where unit tests are still needed and create them: API use, search, signUpAttempt</li>
-<li>Assess where validation is needed and build it in. </li>
-
-<li>Apply Bootstrap and some color</li>
-<li>Complete "About" Page</li>
-<li>IN PROGRESS--Create more data so that top jobs return results too.</li>
-<li>Review and close prior code review items.</li>
-<li>Find all todo's in project; resolve/delete where appropriate.</li>
-
-<li>Revise Readme.doc and User stories to reflect project status.</li>
-
-<li>Deploy to AWS at functionality milestone(s)</li>
-<li>Update time log</li>
-<li>Push work to GitHub</li>
-<li>Confirm readiness for code review</li>
+<li>X--Apply Bootstrap and some color</li>
+<li>X--Complete "About" Page</li>
+<li>X--Create more data so that top jobs return results too.</li>
+<li>X--Review and close prior code review items.</li>
+<li>IN PROGRESS--Find all todo's in project; resolve/delete where appropriate.</li>
+<li>X-Revise Readme.doc and User stories to reflect project status.</li>
+<li>X--Deploy to AWS at functionality milestone(s)</li>
+<li>X--Update time log</li>
+<li>X--Push work to GitHub</li>
+<li>X--Confirm readiness for code review</li>
 </ul>
 
 ## -----------------------------------------------------------------
@@ -192,13 +183,13 @@ authentication implemented (log in capability)</li>
 #### Project: 
 <ul>
 <li>Move urls to properties</li>
-<li>Incorporate feedback from code review</li>
-<li>Code quality check</li>
-<li>Create video</li>
-<li>Update time log</li>
+<li>IN PROGRESS--Incorporate feedback from code review</li>
+<li>IN PROGRESS-- see above--Code quality check</li>
+<li>IN PROGRESS--Create video</li>
+<li>IN PROGRESS--Update time log</li>
 <li>Push work to GitHub</li>
-<li>Last deploy to AWS</li>
+<li>X--maybe--Last deploy to AWS</li>
 <li>Last check for documentation visible on GitHub</li>
-<li>Last check of functionality of application</li>
+<li>X--maybe--Last check of functionality of application</li>
 <li>Confirm readiness for presentation</li>
 </ul>

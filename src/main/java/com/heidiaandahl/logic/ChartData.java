@@ -118,11 +118,12 @@ public class ChartData {
     }
 
     /**
-     * Tally matching survey answers int.
+     * Tally the number of surveys within search results that share a particular response to a question in
+     * the intake survey.
      *
      * @param searchResultSurveys       the search result surveys
      * @param allSurveysWithTheResponse the all surveys with the response
-     * @return the int
+     * @return the number of surveys sharing the same response to the question
      */
     protected int tallyMatchingSurveyAnswers(List<Survey> searchResultSurveys, Set<Survey> allSurveysWithTheResponse) {
         int counter = 0;
@@ -138,7 +139,8 @@ public class ChartData {
     }
 
     /**
-     * Gets chart data.
+     * Gets all the data from the surveys returned in a search, that will be needed for making charts. Provides the
+     * data as JSON.
      *
      * @param searchResultSurveys the search result surveys
      * @return the chart data
