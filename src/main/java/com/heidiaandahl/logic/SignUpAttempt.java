@@ -236,57 +236,64 @@ public class SignUpAttempt {
      * Checks whether passwords match
      * @return boolean whether passwords match
      */
-     private boolean hasMatchingPasswords() {
-        if (password.equals(password2)) {
-            return true;
-        } else {
-            return false;
-        }
+     protected boolean hasMatchingPasswords() {
+        boolean matchingPasswords = false;
+         if (password.equals(password2)) {
+            matchingPasswords = true;
+         }
+
+         return matchingPasswords;
     }
 
     /**
      * Checks whether input fields are complete
      * @return boolean whether input fields are complete
      */
-    private boolean hasCompleteFields() {
+    protected boolean hasCompleteFields() {
+        boolean hasCompleteFields = false;
+
         if (username.length() > 0 && password.length() > 0 && password2.length() > 0 && income.length() > 0) {
-            return true;
-        } else {
-            return false;
+            hasCompleteFields = true;
         }
+
+        return hasCompleteFields;
     }
 
     /**
      * Checks whether items were selected from all input menus
      * @return boolean whether items were selected from all input menus
      */
-    private boolean hasSelectionsFromAllMenus() {
+    protected boolean hasSelectionsFromAllMenus() {
+        boolean selectionsFromAllMenus = false;
+
         if (householdSize != null && needs != null && goals != null && incomeSkew != null ) {
-            return true;
-        } else {
-            return false;
+            selectionsFromAllMenus = true;
         }
+
+        return selectionsFromAllMenus;
     }
 
     /**
      * Checks whether the username is one that does not already exist in the database
      * @return boolean whether the username is one that does not already exist in the database
      */
-    private boolean hasUniqueUsername() {
+    protected boolean hasUniqueUsername() {
+        boolean uniqueUsername = false;
+
         GenericDao userDao = new GenericDao(User.class);
         List<User> usersWithUsername = (List<User>) userDao.getByPropertyName("username", username);
         if (usersWithUsername.size() == 0) {
-            return true;
-        } else {
-            return false;
+            uniqueUsername = true;
         }
+
+        return uniqueUsername;
     }
 
     /**
      * Checks whether the income is a positive number in the correct format
      * @return boolean whether the income is a positive number in the correct format
      */
-    private boolean hasValidIncome() {
+    protected boolean hasValidIncome() {
         try {
             int incomeInt = Integer.parseInt(income);
             if (incomeInt >= 0) {
@@ -324,7 +331,7 @@ public class SignUpAttempt {
     /**
      * Adds the user's survey information to the database.
      */
-    private void addNewSurvey(User newUser) {
+    protected void addNewSurvey(User newUser) {
         // get daos
         GenericDao needsDescriptionDao = new GenericDao(NeedsDescription.class);
         GenericDao goalsDescriptionDao = new GenericDao(GoalsDescription.class);
@@ -356,7 +363,7 @@ public class SignUpAttempt {
     /**
      * Adds the user's read and write roles to the database.
      */
-    private void addNewRoles(User newUser) {
+    protected void addNewRoles(User newUser) {
         GenericDao roleDao = new GenericDao(Role.class);
 
         Role readRole = new Role ("read", newUser);
@@ -367,8 +374,6 @@ public class SignUpAttempt {
         if (readRoleAdded == 0 || writeRoleAdded == 0) {
             logger.error("A user was added but on or both of the read and write roles failed to add.");
         }
-
-        // TODO - notify user if roles were not added.
     }
 
     @Override

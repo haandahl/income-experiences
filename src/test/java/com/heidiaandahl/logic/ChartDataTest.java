@@ -17,6 +17,9 @@ import java.util.regex.Pattern; // for test that needs improvement
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue; // for test that needs improvement
 
+/**
+ * This class tests methods in ChartData
+ */
 public class ChartDataTest {
 
     private ChartData chartData;
@@ -24,6 +27,9 @@ public class ChartDataTest {
     private List<Survey> searchResultSurveys;
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         // Set up database with test data
@@ -44,6 +50,9 @@ public class ChartDataTest {
         searchResultSurveys.add((Survey) surveyDao.getById(3));
     }
 
+    /**
+     * Tally matching survey answers success.
+     */
     @Test
     void tallyMatchingSurveyAnswersSuccess() {
         // get surveys with income skew 2 from the database; should be surveys w/ id's 2 and 3
@@ -62,6 +71,11 @@ public class ChartDataTest {
 
     }
 
+    /**
+     * Gets needs responses success.
+     *
+     * @throws JsonProcessingException the json processing exception
+     */
     @Test
     void getNeedsResponsesSuccess() throws JsonProcessingException {
         Map<Integer, HashMap<String, Integer>> needsResponses = chartData.getNeedsResponses(searchResultSurveys);
@@ -78,6 +92,11 @@ public class ChartDataTest {
         assertEquals(expectedResponses, needsResponsesJson);
     }
 
+    /**
+     * Gets goals responses success.
+     *
+     * @throws JsonProcessingException the json processing exception
+     */
     @Test
     void getGoalsResponsesSuccess() throws JsonProcessingException {
         Map<Integer, HashMap<String, Integer>> goalsResponses = chartData.getGoalsResponses(searchResultSurveys);
@@ -94,6 +113,11 @@ public class ChartDataTest {
         assertEquals(expectedResponses, goalsResponsesJson);
     }
 
+    /**
+     * Gets income skew responses success.
+     *
+     * @throws JsonProcessingException the json processing exception
+     */
     @Test
     void getIncomeSkewResponsesSuccess() throws JsonProcessingException {
         Map<Integer, HashMap<String, Integer>> incomeSkewResponses = chartData.getIncomeSkewResponses(searchResultSurveys);
