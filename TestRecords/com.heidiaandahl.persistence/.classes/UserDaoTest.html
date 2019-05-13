@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: UserDaoTest</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.heidiaandahl.persistence</a> ]
+</div>
+
+<h1>Coverage Summary for Class: UserDaoTest (com.heidiaandahl.persistence)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserDaoTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (33/ 33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.heidiaandahl.persistence;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.heidiaandahl.entity.*;
+<i>4</i>&nbsp;import com.heidiaandahl.test.util.Database;
+<i>5</i>&nbsp;import org.junit.jupiter.api.BeforeEach;
+<i>6</i>&nbsp;import org.junit.jupiter.api.Test;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import static org.junit.jupiter.api.Assertions.*;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/**
+<i>14</i>&nbsp; * Unit tests for &lt;code style=&quot;color: gray; font-size: 0.8em;&quot;&gt;GenericDao&lt;/code&gt; used with the
+<i>15</i>&nbsp; * &lt;code style=&quot;color: gray; font-size: 0.8em;&quot;&gt;User&lt;/code&gt; class.
+<i>16</i>&nbsp; *
+<i>17</i>&nbsp; * @author Heidi Aandahl
+<i>18</i>&nbsp; */
+<b class="fc"><i>19</i>&nbsp;public class UserDaoTest {</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    GenericDao genericDao;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * Sets up a new &lt;code style=&quot;color: gray; font-size: 0.8em;&quot;&gt;GenericDao&lt;/code&gt; and
+<i>25</i>&nbsp;     * refreshes the test database before each unit test.
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    @BeforeEach
+<i>28</i>&nbsp;    void setUp() {
+<b class="fc"><i>29</i>&nbsp;        genericDao = new GenericDao(User.class);</b>
+<i>30</i>&nbsp;
+<b class="fc"><i>31</i>&nbsp;        Database database = Database.getInstance();</b>
+<b class="fc"><i>32</i>&nbsp;        database.runSQL(&quot;cleandb.sql&quot;);</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    /**
+<i>36</i>&nbsp;     * Verifies that a new user can be added.
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    @Test
+<i>39</i>&nbsp;    void addSuccess() {
+<b class="fc"><i>40</i>&nbsp;        User newUser = new User(&quot;anne&quot;, &quot;password9&quot;);</b>
+<b class="fc"><i>41</i>&nbsp;        int id = genericDao.insert(newUser);</b>
+<b class="fc"><i>42</i>&nbsp;        assertNotEquals(0,id);</b>
+<b class="fc"><i>43</i>&nbsp;        User insertedUser = (User)genericDao.getById(id);</b>
+<b class="fc"><i>44</i>&nbsp;        assertEquals(&quot;anne&quot;, insertedUser.getUsername());</b>
+<b class="fc"><i>45</i>&nbsp;        assertEquals(&quot;password9&quot;, insertedUser.getPassword());</b>
+<b class="fc"><i>46</i>&nbsp;        assertEquals(9, insertedUser.getId());</b>
+<i>47</i>&nbsp;     }
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;     /**
+<i>50</i>&nbsp;     * Verifies that a user can be retrieved by Id.
+<i>51</i>&nbsp;     */
+<i>52</i>&nbsp;    @Test
+<i>53</i>&nbsp;    void getByIdSuccess() {
+<b class="fc"><i>54</i>&nbsp;        User retrievedUser = (User)genericDao.getById(2);</b>
+<b class="fc"><i>55</i>&nbsp;        assertEquals(&quot;jean&quot;, retrievedUser.getUsername());</b>
+<b class="fc"><i>56</i>&nbsp;        assertEquals(&quot;password1&quot;, retrievedUser.getPassword());</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    /**
+<i>60</i>&nbsp;     * Verifies that a user can be retrieved by username.
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    @Test
+<i>63</i>&nbsp;    void getByPropertyNameSuccess() {
+<b class="fc"><i>64</i>&nbsp;        List&lt;User&gt; testList = genericDao.getByPropertyName(&quot;username&quot;, &quot;chris&quot;);</b>
+<b class="fc"><i>65</i>&nbsp;        assertEquals(1, testList.size());</b>
+<b class="fc"><i>66</i>&nbsp;        assertEquals(3, testList.get(0).getId());</b>
+<b class="fc"><i>67</i>&nbsp;        assertEquals(&quot;password2&quot;, testList.get(0).getPassword());</b>
+<b class="fc"><i>68</i>&nbsp;        assertEquals(3, testList.get(0).getId());</b>
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    /**
+<i>72</i>&nbsp;     * Verifies that a user can be deleted.
+<i>73</i>&nbsp;     */
+<i>74</i>&nbsp;    @Test
+<i>75</i>&nbsp;    void deleteSuccess() {
+<i>76</i>&nbsp;
+<b class="fc"><i>77</i>&nbsp;        genericDao.delete(genericDao.getById(4));</b>
+<b class="fc"><i>78</i>&nbsp;        assertNull(genericDao.getById(4));</b>
+<i>79</i>&nbsp;   }
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    /**
+<i>82</i>&nbsp;     * Verifies that a user can be deleted, and their profile story versions will be deleted, too.
+<i>83</i>&nbsp;     */
+<i>84</i>&nbsp;    @Test
+<i>85</i>&nbsp;    void deleteWithProfileStoriesSuccess() {
+<b class="fc"><i>86</i>&nbsp;        GenericDao storyDao = new GenericDao(Story.class);</b>
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;        // Identify user with both a profile story and an edit on somebody else&#39;s story
+<b class="fc"><i>89</i>&nbsp;        int idOfUserToDelete = 1;</b>
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;        // Identify story version that should delete (User&#39;s profile story)
+<b class="fc"><i>92</i>&nbsp;        int idOfProfileStory = 4;</b>
+<i>93</i>&nbsp;
+<b class="fc"><i>94</i>&nbsp;        genericDao.delete(genericDao.getById(idOfUserToDelete));</b>
+<b class="fc"><i>95</i>&nbsp;        assertNull(genericDao.getById(idOfUserToDelete));</b>
+<b class="fc"><i>96</i>&nbsp;        assertNull(storyDao.getById(idOfProfileStory));</b>
+<i>97</i>&nbsp;    }
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    /**
+<i>100</i>&nbsp;     * Verifies that a user can be deleted, but stories they have only edited will not be deleted.
+<i>101</i>&nbsp;     */
+<i>102</i>&nbsp;    @Test
+<i>103</i>&nbsp;    void deleteKeepEditsSuccess() {
+<b class="fc"><i>104</i>&nbsp;         GenericDao storyDao = new GenericDao(Story.class);</b>
+<i>105</i>&nbsp;
+<i>106</i>&nbsp;        // Identify user with both a profile story and an edit on somebody else&#39;s story
+<b class="fc"><i>107</i>&nbsp;        int idOfUserToDelete = 1;</b>
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;        // Identify story version that should not delete, because the user only edited it
+<b class="fc"><i>110</i>&nbsp;        int idOfEditedStory = 3;</b>
+<i>111</i>&nbsp;
+<b class="fc"><i>112</i>&nbsp;        genericDao.delete(genericDao.getById(idOfUserToDelete));</b>
+<b class="fc"><i>113</i>&nbsp;        assertNull(genericDao.getById(idOfUserToDelete));</b>
+<b class="fc"><i>114</i>&nbsp;        assertNotNull(storyDao.getById(idOfEditedStory));</b>
+<i>115</i>&nbsp;    }
+<i>116</i>&nbsp;
+<i>117</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-12 22:35</div>
+</div>
+</body>
+</html>

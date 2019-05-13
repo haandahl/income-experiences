@@ -26,8 +26,6 @@ import java.util.List;
 )
 public class SearchTopics extends HttpServlet {
 
-    private final Logger logger = LogManager.getLogger(this.getClass());
-
     /**
      * Gets financial stories based on a user's search terms and coordinates their display back to the user.
      *

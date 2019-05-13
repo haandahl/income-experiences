@@ -1,5 +1,5 @@
 /*
-    CSS for Enterprise Java project: Income Experiences
+    JavaScript for Enterprise Java project: Income Experiences
     Heidi Aandahl
     April 2019
   */

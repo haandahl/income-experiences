@@ -1,0 +1,173 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SignUp</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.heidiaandahl.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SignUp (com.heidiaandahl.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SignUp</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 28)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.heidiaandahl.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.heidiaandahl.logic.SignUpAttempt;
+<i>4</i>&nbsp;import org.apache.logging.log4j.LogManager;
+<i>5</i>&nbsp;import org.apache.logging.log4j.Logger;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import javax.servlet.RequestDispatcher;
+<i>8</i>&nbsp;import javax.servlet.ServletException;
+<i>9</i>&nbsp;import javax.servlet.annotation.WebServlet;
+<i>10</i>&nbsp;import javax.servlet.http.HttpServlet;
+<i>11</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>12</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>13</i>&nbsp;import java.io.IOException;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;/**
+<i>16</i>&nbsp; * A servlet that signs a new user up.
+<i>17</i>&nbsp; *
+<i>18</i>&nbsp; * @author Heidi Aandahl
+<i>19</i>&nbsp; */
+<i>20</i>&nbsp;@WebServlet(
+<i>21</i>&nbsp;    name = &quot;signUp&quot;,
+<i>22</i>&nbsp;    urlPatterns = {&quot;/sign-up&quot;}
+<i>23</i>&nbsp;)
+<b class="nc"><i>24</i>&nbsp;public class SignUp extends HttpServlet {</b>
+<i>25</i>&nbsp;
+<b class="nc"><i>26</i>&nbsp;    private final Logger logger = LogManager.getLogger(this.getClass());</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * Instantiates a signup attempt entity and uses it to validate the user&#39;s input and add them to the database
+<i>30</i>&nbsp;     * or give them a validation message.
+<i>31</i>&nbsp;     *
+<i>32</i>&nbsp;     * @param request the request
+<i>33</i>&nbsp;     * @param response the response
+<i>34</i>&nbsp;     * @throws ServletException servlet exception
+<i>35</i>&nbsp;     * @throws IOException io exception
+<i>36</i>&nbsp;     */
+<i>37</i>&nbsp;    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;        // set up for user&#39;s next step
+<b class="nc"><i>40</i>&nbsp;        String nextUrl = &quot;/signup.jsp&quot;;</b>
+<b class="nc"><i>41</i>&nbsp;        String validationMessage = &quot;&quot;;</b>
+<b class="nc"><i>42</i>&nbsp;        int userAdded = 0;</b>
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;        // get info from user
+<b class="nc"><i>45</i>&nbsp;        String username = request.getParameter(&quot;username&quot;).trim();</b>
+<b class="nc"><i>46</i>&nbsp;        String password = request.getParameter(&quot;password&quot;).trim();</b>
+<b class="nc"><i>47</i>&nbsp;        String password2 = request.getParameter(&quot;password2&quot;).trim();</b>
+<b class="nc"><i>48</i>&nbsp;        String income = request.getParameter(&quot;surveyIncome&quot;).trim();</b>
+<b class="nc"><i>49</i>&nbsp;        String householdSize = request.getParameter(&quot;householdSizeInput&quot;);</b>
+<b class="nc"><i>50</i>&nbsp;        String needs = request.getParameter(&quot;surveyNeeds&quot;);</b>
+<b class="nc"><i>51</i>&nbsp;        String goals = request.getParameter(&quot;surveyNeeds&quot;);</b>
+<b class="nc"><i>52</i>&nbsp;        String incomeSkew = request.getParameter(&quot;surveyIncomeSkew&quot;);</b>
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;        // instantiate a sign-up attempt
+<b class="nc"><i>55</i>&nbsp;        SignUpAttempt signUpAttempt = new SignUpAttempt(username, password, password2, income, householdSize, needs,</b>
+<i>56</i>&nbsp;                goals, incomeSkew);
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;        // validate user&#39;s input
+<b class="nc"><i>59</i>&nbsp;        String validationDetails = signUpAttempt.getValidationDetails();</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;        // add the user to the database if input was valid; otherwise build message for the user
+<b class="nc"><i>62</i>&nbsp;        if (validationDetails.length() == 0) {</b>
+<b class="nc"><i>63</i>&nbsp;            userAdded = signUpAttempt.addNewUser();</b>
+<i>64</i>&nbsp;        } else {
+<b class="nc"><i>65</i>&nbsp;            validationMessage = &quot;Please change your sign-up as follows: &quot; + validationDetails;</b>
+<i>66</i>&nbsp;        }
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;        // if the user input was valid, check whether they were added to the database
+<b class="nc"><i>69</i>&nbsp;        if (userAdded &gt; 0) {</b>
+<b class="nc"><i>70</i>&nbsp;            nextUrl = &quot;/welcome.jsp&quot;;</b>
+<b class="nc"><i>71</i>&nbsp;        } else if (validationDetails.length() == 0 &amp;&amp; userAdded == 0) {</b>
+<b class="nc"><i>72</i>&nbsp;            validationMessage = &quot;Sorry, there was a problem signing you up. Please try again later.&quot;;</b>
+<i>73</i>&nbsp;        }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;        // make necessary info available to the user on the next screen
+<b class="nc"><i>76</i>&nbsp;        request.setAttribute(&quot;username&quot;, username);</b>
+<b class="nc"><i>77</i>&nbsp;        request.setAttribute(&quot;signUpAttempt&quot;, signUpAttempt);</b>
+<i>78</i>&nbsp;
+<b class="nc"><i>79</i>&nbsp;        if (nextUrl.equals(&quot;/signup.jsp&quot;)) {</b>
+<b class="nc"><i>80</i>&nbsp;            request.setAttribute(&quot;validationMessage&quot;, validationMessage);</b>
+<i>81</i>&nbsp;        }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;        // forward to jsp
+<b class="nc"><i>84</i>&nbsp;        RequestDispatcher dispatcher = request.getRequestDispatcher(nextUrl);</b>
+<b class="nc"><i>85</i>&nbsp;        dispatcher.forward(request, response);</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;}
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-12 22:35</div>
+</div>
+</body>
+</html>

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.heidiaandahl.entity.Story;
 import com.heidiaandahl.logic.ChartData;
 import com.heidiaandahl.logic.ExperiencesSearch;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
