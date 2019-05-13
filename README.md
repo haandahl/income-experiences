@@ -25,9 +25,7 @@ appropriate income survey results.
 
 ## [Video Demo](https://youtu.be/vVu5pHfgIw8)
 
-## [Slideshow](DesignDocuments/Income Experiences.pptx)
-
-## [JavaDocs](JavaDocs/index-files/index.html)
+## [Slideshow](https://github.com/haandahl/income-experiences/blob/master/DesignDocuments/Income%20Experiences.pptx)
 
 ## [Technologies](DesignDocuments/ProjectTechnology.md)
 
