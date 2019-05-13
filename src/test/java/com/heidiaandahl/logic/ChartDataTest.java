@@ -12,10 +12,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
-import java.util.regex.Pattern;
+import java.util.regex.Pattern; // for test that needs improvement
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue; // for test that needs improvement
 
 public class ChartDataTest {
 
@@ -108,13 +108,10 @@ public class ChartDataTest {
         assertEquals(expectedResponses, incomeSkewResponsesJson);
     }
 
-    @Test
-    void getChartDataSuccess() throws JsonProcessingException {
-        String testData = chartData.getChartData(searchResultSurveys);
-
-       /* reasonable data returned from one test run; however, hashmap may not preserve order
-
-        String expectedData = "{\"needs\":{\"id1\":{\"count\":0,\"description\":\"Severely unmet needs caused permanent harm.\"},"
+    /*
+        TODO - (future) - fix the regex so the test passes when it should
+            FYI - data returned from one call (which may not be consistent due to hashmap not perserving order):
+            String expectedData = "{\"needs\":{\"id1\":{\"count\":0,\"description\":\"Severely unmet needs caused permanent harm.\"},"
                 + "\"id2\":{\"count\":0,\"description\":\"Unmet needs caused illness or decreased ability at work or school.\"},"
                 + "\"id3\":{\"count\":2,\"description\":\"Unmet needs caused discomfort.\"},"
                 + "\"id4\":{\"count\":0,\"description\":\"Needs were generally met.\"},"
@@ -128,7 +125,9 @@ public class ChartDataTest {
                 + "\"id4\":{\"count\":0,\"description\":\"Most or all goals were easily met.\"},"
                 + "\"id5\":{\"count\":0,\"description\":\"Income allowed for new or expanding financial goals.\"}}}";
 
-                */
+        @Test
+        void getChartDataSuccess() throws JsonProcessingException {
+        String testData = chartData.getChartData(searchResultSurveys);
 
         String expectedNeedsSubstring = "\"needs\":{\"id1\":{\"count\":0,\"description\":\"Severely unmet needs caused permanent harm.\"},"
                 + "\"id2\":{\"count\":0,\"description\":\"Unmet needs caused illness or decreased ability at work or school.\"},"
@@ -146,13 +145,10 @@ public class ChartDataTest {
                 + "\"id2\":{\"count\":1,\"description\":\"some impact\"},"
                 + "\"id3\":{\"count\":1,\"description\":\"strong impact\"}}";
 
-        // assertEquals(expectedData, testData);
+        // assertEquals(expectedData, testData); // TODO - remove
 
-        //assertTrue(Pattern.matches(".*expectedNeedsSubstring.*", testData)); //failed
+        //assertTrue(Pattern.matches(".*expectedNeedsSubstring.*", testData)); //TODO - improve regex to make it work
     }
-
-
-
-
+     */
 
 }

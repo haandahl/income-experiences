@@ -57,6 +57,7 @@ public class CareerMedianWage {
         String apiCareerCode = properties.getProperty(careerInput + ".bls.api.code");
         String apiUri = createApiUri(apiCareerCode);
 
+        // TODO - (future) - refactor this method and try to call it as a validation step before a search proceeds
         // call the service to get BLS data for the career
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(apiUri);

@@ -142,6 +142,9 @@ public class ExperiencesSearch {
      * @return the validation details
      */
     public String getValidationDetails() {
+        // TODO - (future) - after separating the api call from the getMedianWageFromBls method in CareerMedianWage,
+        //  try the api call as a validation step here and notify the user if the api is unavailable
+
         String validationDetails = "";
 
         if (!hasCorrectFields()) {
